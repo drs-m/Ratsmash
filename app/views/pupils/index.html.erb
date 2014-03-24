@@ -1,0 +1,39 @@
+<h1>Listing pupils</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>First name</th>
+      <th>Last name</th>
+      <th>Gender</th>
+      <th>Mail address</th>
+      <th>Password digest</th>
+      <th>Password resetkey</th>
+      <th>Admin permissions</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @pupils.each do |pupil| %>
+      <tr>
+        <td><%= pupil.first_name %></td>
+        <td><%= pupil.last_name %></td>
+        <td><%= pupil.gender %></td>
+        <td><%= pupil.mail_address %></td>
+        <td><%= pupil.password_digest %></td>
+        <td><%= pupil.password_resetkey %></td>
+        <td><%= pupil.admin_permissions %></td>
+        <td><%= link_to 'Show', pupil %></td>
+        <td><%= link_to 'Edit', edit_pupil_path(pupil) %></td>
+        <td><%= link_to 'Destroy', pupil, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Pupil', new_pupil_path %>

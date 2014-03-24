@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>First name:</strong>
+  <%= @pupil.first_name %>
+</p>
+
+<p>
+  <strong>Last name:</strong>
+  <%= @pupil.last_name %>
+</p>
+
+<p>
+  <strong>Gender:</strong>
+  <%= @pupil.gender %>
+</p>
+
+<p>
+  <strong>Mail address:</strong>
+  <%= @pupil.mail_address %>
+</p>
+
+<p>
+  <strong>Password digest:</strong>
+  <%= @pupil.password_digest %>
+</p>
+
+<p>
+  <strong>Password resetkey:</strong>
+  <%= @pupil.password_resetkey %>
+</p>
+
+<p>
+  <strong>Admin permissions:</strong>
+  <%= @pupil.admin_permissions %>
+</p>
+
+<%= link_to 'Edit', edit_pupil_path(@pupil) %> |
+<%= link_to 'Back', pupils_path %>
