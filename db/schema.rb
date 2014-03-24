@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140324183946) do
+ActiveRecord::Schema.define(version: 20140324184116) do
 
   create_table "pupils", force: true do |t|
     t.string   "first_name"
@@ -21,6 +21,14 @@ ActiveRecord::Schema.define(version: 20140324183946) do
     t.string   "password_digest"
     t.string   "password_resetkey"
     t.boolean  "admin_permissions"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "teachers", force: true do |t|
+    t.string   "first_name"
+    t.string   "last_name"
+    t.boolean  "gender"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
