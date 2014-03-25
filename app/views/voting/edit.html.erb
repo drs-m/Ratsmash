@@ -1,0 +1,35 @@
+<h1>Voting bearbeiten</h1>
+<% if @votes_for_this_category[0] != "Noch nicht gevotet" %>
+	<p>
+		<h2>1. Platz</h2>
+		<form method="post">
+			Name: <input type="text" name="my_vote_name" value="<%= @votes_for_this_category[0] %>" />
+			<input type="hidden" name="category_id" value="<%= @update_category_id %>" />
+			<input type="hidden" name="rating" value="3" />
+			<input type="submit" value="Bearbeiten" />
+		</form>
+	</p>
+<% end %>
+<% if @votes_for_this_category[1] != "Noch nicht gevotet" %>
+	<p>
+		<h2>2. Platz</h2>
+		<form method="post">
+			Name: <input type="text" name="my_vote_name" value="<%= @votes_for_this_category[1] %>" />
+			<input type="hidden" name="category_id" value="<%= @update_category_id %>" />
+			<input type="hidden" name="rating" value="2" />
+			<input type="submit" value="Bearbeiten" />
+		</form>
+	</p>
+<% end %>
+<% if @votes_for_this_category[2] != "Noch nicht gevotet" %>
+	<p>
+		<h2>3. Platz</h2>
+		<form method="post">
+			Name: <input type="text" name="my_vote_name" value="<%= @votes_for_this_category[2] %>" />
+			<input type="hidden" name="category_id" value="<%= @update_category_id %>" />
+			<input type="hidden" name="rating" value="1" />
+			<input type="submit" value="Bearbeiten" />
+		</form>
+	</p>
+<% end %> 
+<%= link_to 'Zurück zur Kategorie', give_vote_path(@update_category_id) %>

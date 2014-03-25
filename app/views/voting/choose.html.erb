@@ -1,0 +1,56 @@
+<% if @category.blank? %>
+	<p>Die Kategorie wurde nicht gefunden!</p>
+<% else %>
+	<p>Kategorie-ID: <%= @category.id %></p>
+	<p>Kategorie: <%= @category.name %></p>
+<% end %>
+<p>
+	Deine Votes für diese Kategorie:<br />
+	<% i = 1 %>
+	<% for vote_name in @votes_for_this_category %>
+		<%= i %>. Platz: <%= vote_name %><br />
+		<% i = i + 1 %>
+	<% end %>
+	<% if @votes_for_this_category[0] != "Noch nicht gevotet" || @votes_for_this_category[1] != "Noch nicht gevotet" || @votes_for_this_category[2] != "Noch nicht gevotet" %>
+		<h3>Willst du dein Voting noch einmal überarbeiten?</h3>
+		<form action="edit" method="get">
+			<input type="hidden" name="category_id" value="<%= @category.id %>" />
+			<input type="submit" value="Bearbeiten" />
+		</form>
+	<% end %>
+</p>
+<h1>Gib deine Stimme ab:</h1>
+<% if @votes_for_this_category[0] == "Noch nicht gevotet" %>
+	<p>
+		<h2>1. Platz</h2>
+		<form method="post">
+			Name: <input type="text" name="my_vote_name" />
+			<input type="hidden" name="category_id" value="<%= @category.id %>" />
+			<input type="hidden" name="rating" value="3" />
+			<input type="submit" value="Abstimmen" />
+		</form>
+	</p>
+<% end %>
+<% if @votes_for_this_category[1] == "Noch nicht gevotet" %>
+	<p>
+		<h2>2. Platz</h2>
+		<form method="post">
+			Name: <input type="text" name="my_vote_name" />
+			<input type="hidden" name="category_id" value="<%= @category.id %>" />
+			<input type="hidden" name="rating" value="2" />
+			<input type="submit" value="Abstimmen" />
+		</form>
+	</p>
+<% end %>
+<% if @votes_for_this_category[2] == "Noch nicht gevotet" %>
+	<p>
+		<h2>3. Platz</h2>
+		<form method="post">
+			Name: <input type="text" name="my_vote_name" />
+			<input type="hidden" name="category_id" value="<%= @category.id %>" />
+			<input type="hidden" name="rating" value="1" />
+			<input type="submit" value="Abstimmen" />
+		</form>
+	</p>
+<% end %>
+<%= link_to "Liste", category_list_path %>

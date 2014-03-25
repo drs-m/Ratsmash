@@ -1,0 +1,11 @@
+<p>Liste der Kriterien</p>
+
+<ul>
+<% @categories.each do |category| %>
+
+	<li><%= link_to category.name + " (" + ( category.applies_to_teacher ? "Lehrer" : "Schüler") + ")", give_vote_path(category.id) %></li>	
+
+<% end %>
+</ul>
+
+<p><%= link_to "Hauptmenü", home_path %></p>
