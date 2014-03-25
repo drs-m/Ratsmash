@@ -5,7 +5,7 @@ class CreateVotes < ActiveRecord::Migration
       t.string :voted_type
       t.integer :voted_id
       t.integer :category_id
-      t.integer :rank
+      t.integer :rating
       
       t.timestamps
     end
