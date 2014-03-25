@@ -7,7 +7,7 @@ class SessionController < ApplicationController
 
 		# form sent?
 		if params[:email]
-			account = Account.find_by_mail_address params[:email]
+			account = Pupil.find_by mail_address: params[:email]
 			@errors = []
 			if !account.blank?
 				if account.authenticate params[:password]
@@ -28,8 +28,8 @@ class SessionController < ApplicationController
 	end
 
 	def instantlogin
-		session[:acc_id] = Account.offset(rand(Account.count)).first
-		redirect_to controller: "vote", action: "menu"
+		session[:acc_id] = Pupil.offset(rand(Pupil.count)).first
+		redirect_to :home
 	end
 
 end

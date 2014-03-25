@@ -45,7 +45,7 @@ ActiveRecord::Schema.define(version: 20140324184538) do
     t.string   "voted_type"
     t.integer  "voted_id"
     t.integer  "category_id"
-    t.integer  "rank"
+    t.integer  "rating"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
