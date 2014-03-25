@@ -1,3 +1,4 @@
+# encoding: utf-8
 class PupilsController < ApplicationController
   before_action :set_pupil, only: [:show, :edit, :update, :destroy]
 
