@@ -1,2 +1,16 @@
-<h1>Session#login</h1>
-<p>Find me in app/views/session/login.html.erb</p>
+<h1>Login</h1>
+<% if @errors && @errors.size > 0 %>
+	<% @errors.each do |err| %>
+		<p style="color:red;">
+			<%= err %>
+		</p>
+	<% end %>
+<% end %>
+
+<%= form_tag do %>
+	<%= text_field_tag :email %><br />
+	<%= password_field_tag :password %><br />
+	<%= submit_tag("Einloggen") %>
+<% end %>
+
+<%= link_to "Instant Login", controller: "session", action: "instantlogin" %>
