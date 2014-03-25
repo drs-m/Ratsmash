@@ -1,0 +1,2 @@
+class VotingController < ApplicationController
+end
