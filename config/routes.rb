@@ -1,60 +1,34 @@
 Ratsmash::Application.routes.draw do
+
+  # wenn man eingeloggt ist, ist die startseite immer "/" aber der zugehörige controller ist "vote#menu"
+  root "vote#menu", as: "home"
+  get "vote/menu", to: redirect("/")
+
+  # PUPIL AND TEACHER ROUTES
   resources :teachers
-
   resources :pupils
+  
+  # account activation / password reset 
+  get "reset_password", to: "pupil#reset_password", as: :reset_password 
+  post "reset_password", to: "pupil#reset_password"
 
-  # The priority is based upon order of creation: first created -> highest priority.
-  # See how all your routes lay out with "rake routes".
+  # SESSION ROUTES
+  get "login", to: "session#login", as: "login"
+  post "login", to: "session#login"
+  get "logout", to: "session#logout", as: "logout"
+  # temp for dev!
+  get "session/instantlogin"
+  
+  # VOTE ROUTES
+  get "vote", to: "vote#list", as: :category_list
+  get "vote/edit"
+  post "vote/edit", to: "vote#update"
 
-  # You can have the root of your site routed with "root"
-  # root 'welcome#index'
+  # only accept category-ids from 0-99
+  get "vote/:category_id(-(:category_name))", to: "vote#choose", as: :give_vote, category_id: /[0-9]{1,2}/
+  post "vote/:category_id(-(:category_name))", to: "vote#vote", category_id: /[0-9]{1,2}/
 
-  # Example of regular route:
-  #   get 'products/:id' => 'catalog#view'
+  # SETTINGS ROUTES
+  get "settings", to: "settings#overview", as: "settings"
 
-  # Example of named route that can be invoked with purchase_url(id: product.id)
-  #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
-
-  # Example resource route (maps HTTP verbs to controller actions automatically):
-  #   resources :products
-
-  # Example resource route with options:
-  #   resources :products do
-  #     member do
-  #       get 'short'
-  #       post 'toggle'
-  #     end
-  #
-  #     collection do
-  #       get 'sold'
-  #     end
-  #   end
-
-  # Example resource route with sub-resources:
-  #   resources :products do
-  #     resources :comments, :sales
-  #     resource :seller
-  #   end
-
-  # Example resource route with more complex sub-resources:
-  #   resources :products do
-  #     resources :comments
-  #     resources :sales do
-  #       get 'recent', on: :collection
-  #     end
-  #   end
-
-  # Example resource route with concerns:
-  #   concern :toggleable do
-  #     post 'toggle'
-  #   end
-  #   resources :posts, concerns: :toggleable
-  #   resources :photos, concerns: :toggleable
-
-  # Example resource route within a namespace:
-  #   namespace :admin do
-  #     # Directs /admin/products/* to Admin::ProductsController
-  #     # (app/controllers/admin/products_controller.rb)
-  #     resources :products
-  #   end
 end
