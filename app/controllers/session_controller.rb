@@ -7,14 +7,8 @@ class SessionController < ApplicationController
 
 		# form sent?
 		if params[:email]
-<<<<<<< HEAD
-			account = Pupil.find_by mail_address: params[:email]
-			if account
-=======
 			account = Student.find_by mail_address: params[:email]
-			@errors = []
-			if !account.blank?
->>>>>>> rename_pupil
+			if account
 				if account.authenticate params[:password]
 					session[:acc_id] = account.id
 					redirect_to :home
