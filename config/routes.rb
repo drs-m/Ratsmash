@@ -3,13 +3,12 @@ Ratsmash::Application.routes.draw do
   # voting#menu als startseite
   root "voting#menu", as: "home"
 
-  # PUPIL AND TEACHER ROUTES
-  resources :teachers
-  resources :pupils
-  
+  # STUDENT AND TEACHER ROUTES
+  resources :students
+  resources :teachers 
   # account activation / password reset 
-  get "reset_password", to: "pupil#reset_password", as: :reset_password 
-  post "reset_password", to: "pupil#reset_password"
+  get "reset_password", to: "student#reset_password", as: :reset_password 
+  post "reset_password", to: "student#reset_password"
 
   # SESSION ROUTES
   get "login", to: "session#login", as: "login"
