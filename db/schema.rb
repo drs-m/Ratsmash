@@ -15,7 +15,10 @@ ActiveRecord::Schema.define(version: 20140326185825) do
 
   create_table "categories", force: true do |t|
     t.string   "name"
-    t.boolean  "applies_to_teacher"
+    t.boolean  "female"
+    t.boolean  "male"
+    t.boolean  "student"
+    t.boolean  "teacher"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
