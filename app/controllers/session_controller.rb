@@ -8,23 +8,22 @@ class SessionController < ApplicationController
 		# form sent?
 		if params[:email]
 			account = Pupil.find_by mail_address: params[:email]
-			@errors = []
-			if !account.blank?
+			if account
 				if account.authenticate params[:password]
 					session[:acc_id] = account.id
-					redirect_to controller: "vote", action: "menu"
+					redirect_to :home
 				else
-					@errors << "Das eingegebene Passwort ist falsch"
+					flash[:notice] = "Das eingegebene Passwort ist falsch"
 				end
 			else
-				@errors << "Der Account konnte nicht gefunden werden"
+				flash[:notice] = "Der Account konnte nicht gefunden werden"
 			end
 		end
 	end
 
 	def logout
 		session[:acc_id] = nil
-		redirect_to action: "login"
+		redirect_to :login
 	end
 
 	def instantlogin

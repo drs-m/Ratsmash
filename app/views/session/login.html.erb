@@ -1,10 +1,9 @@
 <h1>Login</h1>
-<% if @errors && @errors.size > 0 %>
-	<% @errors.each do |err| %>
-		<p style="color:red;">
-			<%= err %>
-		</p>
-	<% end %>
+<% flash.each do |name,message| %>
+	<div id="flash_<%= name %>">
+		<%= message %>
+	</div>
+	<br />
 <% end %>
 
 <%= form_tag do %>

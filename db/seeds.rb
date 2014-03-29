@@ -16,8 +16,8 @@ categories_teacher = ["Streng", "Tollpatschig", "Nett", "Kompetent", "Schön"]
 categories_teacher.each { |ct_name| Category.create name: ct_name, applies_to_teacher: true }
 
 # Schüler
-pupils = [["Darius", "Mewes", true, "darius.mewes@rats-os.de", true], ["Max", "Mustermann", true, "max.mustermann@rats-os.de", true], ["Julius", "Rückin", true, "julius.rückin@rats-os.de", true]]
-pupils.each { |pupil| Pupil.create first_name: pupil[0], last_name: pupil[1], gender: pupil[2], mail_address: pupil[3], admin_permissions: pupil[4] }
+pupils = [["Darius", "Mewes", true, "darius.mewes@rats-os.de", true, "test123"], ["Max", "Mustermann", true, "max.mustermann@rats-os.de", true, "hihi"], ["Julius", "Rückin", true, "julius.rückin@rats-os.de", true, "fladenbrot"]]
+pupils.each { |pupil| Pupil.create first_name: pupil[0], last_name: pupil[1], gender: pupil[2], mail_address: pupil[3], admin_permissions: pupil[4], password: pupil[5], password_confirmation: pupil[5] }
 
 # Lehrer
 teachers = [["Lisa", "Müller", false], ["Hans-Christian", "Schmidt", true], ["Florian", "Obstkorb", true], ["Klarissa", "Kuh", false], ["Megan", "Schnase", false], ["Klaus-Markus", "König", true], ["Christina", "Tosko", false]]

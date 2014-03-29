@@ -1,8 +1,7 @@
 Ratsmash::Application.routes.draw do
 
-  # wenn man eingeloggt ist, ist die startseite immer "/" aber der zugehörige controller ist "voting#menu"
+  # voting#menu als startseite
   root "voting#menu", as: "home"
-  get "voting/menu", to: redirect("/")
 
   # PUPIL AND TEACHER ROUTES
   resources :teachers
