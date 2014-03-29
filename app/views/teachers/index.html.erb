@@ -1,11 +1,11 @@
-<h1>Listing teachers</h1>
+<h1>Lehrerliste</h1>
 
 <table>
   <thead>
     <tr>
-      <th>First name</th>
-      <th>Last name</th>
-      <th>Gender</th>
+      <th>Vorname</th>
+      <th>Nachname</th>
+      <th>Geschlecht</th>
       <th></th>
       <th></th>
       <th></th>
@@ -17,10 +17,10 @@
       <tr>
         <td><%= teacher.first_name %></td>
         <td><%= teacher.last_name %></td>
-        <td><%= teacher.gender %></td>
-        <td><%= link_to 'Show', teacher %></td>
-        <td><%= link_to 'Edit', edit_teacher_path(teacher) %></td>
-        <td><%= link_to 'Destroy', teacher, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= teacher.gender ? "m" : "w" %></td>
+        <td><%= link_to 'Anzeigen', teacher %></td>
+        <td><%= link_to 'Bearbeiten', edit_teacher_path(teacher) %></td>
+        <td><%= link_to 'Löschen', teacher, method: :delete, data: { confirm: 'Soll Eintrag Nr. ' + teacher.id.to_s + " wirklich gelöscht werden?" } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -28,4 +28,5 @@
 
 <br>
 
-<%= link_to 'New Teacher', new_teacher_path %>
+<%= link_to 'Lehrer hinzufügen', new_teacher_path %>
+<%= link_to "Administration", :settings %>

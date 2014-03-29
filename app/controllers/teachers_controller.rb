@@ -1,11 +1,13 @@
 # encoding: utf-8
 class TeachersController < ApplicationController
+
+  before_action -> { check_session true }
   before_action :set_teacher, only: [:show, :edit, :update, :destroy]
 
   # GET /teachers
   # GET /teachers.json
   def index
-    @teachers = Teacher.all
+    @teachers = Teacher.order :last_name
   end
 
   # GET /teachers/1

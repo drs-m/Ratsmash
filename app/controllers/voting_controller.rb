@@ -3,7 +3,7 @@ class VotingController < ApplicationController
 
 	before_action :check_session
 
-	def menu
+	def home
 
 	end
 

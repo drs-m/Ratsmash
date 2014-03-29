@@ -1,10 +1,12 @@
 class StudentsController < ApplicationController
+
+  before_action -> { check_session true }
   before_action :set_student, only: [:show, :edit, :update, :destroy]
 
   # GET /students
   # GET /students.json
   def index
-    @students = Student.all
+    @students = Student.order :last_name
   end
 
   # GET /students/1

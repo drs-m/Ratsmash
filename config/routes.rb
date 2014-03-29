@@ -1,7 +1,7 @@
 Ratsmash::Application.routes.draw do
 
-  # voting#menu als startseite
-  root "voting#menu", as: "home"
+  # voting#home als startseite
+  root "voting#home", as: "home"
 
   # STUDENT AND TEACHER ROUTES
   resources :students
@@ -27,6 +27,6 @@ Ratsmash::Application.routes.draw do
   post "vote/:category_id(-(:category_name))", to: "voting#voting", category_id: /[0-9]{1,2}/
 
   # SETTINGS ROUTES
-  get "settings", to: "settings#overview", as: "settings"
+  get "settings", to: "settings#menu", as: "settings"
 
 end
