@@ -5,7 +5,7 @@
 		<td></td><td>Alle</td>
 		<% @categories_student_all.each do |category| %>
 			<td>
-				<%= link_to category.name + category.cat_description, give_vote_path(category.id) %>
+				<%= link_to category.name, give_vote_path(category.id) %>
 			</td>
 		<% end %>
 	</tr>
@@ -13,7 +13,7 @@
 		<td>Schüler</td><td>Männlich</td>
 		<% @categories_student_male.each do |category| %>
 			<td>
-				<%= link_to category.name + category.cat_description, give_vote_path(category.id) %>
+				<%= link_to category.name, give_vote_path(category.id) %>
 			</td>
 		<% end %>
 	</tr>
@@ -21,7 +21,7 @@
 		<td></td><td>Weiblich</td>
 		<% @categories_student_female.each do |category| %>
 			<td>
-				<%= link_to category.name + category.cat_description, give_vote_path(category.id) %>
+				<%= link_to category.name, give_vote_path(category.id) %>
 			</td>
 		<% end %>
 	</tr>
@@ -30,7 +30,7 @@
 		<td></td><td>Alle</td>
 		<% @categories_teacher_all.each do |category| %>
 			<td>
-				<%= link_to category.name + category.cat_description, give_vote_path(category.id) %>
+				<%= link_to category.name, give_vote_path(category.id) %>
 			</td>
 		<% end %>
 	</tr>
@@ -38,7 +38,7 @@
 		<td>Lehrer</td><td>Männlich</td>
 		<% @categories_teacher_male.each do |category| %>
 			<td>
-				<%= link_to category.name + category.cat_description, give_vote_path(category.id) %>
+				<%= link_to category.name, give_vote_path(category.id) %>
 			</td>
 		<% end %>
 	</tr>
@@ -46,7 +46,7 @@
 		<td></td><td>Weiblich</td>
 		<% @categories_teacher_female.each do |category| %>
 			<td>
-				<%= link_to category.name + category.cat_description, give_vote_path(category.id) %>
+				<%= link_to category.name, give_vote_path(category.id) %>
 			</td>
 		<% end %>
 	</tr>
@@ -55,7 +55,7 @@
 		<td></td><td>Alle</td>
 		<% @categories_all.each do |category| %>
 			<td>
-				<%= link_to category.name + category.cat_description, give_vote_path(category.id) %>
+				<%= link_to category.name, give_vote_path(category.id) %>
 			</td>
 		<% end %>
 	</tr>
@@ -63,7 +63,7 @@
 		<td>Alle</td><td>Männlich</td>
 		<% @categories_all_male.each do |category| %>
 			<td>
-				<%= link_to category.name + category.cat_description, give_vote_path(category.id) %>
+				<%= link_to category.name, give_vote_path(category.id) %>
 			</td>
 		<% end %>
 	</tr>
@@ -71,7 +71,7 @@
 		<td></td><td>Weiblich</td>
 		<% @categories_all_female.each do |category| %>
 			<td>
-				<%= link_to category.name + category.cat_description, give_vote_path(category.id) %>
+				<%= link_to category.name, give_vote_path(category.id) %>
 			</td>
 		<% end %>
 	</tr>
