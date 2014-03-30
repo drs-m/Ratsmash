@@ -5,9 +5,7 @@ class Category < ActiveRecord::Base
 
 	before_save :default_values
 
-	def apply_to(selected_group)
-		if (selected_group)
-			groups_with_members = { :all => [:male, :female, :student, :teacher], 
+	@@groups_with_filters = { :all => [:male, :female, :student, :teacher], 
 						 :all_female => [:female, :student, :teacher], 
 						 :all_male => [:male, :student, :teacher], 
 						 :all_students => [:female, :male, :student],
@@ -17,10 +15,19 @@ class Category < ActiveRecord::Base
 						 :female_teachers => [:female, :teacher],
 						 :male_teachers => [:male, :teacher] }
 
-			db_types = [:female, :male, :student, :teacher]
-			members_to_set = groups_with_members[selected_group]
-			if members_to_set
-				db_types.each { |db_type| self[db_type] = members_to_set.include?(db_type) ? true : false }
+	@@db_filters = [:female, :male, :student, :teacher]
+
+	def active_filters
+		filters_to_return = []
+		@@db_filters.each { |filter| filters_to_return << filter if self[filter] }
+		return filters_to_return
+	end
+
+	def apply_to(selected_group)
+		if (selected_group)
+			filters_to_set = @@groups_with_filters[selected_group]
+			if filters_to_set
+				@@db_filters.each { |db_filter| self[db_filter] = filters_to_set.include?(db_filter) ? true : false }
 				return save
 			end
 			return false
