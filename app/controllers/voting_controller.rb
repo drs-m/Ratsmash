@@ -518,86 +518,8 @@ class VotingController < ApplicationController
 	end
 
 	def choose
-		cat_type = Category.find_by_id(params[:category_id]).cat_type
-		if !params[:typedIn].nil?
-			@search_name_error = false
-			@id = params[:id]
-			@id2 = params[:id2]
-
-			#@possible_names = Profile.where('first_name like ? OR last_name like ?', '%'+params[:typedIn]+'%', '%'+params[:typedIn]+'%')
-
-			@possible_names = []
-
-			Profile.all.each do |profile|
-				if profile.name.downcase.include? params[:typedIn].downcase
-
-					if cat_type == "all_all"
-						@possible_names << profile.name
-					else 
-						if cat_type == "all_male"
-							if profile.gender
-								@possible_names << profile.name
-							end
-						end
-
-						if cat_type == "all_female"
-							if !profile.gender
-								@possible_names << profile.name
-							end
-						end
-
-						if cat_type == "pupil_all"
-							if !profile.teacher
-								@possible_names << profile.name
-							end
-						end
-
-						if cat_type == "pupil_male"
-							if !profile.teacher && profile.gender
-								@possible_names << profile.name
-							end
-						end
-
-						if cat_type == "pupil_female"
-							if !profile.teacher && !profile.gender
-								@possible_names << profile.name
-							end
-						end
-
-						if cat_type == "teacher_all"
-							if profile.teacher
-								@possible_names << profile.name
-							end
-						end
-
-						if cat_type == "teacher_male"
-							if profile.teacher && profile.gender
-								@possible_names << profile.name
-							end
-						end
-
-						if cat_type == "teacher_female"
-							if profile.teacher && !profile.gender
-								@possible_names << profile.name
-							end
-						end
-
-					end
-				end
-			end
-
-			@possible_names = @possible_names.sort
-			
-			if @possible_names.empty?
-				@possible_names = ["Name nicht vorhanden oder nicht zulÃ¤ssig fÃ¼r diese Kategorie"]
-			end
-
-			render :partial => 'possible_names'
-		else 
-			# lade ausgewÃ¤hlte kategorie fÃ¼r den View anhand der aus der URL stammenden id
-			@category = Category.find_by_id(params[:category_id])
-			my_votings(@category.id)
-		end
+		@category = Category.find_by_id(params[:category_id])
+		@voted = Vote.by_voter_in_category voter: @current_user, category: @category
 	end
 
 	def delete_vote
@@ -615,32 +537,7 @@ class VotingController < ApplicationController
 		end 
 	end
 
-#	def my_votings(category_id)
-#		first_vote = Vote.where(:profile_id => @u_account.id, :category_id => category_id, :rating => 3).pluck(:candidate_id).first
-#		first_vote_name = Profile.id(first_vote)
-#		
-#		second_vote = Vote.where(:profile_id => @u_account.id, :category_id => category_id, :rating => 2).pluck(:candidate_id).first
-#		second_vote_name = Profile.id(second_vote)
-#
-#		third_vote = Vote.where(:profile_id => @u_account.id, :category_id => category_id, :rating => 1).pluck(:candidate_id).first
-#		third_vote_name = Profile.id(third_vote)
-#
-#		@votes_for_this_category = [first_vote_name,second_vote_name,third_vote_name]
-#		@candidate_ids_for_this_category = [first_vote,second_vote,third_vote]
-#	end
 
-	def my_votings(category_id)
-		first_vote = @current_user.given_votes.where(category_id: category_id, rating: 3).first
-		first_voted_name = first_vote ? first_vote.voted.name : nil
-
-		second_vote = @current_user.given_votes.where(category_id: category_id, rating: 2).first
-		second_voted_name = second_vote ? second_vote.voted.name : nil
-
-		third_vote = @current_user.given_votes.where(category_id: category_id, rating: 1).first
-		third_voted_name = third_vote ? third_vote.voted.name : nil
-
-		@votes_for_this_category = [first_voted_name, second_voted_name, third_voted_name]
-		@candidate_ids_for_this_category = [first_vote, second_vote, third_vote]
 	end
 
 end
