@@ -7,13 +7,45 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-# Kategorien für Schüler
-categories_student = ["Toll", "Schön", "Schlau", "Nett", "Blabla"]
-categories_student.each { |cp_name| Category.create name: cp_name}
+# Kategorien für alle Schüler
+categories_pupil_all = ["Toll", "Schön", "Schlau", "Nett", "Blabla"]
+categories_pupil_all.each { |cp_name| Category.create(name: cp_name).apply_to(:all_students) }
+
+# Kategorien für männliche Schüler
+categories_pupil_male = ["Toll", "Schön", "Schlau", "Nett", "Blabla"]
+categories_pupil_male.each { |cp_name| Category.create(name: cp_name).apply_to(:male_students) }
+
+#Kategorien für weibliche Schüler
+categories_pupil_female = ["Toll", "Schön", "Schlau", "Nett", "Blabla"]
+categories_pupil_female.each { |cp_name| Category.create(name: cp_name).apply_to(:female_students) }
+
+
+#Kategorien für alle Lehrer
+categories_teacher_all = ["Streng", "Tollpatschig", "Nett", "Kompetent", "Schön"]
+categories_teacher_all.each { |ct_name| Category.create(name: ct_name).apply_to(:all_teachers) }
 
 # Kategorien für Lehrer
-categories_teacher = ["Streng", "Tollpatschig", "Nett", "Kompetent", "Schön"]
-categories_teacher.each { |ct_name| Category.create name: ct_name, applies_to_teacher: true }
+categories_teacher_male = ["Streng", "Tollpatschig", "Nett", "Kompetent", "Schön"]
+categories_teacher_male.each { |ct_name| Category.create(name: ct_name).apply_to(:male_teachers) }
+
+# Kategorien für Lehrerinnen
+categories_teacher_female = ["Streng", "Tollpatschig", "Nett", "Kompetent", "Schön"]
+categories_teacher_female.each { |ct_name| Category.create(name: ct_name).apply_to(:female_teachers) }
+
+# Kategorien für Alle
+categories_all = ["Toll", "Schön", "Schlau", "Nett", "Blabla"]
+categories_all.each { |cp_name| Category.create(name: cp_name).apply_to(:all) }
+
+#Kategorien für alle Männer
+categories_all_male = ["Toll", "Schön", "Schlau", "Nett", "Blabla"]
+categories_all_male.each { |cp_name| Category.create(name: cp_name).apply_to(:all_male) }
+
+#Kategorien für alle Frauen
+categories_all_female = ["Toll", "Schön", "Schlau", "Nett", "Blabla"]
+categories_all_female.each { |cp_name| Category.create(name: cp_name).apply_to(:all_female) }
+
+
+
 
 # Schüler
 students = [["Darius", "Mewes", true, "darius.mewes@rats-os.de", true, "test123"], ["Max", "Mustermann", true, "max.mustermann@rats-os.de", false, "hihi"], ["Julius", "Rückin", true, "julius.rückin@rats-os.de", true, "fladenbrot"], ["Inactiva", "Scholtz", false, "bumm@dong.de", false, "zinzon"]]
