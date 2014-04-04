@@ -538,6 +538,5 @@ class VotingController < ApplicationController
 	end
 
 
-	end
 
 end
