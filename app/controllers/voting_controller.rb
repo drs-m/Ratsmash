@@ -519,7 +519,29 @@ class VotingController < ApplicationController
 
 	def choose
 		@category = Category.find_by_id(params[:category_id])
-		@voted = Vote.by_voter_in_category voter: @current_user, category: @category
+		display_error(message: "Die Kategorie wurde nicht gefunden!", back: :category_list) and return unless @category
+
+		@given_votes = Vote.by_voter_in_category voter: @current_user, category: @category
+	end
+
+	def commit
+		@category = Category.find_by_id(params[:category_id])
+		display_error(message: "Die Kategorie wurde nicht gefunden!", back: :category_list) and return unless @category
+		
+		voted = Student.find_by name: params[:name]
+		voted = Teacher.find_by name: params[:name] unless voted
+
+		if voted
+			# breche ab wenn das rating zu hoch/niedrig ist
+			display_error(message: "Rating (" + params[:rating] + ") falsch!", back: give_vote_path(category_id: @category.id)) and return unless (1..3).include?(params[:rating].to_i)
+
+			# umleitung zur abstimmungsseite, sofern die stimmabgabe erfolgreich war
+			redirect_to give_vote_path(category_id: @category.id), notice: "Erfolgreich abgestimmt"
+		else
+			# breche ab wenn kein kandidat gefunden wurde
+			display_error message: "Der Kandidat " + params[:name] + " wurde nicht gefunden!", back: give_vote_path(category_id: @category.id)
+			render :error_while_voting, notice: "Der Kandidat " + params[:name] + " wurde nicht gefunden!"
+		end
 	end
 
 	def delete_vote
@@ -537,6 +559,10 @@ class VotingController < ApplicationController
 		end 
 	end
 
-
+	def display_error(options = {})
+		@message = options[:message]
+		@back_route = options[:back]
+		render :error_while_voting
+	end
 
 end

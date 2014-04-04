@@ -1,16 +1,8 @@
-<% if @category.blank? %>
-	<p>Die Kategorie wurde nicht gefunden!</p>
-<% else %>
-	<p>Kategorie-ID: <%= @category.id %></p>
-	<p>Kategorie: <%= @category.name %></p>
-<% end %>
+<h1>Deine Wahl in der Kategorie <%= @category.name %></h1>
 
-<p>Deine Votes für diese Kategorie:</p>
-<% 3.times do |i| %>
-	<%= i+1 %>. Platz: <%= @voted[i].name if @voted[i] %><br />
-<% end %>
-	
-<% if @voted.any? %>
+<%= flash[:notice] %>
+
+<% if @given_votes.any? %>
 	<h3>Willst du dein Voting noch einmal überarbeiten?</h3>
 	<form action="edit" method="get">
 		<input type="hidden" name="category_id" value="<%= @category.id %>" />
@@ -18,38 +10,17 @@
 	</form>
 <% end %>
 
-<h1>Gib deine Stimme ab:</h1>
-<% if @voted[0].blank? %>
-	<p>
-		<h2>1. Platz</h2>
-		<form method="post">
-			Name: <input type="text" name="my_vote_name" />
-			<input type="hidden" name="category_id" value="<%= @category.id %>" />
-			<input type="hidden" name="rating" value="3" />
-			<input type="submit" value="Abstimmen" />
-		</form>
-	</p>
+<% 3.times do |i| %>
+
+<p>
+	<h2><%= i+1 %>. Platz</h2>
+	<%= form_tag({}, {method: "post"}) do %>
+		Name: <%= text_field_tag :name, @given_votes[i] ? @given_votes[i].voted : nil %>
+		<%= hidden_field_tag :rating, 3-i %>
+		<%= submit_tag "Abstimmen" %>
+	<% end %>
+</p>
+
 <% end %>
-<% if @voted[1].blank? %>
-	<p>
-		<h2>2. Platz</h2>
-		<form method="post">
-			Name: <input type="text" name="my_vote_name" />
-			<input type="hidden" name="category_id" value="<%= @category.id %>" />
-			<input type="hidden" name="rating" value="2" />
-			<input type="submit" value="Abstimmen" />
-		</form>
-	</p>
-<% end %>
-<% if @voted[2].blank? %>
-	<p>
-		<h2>3. Platz</h2>
-		<form method="post">
-			Name: <input type="text" name="my_vote_name" />
-			<input type="hidden" name="category_id" value="<%= @category.id %>" />
-			<input type="hidden" name="rating" value="1" />
-			<input type="submit" value="Abstimmen" />
-		</form>
-	</p>
-<% end %>
-<%= link_to "Liste", category_list_path %>
+
+<%= link_to "Kategorie-Liste", category_list_path %>
