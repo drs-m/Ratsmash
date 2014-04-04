@@ -11,18 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140326185825) do
+ActiveRecord::Schema.define(version: 20140404212953) do
 
   create_table "categories", force: true do |t|
     t.string   "name"
-    t.boolean  "applies_to_teacher"
+    t.boolean  "female"
+    t.boolean  "male"
+    t.boolean  "student"
+    t.boolean  "teacher"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "students", force: true do |t|
-    t.string   "first_name"
-    t.string   "last_name"
+    t.string   "name"
     t.boolean  "gender"
     t.string   "mail_address"
     t.string   "password_digest"
@@ -33,8 +35,7 @@ ActiveRecord::Schema.define(version: 20140326185825) do
   end
 
   create_table "teachers", force: true do |t|
-    t.string   "first_name"
-    t.string   "last_name"
+    t.string   "name"
     t.boolean  "gender"
     t.datetime "created_at"
     t.datetime "updated_at"

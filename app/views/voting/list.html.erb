@@ -1,11 +1,81 @@
-<p>Liste der Kriterien</p>
+<h1>Liste der Kriterien</h1>
 
-<ul>
-<% @categories.each do |category| %>
-
-	<li><%= link_to category.name + " (" + ( category.applies_to_teacher ? "Lehrer" : "Schüler") + ")", give_vote_path(category.id) %></li>	
-
-<% end %>
-</ul>
+<table id="category_table">
+	<tr>
+		<td></td><td>Alle</td>
+		<% @categories_student_all.each do |category| %>
+			<td>
+				<%= link_to category.name, give_vote_path(category.id) %>
+			</td>
+		<% end %>
+	</tr>
+	<tr>
+		<td>Schüler</td><td>Männlich</td>
+		<% @categories_student_male.each do |category| %>
+			<td>
+				<%= link_to category.name, give_vote_path(category.id) %>
+			</td>
+		<% end %>
+	</tr>
+	<tr>
+		<td></td><td>Weiblich</td>
+		<% @categories_student_female.each do |category| %>
+			<td>
+				<%= link_to category.name, give_vote_path(category.id) %>
+			</td>
+		<% end %>
+	</tr>
+	<tr style="height:20px;"></tr>
+	<tr>
+		<td></td><td>Alle</td>
+		<% @categories_teacher_all.each do |category| %>
+			<td>
+				<%= link_to category.name, give_vote_path(category.id) %>
+			</td>
+		<% end %>
+	</tr>
+	<tr>
+		<td>Lehrer</td><td>Männlich</td>
+		<% @categories_teacher_male.each do |category| %>
+			<td>
+				<%= link_to category.name, give_vote_path(category.id) %>
+			</td>
+		<% end %>
+	</tr>
+	<tr>
+		<td></td><td>Weiblich</td>
+		<% @categories_teacher_female.each do |category| %>
+			<td>
+				<%= link_to category.name, give_vote_path(category.id) %>
+			</td>
+		<% end %>
+	</tr>
+	<tr style="height:20px;"></tr>
+	<tr>
+		<td></td><td>Alle</td>
+		<% @categories_all.each do |category| %>
+			<td>
+				<%= link_to category.name, give_vote_path(category.id) %>
+			</td>
+		<% end %>
+	</tr>
+	<tr>
+		<td>Alle</td><td>Männlich</td>
+		<% @categories_all_male.each do |category| %>
+			<td>
+				<%= link_to category.name, give_vote_path(category.id) %>
+			</td>
+		<% end %>
+	</tr>
+	<tr>
+		<td></td><td>Weiblich</td>
+		<% @categories_all_female.each do |category| %>
+			<td>
+				<%= link_to category.name, give_vote_path(category.id) %>
+			</td>
+		<% end %>
+	</tr>
+	<tr style="height:20px;"></tr>
+</table>
 
 <p><%= link_to "Hauptmenü", home_path %></p>
