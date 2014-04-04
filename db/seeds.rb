@@ -8,7 +8,7 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 # Kategorien für alle Schüler
-categories_pupil_all = ["Toll", "Schön", "Schlau", "Nett", "Blabla"]
+categories_pupil_all = ["Toll",  "Schön",  "Schlau", "Nett", "Blabla"]
 categories_pupil_all.each { |cp_name| Category.create(name: cp_name).apply_to(:all_students) }
 
 # Kategorien für männliche Schüler
@@ -48,10 +48,10 @@ categories_all_female.each { |cp_name| Category.create(name: cp_name).apply_to(:
 
 
 # Schüler
-students = [["Darius", "Mewes", true, "darius.mewes@rats-os.de", true, "test123"], ["Max", "Mustermann", true, "max.mustermann@rats-os.de", false, "hihi"], ["Julius", "Rückin", true, "julius.rückin@rats-os.de", true, "fladenbrot"], ["Inactiva", "Scholtz", false, "bumm@dong.de", false, "zinzon"]]
-students.each { |student| Student.create first_name: student[0], last_name: student[1], gender: student[2], mail_address: student[3], admin_permissions: student[4], password: student[5], password_confirmation: student[5] }
+students = [["Darius Mewes", true, "darius.mewes@rats-os.de", true, "test123"], ["Max Mustermann", true, "max.mustermann@rats-os.de", false, "hihi"], ["Julius Rückin", true, "julius.rückin@rats-os.de", true, "fladenbrot"], ["Inactiva Scholtz", false, "bumm@dong.de", false, "zinzon"]]
+students.each { |student| Student.create name: student[0], gender: student[1], mail_address: student[2], admin_permissions: student[3], password: student[4], password_confirmation: student[4] }
 Student.find(4).update password_resetkey: SecureRandom.urlsafe_base64
 
 # Lehrer
-teachers = [["Lisa", "Müller", false], ["Hans-Christian", "Schmidt", true], ["Florian", "Obstkorb", true], ["Klarissa", "Kuh", false], ["Megan", "Schnase", false], ["Klaus-Markus", "König", true], ["Christina", "Tosko", false]]
-teachers.each { |teacher| Teacher.create first_name: teacher[0], last_name: teacher[1], gender: teacher[2] }
+teachers = [["Lisa Müller", false], ["Hans-Christian Schmidt", true], ["Florian Obstkorb", true], ["Klarissa Kuh", false], ["Megan Schnase", false], ["Klaus-Markus König", true], ["Christina Tosko", false]]
+teachers.each { |teacher| Teacher.create name: teacher[0], gender: teacher[1] }
