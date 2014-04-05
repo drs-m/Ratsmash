@@ -546,20 +546,21 @@ class VotingController < ApplicationController
 
 	def commit
 		@category = Category.find_by_id(params[:category_id])
-		display_error(message: "Die Kategorie wurde nicht gefunden!", back: :category_list) and return unless @category
+		display_error(message: "Die Kategorie wurde nicht gefunden!", route_back: :category_list) and return unless @category
 		
+		# find the voted account by searching in student db first and in teacher db if nothing has been found
 		voted = Student.find_by name: params[:name]
 		voted = Teacher.find_by name: params[:name] unless voted
 
 		if voted
 			# breche ab wenn das rating zu hoch/niedrig ist
-			display_error(message: "Rating (" + params[:rating] + ") falsch!", back: give_vote_path(category_id: @category.id)) and return unless (1..3).include?(params[:rating].to_i)
+			display_error(message: "Rating (" + params[:rating] + ") zu hoch/niedrig!", route_back: give_vote_path(category_id: @category.id)) and return unless (1..3).include?(params[:rating].to_i)
 
 			# umleitung zur abstimmungsseite, sofern die stimmabgabe erfolgreich war
 			redirect_to give_vote_path(category_id: @category.id), notice: "Erfolgreich abgestimmt"
 		else
 			# breche ab wenn kein kandidat gefunden wurde
-			display_error message: "Der Kandidat " + params[:name] + " wurde nicht gefunden!", back: give_vote_path(category_id: @category.id)
+			display_error message: "Der Kandidat " + params[:name] + " wurde nicht gefunden!", route_back: give_vote_path(category_id: @category.id)
 			render :error_while_voting, notice: "Der Kandidat " + params[:name] + " wurde nicht gefunden!"
 		end
 	end
@@ -581,7 +582,7 @@ class VotingController < ApplicationController
 
 	def display_error(options = {})
 		@message = options[:message]
-		@back_route = options[:back]
+		@route_back = options[:route_back]
 		render :error_while_voting
 	end
 
