@@ -3,6 +3,23 @@ class VotingController < ApplicationController
 
 	before_action :check_session
 
+	def autocomplete
+		return redirect_to :home unless params[:q]
+
+		# ggf. filter anhand der category anpassen
+		if (params[:c])
+			category = Category.find_by id: params[:c]
+			# breche ab wenn keine kategorie gefunden wurde
+			return render json: { status: "error", details: { code: 1, message: "category not found" } } unless category
+
+			@possible_names = []
+			Student.where(category.gender_filter).each { |student| @possible_names << student.name } if category.student
+			Teacher.where(category.gender_filter).each { |teacher| @possible_names << teacher.name } if category.teacher
+			render json: { status: "success", results: @possible_names } 
+		else
+			render json: { status: "error", details: { code: 0, message: "no category provided" } }
+		end
+	end
 	
 	def menu
 		
