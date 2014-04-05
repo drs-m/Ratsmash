@@ -4,21 +4,24 @@ class VotingController < ApplicationController
 	before_action :check_session
 
 	def autocomplete
+		# check if searchstring and category are provided
 		return redirect_to :home unless params[:q]
+		return render json: { status: "error", details: { code: 0, message: "no category provided" } } unless params[:c]
+		
+		category = Category.find_by id: params[:c]
+		# breche ab wenn keine kategorie gefunden wurde
+		return render json: { status: "error", details: { code: 1, message: "category not found" } } unless category
 
-		# ggf. filter anhand der category anpassen
-		if (params[:c])
-			category = Category.find_by id: params[:c]
-			# breche ab wenn keine kategorie gefunden wurde
-			return render json: { status: "error", details: { code: 1, message: "category not found" } } unless category
-
-			@possible_names = []
-			Student.where(category.gender_filter).each { |student| @possible_names << student.name } if category.student
-			Teacher.where(category.gender_filter).each { |teacher| @possible_names << teacher.name } if category.teacher
-			render json: { status: "success", results: @possible_names } 
+		@possible_names = []
+		# xor
+		if category.male ^ category.female
+			Student.name_search(params[:q]).where(gender: category.male).each { |student| @possible_names << student.name } if category.student
+			Teacher.name_search(params[:q]).where(gender: category.male).each { |teacher| @possible_names << teacher.name } if category.teacher
 		else
-			render json: { status: "error", details: { code: 0, message: "no category provided" } }
+			Student.name_search(params[:q]).each { |student| @possible_names << student.name } if category.student
+			Teacher.name_search(params[:q]).each { |teacher| @possible_names << teacher.name } if category.teacher
 		end
+		render json: { status: "success", results: @possible_names } 
 	end
 	
 	def menu

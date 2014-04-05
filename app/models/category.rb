@@ -17,11 +17,6 @@ class Category < ActiveRecord::Base
 
 	@@db_filters = [:female, :male, :student, :teacher]
 
-	def gender_filter
-		# wenn nicht male und female: setze gender auf male. ansonsten: ist es egal daher [true, false]
-		{ gender: self.male ^ self.female ? self.male : [ true, false ] }
-	end
-
 	def active_filters
 		filters_to_return = []
 		@@db_filters.each { |filter| filters_to_return << filter if self[filter] }
