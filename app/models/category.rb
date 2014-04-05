@@ -5,6 +5,14 @@ class Category < ActiveRecord::Base
 
 	before_save :default_values
 
+	# simple scopes for vote controller
+	scope :female, -> { where female: true, male: false }
+	scope :male, -> { where male: true, female: false }
+	scope :unisex, -> { where female: true, male: true }
+	scope :student, -> { where student: true, teacher: false }
+	scope :teacher, -> { where teacher: true, student: false }
+	scope :unigroup, -> { where student: true, teacher: true }
+
 	@@groups_with_filters = { :all => [:male, :female, :student, :teacher], 
 						 :all_female => [:female, :student, :teacher], 
 						 :all_male => [:male, :student, :teacher], 

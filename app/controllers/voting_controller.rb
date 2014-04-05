@@ -524,17 +524,17 @@ class VotingController < ApplicationController
 
 	def list
 		# ordnen der Kategorien nach Typ
-		@categories_all = Category.where(student: true, teacher: true, male: true, female: true)
-		@categories_all_male = Category.where(student: true, teacher: true, male: true, female: false)
-		@categories_all_female = Category.where(student: true, teacher: true, male: false, female: true)
-
-		@categories_student_all = Category.where(student: true, teacher: false, male: true, female: true)
-		@categories_student_male = Category.where(student: true, teacher: false, male: true, female: false)
-		@categories_student_female = Category.where(student: true, teacher: false, male: false, female: true)
-
-		@categories_teacher_all = Category.where(student: false, teacher: true, male: true, female: true)
-		@categories_teacher_male = Category.where(student: false, teacher: true, male: true, female: false)
-		@categories_teacher_female = Category.where(student: false, teacher: true, male: false, female: true)
+		@categories_all = Category.unisex.unigroup	
+		@categories_all_female = Category.female.unigroup
+		@categories_all_male = Category.male.unigroup
+	
+		@categories_student_all = Category.unisex.student
+		@categories_student_female = Category.female.student
+		@categories_student_male = Category.male.student
+	
+		@categories_teacher_all = Category.unisex.teacher
+		@categories_teacher_female = Category.female.teacher
+		@categories_teacher_male = Category.male.teacher
 	end
 
 	def choose
