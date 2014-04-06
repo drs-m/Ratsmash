@@ -1,0 +1,16 @@
+%h1	Deine Wahl in der Kategorie #{@category.name}
+
+.notice= flash[:notice]
+
+- 3.times do |i|
+	.voting{id: "voting_#{i+1}"}
+		%h2 #{i+1}. Platz
+		= form_tag({}, {method: "post"}) do
+			%label{for: "name_#{i+1}"} Name:
+			= text_field_tag :name, @given_votes[i] ? @given_votes[i].voted : nil, placeholder: "Kandidat", id: "name_#{i+1}"
+			-# %input{type: "text", name: "name", id: "name_#{i+1}", value: @given_votes[i] ? @given_votes[i].voted : nil}
+			/ rating gets submitted in hidden field via post
+			= hidden_field_tag :rating, 3-i
+			= submit_tag "Abstimmen"
+
+= link_to "Kategorie-Liste", category_list_path
