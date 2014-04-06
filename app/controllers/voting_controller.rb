@@ -561,7 +561,6 @@ class VotingController < ApplicationController
 		else
 			# breche ab wenn kein kandidat gefunden wurde
 			display_error message: "Der Kandidat " + params[:name] + " wurde nicht gefunden!", route_back: give_vote_path(category_id: @category.id)
-			render :error_while_voting, notice: "Der Kandidat " + params[:name] + " wurde nicht gefunden!"
 		end
 	end
 
