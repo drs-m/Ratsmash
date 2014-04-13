@@ -548,6 +548,28 @@ class VotingController < ApplicationController
 	end
 
 	def commit
+
+		if params[:category_id] && params[:ftchd_cand_id] && params[:ftchd_cand_type]
+			category = Category.find_by id: params[:category_id]
+			cand_type = params[:ftchd_cand_type]
+			if cand_type == "s"
+				candidate = Student.find_by id: params[:ftchd_cand_id]
+			elsif cand_type == "t"
+				candidate = Teacher.find_by id: params[:ftchd_cand_id]
+			else
+				render json: { status: "error", details: { code: 1, message: "wrong candidate type" } } and return
+			end
+
+			render text: "Success: " + candidate.name
+
+
+		else
+			render json: { status: "error", details: { code: 0, message: "too few arguments" } }
+		end
+
+		# STOP DEV
+		return
+
 		@category = Category.find_by_id(params[:category_id])
 		display_error(message: "Die Kategorie wurde nicht gefunden!", route_back: :category_list) and return unless @category
 		
