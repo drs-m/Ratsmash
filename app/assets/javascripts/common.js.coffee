@@ -1,14 +1,16 @@
-$(document).ready ->
+$ ->
+
+	category = $("#category-heading").data "category"
 
 	$(".candidate-input").autocomplete
-		source: ["Darius", "David", "Daphne", "Fredicus", "Johann"]
 		messages:
-			noResults: ''
-			results: ''
+			result: (count) ->
+			noResults: ''	
 
+		source: (request, response) ->
+			$.get "/vote/autocomplete?q=#{request.term}&c=#{category}", (data) ->
+				suggestions = []
+				suggestions.push(result.name) for result in data.results if data.status == "success"
+				response suggestions
 
-	###
-	$(".candidate-input").on "keyup", ->
-		$.get "/vote/autocomplete?q=" + $(this).val() + "&c=" + $("#category-heading").data("category"), (data) ->
-			console.log data.results
-	###
+		# select: (event, ui) ->
