@@ -15,13 +15,16 @@ class VotingController < ApplicationController
 		@possible_names = []
 		# xor
 		if category.male ^ category.female
-			Student.name_search(params[:q]).where(gender: category.male).each { |student| @possible_names << student.name } if category.student
-			Teacher.name_search(params[:q]).where(gender: category.male).each { |teacher| @possible_names << teacher.name } if category.teacher
+			Student.name_search(params[:q]).where(gender: category.male).each { |student| @possible_names << { type: "s", id: student.id, name: student.name } } if category.student
+			Teacher.name_search(params[:q]).where(gender: category.male).each { |teacher| @possible_names << { type: "t", id: teacher.id, name: teacher.name } } if category.teacher
 		else
-			Student.name_search(params[:q]).each { |student| @possible_names << student.name } if category.student
-			Teacher.name_search(params[:q]).each { |teacher| @possible_names << teacher.name } if category.teacher
-		end
-		render json: { status: "success", results: @possible_names } 
+			Student.name_search(params[:q]).each { |student| @possible_names << { type: "s", id: student.id, name: student.name } } if category.student
+			Teacher.name_search(params[:q]).each { |teacher| @possible_names << { type: "t", id: teacher.id, name: teacher.name } } if category.teacher
+		end 
+		response = { status: "success", results: @possible_names }
+		# formatiere die antwort unter angabe von p= mit einrückungen, sodass die daten leichter einsehbar sind, bsp: /vote/autocomplete?p=&c=34&q=müller
+		response = JSON.pretty_generate response if params[:p]
+		render json: response
 	end
 	
 	def menu
