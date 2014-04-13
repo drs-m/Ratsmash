@@ -1,4 +1,6 @@
-%h1	Deine Wahl in der Kategorie #{@category.name}
+-# Erstellt mit HAML (HTML Abstract Markdown Language)
+
+%h1{id: "category-heading", data: {category: @category.id}}	Deine Wahl in der Kategorie #{@category.name}
 
 .notice= flash[:notice]
 
@@ -7,9 +9,10 @@
 		%h2 #{i+1}. Platz
 		= form_tag({}, {method: "post"}) do
 			%label{for: "name_#{i+1}"} Name:
-			= text_field_tag :name, @given_votes[i] ? @given_votes[i].voted : nil, placeholder: "Kandidat", id: "name_#{i+1}"
-			-# %input{type: "text", name: "name", id: "name_#{i+1}", value: @given_votes[i] ? @given_votes[i].voted : nil}
-			/ rating gets submitted in hidden field via post
+			%input{type: "text", name: "candidate", class: "candidate-input", placeholder: "Kandidat"}
+			%span#response-field
+			= hidden_field_tag :fetched_candidate_id
+			= hidden_field_tag :fetched_candidate_type
 			= hidden_field_tag :rating, 3-i
 			= submit_tag "Abstimmen"
 
