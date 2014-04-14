@@ -5,8 +5,7 @@ class VotingController < ApplicationController
 
 	def autocomplete
 		# check if searchstring and category are provided
-		return redirect_to :home unless params[:q]
-		return render json: { status: "error", details: { code: 0, message: "no category provided" } } unless params[:c]
+		return render json: { status: "error", details: { code: 0, message: "too few arguments provided" } } unless params[:q] && params[:c]
 		
 		category = Category.find_by id: params[:c]
 		# breche ab wenn keine kategorie gefunden wurde
@@ -15,11 +14,11 @@ class VotingController < ApplicationController
 		@possible_names = []
 		# xor
 		if category.male ^ category.female
-			Student.name_search(params[:q]).where(gender: category.male).each { |student| @possible_names << { type: "s", id: student.id, name: student.name } } if category.student
-			Teacher.name_search(params[:q]).where(gender: category.male).each { |teacher| @possible_names << { type: "t", id: teacher.id, name: teacher.name } } if category.teacher
+			Student.name_search(params[:q]).where(gender: category.male).each { |student| @possible_names << student.name } if category.student
+			Teacher.name_search(params[:q]).where(gender: category.male).each { |teacher| @possible_names << teacher.name } if category.teacher
 		else
-			Student.name_search(params[:q]).each { |student| @possible_names << { type: "s", id: student.id, name: student.name } } if category.student
-			Teacher.name_search(params[:q]).each { |teacher| @possible_names << { type: "t", id: teacher.id, name: teacher.name } } if category.teacher
+			Student.name_search(params[:q]).each { |student| @possible_names << student.name } if category.student
+			Teacher.name_search(params[:q]).each { |teacher| @possible_names << teacher.name } if category.teacher
 		end 
 		response = { status: "success", results: @possible_names }
 		# formatiere die antwort unter angabe von p= mit einrückungen, sodass die daten leichter einsehbar sind, bsp: /vote/autocomplete?p=&c=34&q=müller
@@ -548,28 +547,6 @@ class VotingController < ApplicationController
 	end
 
 	def commit
-
-		if params[:category_id] && params[:ftchd_cand_id] && params[:ftchd_cand_type]
-			category = Category.find_by id: params[:category_id]
-			cand_type = params[:ftchd_cand_type]
-			if cand_type == "s"
-				candidate = Student.find_by id: params[:ftchd_cand_id]
-			elsif cand_type == "t"
-				candidate = Teacher.find_by id: params[:ftchd_cand_id]
-			else
-				render json: { status: "error", details: { code: 1, message: "wrong candidate type" } } and return
-			end
-
-			render text: "Success: " + candidate.name
-
-
-		else
-			render json: { status: "error", details: { code: 0, message: "too few arguments" } }
-		end
-
-		# STOP DEV
-		return
-
 		@category = Category.find_by_id(params[:category_id])
 		display_error(message: "Die Kategorie wurde nicht gefunden!", route_back: :category_list) and return unless @category
 		

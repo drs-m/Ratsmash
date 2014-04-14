@@ -8,13 +8,11 @@
 	.voting
 		%h2 #{i}. Platz
 		= form_tag({}, method: "post", class: "voting-form") do
-			%label{for: "name_#{i+1}"} Name:
-			%input.candidate-input{type: "text", id: "candidate_#{i}", name: "candidate", placeholder: "Kandidat"}
-			%span.response-field
-			%input.ftchd_cand_type{type: "hidden", name: "ftchd_cand_type"}
-			%input.ftchd_cand_id{type: "hidden", name: "ftchd_cand_id"}
-			= hidden_field_tag :rating, 3-i
-			= submit_tag "Abstimmen"
+			%p
+				%label{for: "name_#{i+1}"} Name:
+				%input.candidate-input{type: "text", id: "candidate_#{i}", name: "candidate", placeholder: "Kandidat"}
+				= hidden_field_tag :rating, 3-i
+				= submit_tag "Abstimmen"
 			%span.success-msg
 			%span.error-msg
 
