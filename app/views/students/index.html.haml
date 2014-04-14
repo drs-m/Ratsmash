@@ -13,15 +13,16 @@
 
   %tbody
     - @students.each do |student|
-      = raw student.password_resetkey.blank? ? "<tr>" : "<tr style='background-color: red;' >"
-        %td= student.name
-        %td= student.gender ? "m" : "w"
-        %td= student.mail_address
-        %td= student.admin_permissions ? "Ja" : "Nein"
-        %td= link_to 'Anzeigen', student
-        %td= link_to 'Bearbeiten', edit_student_path(student)
-        %td= link_to 'Löschen', student, method: :delete, data: { confirm: 'Soll Eintrag Nr. ' + student.id.to_s + " wirklich gelöscht werden?" }
-     
+      = raw(student.password_resetkey.blank? ? "<tr>" : "<tr style='background-color: red;' >")
+      %td= student.name
+      %td= student.gender ? "m" : "w"
+      %td= student.mail_address
+      %td= student.admin_permissions ? "Ja" : "Nein"
+      %td= link_to 'Anzeigen', student
+      %td= link_to 'Bearbeiten', edit_student_path(student)
+      %td= link_to 'Löschen', student, method: :delete, data: { confirm: 'Soll Eintrag Nr. ' + student.id.to_s + " wirklich gelöscht werden?" }
+      = raw "</tr>"
+
 %br
 
 = link_to 'Schüler hinzufügen', new_student_path
