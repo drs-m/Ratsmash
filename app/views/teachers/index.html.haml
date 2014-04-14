@@ -1,0 +1,25 @@
+%h1 Lehrerliste
+
+%table
+  %thead
+    %tr
+      %th Name
+      %th Geschlecht
+      %th
+      %th
+      %th
+
+  %tbody
+    - @teachers.each do |teacher|
+      %tr
+        %td= teacher.name
+        %td= teacher.gender ? "m" : "w"
+        %td= link_to 'Anzeigen', teacher
+        %td= link_to 'Bearbeiten', edit_teacher_path(teacher)
+        %td= link_to 'Löschen', teacher, method: :delete, data: { confirm: 'Soll Eintrag Nr. ' + teacher.id.to_s + " wirklich gelöscht werden?" }
+      </tr>
+
+%br
+
+= link_to 'Lehrer hinzufügen', new_teacher_path
+= link_to "Administration", :settings
