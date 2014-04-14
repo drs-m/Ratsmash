@@ -15,5 +15,7 @@
 			%input.ftchd_cand_id{type: "hidden", name: "ftchd_cand_id"}
 			= hidden_field_tag :rating, 3-i
 			= submit_tag "Abstimmen"
+			%span.success-msg
+			%span.error-msg
 
 = link_to "Kategorie-Liste", category_list_path
