@@ -27,7 +27,13 @@ $ ->
 			# set the label into the text-input instead of the value
 			event.preventDefault()
 			$(this).val ui.item.label
+	showSuccessMsg = (form, msg) ->
+		$(form).find(".error-msg").fadeOut()
+		$(form).find(".success-msg").fadeOut().text(msg).fadeIn()
 
+	showErrorMsg = (form, msg) ->
+		$(form).find(".success-msg").fadeOut()
+		$(form).find(".error-msg").fadeOut().text(msg).fadeIn()
 
 	$(".voting-form").on "submit", ->
 		event.preventDefault()
