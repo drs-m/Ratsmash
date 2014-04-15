@@ -4,26 +4,30 @@ class VotingController < ApplicationController
 	before_action :check_session
 
 	def autocomplete
+		# Beispiel: /vote/autocomplete.json?p=&q=a&c=31
+
+		redirect_to :home unless params[:format] == "json"
+
 		# check if searchstring and category are provided
-		return render json: { status: "error", details: { code: 0, message: "too few arguments provided" } } unless params[:q] && params[:c]
-		
+		@error = "too few arguments provided" and return render unless params[:q] && params[:c]
 		category = Category.find_by id: params[:c]
 		# breche ab wenn keine kategorie gefunden wurde
-		return render json: { status: "error", details: { code: 1, message: "category not found" } } unless category
+		@error = "category not found" and return render unless category
 
-		@possible_names = []
+		@results = []
 		# xor
 		if category.male ^ category.female
-			Student.name_search(params[:q]).where(gender: category.male).each { |student| @possible_names << student.name } if category.student
-			Teacher.name_search(params[:q]).where(gender: category.male).each { |teacher| @possible_names << teacher.name } if category.teacher
+			@results += Student.name_search(params[:q]).where(gender: category.male).to_a if category.student
+			@results += Teacher.name_search(params[:q]).where(gender: category.male).to_a if category.teacher
 		else
-			Student.name_search(params[:q]).each { |student| @possible_names << student.name } if category.student
-			Teacher.name_search(params[:q]).each { |teacher| @possible_names << teacher.name } if category.teacher
-		end 
-		response = { status: "success", results: @possible_names }
-		# formatiere die antwort unter angabe von p= mit einrückungen, sodass die daten leichter einsehbar sind, bsp: /vote/autocomplete?p=&c=34&q=müller
-		response = JSON.pretty_generate response if params[:p]
-		render json: response
+			@results += Student.name_search(params[:q]).to_a if category.student
+			@results += Teacher.name_search(params[:q]).to_a if category.teacher
+		end
+
+		# übersichtlichere ausgabe wenn ?p= angegeben wurde
+		render(:json => JSON.pretty_generate(JSON.parse(render_to_string))) and return if params[:p]
+		
+		# --> voting/autocomplete.json.jbuilder
 	end
 	
 	def menu
@@ -548,21 +552,24 @@ class VotingController < ApplicationController
 
 	def commit
 		@category = Category.find_by_id(params[:category_id])
-		display_error(message: "Die Kategorie wurde nicht gefunden!", route_back: :category_list) and return unless @category
+		redirect_to(give_vote_path(category_id: @category.id), notice: "Die Kategorie wurde nicht gefunden!") and return unless @category
 		
 		# find the voted account by searching in student db first and in teacher db if nothing has been found
-		voted = Student.find_by name: params[:name]
-		voted = Teacher.find_by name: params[:name] unless voted
+		voted = Student.find_by name: params[:candidate]
+		voted = Teacher.find_by name: params[:candidate] unless voted
 
 		if voted
 			# breche ab wenn das rating zu hoch/niedrig ist
-			display_error(message: "Rating (" + params[:rating] + ") zu hoch/niedrig!", route_back: give_vote_path(category_id: @category.id)) and return unless (1..3).include?(params[:rating].to_i)
+			redirect_to(give_vote_path(category_id: @category.id), notice: "Rating (" + params[:rating] + ") zu hoch/niedrig!") and return unless (1..3).include?(params[:rating].to_i)
 
+			# abspeicherung der stimme
+			@current_user.given_votes << voted.achieved_votes.build(category_id: @category.id, rating: params[:rating])
+			
 			# umleitung zur abstimmungsseite, sofern die stimmabgabe erfolgreich war
 			redirect_to give_vote_path(category_id: @category.id), notice: "Erfolgreich abgestimmt"
 		else
 			# breche ab wenn kein kandidat gefunden wurde
-			display_error message: "Der Kandidat " + params[:name] + " wurde nicht gefunden!", route_back: give_vote_path(category_id: @category.id)
+			redirect_to give_vote_path(category_id: @category.id), notice: "Der Kandidat " + params[:candidate] + " wurde nicht gefunden!"
 		end
 	end
 

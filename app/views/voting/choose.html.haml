@@ -10,8 +10,8 @@
 		= form_tag({}, method: "post", class: "voting-form") do
 			%p
 				%label{for: "name_#{i+1}"} Name:
-				%input.candidate-input{type: "text", id: "candidate_#{i}", name: "candidate", placeholder: "Kandidat"}
-				= hidden_field_tag :rating, 3-i
+				%input.candidate-input{type: "text", id: "candidate_#{i}", name: "candidate", placeholder: "Kandidat", value: @given_votes[i-1].present? ? @given_votes[i-1].voted.name : ""}
+				= hidden_field_tag :rating, 4-i
 				= submit_tag "Abstimmen"
 			%span.success-msg
 			%span.error-msg
