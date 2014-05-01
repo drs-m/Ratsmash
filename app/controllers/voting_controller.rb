@@ -3,6 +3,32 @@ class VotingController < ApplicationController
 
 	before_action :check_session
 
+	def autocomplete
+		# Beispiel: /vote/autocomplete.json?p=&q=a&c=31
+
+		redirect_to :home unless params[:format] == "json"
+
+		# check if searchstring and category are provided
+		@error = "too few arguments provided" and return render unless params[:q] && params[:c]
+		category = Category.find_by id: params[:c]
+		# breche ab wenn keine kategorie gefunden wurde
+		@error = "category not found" and return render unless category
+
+		@results = []
+		# xor
+		if category.male ^ category.female
+			@results += Student.name_search(params[:q]).where(gender: category.male).to_a if category.student
+			@results += Teacher.name_search(params[:q]).where(gender: category.male).to_a if category.teacher
+		else
+			@results += Student.name_search(params[:q]).to_a if category.student
+			@results += Teacher.name_search(params[:q]).to_a if category.teacher
+		end
+
+		# übersichtlichere ausgabe wenn ?p= angegeben wurde
+		render(:json => JSON.pretty_generate(JSON.parse(render_to_string))) and return if params[:p]
+		
+		# --> voting/autocomplete.json.jbuilder
+	end
 	
 	def menu
 		
@@ -504,17 +530,17 @@ class VotingController < ApplicationController
 
 	def list
 		# ordnen der Kategorien nach Typ
-		@categories_all = Category.where(student: true, teacher: true, male: true, female: true)
-		@categories_all_male = Category.where(student: true, teacher: true, male: true, female: false)
-		@categories_all_female = Category.where(student: true, teacher: true, male: false, female: true)
-
-		@categories_student_all = Category.where(student: true, teacher: false, male: true, female: true)
-		@categories_student_male = Category.where(student: true, teacher: false, male: true, female: false)
-		@categories_student_female = Category.where(student: true, teacher: false, male: false, female: true)
-
-		@categories_teacher_all = Category.where(student: false, teacher: true, male: true, female: true)
-		@categories_teacher_male = Category.where(student: false, teacher: true, male: true, female: false)
-		@categories_teacher_female = Category.where(student: false, teacher: true, male: false, female: true)
+		@categories_all = Category.unisex.unigroup	
+		@categories_all_female = Category.female.unigroup
+		@categories_all_male = Category.male.unigroup
+	
+		@categories_student_all = Category.unisex.student
+		@categories_student_female = Category.female.student
+		@categories_student_male = Category.male.student
+	
+		@categories_teacher_all = Category.unisex.teacher
+		@categories_teacher_female = Category.female.teacher
+		@categories_teacher_male = Category.male.teacher
 	end
 
 	def choose
@@ -526,21 +552,24 @@ class VotingController < ApplicationController
 
 	def commit
 		@category = Category.find_by_id(params[:category_id])
-		display_error(message: "Die Kategorie wurde nicht gefunden!", back: :category_list) and return unless @category
+		redirect_to(give_vote_path(category_id: @category.id), notice: "Die Kategorie wurde nicht gefunden!") and return unless @category
 		
-		voted = Student.find_by name: params[:name]
-		voted = Teacher.find_by name: params[:name] unless voted
+		# find the voted account by searching in student db first and in teacher db if nothing has been found
+		voted = Student.find_by name: params[:candidate]
+		voted = Teacher.find_by name: params[:candidate] unless voted
 
 		if voted
 			# breche ab wenn das rating zu hoch/niedrig ist
-			display_error(message: "Rating (" + params[:rating] + ") falsch!", back: give_vote_path(category_id: @category.id)) and return unless (1..3).include?(params[:rating].to_i)
+			redirect_to(give_vote_path(category_id: @category.id), notice: "Rating (" + params[:rating] + ") zu hoch/niedrig!") and return unless (1..3).include?(params[:rating].to_i)
 
+			# abspeicherung der stimme
+			@current_user.given_votes << voted.achieved_votes.build(category_id: @category.id, rating: params[:rating])
+			
 			# umleitung zur abstimmungsseite, sofern die stimmabgabe erfolgreich war
 			redirect_to give_vote_path(category_id: @category.id), notice: "Erfolgreich abgestimmt"
 		else
 			# breche ab wenn kein kandidat gefunden wurde
-			display_error message: "Der Kandidat " + params[:name] + " wurde nicht gefunden!", back: give_vote_path(category_id: @category.id)
-			render :error_while_voting, notice: "Der Kandidat " + params[:name] + " wurde nicht gefunden!"
+			redirect_to give_vote_path(category_id: @category.id), notice: "Der Kandidat " + params[:candidate] + " wurde nicht gefunden!"
 		end
 	end
 
@@ -561,7 +590,7 @@ class VotingController < ApplicationController
 
 	def display_error(options = {})
 		@message = options[:message]
-		@back_route = options[:back]
+		@route_back = options[:route_back]
 		render :error_while_voting
 	end
 

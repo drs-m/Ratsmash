@@ -1,0 +1,19 @@
+-# Erstellt mit HAML (HTML Abstract Markdown Language)
+
+%h1{id: "category-heading", data: {category: @category.id}}	Deine Wahl in der Kategorie #{@category.name}
+
+.notice= flash[:notice]
+
+- (1..3).each do |i|
+	.voting
+		%h2 #{i}. Platz
+		= form_tag({}, method: "post", class: "voting-form") do
+			%p
+				%label{for: "name_#{i+1}"} Name:
+				%input.candidate-input{type: "text", id: "candidate_#{i}", name: "candidate", placeholder: "Kandidat", value: @given_votes[i-1].present? ? @given_votes[i-1].voted.name : ""}
+				= hidden_field_tag :rating, 4-i
+				= submit_tag "Abstimmen"
+			%span.success-msg
+			%span.error-msg
+
+= link_to "Kategorie-Liste", category_list_path

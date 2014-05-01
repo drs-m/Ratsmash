@@ -1,0 +1,4 @@
+%h1 Hauptmenü
+%p= "Hallo " + @current_user.name
+= link_to "Kategorien", :category_list
+= link_to "Administration", :settings if @current_user.admin_permissions

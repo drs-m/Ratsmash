@@ -6,7 +6,7 @@ class StudentsController < ApplicationController
   # GET /students
   # GET /students.json
   def index
-    @students = Student.order :last_name
+    @students = Student.order :name
   end
 
   # GET /students/1
