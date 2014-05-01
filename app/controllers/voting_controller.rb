@@ -82,7 +82,7 @@ class VotingController < ApplicationController
 			@possible_names = @possible_names.sort
 
 			if @possible_names.empty?
-				@possible_names = ["Name nicht vorhanden oder nicht zulässig für diese Kategorie"]
+				@possible_names = ["Name nicht vorhanden oder nicht zulÃ¤ssig fÃ¼r diese Kategorie"]
 			end
 
 			render :partial => 'possible_names'

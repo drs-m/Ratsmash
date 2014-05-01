@@ -3,7 +3,8 @@
 <table>
   <thead>
     <tr>
-      <th>Name</th>
+      <th>Vorname</th>
+      <th>Nachname</th>
       <th>Geschlecht</th>
       <th>E-Mail Adresse</th>
       <th>Admin-Rechte</th>
@@ -16,7 +17,8 @@
   <tbody>
     <% @students.each do |student| %>
       <%= raw student.password_resetkey.blank? ? "<tr>" : "<tr style='background-color: red;' >" %>
-        <td><%= student.name %></td>
+        <td><%= student.first_name %></td>
+        <td><%= student.last_name %></td>
         <td><%= student.gender ? "m" : "w" %></td>
         <td><%= student.mail_address %></td>
         <td><%= student.admin_permissions ? "Ja" : "Nein" %></td>
