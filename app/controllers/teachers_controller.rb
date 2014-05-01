@@ -7,7 +7,7 @@ class TeachersController < ApplicationController
   # GET /teachers
   # GET /teachers.json
   def index
-    @teachers = Teacher.order :last_name
+    @teachers = Teacher.order :name
   end
 
   # GET /teachers/1
@@ -72,6 +72,6 @@ class TeachersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def teacher_params
-      params.require(:teacher).permit(:first_name, :last_name, :gender)
+      params.require(:teacher).permit(:name, :gender)
     end
 end

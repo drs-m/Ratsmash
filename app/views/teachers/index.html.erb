@@ -3,8 +3,7 @@
 <table>
   <thead>
     <tr>
-      <th>Vorname</th>
-      <th>Nachname</th>
+      <th>Name</th>
       <th>Geschlecht</th>
       <th></th>
       <th></th>
@@ -15,8 +14,7 @@
   <tbody>
     <% @teachers.each do |teacher| %>
       <tr>
-        <td><%= teacher.first_name %></td>
-        <td><%= teacher.last_name %></td>
+        <td><%= teacher.name %></td>
         <td><%= teacher.gender ? "m" : "w" %></td>
         <td><%= link_to 'Anzeigen', teacher %></td>
         <td><%= link_to 'Bearbeiten', edit_teacher_path(teacher) %></td>

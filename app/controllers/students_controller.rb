@@ -6,7 +6,7 @@ class StudentsController < ApplicationController
   # GET /students
   # GET /students.json
   def index
-    @students = Student.order :last_name
+    @students = Student.order :name
   end
 
   # GET /students/1
@@ -71,6 +71,6 @@ class StudentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def student_params
-      params.require(:student).permit(:first_name, :last_name, :gender, :mail_address, :password_digest, :password_resetkey, :admin_permissions)
+      params.require(:student).permit(:name, :gender, :mail_address, :password_digest, :password_resetkey, :admin_permissions)
     end
 end
