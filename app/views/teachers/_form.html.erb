@@ -1,7 +1,7 @@
 <%= form_for(@teacher) do |f| %>
   <% if @teacher.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@teacher.errors.count, "error") %> prohibited this teacher from being saved:</h2>
+      <h2><%= @teacher.errors.count %> Fehler sind aufgetreten:</h2>
 
       <ul>
       <% @teacher.errors.full_messages.each do |msg| %>
@@ -16,13 +16,14 @@
     <%= f.text_field :name %>
   </div>
   <div class="field">
-    <%= f.label :gender %><br>
-    <%= f.check_box :gender %>
+    <%= f.label :gender, "Geschlecht" %><br>
+    männlich: <%= f.radio_button :gender, "m", checked: @teacher.gender %> weiblich: <%= f.radio_button :gender, "w", checked: (!@teacher.gender and !@teacher.gender.nil?) %>
+  </div>
   <div class="field">
     <%= f.label :closed, "Gesperrt" %>
     <%= f.check_box :closed %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "Bestätigen" %>
   </div>
 <% end %>

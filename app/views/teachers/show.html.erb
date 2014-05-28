@@ -3,15 +3,16 @@
 <% if @teacher.closed %>
   <strong style="color:red;">ACCOUNT GESCHLOSSEN!</strong>
 <% end %>
+
 <p>
   <strong>Name:</strong>
   <%= @teacher.name %>
 </p>
 
 <p>
-  <strong>Gender:</strong>
-  <%= @teacher.gender %>
+  <strong>Geschlecht:</strong>
+  <%= @teacher.gender ? "männlich" : "weiblich" %>
 </p>
 
-<%= link_to 'Edit', edit_teacher_path(@teacher) %> |
-<%= link_to 'Back', teachers_path %>
+<%= link_to 'Bearbeiten', edit_teacher_path(@teacher) %> |
+<%= link_to 'Zurück', teachers_path %>

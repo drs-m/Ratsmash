@@ -1,5 +1,7 @@
+# encoding: utf-8
 class StudentsController < ApplicationController
 
+  # check for current admin-session
   before_action -> { check_session true }
   before_action :set_student, only: [:show, :edit, :update, :destroy]
 
@@ -26,11 +28,11 @@ class StudentsController < ApplicationController
   # POST /students
   # POST /students.json
   def create
-    @student = Student.new(student_params)
+    @student = Student.new(processed_params)
 
     respond_to do |format|
       if @student.save
-        format.html { redirect_to @student, notice: 'Student was successfully created.' }
+        format.html { redirect_to @student, notice: 'Der Schüler wurde erfolgreich hinzugefügt.' }
         format.json { render action: 'show', status: :created, location: @student }
       else
         format.html { render action: 'new' }
@@ -43,8 +45,8 @@ class StudentsController < ApplicationController
   # PATCH/PUT /students/1.json
   def update
     respond_to do |format|
-      if @student.update(student_params)
-        format.html { redirect_to @student, notice: 'Student was successfully updated.' }
+      if @student.update(processed_params)
+        format.html { redirect_to @student, notice: 'Der Eintrag wurde erfolgreich bearbeitet.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -69,8 +71,15 @@ class StudentsController < ApplicationController
       @student = Student.find(params[:id])
     end
 
+    def processed_params
+      params_copy = student_params
+      params_copy[:gender] = params_copy[:gender] == "m" ? true : false
+      params_copy[:password_confirmation] = params_copy[:password]
+      return params_copy
+    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def student_params
-      params.require(:student).permit(:first_name, :last_name, :gender, :mail_address, :password_digest, :password_resetkey, :admin_permissions)
+      params.require(:student).permit(:name, :gender, :mail_address, :password, :closed, :admin_permissions)
     end
 end

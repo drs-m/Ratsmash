@@ -12,7 +12,6 @@
   %tbody
     - @teachers.each do |teacher|
       %tr
-        %td= teacher.name
         %td{style: teacher.closed ? "background-color: red;" : ""}= teacher.name
         %td= teacher.gender ? "m" : "w"
         %td= link_to 'Anzeigen', teacher

@@ -14,6 +14,8 @@ class Student < ActiveRecord::Base
 	scope :male, -> { where gender: true }
 	scope :female, -> { where gender: false }
 
+	validates :name, :mail_address, presence: true
+
 	private
 		def set_defaults
 			self.admin_permissions ||= false

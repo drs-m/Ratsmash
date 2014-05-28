@@ -1,6 +1,7 @@
 # encoding: utf-8
 class TeachersController < ApplicationController
 
+  # check for current admin-session
   before_action -> { check_session true }
   before_action :set_teacher, only: [:show, :edit, :update, :destroy]
 
@@ -27,11 +28,11 @@ class TeachersController < ApplicationController
   # POST /teachers
   # POST /teachers.json
   def create
-    @teacher = Teacher.new(teacher_params)
+    @teacher = Teacher.new(processed_params)
 
     respond_to do |format|
       if @teacher.save
-        format.html { redirect_to @teacher, notice: 'Teacher was successfully created.' }
+        format.html { redirect_to @teacher, notice: 'Der Lehrer wurde erfolgreich hinzugefügt.' }
         format.json { render action: 'show', status: :created, location: @teacher }
       else
         format.html { render action: 'new' }
@@ -44,8 +45,8 @@ class TeachersController < ApplicationController
   # PATCH/PUT /teachers/1.json
   def update
     respond_to do |format|
-      if @teacher.update(teacher_params)
-        format.html { redirect_to @teacher, notice: 'Teacher was successfully updated.' }
+      if @teacher.update(processed_params)
+        format.html { redirect_to @teacher, notice: 'Der Eintrag wurde erfolgreich bearbeitet.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -70,8 +71,14 @@ class TeachersController < ApplicationController
       @teacher = Teacher.find(params[:id])
     end
 
+    def processed_params
+      params_copy = teacher_params
+      params_copy[:gender] = params_copy[:gender] == "m" ? true : false
+      return params_copy
+    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def teacher_params
-      params.require(:teacher).permit(:first_name, :last_name, :gender)
+      params.require(:teacher).permit(:name, :gender, :closed)
     end
 end

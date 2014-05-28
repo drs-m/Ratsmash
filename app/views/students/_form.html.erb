@@ -1,8 +1,7 @@
 <%= form_for(@student) do |f| %>
   <% if @student.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@student.errors.count, "error") %> prohibited this student from being saved:</h2>
-
+      <h2><%= @student.errors.count %> Fehler sind aufgetreten:</h2>
       <ul>
       <% @student.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
@@ -16,28 +15,26 @@
     <%= f.text_field :name %>
   </div>
   <div class="field">
-    <%= f.label :gender %><br>
-    <%= f.text_field :gender %>
+    <%= f.label :gender, "Geschlecht" %><br>
+    männlich: <%= f.radio_button :gender, "m", checked: @student.gender %> weiblich: <%= f.radio_button :gender, "w", checked: (!@student.gender and !@student.gender.nil?) %>
   </div>
   <div class="field">
-    <%= f.label :mail_address %><br>
+    <%= f.label :mail_address, "E-Mail Adresse" %><br>
     <%= f.text_field :mail_address %>
   </div>
   <div class="field">
-    <%= f.label :password_digest %><br>
-    <%= f.text_field :password_digest %>
+    <%= f.label :password, "Neues Passwort" %><br>
+    <%= f.password_field :password %>
   </div>
   <div class="field">
-    <%= f.label :password_resetkey %><br>
-    <%= f.text_field :password_resetkey %>
+    <%= f.label :admin_permissions, "Admin-Rechte" %>
+    <%= f.check_box :admin_permissions %>
   </div>
   <div class="field">
-    <%= f.label :admin_permissions %><br>
-    <%= f.text_field :admin_permissions %>
     <%= f.label :closed, "Gesperrt" %>
     <%= f.check_box :closed %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "Bestätigen" %>
   </div>
 <% end %>

@@ -10,29 +10,19 @@
 </p>
 
 <p>
-  <strong>Gender:</strong>
-  <%= @student.gender %>
+  <strong>Geschlecht:</strong>
+  <%= @student.gender ? "männlich" : "weiblich" %>
 </p>
 
 <p>
-  <strong>Mail address:</strong>
+  <strong>E-Mail Addresse:</strong>
   <%= @student.mail_address %>
 </p>
 
 <p>
-  <strong>Password digest:</strong>
-  <%= @student.password_digest %>
+  <strong>Admin-Rechte:</strong>
+  <%= @student.admin_permissions ? "Ja" : "Nein" %>
 </p>
 
-<p>
-  <strong>Password resetkey:</strong>
-  <%= @student.password_resetkey %>
-</p>
-
-<p>
-  <strong>Admin permissions:</strong>
-  <%= @student.admin_permissions %>
-</p>
-
-<%= link_to 'Edit', edit_student_path(@student) %> |
-<%= link_to 'Back', students_path %>
+<%= link_to 'Bearbeiten', edit_student_path(@student) %> |
+<%= link_to 'Zurück', students_path %>
