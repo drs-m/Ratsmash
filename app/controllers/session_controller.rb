@@ -10,8 +10,12 @@ class SessionController < ApplicationController
 			account = Student.find_by mail_address: params[:email]
 			if account
 				if account.authenticate params[:password]
-					session[:acc_id] = account.id
-					redirect_to :home
+					if account.closed
+						flash[:notice] = "Dein Account wurde gesperrt! Bitte wende dich an die Abizeitung oder das Ratsmash-Team."
+					else
+						session[:acc_id] = account.id
+						redirect_to :home
+					end
 				else
 					flash[:notice] = "Das eingegebene Passwort ist falsch"
 				end
