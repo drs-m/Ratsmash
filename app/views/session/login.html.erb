@@ -1,15 +1,16 @@
-<h1>Login</h1>
 <% flash.each do |name,message| %>
 	<div id="flash_<%= name %>">
 		<%= message %>
 	</div>
 	<br />
 <% end %>
+<div id="login">
+	<h1>Login</h1>
+	<%= form_tag do %>
+		<%= text_field_tag :email %><br />
+		<%= password_field_tag :password, :value => 'Passwort' %><br />
+		<%= submit_tag "Einloggen", :id => "send_login"  %>
+	<% end %>
+	<%= link_to "Instant Login", controller: "session", action: "instantlogin" %>
+</div>
 
-<%= form_tag do %>
-	<%= text_field_tag :email %><br />
-	<%= password_field_tag :password %><br />
-	<%= submit_tag("Einloggen") %>
-<% end %>
-
-<%= link_to "Instant Login", controller: "session", action: "instantlogin" %>

@@ -2,3 +2,50 @@
 /*= require jquery-ui-flick */
 /*= require script-notifier */
 /*= require voting */
+html {
+    height: 100%;
+}
+
+body{
+	background-attachment: fixed;
+	height: 100%;
+	background: #98d8f2; /* Old browsers */
+	background: -moz-linear-gradient(45deg, #98d8f2 0%, #60abf8 66%, #4096ee 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left bottom, right top, color-stop(0%,#98d8f2), color-stop(66%,#60abf8), color-stop(100%,#4096ee)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(45deg, #98d8f2 0%,#60abf8 66%,#4096ee 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(45deg, #98d8f2 0%,#60abf8 66%,#4096ee 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(45deg, #98d8f2 0%,#60abf8 66%,#4096ee 100%); /* IE10+ */
+	background: linear-gradient(45deg, #98d8f2 0%,#60abf8 66%,#4096ee 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#98d8f2', endColorstr='#4096ee',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+	background-repeat: no-repeat;
+	background-size: 100%;
+}
+#login{
+	position: absolute;
+	padding: 20px;
+	left: 50%;
+	top: 50%;
+	width: 200px;
+	height: auto;
+	background: white;
+	border-radius:10px;
+	margin-left:-120px;
+	margin-top: -50px;
+	box-shadow: 1px 2px 3px 1px gray;
+}
+#login h1{
+	margin:0;
+	margin-bottom: 20px;
+}
+#email{
+	width: 100%;
+	border-radius: 5px;
+	margin-bottom:10px;
+}
+#password{
+	width: 100%;
+	border-radius: 5px;
+}
+#send_login{
+	margin-top: 10px;
+}
