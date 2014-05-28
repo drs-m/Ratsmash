@@ -34,6 +34,8 @@
   <div class="field">
     <%= f.label :admin_permissions %><br>
     <%= f.text_field :admin_permissions %>
+    <%= f.label :closed, "Gesperrt" %>
+    <%= f.check_box :closed %>
   </div>
   <div class="actions">
     <%= f.submit %>

@@ -1,5 +1,9 @@
 <p id="notice"><%= notice %></p>
 
+<% if @student.closed %>
+  <strong style="color:red;">ACCOUNT GESCHLOSSEN!</strong>
+<% end %>
+
 <p>
   <strong>Name:</strong>
   <%= @student.name %>

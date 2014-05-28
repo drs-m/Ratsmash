@@ -17,14 +17,14 @@ class VotingController < ApplicationController
 		@results = []
 		# xor
 		if category.male ^ category.female
-			@results += Student.name_search(params[:q]).where(gender: category.male).to_a if category.student
-			@results += Teacher.name_search(params[:q]).where(gender: category.male).to_a if category.teacher
+			@results += Student.name_search(params[:q]).where(gender: category.male, closed: false).to_a if category.student
+			@results += Teacher.name_search(params[:q]).where(gender: category.male, closed: false).to_a if category.teacher
 		else
-			@results += Student.name_search(params[:q]).to_a if category.student
-			@results += Teacher.name_search(params[:q]).to_a if category.teacher
+			@results += Student.name_search(params[:q]).where(closed: false).to_a if category.student
+			@results += Teacher.name_search(params[:q]).where(closed: false).to_a if category.teacher
 		end
 
-		# übersichtlichere ausgabe wenn ?p= angegeben wurde
+		# übersichtlichere ausgabe wenn ?p= angegeben wurde (PrettyPrint)
 		render(:json => JSON.pretty_generate(JSON.parse(render_to_string))) and return if params[:p]
 		
 		# --> voting/autocomplete.json.jbuilder
