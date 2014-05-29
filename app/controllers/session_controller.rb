@@ -7,13 +7,17 @@ class SessionController < ApplicationController
 
 		# form sent?
 		if params[:email]
-			account = Student.find_by mail_address: params[:email]
-			if account
-				if account.authenticate params[:password]
-					if account.closed
+			student = Student.find_by mail_address: params[:email]
+			if student
+				if student.authenticate params[:password]
+					if student.closed
 						flash[:notice] = "Dein Account wurde gesperrt! Bitte wende dich an die Abizeitung oder das Ratsmash-Team."
 					else
-						session[:acc_id] = account.id
+						if params[:persist]	
+							cookies.permanent[:at] = student.auth_token
+						else	
+							cookies[:at] = student.auth_token
+						end
 						redirect_to :home
 					end
 				else
@@ -26,12 +30,12 @@ class SessionController < ApplicationController
 	end
 
 	def logout
-		session[:acc_id] = nil
+		cookies.delete :at
 		redirect_to :login
 	end
 
 	def instantlogin
-		session[:acc_id] = Student.offset(rand(Student.count)).first
+		cookies.permanent[:at] = Student.offset(rand(Student.count)).first.auth_token
 		redirect_to :home
 	end
 

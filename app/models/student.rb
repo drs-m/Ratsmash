@@ -9,6 +9,7 @@ class Student < ActiveRecord::Base
 
 	# einträge lassen sich bei before_validation oder before_save seltsamerweise nicht speichern! hat vermutlich was mit has_secure_password zu tun
 	after_validation :set_defaults
+	before_create { generate_token(:auth_token) }
 
 	scope :name_search, ->(name = "") { where("name LIKE ?", "%#{name}%") unless name.empty? }
 	scope :male, -> { where gender: true }
@@ -21,5 +22,11 @@ class Student < ActiveRecord::Base
 			self.admin_permissions ||= false
 			self.closed ||= false
 		end
+
+		def generate_token(column)
+	    	begin
+    	  		self[column] = SecureRandom.urlsafe_base64
+    		end while Student.exists?(column => self[column])
+  		end
 
 end
