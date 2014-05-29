@@ -65,27 +65,41 @@ class StudentsController < ApplicationController
     end
   end
 
+  # NOT VERY DRY! - TODO
   def change_password
     @errors = []
     if params[:t]
       # password-reset
       student = Student.find_by password_reset_token: params[:t]
       @errors << "Dieser Link ist ungültig" and @fatal = true and return unless student
+      @name = student.name
       # @errors << "Dieser Link ist abgelaufen" and @fatal = true if student.password_reset_sent_at < 2.hours.ago
       if params[:password]
         if params[:password_confirmation].present? && params[:password] == params[:password_confirmation]
           student.password = params[:password]
           student.password_confirmation = params[:password]
           student.password_reset_token = nil
+          student.password_reset_sent_at = nil
           student.save
           redirect_to :login, notice: "Dein Passwort wurde erfolgreich geändert!"
         else
           @errors << "Die Passwörter stimmen nicht überein!"
         end
       end
-    elsif params[:password]
+    else
+      check_session redirect: true
       # password-änderung
-
+      if params[:password]
+        @errors << "Das alte Passwort ist nicht richtig" and return unless @current_user.authenticate params[:old_password]
+        if params[:password_confirmation].present? && params[:password] == params[:password_confirmation]
+            @current_user.password = params[:password]
+            @current_user.password_confirmation = params[:password]
+            @current_user.save
+            redirect_to :home, notice: "Dein Passwort wurde erfolgreich geändert!"
+        else
+          @errors << "Die Passwörter stimmen nicht überein!"
+        end
+      end
     end
   end
 

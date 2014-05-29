@@ -1,4 +1,9 @@
 %h1 Hauptmenü
+- flash.each do |name, message|
+	%ul
+		%li= message
+
 %p= "Hallo " + @current_user.name
 = link_to "Kategorien", :category_list
+= link_to "Passwort ändern", :change_password
 = link_to "Administration", :settings if @current_user.admin_permissions
