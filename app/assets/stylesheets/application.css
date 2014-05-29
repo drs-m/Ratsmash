@@ -2,10 +2,12 @@
 /*= require jquery-ui-flick */
 /*= require script-notifier */
 /*= require voting */
-
+html{
+	height: 100%;
+	width: 100%;
+}
 body{
 	width:100%;
-	height: 100%;
 	background-attachment: fixed;
 	height: 100%;
 	background: #98d8f2; /* Old browsers */
