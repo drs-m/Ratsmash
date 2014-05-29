@@ -44,7 +44,18 @@ body{
 	width: 50%;
 	height: 50%;
 	margin-left: 25%;
-	margin-top: 25%;
+	margin-top: 20%;
+}
+#buttons_wrapper{
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	height: auto;
+}
+#login div img{
+	margin-left: 25%;
+	width: 50%;
+	margin-bottom: 30px;
 }
 #login div h1{
 	margin:0;
@@ -76,30 +87,36 @@ body{
 	font-size: 16px;
 	font-family: verdana, arial, helvetica, sans-serif;
 }
+#buttons_wrapper{
+	display: block;
+}
 #persist_label{
 	font-size: 16px;
 	font-weight: normal;
 	font-family: verdana, arial, helvetica, sans-serif;
 	color:black;
+	float: left;
+	margin-top: 20px;
+	margin-bottom: 20px;
 }
 #persist{
 	width: 20px;
 	height:20px;
+	float: left;
+	margin-top: 20px;
 }
 #send_login{
+	float: right;
 	font-size: 16px;
 	font-weight: bold;
 	font-family: verdana, arial, helvetica, sans-serif;
 	color:black;
 	border: none;
 	display: block;
-	min-width: 33%;
+	min-width: 25%;
 	padding: 10px 0px;
 	border-radius: 5px;
-	margin-top: 20px;
-	margin-left: 33%;
 	background-attachment: fixed;
-	height: 100%;
 	background: #98d8f2; /* Old browsers */
 	background: -moz-linear-gradient(45deg, #98d8f2 0%, #60abf8 66%, #4096ee 100%); /* FF3.6+ */
 	background: -webkit-gradient(linear, left bottom, right top, color-stop(0%,#98d8f2), color-stop(66%,#60abf8), color-stop(100%,#4096ee)); /* Chrome,Safari4+ */
@@ -114,6 +131,8 @@ body{
 	box-shadow: 1px 1px 2px 1px gray;
 }
 #login div a{
+	display: block;
+	clear: both;
 	margin-top: 10px;
 	display: block;
 	font-family: verdana, arial, helvetica, sans-serif;
@@ -131,6 +150,9 @@ body{
 		margin-top: -300px;
 		margin-left: -400px;
 	}
+	#login div{
+		margin-top: 15%;
+	}
 }
 @media only screen and (max-width: 800px){
 	#login{
@@ -140,10 +162,10 @@ body{
 		margin-left: -300px;
 	}
 	#login div {
-		width: 40%;
+		width: 50%;
 		height: 40%;
-		margin-left: 30%;
-		margin-top: 15%;
+		margin-left: 25%;
+		margin-top: 7%;
 	}
 	#login div h1{
 		font-size: 24px;
@@ -164,10 +186,10 @@ body{
 	#login{
 		top:50%;
 		left: 50%;
-		margin-left: -150px;
-		margin-top: -150px;
-		width: 300px;
-		height: 320px;
+		margin-left: -160px;
+		margin-top: -170px;
+		width: 320px;
+		height: 340px;
 		border-radius: 10px;
 		background: white;
 		box-shadow: 1px 1px 2px 1px gray;

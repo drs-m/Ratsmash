@@ -33,12 +33,15 @@
 </div>
 <div id="login">
 	<div>
+		<%= image_tag("Rmash.png", alt: "RMash Logo") %>
 		<h1>Login</h1>
 		<%= form_tag "", method: :post do %>
 			<%= text_field_tag :email, nil, placeholder: "E-Mail Adresse" %><br />
 			<%= password_field_tag :password, nil, placeholder: "Passwort" %><br />
-			<span id="persist_label">Eingeloggt bleiben: </span><%= check_box_tag :persist %><br />
-			<%= submit_tag "Einloggen", :id => "send_login" %>
+			<span id="buttons_wrapper">
+				<span id="persist_label">Eingeloggt bleiben: </span><%= check_box_tag :persist %>
+				<%= submit_tag "Einloggen", :id => "send_login" %>
+			</span>
 		<% end %>
 		<%= link_to "Passwort vergessen", :reset_password %>
 		<!--<%= link_to "Instant Login", controller: "session", action: "instantlogin" %>-->
