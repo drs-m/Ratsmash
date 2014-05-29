@@ -48,7 +48,7 @@ categories_all_female.each { |cp_name| Category.create(name: cp_name).apply_to(:
 
 
 # Schüler
-students = [["Darius Mewes", true, "darius.mewes@rats-os.de", true, "test123"], ["Max Mustermann", true, "max.mustermann@rats-os.de", false, "hihi"], ["Julius Rückin", true, "julius.rückin@rats-os.de", true, "fladenbrot"], ["Inactiva Scholtz", false, "bumm@dong.de", false, "zinzon"]]
+students = [["Darius Mewes", true, "darius.mewes@rats-os.de", true, "test123"], ["Max Mustermann", true, "max.mustermann@rats-os.de", false, "hihi"], ["Julius Rückin", true, "julius.rueckin@rats-os.de", true, "fladenbrot"], ["Inactiva Scholtz", false, "bumm@dong.de", false, "zinzon"]]
 students.each { |student| Student.create name: student[0], gender: student[1], mail_address: student[2], admin_permissions: student[3], password: student[4], password_confirmation: student[4] }
 Student.find(4).update closed: true
 
