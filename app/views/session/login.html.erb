@@ -1,8 +1,31 @@
-<% flash.each do |name,message| %>
+<!--<% flash.each do |name,message| %>
 	<div id="flash_<%= name %>">
 		<%= message %>
 	</div>
 	<br />
+<% end %>-->
+<% if flash.count > 0 %>
+	<style>
+		#email{
+			border: 1px solid red;
+		}
+		#email:focus{
+			box-shadow: 0px 0px 3px 3px red;
+			border: none;
+			outline:none;
+		}
+		#password{
+			border: 1px solid red;
+		}
+		#password:focus{
+			box-shadow: 0px 0px 3px 3px red;
+			border: none;
+			outline:none;
+		}
+		#login div label{
+			color: red;
+		}
+	</style>
 <% end %>
 <div id="menue">
 

@@ -62,12 +62,16 @@ body{
 	height: 25px;
 	border-radius: 5px;
 	margin-bottom:20px;
+	font-size: 16px;
+	font-family: verdana, arial, helvetica, sans-serif;
 }
 #password{
 	width: 100%;
 	height: 25px;
 	border-radius: 5px;
 	margin-bottom: 20px;
+	font-size: 16px;
+	font-family: verdana, arial, helvetica, sans-serif;
 }
 #persist_label{
 	font-size: 16px;
