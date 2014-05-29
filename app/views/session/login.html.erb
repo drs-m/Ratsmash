@@ -35,8 +35,8 @@
 	<div>
 		<h1>Login</h1>
 		<%= form_tag "", method: :post do %>
-			<%= text_field_tag :email, "Rats-Mailaddresse" %><br />
-			<%= password_field_tag :password, "Passwort" %><br />
+			<%= text_field_tag :email, nil, placeholder: "E-Mail Adresse" %><br />
+			<%= password_field_tag :password, nil, placeholder: "Passwort" %><br />
 			<span id="persist_label">Eingeloggt bleiben: </span><%= check_box_tag :persist %><br />
 			<%= submit_tag "Einloggen", :id => "send_login" %>
 		<% end %>
