@@ -2,7 +2,7 @@
 class TeachersController < ApplicationController
 
   # check for current admin-session
-  before_action -> { check_session true }
+  before_action -> { check_session redirect: true, admin_permissions: true }
   before_action :set_teacher, only: [:show, :edit, :update, :destroy]
 
   # GET /teachers

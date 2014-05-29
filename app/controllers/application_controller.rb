@@ -7,20 +7,20 @@ class ApplicationController < ActionController::Base
 	# helper_method :check_session
 
 	private
-		def check_session(admin_permissions_required = false)
+		def check_session(options = {})
 			# wenn eine session vorhanden ist
 			if cookies[:at]
 		 	 	# wenn current_user nicht gesetzt ist, finde ihn anhand des tokens in der datenbank
 		 	 	if @current_user ||= Student.find_by(auth_token: cookies[:at])
 		 	 		# leite um wenn der user keine berechtigung hat
-		    		redirect_to :home if admin_permissions_required && !@current_user.admin_permissions
+		    		redirect_to :home if options[:admin_permissions] && !@current_user.admin_permissions
 		    	else
 		    		# wenn zwar session[:acc_id] gesetzt ist, aber kein account gefunden wurde -> setze session zurück: redirect zu logout
-		    		redirect_to :logout
+		    		redirect_to :logout if options[:redirect]
 		    	end
 		  	else
 		  		# es ist keine session vorhanden --> user muss sich einloggen: weiterleitung
-			  	redirect_to :login
+			  	redirect_to :login if options[:redirect]
 		 	end
 		end
 end

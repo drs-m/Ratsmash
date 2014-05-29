@@ -1,7 +1,7 @@
 # encoding: utf-8
 class VotingController < ApplicationController
 
-	before_action :check_session
+	before_action -> { check_session redirect: true }
 
 	def autocomplete
 		# Beispiel: /vote/autocomplete.json?p=&q=a&c=31

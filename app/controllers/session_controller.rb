@@ -3,7 +3,7 @@ class SessionController < ApplicationController
 	
 	def login
 		# redirect if logged in
-		redirect_to controller: "vote", action: "menu" if session[:acc_id]
+		redirect_to :home if logged_in?
 
 		# form sent?
 		if params[:email]
