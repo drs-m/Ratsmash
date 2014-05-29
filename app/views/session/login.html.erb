@@ -34,8 +34,8 @@
 	<div>
 		<h1>Login</h1>
 		<%= form_tag "", method: :post do %>
-			<%= label_tag :email, "Rats-Mailaddresse"%><%= text_field_tag :email %><br />
-			<%= label_tag :password, "Passwort" %><%= password_field_tag :password %><br />
+			<%= text_field_tag :email, "Rats-Mailaddresse" %><br />
+			<%= password_field_tag :password, "Passwort" %><br />
 			<span id="persist_label">Eingeloggt bleiben: </span><%= check_box_tag :persist %><br />
 			<%= submit_tag "Einloggen", :id => "send_login" %>
 		<% end %>
