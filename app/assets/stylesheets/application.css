@@ -80,12 +80,50 @@ body{
 	font-family: verdana, arial, helvetica, sans-serif;
 }
 #password{
-	width: 100%;
+	display: block;
+	float: left;
+	width: 89%;
 	height: 25px;
-	border-radius: 5px;
+	margin: 0;
+	border-radius: 5px 0px 0px 5px;
 	margin-bottom: 20px;
 	font-size: 16px;
 	font-family: verdana, arial, helvetica, sans-serif;
+	border-right: none;
+}
+#reset_password_wrapper{
+	float: left;
+	width: 10%;
+	height: 32px;
+	display: block;
+	border-radius: 0px 5px 5px 0px;
+	background-attachment: fixed;
+	background: #98d8f2; /* Old browsers */
+	background: -moz-linear-gradient(45deg, #98d8f2 0%, #60abf8 66%, #4096ee 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left bottom, right top, color-stop(0%,#98d8f2), color-stop(66%,#60abf8), color-stop(100%,#4096ee)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(45deg, #98d8f2 0%,#60abf8 66%,#4096ee 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(45deg, #98d8f2 0%,#60abf8 66%,#4096ee 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(45deg, #98d8f2 0%,#60abf8 66%,#4096ee 100%); /* IE10+ */
+	background: linear-gradient(45deg, #98d8f2 0%,#60abf8 66%,#4096ee 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#98d8f2', endColorstr='#4096ee',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+	background-size: 100%;
+	border: none;
+	cursor: pointer;
+}
+#reset_password_wrapper:hover{
+	box-shadow: 1px 1px 2px 1px gray;
+}
+#reset_password_wrapper a{
+	font-size: 20px;
+	font-weight: bold;
+	font-family: verdana, arial, helvetica, sans-serif;
+	color:black;
+	text-decoration: none;
+	display: block;
+	width: 100%;
+	height: 32px;
+	padding: 0px 6px;
+	margin-left: -5px;
 }
 #buttons_wrapper{
 	display: block;
@@ -130,14 +168,7 @@ body{
 #send_login:hover{
 	box-shadow: 1px 1px 2px 1px gray;
 }
-#login div a{
-	display: block;
-	clear: both;
-	margin-top: 10px;
-	display: block;
-	font-family: verdana, arial, helvetica, sans-serif;
-	font-size: 16px;
-}
+
 #login div a:hover{
 	background: none;
 	color: black;
@@ -181,6 +212,9 @@ body{
 		margin-bottom: 10px;
 		height: 20px;
 	}
+	#reset_password_wrapper{
+		height: 25px;
+	}
 }
 @media only screen and (max-width: 480px){
 	#login{
@@ -199,5 +233,8 @@ body{
 		height: 90%;
 		margin-left: 5%;
 		margin-top: 5%;
+	}
+	#reset_password_wrapper{
+		height: 25px;
 	}
 }
