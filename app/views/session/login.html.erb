@@ -35,10 +35,11 @@
 		<h1>Login</h1>
 		<%= form_tag "", method: :post do %>
 			<%= label_tag :email, "Rats-Mailaddresse"%><%= text_field_tag :email %><br />
-			<%= label_tag :password, "Passwort" %><%= link_to "Passwort vergessen", :reset_password %><%= password_field_tag :password %><br />
+			<%= label_tag :password, "Passwort" %><%= password_field_tag :password %><br />
 			<span id="persist_label">Eingeloggt bleiben: </span><%= check_box_tag :persist %><br />
 			<%= submit_tag "Einloggen", :id => "send_login" %>
 		<% end %>
+		<%= link_to "Passwort vergessen", :reset_password %>
 		<!--<%= link_to "Instant Login", controller: "session", action: "instantlogin" %>-->
 	</div>
 </div>

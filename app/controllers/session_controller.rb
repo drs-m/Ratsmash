@@ -7,6 +7,8 @@ class SessionController < ApplicationController
 
 		# form sent?
 		if params[:email]
+			regex = /([a-z.]+)@rats-os.de/
+			flash[:notice] = "Die angegebene E-Mail Adresse ist nicht vom IServ." and return if !regex.match params[:email]
 			student = Student.find_by mail_address: params[:email]
 			if student
 				if student.authenticate params[:password]

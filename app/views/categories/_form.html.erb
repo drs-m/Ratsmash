@@ -1,0 +1,37 @@
+<%= form_for @category do |f| %>
+  <% if @category.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= @category.errors.count %> Fehler sind aufgetreten:</h2>
+
+      <ul>
+      <% @category.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= label_tag :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :female, "weiblich" %><br>
+    <%= f.check_box :female %>
+  </div>
+  <div class="field">
+    <%= f.label :male, "männlich" %><br>
+    <%= f.check_box :male %>
+  </div>
+  <div class="field">
+    <%= f.label :student, "Schüler" %><br>
+    <%= f.check_box :student %>
+  </div>
+  <div class="field">
+    <%= f.label :teacher, "Lehrer" %><br>
+    <%= f.check_box :teacher %>
+  </div>
+  <div class="actions">
+    <%= submit_tag "Bestätigen" %>
+  </div>
+<% end %>
