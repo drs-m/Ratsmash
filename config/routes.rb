@@ -6,6 +6,9 @@ Ratsmash::Application.routes.draw do
   # STUDENT AND TEACHER ROUTES
   resources :students
   resources :teachers 
+
+  resources :categories
+
   # account activation / password reset 
   get "reset_password", to: "session#reset_password", as: :reset_password
   post "reset_password", to: "session#reset_password"
