@@ -34,6 +34,14 @@ class SessionController < ApplicationController
 		redirect_to :login
 	end
 
+	def reset_password
+		if params[:email]
+			student = Student.find_by mail_address: params[:email]
+			student.send_password_reset if student
+			@success = true
+		end
+	end
+
 	def instantlogin
 		cookies.permanent[:at] = Student.offset(rand(Student.count)).first.auth_token
 		redirect_to :home

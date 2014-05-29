@@ -17,6 +17,13 @@ class Student < ActiveRecord::Base
 
 	validates :name, :mail_address, presence: true
 
+	def send_password_reset
+		generate_token :password_reset_token
+		self.password_reset_sent_at = Time.now
+		save!
+		StudentMailer.password_reset(self).deliver
+	end	
+
 	private
 		def set_defaults
 			self.admin_permissions ||= false

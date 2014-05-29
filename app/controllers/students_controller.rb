@@ -65,6 +65,30 @@ class StudentsController < ApplicationController
     end
   end
 
+  def change_password
+    @errors = []
+    if params[:t]
+      # password-reset
+      student = Student.find_by password_reset_token: params[:t]
+      @errors << "Dieser Link ist ungültig" and @fatal = true and return unless student
+      # @errors << "Dieser Link ist abgelaufen" and @fatal = true if student.password_reset_sent_at < 2.hours.ago
+      if params[:password]
+        if params[:password_confirmation].present? && params[:password] == params[:password_confirmation]
+          student.password = params[:password]
+          student.password_confirmation = params[:password]
+          student.password_reset_token = nil
+          student.save
+          redirect_to :login, notice: "Dein Passwort wurde erfolgreich geändert!"
+        else
+          @errors << "Die Passwörter stimmen nicht überein!"
+        end
+      end
+    elsif params[:password]
+      # password-änderung
+
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_student

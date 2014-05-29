@@ -7,8 +7,10 @@ Ratsmash::Application.routes.draw do
   resources :students
   resources :teachers 
   # account activation / password reset 
-  get "reset_password", to: "student#reset_password", as: :reset_password 
-  post "reset_password", to: "student#reset_password"
+  get "reset_password", to: "session#reset_password", as: :reset_password
+  post "reset_password", to: "session#reset_password"
+  get "change_password/(:t)", to: "students#change_password", as: :change_password
+  post "change_password/(:t)", to: "students#change_password"
 
   # SESSION ROUTES
   get "login", to: "session#login", as: "login"
