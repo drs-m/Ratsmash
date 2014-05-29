@@ -23,4 +23,9 @@ class ApplicationController < ActionController::Base
 			  	redirect_to :login if options[:redirect]
 		 	end
 		end
+
+		def logged_in?
+			check_session redirect: false
+			return @current_user.present?
+		end
 end
