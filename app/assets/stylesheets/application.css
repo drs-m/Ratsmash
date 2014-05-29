@@ -2,12 +2,10 @@
 /*= require jquery-ui-flick */
 /*= require script-notifier */
 /*= require voting */
-html {
-    height: 100%;
-}
 
 body{
-	position: fixed;
+	width:100%;
+	height: 100%;
 	background-attachment: fixed;
 	height: 100%;
 	background: #98d8f2; /* Old browsers */
@@ -31,17 +29,17 @@ body{
 }
 #login{
 	position: fixed;
-	top:10%;
-	left: 25%;
-	width: 50%;
-	height: 70%;
-	min-height: 700px;
+	top:7.5%;
+	left: 16.665%;
+	width: 66.66%;
+	min-height: 85%;
 	background: url('cloud1.png') no-repeat center;
 	background-size: 100%;
 	
 }
 #login div{
 	width: 50%;
+	height: 50%;
 	margin-left: 25%;
 	margin-top: 25%;
 }
@@ -50,6 +48,7 @@ body{
 	margin-bottom: 10%;
 	text-align: center;
 	font-family: verdana, arial, helvetica, sans-serif;
+	font-size: 36px;
 }
 #login div label{
 	margin-bottom: 10px;
@@ -68,6 +67,17 @@ body{
 	width: 100%;
 	height: 25px;
 	border-radius: 5px;
+	margin-bottom: 20px;
+}
+#persist_label{
+	font-size: 16px;
+	font-weight: normal;
+	font-family: verdana, arial, helvetica, sans-serif;
+	color:black;
+}
+#persist{
+	width: 20px;
+	height:20px;
 }
 #send_login{
 	font-size: 16px;
@@ -97,39 +107,29 @@ body{
 	box-shadow: 1px 1px 2px 1px gray;
 }
 
-@media only screen and (max-width: 1600px){
+@media only screen and (max-width: 1500px){
 	#login div{
 		margin-top: 30%;
 	}
 }
-@media only screen and (max-width: 1400px){
+@media only screen and (max-width: 1320px){
 	#login div{
 		margin-top: 35%;
 	}
 }
-@media only screen and (max-width: 1280px){
+@media only screen and (max-width: 1200px){
 	#login div{
-		margin-top: 38%;
+		margin-top: 40%;
 	}
 }
-@media only screen and (max-width: 1150px){
-	#login div{
-		margin-top: 41%;
-	}
-}
-@media only screen and (max-width: 1080px){
-	#login div{
-		margin-top: 42%;
-	}
-}
-@media only screen and (max-width: 1060px){
+@media only screen and (max-width: 1100px){
 	#login div{
 		margin-top: 43%;
 	}
 }
-@media only screen and (max-width: 1040px){
+@media only screen and (max-width: 1050px){
 	#login div{
-		margin-top: 44.5%;
+		margin-top: 45%;
 	}
 }
 @media only screen and (max-width: 1024px){
