@@ -56,8 +56,8 @@ Student.find(4).update closed: true
 
 # more students
 last_names.each do |last_name|
-	first_names_female.each  { |first_name| Student.create name: "#{first_name} #{last_name}", gender: false, mail_address: "#{first_name}.#{last_name}@rats-os.de", password: "pw", password_confirmation: "pw" }
-	first_names_male.each { |first_name| Student.create name: "#{first_name} #{last_name}", gender: true, mail_address: "#{first_name}.#{last_name}@rats-os.de", password: "pw", password_confirmation: "pw" }
+	first_names_female.each  { |first_name| Student.create name: "#{first_name} #{last_name}", gender: false, mail_address: "#{first_name}.#{last_name}@rats-os.de".downcase, password: "pw", password_confirmation: "pw" }
+	first_names_male.each { |first_name| Student.create name: "#{first_name} #{last_name}", gender: true, mail_address: "#{first_name}.#{last_name}@rats-os.de".downcase, password: "pw", password_confirmation: "pw" }
 end
 
 # Lehrer
