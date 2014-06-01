@@ -4,6 +4,7 @@
   %thead
     %tr
       %th Name
+      %th Gruppe
       %th
       %th
 
@@ -11,8 +12,7 @@
     - @categories.each do |category|
       %tr
         %td= category.name
-        %td= category.male ? (category.female ? "beide" : "nur männlich") : (category.female ? "nur weiblich" : "nix")
-        %td= category.student ? (category.teacher ? "beide" : "nur Schüler") : (category.teacher ? "nur Lehrer" : "nix")
+        %td= category.group.name
         %td= link_to 'Bearbeiten', edit_category_path(category)
         %td= link_to 'Löschen', category, method: :delete, data: { confirm: 'Soll Eintrag Nr. ' + category.id.to_s + " wirklich gelöscht werden?" }
 

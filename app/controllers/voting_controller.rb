@@ -16,12 +16,12 @@ class VotingController < ApplicationController
 
 		@results = []
 		# xor
-		if category.male ^ category.female
-			@results += Student.name_search(params[:q]).where(gender: category.male, closed: false).to_a if category.student
-			@results += Teacher.name_search(params[:q]).where(gender: category.male, closed: false).to_a if category.teacher
+		if category.group.male ^ category.group.female
+			@results += Student.name_search(params[:q]).where(gender: category.group.male, closed: false).to_a if category.group.student
+			@results += Teacher.name_search(params[:q]).where(gender: category.group.male, closed: false).to_a if category.group.teacher
 		else
-			@results += Student.name_search(params[:q]).where(closed: false).to_a if category.student
-			@results += Teacher.name_search(params[:q]).where(closed: false).to_a if category.teacher
+			@results += Student.name_search(params[:q]).where(closed: false).to_a if category.group.student
+			@results += Teacher.name_search(params[:q]).where(closed: false).to_a if category.group.teacher
 		end
 
 		# übersichtlichere ausgabe wenn ?p= angegeben wurde (PrettyPrint)
@@ -530,17 +530,17 @@ class VotingController < ApplicationController
 
 	def list
 		# ordnen der Kategorien nach Typ
-		@categories_all = Category.unisex.unigroup	
-		@categories_all_female = Category.female.unigroup
-		@categories_all_male = Category.male.unigroup
+		@categories_all = Group.find(1).categories	
+		@categories_all_female = Group.find(2).categories
+		@categories_all_male = Group.find(3).categories
 	
-		@categories_student_all = Category.unisex.student
-		@categories_student_female = Category.female.student
-		@categories_student_male = Category.male.student
+		@categories_student_all = Group.find(4).categories
+		@categories_student_female = Group.find(5).categories
+		@categories_student_male = Group.find(6).categories
 	
-		@categories_teacher_all = Category.unisex.teacher
-		@categories_teacher_female = Category.female.teacher
-		@categories_teacher_male = Category.male.teacher
+		@categories_teacher_all = Group.find(7).categories
+		@categories_teacher_female = Group.find(8).categories
+		@categories_teacher_male = Group.find(9).categories	
 	end
 
 	def choose

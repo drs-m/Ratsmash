@@ -5,9 +5,8 @@ class CategoriesController < ApplicationController
   before_action :set_category, only: [:show, :edit, :update, :destroy]
 
   # GET /categories
-  # GET /categories.json
   def index
-    @categories = Category.order :female, :male, :student, :teacher
+    @categories = Category.order :name
   end
 
   # GET /categories/new
@@ -59,7 +58,7 @@ class CategoriesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def category_params
-      params.require(:category).permit(:name, :female, :male, :student, :teacher)
+      params.require(:category).permit(:name, :group_id)
     end
 
 end

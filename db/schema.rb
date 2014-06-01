@@ -11,9 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140529092703) do
+ActiveRecord::Schema.define(version: 20140601000500) do
 
   create_table "categories", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "group_id"
+  end
+
+  create_table "groups", force: true do |t|
     t.string   "name"
     t.boolean  "female"
     t.boolean  "male"

@@ -7,43 +7,23 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-# Kategorien für alle Schüler (IDs: 1-5)
-categories_pupil_all = ["Toll",  "Schön",  "Schlau", "Nett", "Blabla"]
-categories_pupil_all.each { |cp_name| Category.create(name: cp_name).apply_to(:all_students) }
+Group.create name: "Alle", female: true, male: true, student: true, teacher: true
+Group.create name: "Alle Frauen", female: true, student: true, teacher: true
+Group.create name: "Alle Männer", male: true, student: true, teacher: true
+Group.create name: "Alle Schüler", female: true, male: true, student: true
+Group.create name: "Alle Lehrer", female: true, male: true, teacher: true
+Group.create name: "Schüler", male: true, student: true
+Group.create name: "Schülerinnen", female: true, student: true
+Group.create name: "Lehrer", male: true, teacher: true
+Group.create name: "Lehrerinnen", female: true, teacher: true
+puts Group.count.to_s + " Gruppen wurden erstellt!"
 
-# Kategorien für männliche Schüler (IDs: 6-10)
-categories_pupil_male = ["Toll", "Schön", "Schlau", "Nett", "Blabla"]
-categories_pupil_male.each { |cp_name| Category.create(name: cp_name).apply_to(:male_students) }
-
-#Kategorien für weibliche Schüler (IDs: 11-15)
-categories_pupil_female = ["Toll", "Schön", "Schlau", "Nett", "Blabla"]
-categories_pupil_female.each { |cp_name| Category.create(name: cp_name).apply_to(:female_students) }
-
-
-#Kategorien für alle Lehrer (IDs: 16-20)
-categories_teacher_all = ["Streng", "Tollpatschig", "Nett", "Kompetent", "Schön"]
-categories_teacher_all.each { |ct_name| Category.create(name: ct_name).apply_to(:all_teachers) }
-
-# Kategorien für Lehrer (IDs: 21-25)
-categories_teacher_male = ["Streng", "Tollpatschig", "Nett", "Kompetent", "Schön"]
-categories_teacher_male.each { |ct_name| Category.create(name: ct_name).apply_to(:male_teachers) }
-
-# Kategorien für Lehrerinnen (IDs: 26-30)
-categories_teacher_female = ["Streng", "Tollpatschig", "Nett", "Kompetent", "Schön"]
-categories_teacher_female.each { |ct_name| Category.create(name: ct_name).apply_to(:female_teachers) }
-
-# Kategorien für Alle (IDs: 31-35)
-categories_all = ["Toll", "Schön", "Schlau", "Nett", "Blabla"]
-categories_all.each { |cp_name| Category.create(name: cp_name).apply_to(:all) }
-
-#Kategorien für alle Männer (IDs: 36-40)
-categories_all_male = ["Toll", "Schön", "Schlau", "Nett", "Blabla"]
-categories_all_male.each { |cp_name| Category.create(name: cp_name).apply_to(:all_male) }
-
-#Kategorien für alle Frauen (IDs: 41-45)
-categories_all_female = ["Toll", "Schön", "Schlau", "Nett", "Blabla"]
-categories_all_female.each { |cp_name| Category.create(name: cp_name).apply_to(:all_female) }
-
+# Kategorien
+student_categories = ["Toll",  "Schön",  "Schlau", "Nett", "Tollpatschig", "Kompetent"]
+Group.all.each do |group|
+	student_categories.each { |category| Category.create name: category, group_id: group.id }
+end
+puts Category.count.to_s + " Kategorien wurden erstellt!"
 
 first_names_female = ["Karin", "Jessica", "Krista", "Laura", "Marianne", "Floriane", "Tusnelda", "Kassandra"]
 first_names_male = ["Thomas", "Peter", "Christoph", "Joe", "Sean", "Tobias", "Hendrik", "Carlo"]
@@ -64,10 +44,13 @@ end
 teachers = [["Lisa Müller", false], ["Hans-Christian Schmidt", true], ["Florian Obstkorb", true], ["Klarissa Kuh", false], ["Megan Schnase", false], ["Klaus-Markus König", true], ["Christina Tosko", false]]
 teachers.each { |teacher| Teacher.create name: teacher[0], gender: teacher[1] }
 
-# Votes für max mustermann
-max = Student.find_by(name: "Max Mustermann")
+# Votes
+max = Student.count
+cat_max = Category.count
 Student.all.each do |student|
 	rating = rand(1..3)
-	max.achieved_votes << student.given_votes.build(category_id: 1, rating: rating)
-	puts student.name + " hat eine Stimme für Max abgegeben (Kategorie: Toll, Rating: #{rating})"
+	achiever = Student.find(rand(1..max))
+	cat_id = rand(1..cat_max)
+	achiever.achieved_votes << student.given_votes.build(category_id: cat_id, rating: rating)
+	puts student.name + " hat eine Stimme für " + achiever.name + " abgegeben: Kategorie-ID: #{cat_id}, Rating: #{rating})"
 end

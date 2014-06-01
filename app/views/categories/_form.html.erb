@@ -16,20 +16,8 @@
     <%= f.text_field :name %>
   </div>
   <div class="field">
-    <%= f.label :female, "weiblich" %><br>
-    <%= f.check_box :female %>
-  </div>
-  <div class="field">
-    <%= f.label :male, "männlich" %><br>
-    <%= f.check_box :male %>
-  </div>
-  <div class="field">
-    <%= f.label :student, "Schüler" %><br>
-    <%= f.check_box :student %>
-  </div>
-  <div class="field">
-    <%= f.label :teacher, "Lehrer" %><br>
-    <%= f.check_box :teacher %>
+    <%= f.label :group_id, "Gruppe" %><br>
+    <%= collection_select(:category, :group_id, Group.all, :id, :name, prompt: "Bitte auswählen!") %>
   </div>
   <div class="actions">
     <%= submit_tag "Bestätigen" %>
