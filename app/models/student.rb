@@ -1,6 +1,6 @@
 class Student < ActiveRecord::Base
 
-	# attributes: name, gender, mail_address, (password), (password_confirmation), password_digest, password_resetkey, admin_permissions
+	# attributes: name, gender, mail_address, (password), (password_confirmation), password_digest, password_resetkey, admin_permissions, closed
 
 	has_secure_password
 
