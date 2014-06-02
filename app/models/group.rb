@@ -4,6 +4,16 @@ class Group < ActiveRecord::Base
 
 	after_validation :save_defaults
 
+	scope :everyone, -> { where(female: true, male: true, student: true, teacher: true).first }
+	scope :all_female, -> { where(female: true, male: false, student: true, teacher: true).first }
+	scope :all_male, -> { where(female: false, male: true, student: true, teacher: true).first }
+	scope :all_students, -> { where(female: true, male: true, student: true, teacher: false).first }
+	scope :all_teachers, -> { where(female: true, male: true, student: false, teacher: true).first }
+	scope :female_students, -> { where(female: true, male: false, student: true, teacher: false).first }
+	scope :male_students, -> { where(female: false, male: true, student: true, teacher: false).first }
+	scope :female_teachers, -> { where(female: true, male: false, student: false, teacher: true).first }
+	scope :male_teachers, -> { where(female: false, male: true, student: false, teacher: true).first }
+	
 	def active_filters
 		filters_to_return = []
 		@@used_filters.each { |filter| filters_to_return << filter if self[filter] }

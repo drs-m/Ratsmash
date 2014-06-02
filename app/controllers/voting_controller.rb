@@ -530,17 +530,17 @@ class VotingController < ApplicationController
 
 	def list
 		# ordnen der Kategorien nach Typ
-		@categories_all = Group.find(1).categories	
-		@categories_all_female = Group.find(2).categories
-		@categories_all_male = Group.find(3).categories
+		@categories_all = Group.everyone.categories
+		@categories_all_female = Group.all_female.categories
+		@categories_all_male = Group.all_male.categories
 	
-		@categories_student_all = Group.find(4).categories
-		@categories_student_female = Group.find(5).categories
-		@categories_student_male = Group.find(6).categories
+		@categories_student_all = Group.all_students.categories
+		@categories_student_female = Group.female_students.categories
+		@categories_student_male = Group.male_students.categories
 	
-		@categories_teacher_all = Group.find(7).categories
-		@categories_teacher_female = Group.find(8).categories
-		@categories_teacher_male = Group.find(9).categories	
+		@categories_teacher_all = Group.all_teachers.categories
+		@categories_teacher_female = Group.female_teachers.categories
+		@categories_teacher_male = Group.male_teachers.categories
 	end
 
 	def choose
