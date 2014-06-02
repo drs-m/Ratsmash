@@ -28,6 +28,7 @@ Ratsmash::Application.routes.draw do
   post "vote/edit", to: "voting#update"
   get "vote/delete_vote"
   post "vote/delete_vote"
+  get "vote/results", to: "voting#results", as: :results
 
   get "vote/autocomplete", to: "voting#autocomplete"
 

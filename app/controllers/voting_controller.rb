@@ -3,6 +3,11 @@ class VotingController < ApplicationController
 
 	before_action -> { check_session redirect: true }
 
+	def results
+		@results = []
+		Category.ids.each { |category_id| @results << {category_id: category_id, ranking: Vote.connection.select_all("select name, sum(rating) as points from votes v inner join students s on v.voted_id = s.id where v.category_id = #{category_id} group by name order by points desc limit 3").to_a } }
+	end
+
 	def autocomplete
 		# Beispiel: /vote/autocomplete.json?p=&q=a&c=31
 

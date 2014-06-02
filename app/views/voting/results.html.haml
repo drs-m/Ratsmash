@@ -1,0 +1,17 @@
+%h2 Ergebnisse
+
+%table
+	%thead
+		%tr
+			%th Kategorie
+			%th 1. Platz
+			%th 2. Platz
+			%th 3. Platz
+
+	%tbody
+		- @results.each do |result|
+			%tr
+				%td= result[:category_id]
+				- result[:ranking].each do |voted|
+					%td= voted["name"] + " (" + voted["points"].to_s + ")"
+
