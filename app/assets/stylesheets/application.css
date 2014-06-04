@@ -29,6 +29,10 @@ body{
 	background: rgba(255,255,255,1);
 	box-shadow: 1px 1px 2px 1px gray;
 }
+#resultCanvas{
+	background: white;
+	margin: 20px 0px;
+}
 #login{
 	position: fixed;
 	top:50%;

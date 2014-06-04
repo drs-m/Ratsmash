@@ -4,6 +4,49 @@ class VotingController < ApplicationController
 	before_action -> { check_session redirect: true }
 
 	def results
+		if params[:category_id]
+			@categoryResults = []
+
+			firstPlaceId = -1
+			firstPlacePoints = 0
+			secondPlaceId = -1
+			secondPlacePoints = 0
+			thirdPlaceId = -1
+			thirdPlacePoints = 0
+
+			@totalPoints = Vote.where(:category_id => params[:category_id]).pluck(:rating).sum
+
+			#Schüler
+			if Category.find_by_id(params[:category_id]).group_id == 5 
+				Student.where(:gender => true).each do |student|
+					if Vote.where(:voted_id => student.id, :category_id => params[:category_id]).pluck(:rating).sum > firstPlacePoints
+						firstPlaceId = student.id
+						firstPlacePoints = Vote.where(:voted_id => student.id).pluck(:rating).sum
+					elsif Vote.where(:voted_id => student.id, :category_id => params[:category_id]).pluck(:rating).sum > secondPlacePoints
+						secondPlaceId = student.id
+						secondPlacePoints = Vote.where(:voted_id => student.id, :category_id => params[:category_id]).pluck(:rating).sum
+					elsif Vote.where(:voted_id => student.id, :category_id => params[:category_id]).pluck(:rating).sum > thirdPlacePoints
+						thirdPlaceId = student.id
+						thirdPlacePoints = Vote.where(:voted_id => student.id, :category_id => params[:category_id]).pluck(:rating).sum
+					end
+				end
+
+				@categoryResults[0] = []
+				@categoryResults[0][0] = firstPlaceId
+				@categoryResults[0][1] = firstPlacePoints
+				@categoryResults[0][2] = firstPlacePoints.to_f / @totalPoints.to_f
+				@categoryResults[1] = []
+				@categoryResults[1][0] = secondPlaceId
+				@categoryResults[1][1] = secondPlacePoints
+				@categoryResults[1][2] = secondPlacePoints.to_f / @totalPoints.to_f
+				@categoryResults[2] = []
+				@categoryResults[2][0] = thirdPlaceId
+				@categoryResults[2][1] = thirdPlacePoints
+				@categoryResults[2][2] = thirdPlacePoints.to_f / @totalPoints.to_f
+			end
+			
+		end
+
 		@results = []
 		Category.ids.each { |category_id| @results << {category_id: category_id, ranking: Vote.connection.select_all("select name, sum(rating) as points from votes v inner join students s on v.voted_id = s.id where v.category_id = #{category_id} group by name order by points desc limit 3").to_a } }
 	end
