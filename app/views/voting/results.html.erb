@@ -7,35 +7,62 @@
 
 		//Tortenstück Platz 1
 		context.beginPath();
-		context.moveTo(document.getElementById('resultCanvas').width/2,document.getElementById('resultCanvas').height/2);
-		context.arc(document.getElementById('resultCanvas').width/2,document.getElementById('resultCanvas').height/2,radius,0,2*Math.PI*<%= @categoryResults[0][2] %>,false);
+		context.moveTo(250,document.getElementById('resultCanvas').height/2);
+		context.arc(250,document.getElementById('resultCanvas').height/2,radius,0,2*Math.PI*<%= @categoryResults[0][2] %>,false);
 		context.fillStyle = "rgb(255,0,0)";
 		context.fill();
 		context.closePath();
 
 		//Tortenstück Platz 2
 		context.beginPath();
-		context.moveTo(document.getElementById('resultCanvas').width/2,document.getElementById('resultCanvas').height/2);
-		context.arc(document.getElementById('resultCanvas').width/2,document.getElementById('resultCanvas').height/2,radius,2*Math.PI*<%= @categoryResults[0][2] %>,2*Math.PI*(<%= @categoryResults[0][2] %> + <%= @categoryResults[1][2] %>),false);
+		context.moveTo(250,document.getElementById('resultCanvas').height/2);
+		context.arc(250,document.getElementById('resultCanvas').height/2,radius,2*Math.PI*<%= @categoryResults[0][2] %>,2*Math.PI*(<%= @categoryResults[0][2] %> + <%= @categoryResults[1][2] %>),false);
 		context.fillStyle = "rgb(0,255,0)";
 		context.fill();
 		context.closePath();
 
 		//Tortenstück Platz 3
 		context.beginPath();
-		context.moveTo(document.getElementById('resultCanvas').width/2,document.getElementById('resultCanvas').height/2);
-		context.arc(document.getElementById('resultCanvas').width/2,document.getElementById('resultCanvas').height/2,radius,2*Math.PI*(<%= @categoryResults[0][2] %> + <%= @categoryResults[1][2] %>),2*Math.PI*(<%= @categoryResults[0][2] %> + <%= @categoryResults[1][2] %> + <%= @categoryResults[2][2] %>),false);
+		context.moveTo(250,document.getElementById('resultCanvas').height/2);
+		context.arc(250,document.getElementById('resultCanvas').height/2,radius,2*Math.PI*(<%= @categoryResults[0][2] %> + <%= @categoryResults[1][2] %>),2*Math.PI*(<%= @categoryResults[0][2] %> + <%= @categoryResults[1][2] %> + <%= @categoryResults[2][2] %>),false);
 		context.fillStyle = "rgb(0,0,255)";
 		context.fill();
 		context.closePath();
 
 		//Tortenstück Andere
 		context.beginPath();
-		context.moveTo(document.getElementById('resultCanvas').width/2,document.getElementById('resultCanvas').height/2);
-		context.arc(document.getElementById('resultCanvas').width/2,document.getElementById('resultCanvas').height/2,radius,2*Math.PI*(<%= @categoryResults[0][2] %> + <%= @categoryResults[1][2] %> + <%= @categoryResults[2][2] %>),2*Math.PI*1.0,false);
+		context.moveTo(250,document.getElementById('resultCanvas').height/2);
+		context.arc(250,document.getElementById('resultCanvas').height/2,radius,2*Math.PI*(<%= @categoryResults[0][2] %> + <%= @categoryResults[1][2] %> + <%= @categoryResults[2][2] %>),2*Math.PI*1.0,false);
 		context.fillStyle = "rgb(255,255,0)";
 		context.fill();
 		context.closePath();
+
+		//Kategoriename
+		context.fillStyle = "rgb(0,0,0)";
+		context.font = "30px Arial";
+		context.fillText("<%= Category.find_by_id(params[:category_id]).name %> (<%= Group.find_by_id(Category.find_by_id(params[:category_id]).group_id).name %>)",50,50);
+
+		//Ergebnisse in Zahlen
+		//1.Platz
+		context.fillStyle = "rgb(255,0,0)";
+		context.font = "20px Arial";
+		context.fillText("1. Platz:",500,150);
+		context.fillText("<%= Student.find_by_id(@categoryResults[0][0]).name %> (<%= @categoryResults[0][2]*100 %>% / <%= @categoryResults[0][1] %> Pkt)",500,180);
+		//2.Platz
+		context.fillStyle = "rgb(0,255,0)";
+		context.fillText("2. Platz:",500,230);
+		context.fillText("<%= Student.find_by_id(@categoryResults[1][0]).name %> (<%= @categoryResults[1][2]*100 %>% / <%= @categoryResults[1][1] %> Pkt)",500,260);
+		//3.Platz
+		context.fillStyle = "rgb(0,0,255)";
+		context.fillText("3. Platz:",500,310);
+		context.fillText("<%= Student.find_by_id(@categoryResults[2][0]).name %> (<%= @categoryResults[2][2]*100 %>% / <%= @categoryResults[2][1] %> Pkt)",500,340);
+		//Andere
+		context.fillStyle = "rgb(0,0,0)";
+		context.fillText("Andere:",500,390);
+		context.fillText("Werte: <%= @categoryResults[3][0] %>% / <%= @categoryResults[3][1] %> Pkt",500,420);
+		//Geamt
+		context.fillText("Geamt:",500,470);
+		context.fillText("100% = <%= @totalPoints %> Pkt",500,500);
 
 	}, false);
 </script>

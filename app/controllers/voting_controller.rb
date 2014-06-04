@@ -13,36 +13,58 @@ class VotingController < ApplicationController
 			secondPlacePoints = 0
 			thirdPlaceId = -1
 			thirdPlacePoints = 0
+			@totalPoints = 0
 
-			@totalPoints = Vote.where(:category_id => params[:category_id]).pluck(:rating).sum
+			if Vote.where(:category_id => params[:category_id]).pluck(:rating).sum > 0
+				@totalPoints = Vote.where(:category_id => params[:category_id]).pluck(:rating).sum
 
-			#Schüler
-			if Category.find_by_id(params[:category_id]).group_id == 5 
-				Student.where(:gender => true).each do |student|
-					if Vote.where(:voted_id => student.id, :category_id => params[:category_id]).pluck(:rating).sum > firstPlacePoints
-						firstPlaceId = student.id
-						firstPlacePoints = Vote.where(:voted_id => student.id).pluck(:rating).sum
-					elsif Vote.where(:voted_id => student.id, :category_id => params[:category_id]).pluck(:rating).sum > secondPlacePoints
-						secondPlaceId = student.id
-						secondPlacePoints = Vote.where(:voted_id => student.id, :category_id => params[:category_id]).pluck(:rating).sum
-					elsif Vote.where(:voted_id => student.id, :category_id => params[:category_id]).pluck(:rating).sum > thirdPlacePoints
-						thirdPlaceId = student.id
-						thirdPlacePoints = Vote.where(:voted_id => student.id, :category_id => params[:category_id]).pluck(:rating).sum
+				#Schüler
+				if Category.find_by_id(params[:category_id]).group_id == 5 
+					Student.where(:gender => true).each do |student|
+						if Vote.where(:voted_id => student.id, :category_id => params[:category_id]).pluck(:rating).sum > firstPlacePoints
+							firstPlaceId = student.id
+							firstPlacePoints = Vote.where(:voted_id => student.id).pluck(:rating).sum
+						elsif Vote.where(:voted_id => student.id, :category_id => params[:category_id]).pluck(:rating).sum > secondPlacePoints
+							secondPlaceId = student.id
+							secondPlacePoints = Vote.where(:voted_id => student.id, :category_id => params[:category_id]).pluck(:rating).sum
+						elsif Vote.where(:voted_id => student.id, :category_id => params[:category_id]).pluck(:rating).sum > thirdPlacePoints
+							thirdPlaceId = student.id
+							thirdPlacePoints = Vote.where(:voted_id => student.id, :category_id => params[:category_id]).pluck(:rating).sum
+						end
 					end
-				end
 
+					@categoryResults[0] = []
+					@categoryResults[0][0] = firstPlaceId
+					@categoryResults[0][1] = firstPlacePoints
+					@categoryResults[0][2] = firstPlacePoints.to_f / @totalPoints.to_f
+					@categoryResults[1] = []
+					@categoryResults[1][0] = secondPlaceId
+					@categoryResults[1][1] = secondPlacePoints
+					@categoryResults[1][2] = secondPlacePoints.to_f / @totalPoints.to_f
+					@categoryResults[2] = []
+					@categoryResults[2][0] = thirdPlaceId
+					@categoryResults[2][1] = thirdPlacePoints
+					@categoryResults[2][2] = thirdPlacePoints.to_f / @totalPoints.to_f
+					@categoryResults[3] = []
+					@categoryResults[3][0] = 100 - ((@categoryResults[0][2]+@categoryResults[1][2]+@categoryResults[2][2])*100)
+					@categoryResults[3][1] = @totalPoints-(firstPlacePoints+secondPlacePoints+thirdPlacePoints)
+				end
+			else
 				@categoryResults[0] = []
-				@categoryResults[0][0] = firstPlaceId
-				@categoryResults[0][1] = firstPlacePoints
-				@categoryResults[0][2] = firstPlacePoints.to_f / @totalPoints.to_f
+				@categoryResults[0][0] = 0
+				@categoryResults[0][1] = 0
+				@categoryResults[0][2] = 0
 				@categoryResults[1] = []
-				@categoryResults[1][0] = secondPlaceId
-				@categoryResults[1][1] = secondPlacePoints
-				@categoryResults[1][2] = secondPlacePoints.to_f / @totalPoints.to_f
+				@categoryResults[1][0] = 0
+				@categoryResults[1][1] = 0
+				@categoryResults[1][2] = 0
 				@categoryResults[2] = []
-				@categoryResults[2][0] = thirdPlaceId
-				@categoryResults[2][1] = thirdPlacePoints
-				@categoryResults[2][2] = thirdPlacePoints.to_f / @totalPoints.to_f
+				@categoryResults[2][0] = 0
+				@categoryResults[2][1] = 0
+				@categoryResults[2][2] = 0
+				@categoryResults[3] = []
+				@categoryResults[3][0] = 0
+				@categoryResults[3][1] = 0
 			end
 			
 		end
