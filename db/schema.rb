@@ -11,17 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140603155609) do
+ActiveRecord::Schema.define(version: 20140601000351) do
 
   create_table "categories", force: true do |t|
     t.string   "name"
-    t.boolean  "female"
-    t.boolean  "male"
-    t.boolean  "student"
-    t.boolean  "teacher"
+    t.integer  "group_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "group_id"
   end
 
   create_table "groups", force: true do |t|
@@ -39,21 +35,21 @@ ActiveRecord::Schema.define(version: 20140603155609) do
     t.boolean  "gender"
     t.string   "mail_address"
     t.string   "password_digest"
-    t.boolean  "admin_permissions"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.boolean  "closed"
     t.string   "auth_token"
+    t.boolean  "admin_permissions"
+    t.boolean  "closed"
     t.string   "password_reset_token"
     t.datetime "password_reset_sent_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "teachers", force: true do |t|
     t.string   "name"
     t.boolean  "gender"
+    t.boolean  "closed"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "closed"
   end
 
   create_table "votes", force: true do |t|
