@@ -50,7 +50,7 @@
 		context.font = "20px Arial";
 		context.fillText("1. Platz:",500,150);
 		<% if @categoryResults[0][0] > 0 %>
-			context.fillText("<%= Student.find_by_id(@categoryResults[0][0]).name %> (<%= @categoryResults[0][2]*100 %>% / <%= @categoryResults[0][1] %> Pkt)",500,180);
+			context.fillText("<%= Student.find_by_id(@categoryResults[0][0]).name %> (" + (Math.round(<%= @categoryResults[0][2] %>*10000)/10000)*100 + "% / <%= @categoryResults[0][1] %> Pkt)",500,180);
 		<% else %>
 			context.fillText("Kein Voting",500,180);
 		<% end %>
@@ -58,7 +58,7 @@
 		context.fillStyle = "rgb(0,255,0)";
 		context.fillText("2. Platz:",500,230);
 		<% if @categoryResults[1][0] > 0 %>
-			context.fillText("<%= Student.find_by_id(@categoryResults[1][0]).name %> (<%= @categoryResults[1][2]*100 %>% / <%= @categoryResults[1][1] %> Pkt)",500,260);
+			context.fillText("<%= Student.find_by_id(@categoryResults[1][0]).name %> (" + (Math.round(<%= @categoryResults[1][2] %>*10000)/10000)*100 + "% / <%= @categoryResults[1][1] %> Pkt)",500,260);
 		<% else %>
 			context.fillText("Kein Voting",500,260);
 		<% end %>
@@ -66,14 +66,14 @@
 		context.fillStyle = "rgb(0,0,255)";
 		context.fillText("3. Platz:",500,310);
 		<% if @categoryResults[2][0] > 0 %>
-			context.fillText("<%= Student.find_by_id(@categoryResults[2][0]).name %> (<%= @categoryResults[2][2]*100 %>% / <%= @categoryResults[2][1] %> Pkt)",500,340);
+			context.fillText("<%= Student.find_by_id(@categoryResults[2][0]).name %> (" + (Math.round(<%= @categoryResults[2][2] %>*10000)/10000)*100 + "% / <%= @categoryResults[2][1] %> Pkt)",500,340);
 		<% else %>
 			context.fillText("Kein Voting",500,340);
 		<% end %>
 		//Andere
 		context.fillStyle = "rgb(255,140,0)";
 		context.fillText("Andere:",500,390);
-		context.fillText("Werte: <%= @categoryResults[3][0] %>% / <%= @categoryResults[3][1] %> Pkt",500,420);
+		context.fillText("Werte: " + Math.round(<%= @categoryResults[3][0] %>*100)/100 + "% / <%= @categoryResults[3][1] %> Pkt",500,420);
 		//Geamt
 		context.fillStyle = "rgb(0,0,0)";
 		context.fillText("Geamt:",500,470);
