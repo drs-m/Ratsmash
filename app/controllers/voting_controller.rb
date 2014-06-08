@@ -4,17 +4,17 @@ class VotingController < ApplicationController
 	before_action -> { check_session redirect: true }
 
 	def results
+		@categoryResults = []
+
+		firstPlaceId = -1
+		firstPlacePoints = 0
+		secondPlaceId = -1
+		secondPlacePoints = 0
+		thirdPlaceId = -1
+		thirdPlacePoints = 0
+		@totalPoints = 0
+
 		if params[:category_id]
-			@categoryResults = []
-
-			firstPlaceId = -1
-			firstPlacePoints = 0
-			secondPlaceId = -1
-			secondPlacePoints = 0
-			thirdPlaceId = -1
-			thirdPlacePoints = 0
-			@totalPoints = 0
-
 			if Vote.where(:category_id => params[:category_id]).pluck(:rating).sum > 0
 				@totalPoints = Vote.where(:category_id => params[:category_id]).pluck(:rating).sum
 
@@ -66,7 +66,23 @@ class VotingController < ApplicationController
 				@categoryResults[3][0] = 0
 				@categoryResults[3][1] = 0
 			end
-			
+		else
+			params[:category_id] = 1
+			@categoryResults[0] = []
+			@categoryResults[0][0] = 0
+			@categoryResults[0][1] = 0
+			@categoryResults[0][2] = 0
+			@categoryResults[1] = []
+			@categoryResults[1][0] = 0
+			@categoryResults[1][1] = 0
+			@categoryResults[1][2] = 0
+			@categoryResults[2] = []
+			@categoryResults[2][0] = 0
+			@categoryResults[2][1] = 0
+			@categoryResults[2][2] = 0
+			@categoryResults[3] = []
+			@categoryResults[3][0] = 0
+			@categoryResults[3][1] = 0
 		end
 
 		@results = []

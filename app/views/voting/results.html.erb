@@ -30,12 +30,14 @@
 		context.closePath();
 
 		//Tortenstück Andere
-		context.beginPath();
-		context.moveTo(250,document.getElementById('resultCanvas').height/2);
-		context.arc(250,document.getElementById('resultCanvas').height/2,radius,2*Math.PI*(<%= @categoryResults[0][2] %> + <%= @categoryResults[1][2] %> + <%= @categoryResults[2][2] %>),2*Math.PI*1.0,false);
-		context.fillStyle = "rgb(255,255,0)";
-		context.fill();
-		context.closePath();
+		<% if @categoryResults[0][2] + @categoryResults[1][2] + @categoryResults[2][2] > 0 %>
+			context.beginPath();
+			context.moveTo(250,document.getElementById('resultCanvas').height/2);
+			context.arc(250,document.getElementById('resultCanvas').height/2,radius,2*Math.PI*(<%= @categoryResults[0][2] %> + <%= @categoryResults[1][2] %> + <%= @categoryResults[2][2] %>),2*Math.PI*1.0,false);
+			context.fillStyle = "rgb(255,140,0)";
+			context.fill();
+			context.closePath();
+		<% end %>
 
 		//Kategoriename
 		context.fillStyle = "rgb(0,0,0)";
@@ -47,20 +49,33 @@
 		context.fillStyle = "rgb(255,0,0)";
 		context.font = "20px Arial";
 		context.fillText("1. Platz:",500,150);
-		context.fillText("<%= Student.find_by_id(@categoryResults[0][0]).name %> (<%= @categoryResults[0][2]*100 %>% / <%= @categoryResults[0][1] %> Pkt)",500,180);
+		<% if @categoryResults[0][0] > 0 %>
+			context.fillText("<%= Student.find_by_id(@categoryResults[0][0]).name %> (<%= @categoryResults[0][2]*100 %>% / <%= @categoryResults[0][1] %> Pkt)",500,180);
+		<% else %>
+			context.fillText("Kein Voting",500,180);
+		<% end %>
 		//2.Platz
 		context.fillStyle = "rgb(0,255,0)";
 		context.fillText("2. Platz:",500,230);
-		context.fillText("<%= Student.find_by_id(@categoryResults[1][0]).name %> (<%= @categoryResults[1][2]*100 %>% / <%= @categoryResults[1][1] %> Pkt)",500,260);
+		<% if @categoryResults[1][0] > 0 %>
+			context.fillText("<%= Student.find_by_id(@categoryResults[1][0]).name %> (<%= @categoryResults[1][2]*100 %>% / <%= @categoryResults[1][1] %> Pkt)",500,260);
+		<% else %>
+			context.fillText("Kein Voting",500,260);
+		<% end %>
 		//3.Platz
 		context.fillStyle = "rgb(0,0,255)";
 		context.fillText("3. Platz:",500,310);
-		context.fillText("<%= Student.find_by_id(@categoryResults[2][0]).name %> (<%= @categoryResults[2][2]*100 %>% / <%= @categoryResults[2][1] %> Pkt)",500,340);
+		<% if @categoryResults[2][0] > 0 %>
+			context.fillText("<%= Student.find_by_id(@categoryResults[2][0]).name %> (<%= @categoryResults[2][2]*100 %>% / <%= @categoryResults[2][1] %> Pkt)",500,340);
+		<% else %>
+			context.fillText("Kein Voting",500,340);
+		<% end %>
 		//Andere
-		context.fillStyle = "rgb(0,0,0)";
+		context.fillStyle = "rgb(255,140,0)";
 		context.fillText("Andere:",500,390);
 		context.fillText("Werte: <%= @categoryResults[3][0] %>% / <%= @categoryResults[3][1] %> Pkt",500,420);
 		//Geamt
+		context.fillStyle = "rgb(0,0,0)";
 		context.fillText("Geamt:",500,470);
 		context.fillText("100% = <%= @totalPoints %> Pkt",500,500);
 
