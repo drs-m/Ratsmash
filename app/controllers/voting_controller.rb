@@ -18,6 +18,173 @@ class VotingController < ApplicationController
 			if Vote.where(:category_id => params[:category_id]).pluck(:rating).sum > 0
 				@totalPoints = Vote.where(:category_id => params[:category_id]).pluck(:rating).sum
 
+				#Alle
+				if Category.find_by_id(params[:category_id]).group_id == 1
+					Student.all.each do |student|
+						if Vote.where(:voted_id => student.id, :category_id => params[:category_id]).pluck(:rating).sum > firstPlacePoints
+							firstPlaceId = student.id
+							firstPlacePoints = Vote.where(:voted_id => student.id, :category_id => params[:category_id]).pluck(:rating).sum
+						elsif Vote.where(:voted_id => student.id, :category_id => params[:category_id]).pluck(:rating).sum > secondPlacePoints
+							secondPlaceId = student.id
+							secondPlacePoints = Vote.where(:voted_id => student.id, :category_id => params[:category_id]).pluck(:rating).sum
+						elsif Vote.where(:voted_id => student.id, :category_id => params[:category_id]).pluck(:rating).sum > thirdPlacePoints
+							thirdPlaceId = student.id
+							thirdPlacePoints = Vote.where(:voted_id => student.id, :category_id => params[:category_id]).pluck(:rating).sum
+						end
+					end
+
+					Teacher.all.each do |student|
+						if Vote.where(:voted_id => student.id, :category_id => params[:category_id]).pluck(:rating).sum > firstPlacePoints
+							firstPlaceId = student.id
+							firstPlacePoints = Vote.where(:voted_id => student.id, :category_id => params[:category_id]).pluck(:rating).sum
+						elsif Vote.where(:voted_id => student.id, :category_id => params[:category_id]).pluck(:rating).sum > secondPlacePoints
+							secondPlaceId = student.id
+							secondPlacePoints = Vote.where(:voted_id => student.id, :category_id => params[:category_id]).pluck(:rating).sum
+						elsif Vote.where(:voted_id => student.id, :category_id => params[:category_id]).pluck(:rating).sum > thirdPlacePoints
+							thirdPlaceId = student.id
+							thirdPlacePoints = Vote.where(:voted_id => student.id, :category_id => params[:category_id]).pluck(:rating).sum
+						end
+					end
+
+					@categoryResults[0] = []
+					@categoryResults[0][0] = firstPlaceId
+					@categoryResults[0][1] = firstPlacePoints
+					@categoryResults[0][2] = firstPlacePoints.to_f / @totalPoints.to_f
+					@categoryResults[1] = []
+					@categoryResults[1][0] = secondPlaceId
+					@categoryResults[1][1] = secondPlacePoints
+					@categoryResults[1][2] = secondPlacePoints.to_f / @totalPoints.to_f
+					@categoryResults[2] = []
+					@categoryResults[2][0] = thirdPlaceId
+					@categoryResults[2][1] = thirdPlacePoints
+					@categoryResults[2][2] = thirdPlacePoints.to_f / @totalPoints.to_f
+					@categoryResults[3] = []
+					@categoryResults[3][0] = 100 - ((@categoryResults[0][2]+@categoryResults[1][2]+@categoryResults[2][2])*100)
+					@categoryResults[3][1] = @totalPoints-(firstPlacePoints+secondPlacePoints+thirdPlacePoints)
+				end
+
+				#Alle Frauen
+				if Category.find_by_id(params[:category_id]).group_id == 2
+					Student.where(:gender => false).each do |student|
+						if Vote.where(:voted_id => student.id, :category_id => params[:category_id]).pluck(:rating).sum > firstPlacePoints
+							firstPlaceId = student.id
+							firstPlacePoints = Vote.where(:voted_id => student.id, :category_id => params[:category_id]).pluck(:rating).sum
+						elsif Vote.where(:voted_id => student.id, :category_id => params[:category_id]).pluck(:rating).sum > secondPlacePoints
+							secondPlaceId = student.id
+							secondPlacePoints = Vote.where(:voted_id => student.id, :category_id => params[:category_id]).pluck(:rating).sum
+						elsif Vote.where(:voted_id => student.id, :category_id => params[:category_id]).pluck(:rating).sum > thirdPlacePoints
+							thirdPlaceId = student.id
+							thirdPlacePoints = Vote.where(:voted_id => student.id, :category_id => params[:category_id]).pluck(:rating).sum
+						end
+					end
+
+					Teacher.where(:gender => false).each do |student|
+						if Vote.where(:voted_id => student.id, :category_id => params[:category_id]).pluck(:rating).sum > firstPlacePoints
+							firstPlaceId = student.id
+							firstPlacePoints = Vote.where(:voted_id => student.id, :category_id => params[:category_id]).pluck(:rating).sum
+						elsif Vote.where(:voted_id => student.id, :category_id => params[:category_id]).pluck(:rating).sum > secondPlacePoints
+							secondPlaceId = student.id
+							secondPlacePoints = Vote.where(:voted_id => student.id, :category_id => params[:category_id]).pluck(:rating).sum
+						elsif Vote.where(:voted_id => student.id, :category_id => params[:category_id]).pluck(:rating).sum > thirdPlacePoints
+							thirdPlaceId = student.id
+							thirdPlacePoints = Vote.where(:voted_id => student.id, :category_id => params[:category_id]).pluck(:rating).sum
+						end
+					end
+
+					@categoryResults[0] = []
+					@categoryResults[0][0] = firstPlaceId
+					@categoryResults[0][1] = firstPlacePoints
+					@categoryResults[0][2] = firstPlacePoints.to_f / @totalPoints.to_f
+					@categoryResults[1] = []
+					@categoryResults[1][0] = secondPlaceId
+					@categoryResults[1][1] = secondPlacePoints
+					@categoryResults[1][2] = secondPlacePoints.to_f / @totalPoints.to_f
+					@categoryResults[2] = []
+					@categoryResults[2][0] = thirdPlaceId
+					@categoryResults[2][1] = thirdPlacePoints
+					@categoryResults[2][2] = thirdPlacePoints.to_f / @totalPoints.to_f
+					@categoryResults[3] = []
+					@categoryResults[3][0] = 100 - ((@categoryResults[0][2]+@categoryResults[1][2]+@categoryResults[2][2])*100)
+					@categoryResults[3][1] = @totalPoints-(firstPlacePoints+secondPlacePoints+thirdPlacePoints)
+				end
+
+				#Alle Männer
+				if Category.find_by_id(params[:category_id]).group_id == 3
+					Student.where(:gender => true).each do |student|
+						if Vote.where(:voted_id => student.id, :category_id => params[:category_id]).pluck(:rating).sum > firstPlacePoints
+							firstPlaceId = student.id
+							firstPlacePoints = Vote.where(:voted_id => student.id, :category_id => params[:category_id]).pluck(:rating).sum
+						elsif Vote.where(:voted_id => student.id, :category_id => params[:category_id]).pluck(:rating).sum > secondPlacePoints
+							secondPlaceId = student.id
+							secondPlacePoints = Vote.where(:voted_id => student.id, :category_id => params[:category_id]).pluck(:rating).sum
+						elsif Vote.where(:voted_id => student.id, :category_id => params[:category_id]).pluck(:rating).sum > thirdPlacePoints
+							thirdPlaceId = student.id
+							thirdPlacePoints = Vote.where(:voted_id => student.id, :category_id => params[:category_id]).pluck(:rating).sum
+						end
+					end
+
+					Teacher.where(:gender => true).each do |student|
+						if Vote.where(:voted_id => student.id, :category_id => params[:category_id]).pluck(:rating).sum > firstPlacePoints
+							firstPlaceId = student.id
+							firstPlacePoints = Vote.where(:voted_id => student.id, :category_id => params[:category_id]).pluck(:rating).sum
+						elsif Vote.where(:voted_id => student.id, :category_id => params[:category_id]).pluck(:rating).sum > secondPlacePoints
+							secondPlaceId = student.id
+							secondPlacePoints = Vote.where(:voted_id => student.id, :category_id => params[:category_id]).pluck(:rating).sum
+						elsif Vote.where(:voted_id => student.id, :category_id => params[:category_id]).pluck(:rating).sum > thirdPlacePoints
+							thirdPlaceId = student.id
+							thirdPlacePoints = Vote.where(:voted_id => student.id, :category_id => params[:category_id]).pluck(:rating).sum
+						end
+					end
+
+					@categoryResults[0] = []
+					@categoryResults[0][0] = firstPlaceId
+					@categoryResults[0][1] = firstPlacePoints
+					@categoryResults[0][2] = firstPlacePoints.to_f / @totalPoints.to_f
+					@categoryResults[1] = []
+					@categoryResults[1][0] = secondPlaceId
+					@categoryResults[1][1] = secondPlacePoints
+					@categoryResults[1][2] = secondPlacePoints.to_f / @totalPoints.to_f
+					@categoryResults[2] = []
+					@categoryResults[2][0] = thirdPlaceId
+					@categoryResults[2][1] = thirdPlacePoints
+					@categoryResults[2][2] = thirdPlacePoints.to_f / @totalPoints.to_f
+					@categoryResults[3] = []
+					@categoryResults[3][0] = 100 - ((@categoryResults[0][2]+@categoryResults[1][2]+@categoryResults[2][2])*100)
+					@categoryResults[3][1] = @totalPoints-(firstPlacePoints+secondPlacePoints+thirdPlacePoints)
+				end
+
+				#Alle Schüler
+				if Category.find_by_id(params[:category_id]).group_id == 4
+					Student.all.each do |student|
+						if Vote.where(:voted_id => student.id, :category_id => params[:category_id]).pluck(:rating).sum > firstPlacePoints
+							firstPlaceId = student.id
+							firstPlacePoints = Vote.where(:voted_id => student.id, :category_id => params[:category_id]).pluck(:rating).sum
+						elsif Vote.where(:voted_id => student.id, :category_id => params[:category_id]).pluck(:rating).sum > secondPlacePoints
+							secondPlaceId = student.id
+							secondPlacePoints = Vote.where(:voted_id => student.id, :category_id => params[:category_id]).pluck(:rating).sum
+						elsif Vote.where(:voted_id => student.id, :category_id => params[:category_id]).pluck(:rating).sum > thirdPlacePoints
+							thirdPlaceId = student.id
+							thirdPlacePoints = Vote.where(:voted_id => student.id, :category_id => params[:category_id]).pluck(:rating).sum
+						end
+					end
+
+					@categoryResults[0] = []
+					@categoryResults[0][0] = firstPlaceId
+					@categoryResults[0][1] = firstPlacePoints
+					@categoryResults[0][2] = firstPlacePoints.to_f / @totalPoints.to_f
+					@categoryResults[1] = []
+					@categoryResults[1][0] = secondPlaceId
+					@categoryResults[1][1] = secondPlacePoints
+					@categoryResults[1][2] = secondPlacePoints.to_f / @totalPoints.to_f
+					@categoryResults[2] = []
+					@categoryResults[2][0] = thirdPlaceId
+					@categoryResults[2][1] = thirdPlacePoints
+					@categoryResults[2][2] = thirdPlacePoints.to_f / @totalPoints.to_f
+					@categoryResults[3] = []
+					@categoryResults[3][0] = 100 - ((@categoryResults[0][2]+@categoryResults[1][2]+@categoryResults[2][2])*100)
+					@categoryResults[3][1] = @totalPoints-(firstPlacePoints+secondPlacePoints+thirdPlacePoints)
+				end
+
 				#Schüler
 				if Category.find_by_id(params[:category_id]).group_id == 6
 					Student.where(:gender => true).each do |student|
@@ -49,6 +216,134 @@ class VotingController < ApplicationController
 					@categoryResults[3][0] = 100 - ((@categoryResults[0][2]+@categoryResults[1][2]+@categoryResults[2][2])*100)
 					@categoryResults[3][1] = @totalPoints-(firstPlacePoints+secondPlacePoints+thirdPlacePoints)
 				end
+
+				#Schülerinnen
+				if Category.find_by_id(params[:category_id]).group_id == 7
+					Student.where(:gender => false).each do |student|
+						if Vote.where(:voted_id => student.id, :category_id => params[:category_id]).pluck(:rating).sum > firstPlacePoints
+							firstPlaceId = student.id
+							firstPlacePoints = Vote.where(:voted_id => student.id, :category_id => params[:category_id]).pluck(:rating).sum
+						elsif Vote.where(:voted_id => student.id, :category_id => params[:category_id]).pluck(:rating).sum > secondPlacePoints
+							secondPlaceId = student.id
+							secondPlacePoints = Vote.where(:voted_id => student.id, :category_id => params[:category_id]).pluck(:rating).sum
+						elsif Vote.where(:voted_id => student.id, :category_id => params[:category_id]).pluck(:rating).sum > thirdPlacePoints
+							thirdPlaceId = student.id
+							thirdPlacePoints = Vote.where(:voted_id => student.id, :category_id => params[:category_id]).pluck(:rating).sum
+						end
+					end
+
+					@categoryResults[0] = []
+					@categoryResults[0][0] = firstPlaceId
+					@categoryResults[0][1] = firstPlacePoints
+					@categoryResults[0][2] = firstPlacePoints.to_f / @totalPoints.to_f
+					@categoryResults[1] = []
+					@categoryResults[1][0] = secondPlaceId
+					@categoryResults[1][1] = secondPlacePoints
+					@categoryResults[1][2] = secondPlacePoints.to_f / @totalPoints.to_f
+					@categoryResults[2] = []
+					@categoryResults[2][0] = thirdPlaceId
+					@categoryResults[2][1] = thirdPlacePoints
+					@categoryResults[2][2] = thirdPlacePoints.to_f / @totalPoints.to_f
+					@categoryResults[3] = []
+					@categoryResults[3][0] = 100 - ((@categoryResults[0][2]+@categoryResults[1][2]+@categoryResults[2][2])*100)
+					@categoryResults[3][1] = @totalPoints-(firstPlacePoints+secondPlacePoints+thirdPlacePoints)
+				end		
+
+				#Alle Lehrer
+				if Category.find_by_id(params[:category_id]).group_id == 5
+					Teacher.all.each do |student|
+						if Vote.where(:voted_id => student.id, :category_id => params[:category_id]).pluck(:rating).sum > firstPlacePoints
+							firstPlaceId = student.id
+							firstPlacePoints = Vote.where(:voted_id => student.id, :category_id => params[:category_id]).pluck(:rating).sum
+						elsif Vote.where(:voted_id => student.id, :category_id => params[:category_id]).pluck(:rating).sum > secondPlacePoints
+							secondPlaceId = student.id
+							secondPlacePoints = Vote.where(:voted_id => student.id, :category_id => params[:category_id]).pluck(:rating).sum
+						elsif Vote.where(:voted_id => student.id, :category_id => params[:category_id]).pluck(:rating).sum > thirdPlacePoints
+							thirdPlaceId = student.id
+							thirdPlacePoints = Vote.where(:voted_id => student.id, :category_id => params[:category_id]).pluck(:rating).sum
+						end
+					end
+
+					@categoryResults[0] = []
+					@categoryResults[0][0] = firstPlaceId
+					@categoryResults[0][1] = firstPlacePoints
+					@categoryResults[0][2] = firstPlacePoints.to_f / @totalPoints.to_f
+					@categoryResults[1] = []
+					@categoryResults[1][0] = secondPlaceId
+					@categoryResults[1][1] = secondPlacePoints
+					@categoryResults[1][2] = secondPlacePoints.to_f / @totalPoints.to_f
+					@categoryResults[2] = []
+					@categoryResults[2][0] = thirdPlaceId
+					@categoryResults[2][1] = thirdPlacePoints
+					@categoryResults[2][2] = thirdPlacePoints.to_f / @totalPoints.to_f
+					@categoryResults[3] = []
+					@categoryResults[3][0] = 100 - ((@categoryResults[0][2]+@categoryResults[1][2]+@categoryResults[2][2])*100)
+					@categoryResults[3][1] = @totalPoints-(firstPlacePoints+secondPlacePoints+thirdPlacePoints)
+				end
+
+				#Lehrer
+				if Category.find_by_id(params[:category_id]).group_id == 8
+					Teacher.where(:gender => true).each do |student|
+						if Vote.where(:voted_id => student.id, :category_id => params[:category_id]).pluck(:rating).sum > firstPlacePoints
+							firstPlaceId = student.id
+							firstPlacePoints = Vote.where(:voted_id => student.id, :category_id => params[:category_id]).pluck(:rating).sum
+						elsif Vote.where(:voted_id => student.id, :category_id => params[:category_id]).pluck(:rating).sum > secondPlacePoints
+							secondPlaceId = student.id
+							secondPlacePoints = Vote.where(:voted_id => student.id, :category_id => params[:category_id]).pluck(:rating).sum
+						elsif Vote.where(:voted_id => student.id, :category_id => params[:category_id]).pluck(:rating).sum > thirdPlacePoints
+							thirdPlaceId = student.id
+							thirdPlacePoints = Vote.where(:voted_id => student.id, :category_id => params[:category_id]).pluck(:rating).sum
+						end
+					end
+
+					@categoryResults[0] = []
+					@categoryResults[0][0] = firstPlaceId
+					@categoryResults[0][1] = firstPlacePoints
+					@categoryResults[0][2] = firstPlacePoints.to_f / @totalPoints.to_f
+					@categoryResults[1] = []
+					@categoryResults[1][0] = secondPlaceId
+					@categoryResults[1][1] = secondPlacePoints
+					@categoryResults[1][2] = secondPlacePoints.to_f / @totalPoints.to_f
+					@categoryResults[2] = []
+					@categoryResults[2][0] = thirdPlaceId
+					@categoryResults[2][1] = thirdPlacePoints
+					@categoryResults[2][2] = thirdPlacePoints.to_f / @totalPoints.to_f
+					@categoryResults[3] = []
+					@categoryResults[3][0] = 100 - ((@categoryResults[0][2]+@categoryResults[1][2]+@categoryResults[2][2])*100)
+					@categoryResults[3][1] = @totalPoints-(firstPlacePoints+secondPlacePoints+thirdPlacePoints)
+				end
+
+				#Lehrerinnen
+				if Category.find_by_id(params[:category_id]).group_id == 9
+					Teacher.where(:gender => false).each do |student|
+						if Vote.where(:voted_id => student.id, :category_id => params[:category_id]).pluck(:rating).sum > firstPlacePoints
+							firstPlaceId = student.id
+							firstPlacePoints = Vote.where(:voted_id => student.id, :category_id => params[:category_id]).pluck(:rating).sum
+						elsif Vote.where(:voted_id => student.id, :category_id => params[:category_id]).pluck(:rating).sum > secondPlacePoints
+							secondPlaceId = student.id
+							secondPlacePoints = Vote.where(:voted_id => student.id, :category_id => params[:category_id]).pluck(:rating).sum
+						elsif Vote.where(:voted_id => student.id, :category_id => params[:category_id]).pluck(:rating).sum > thirdPlacePoints
+							thirdPlaceId = student.id
+							thirdPlacePoints = Vote.where(:voted_id => student.id, :category_id => params[:category_id]).pluck(:rating).sum
+						end
+					end
+
+					@categoryResults[0] = []
+					@categoryResults[0][0] = firstPlaceId
+					@categoryResults[0][1] = firstPlacePoints
+					@categoryResults[0][2] = firstPlacePoints.to_f / @totalPoints.to_f
+					@categoryResults[1] = []
+					@categoryResults[1][0] = secondPlaceId
+					@categoryResults[1][1] = secondPlacePoints
+					@categoryResults[1][2] = secondPlacePoints.to_f / @totalPoints.to_f
+					@categoryResults[2] = []
+					@categoryResults[2][0] = thirdPlaceId
+					@categoryResults[2][1] = thirdPlacePoints
+					@categoryResults[2][2] = thirdPlacePoints.to_f / @totalPoints.to_f
+					@categoryResults[3] = []
+					@categoryResults[3][0] = 100 - ((@categoryResults[0][2]+@categoryResults[1][2]+@categoryResults[2][2])*100)
+					@categoryResults[3][1] = @totalPoints-(firstPlacePoints+secondPlacePoints+thirdPlacePoints)
+				end		
 			else
 				@categoryResults[0] = []
 				@categoryResults[0][0] = 0
@@ -66,6 +361,7 @@ class VotingController < ApplicationController
 				@categoryResults[3][0] = 0
 				@categoryResults[3][1] = 0
 			end
+
 		else
 			params[:category_id] = 1
 			@categoryResults[0] = []
