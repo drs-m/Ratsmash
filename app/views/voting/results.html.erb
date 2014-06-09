@@ -46,29 +46,60 @@
 
 		//Ergebnisse in Zahlen
 		//1.Platz
-		context.fillStyle = "rgb(255,0,0)";
-		context.font = "20px Arial";
-		context.fillText("1. Platz:",500,150);
-		<% if @categoryResults[0][0] > 0 %>
-			context.fillText("<%= Student.find_by_id(@categoryResults[0][0]).name %> (" + (Math.round(<%= @categoryResults[0][2] %>*10000)/10000)*100 + "% / <%= @categoryResults[0][1] %> Pkt)",500,180);
+		<% if @categoryResults[0][3] == "student" %>
+			context.fillStyle = "rgb(255,0,0)";
+			context.font = "20px Arial";
+			context.fillText("1. Platz:",500,150);
+			<% if @categoryResults[0][0] > 0 %>
+				context.fillText("<%= Student.find_by_id(@categoryResults[0][0]).name %> (" + (Math.round(<%= @categoryResults[0][2] %>*10000)/10000)*100 + "% / <%= @categoryResults[0][1] %> Pkt)",500,180);
+			<% else %>
+				context.fillText("Kein Voting",500,180);
+			<% end %>
 		<% else %>
-			context.fillText("Kein Voting",500,180);
+			context.fillStyle = "rgb(255,0,0)";
+			context.font = "20px Arial";
+			context.fillText("1. Platz:",500,150);
+			<% if @categoryResults[0][0] > 0 %>
+				context.fillText("<%= Teacher.find_by_id(@categoryResults[0][0]).name %> (" + (Math.round(<%= @categoryResults[0][2] %>*10000)/10000)*100 + "% / <%= @categoryResults[0][1] %> Pkt)",500,180);
+			<% else %>
+				context.fillText("Kein Voting",500,180);
+			<% end %>
 		<% end %>
 		//2.Platz
-		context.fillStyle = "rgb(0,255,0)";
-		context.fillText("2. Platz:",500,230);
-		<% if @categoryResults[1][0] > 0 %>
-			context.fillText("<%= Student.find_by_id(@categoryResults[1][0]).name %> (" + (Math.round(<%= @categoryResults[1][2] %>*10000)/10000)*100 + "% / <%= @categoryResults[1][1] %> Pkt)",500,260);
+		<% if @categoryResults[1][3] == "student" %>
+			context.fillStyle = "rgb(0,255,0)";
+			context.fillText("2. Platz:",500,230);
+			<% if @categoryResults[1][0] > 0 %>
+				context.fillText("<%= Student.find_by_id(@categoryResults[1][0]).name %> (" + (Math.round(<%= @categoryResults[1][2] %>*10000)/10000)*100 + "% / <%= @categoryResults[1][1] %> Pkt)",500,260);
+			<% else %>
+				context.fillText("Kein Voting",500,260);
+			<% end %>
 		<% else %>
-			context.fillText("Kein Voting",500,260);
+			context.fillStyle = "rgb(0,255,0)";
+			context.fillText("2. Platz:",500,230);
+			<% if @categoryResults[1][0] > 0 %>
+				context.fillText("<%= Teacher.find_by_id(@categoryResults[1][0]).name %> (" + (Math.round(<%= @categoryResults[1][2] %>*10000)/10000)*100 + "% / <%= @categoryResults[1][1] %> Pkt)",500,260);
+			<% else %>
+				context.fillText("Kein Voting",500,260);
+			<% end %>
 		<% end %>
 		//3.Platz
-		context.fillStyle = "rgb(0,0,255)";
-		context.fillText("3. Platz:",500,310);
-		<% if @categoryResults[2][0] > 0 %>
-			context.fillText("<%= Student.find_by_id(@categoryResults[2][0]).name %> (" + (Math.round(<%= @categoryResults[2][2] %>*10000)/10000)*100 + "% / <%= @categoryResults[2][1] %> Pkt)",500,340);
+		<% if @categoryResults[2][3] == "student" %>
+			context.fillStyle = "rgb(0,0,255)";
+			context.fillText("3. Platz:",500,310);
+			<% if @categoryResults[2][0] > 0 %>
+				context.fillText("<%= Student.find_by_id(@categoryResults[2][0]).name %> (" + (Math.round(<%= @categoryResults[2][2] %>*10000)/10000)*100 + "% / <%= @categoryResults[2][1] %> Pkt)",500,340);
+			<% else %>
+				context.fillText("Kein Voting",500,340);
+			<% end %>
 		<% else %>
-			context.fillText("Kein Voting",500,340);
+			context.fillStyle = "rgb(0,0,255)";
+			context.fillText("3. Platz:",500,310);
+			<% if @categoryResults[2][0] > 0 %>
+				context.fillText("<%= Teacher.find_by_id(@categoryResults[2][0]).name %> (" + (Math.round(<%= @categoryResults[2][2] %>*10000)/10000)*100 + "% / <%= @categoryResults[2][1] %> Pkt)",500,340);
+			<% else %>
+				context.fillText("Kein Voting",500,340);
+			<% end %>
 		<% end %>
 		//Andere
 		context.fillStyle = "rgb(255,140,0)";
