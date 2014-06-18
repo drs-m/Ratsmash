@@ -2,7 +2,7 @@ class DescriptionController < ApplicationController
 	before_action -> { check_session redirect: true }
 
 	def index
-
+		@descriptions_for_me = Description.where(:for_id => @current_user.id).order(:updated_at).reverse
 	end
 
 	def new 
@@ -33,7 +33,9 @@ class DescriptionController < ApplicationController
 	end
 
 	def destroy
-
+		description = Description.find_by_id params[:id]
+		description.delete
+		redirect_to description_index_path
 	end
 
 end
