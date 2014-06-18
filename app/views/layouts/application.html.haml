@@ -3,14 +3,14 @@
 	%head
 		%title Ratsmash
 		= stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true
-		= javascript_include_tag "application", "data-turbolinks-track" => true
+		
 		= csrf_meta_tags
 
 	%body
-		<div id="menue">
+		#menue
 
-		</div>
-		= yield
-		= render "shared/footer"
+		#webseite
+			= yield
+			= render "shared/footer"
 
 	%div#script-notifier UM DIESE WEBSITE ZU NUTZEN MUSS JAVASCRIPT AKTIVIERT SEIN
