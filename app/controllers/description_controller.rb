@@ -15,7 +15,9 @@ class DescriptionController < ApplicationController
 
 			if Student.find_by_name params[:name]
 				for_id = Student.find_by_name(params[:name]).id
-				Description.create :for_id => for_id, :from_id => from_id, :content => params[:description], :status => -1, :additional_authors => params[:additional_authors], :interests => params[:interests], :hobbies => params[:hobbies]
+				if for_id != from_id
+					Description.create :for_id => for_id, :from_id => from_id, :content => params[:description], :status => -1, :additional_authors => params[:additional_authors], :interests => params[:interests], :hobbies => params[:hobbies]
+				end
 			end
 		end
 		redirect_to description_index_path
