@@ -1,7 +1,10 @@
 Ratsmash::Application.routes.draw do
 
+  resources :quotes
+
   # voting#home als startseite
   root "voting#home", as: "home"
+  # root "quotes#new"
 
   # STUDENT AND TEACHER ROUTES
   resources :students

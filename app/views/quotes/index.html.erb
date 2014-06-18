@@ -1,0 +1,31 @@
+<h1>Schüler- und Lerherzitate</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Absender</th>
+      <th>Text</th>
+      <th>Lehrer beteiligt?</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @quotes.each do |quote| %>
+      <tr>
+        <td><%= quote.sender %></td>
+        <td><%= quote.text %></td>
+        <td><%= quote.teacher %></td>
+        <td><%= link_to 'Show', quote %></td>
+        <td><%= link_to 'Edit', edit_quote_path(quote) %></td>
+        <td><%= link_to 'Destroy', quote, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Quote', new_quote_path %>
