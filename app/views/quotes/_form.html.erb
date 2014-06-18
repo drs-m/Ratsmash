@@ -13,13 +13,14 @@
 
   <div class="field">
     <%= f.label :sender, "Absender" %><br>
-    <%= f.text_field :sender %>
+    <%= f.text_field :sender, placeholder: "Anonym" %>
   </div>
   <div class="field">
     <%= f.label :text, "Text" %><br>
     <%= f.text_area :text %>
   </div>
+  <%= hidden_field_tag "quote[teacher]", nil, value: @quote.teacher %>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "Bestätigen" %>
   </div>
 <% end %>

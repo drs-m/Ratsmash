@@ -20,6 +20,6 @@
     <%= collection_select(:category, :group_id, Group.all, :id, :name, prompt: "Bitte auswählen!") %>
   </div>
   <div class="actions">
-    <%= submit_tag "Bestätigen" %>
+    <%= f.submit "Bestätigen" %>
   </div>
 <% end %>

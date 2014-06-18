@@ -1,18 +1,22 @@
 Ratsmash::Application.routes.draw do
 
-  resources :quotes
+  rmash_lite = true # activate to only submit quotes
 
-  # voting#home als startseite
-  root "voting#home", as: "home"
-  # root "quotes#new"
+  if rmash_lite
+    root "quotes#start", as: :not_logged_in_default
+    get "menu", to: "voting#home", as: :home
+  else
+    # voting#home als startseite
+    root "voting#home", as: :home
+  end
 
   # STUDENT AND TEACHER ROUTES
   resources :students
   resources :teachers 
-
   resources :categories
+  resources :description  
+  resources :quotes
 
-  resources :description
 
   # account activation / password reset 
   get "reset_password", to: "session#reset_password", as: :reset_password
@@ -21,9 +25,13 @@ Ratsmash::Application.routes.draw do
   post "change_password/(:t)", to: "students#change_password"
 
   # SESSION ROUTES
-  get "login", to: "session#login", as: "login"
+  if rmash_lite
+    get "login", to: "session#login"
+  else
+    get "login", to: "session#login", as: :not_logged_in_default
+  end
   post "login", to: "session#login"
-  get "logout", to: "session#logout", as: "logout"
+  get "logout", to: "session#logout", as: :logout
   # temp for dev!
   get "session/instantlogin"
   
@@ -42,6 +50,6 @@ Ratsmash::Application.routes.draw do
   post "vote/:category_id", to: "voting#commit", category_id: /[0-9]{1,2}/
 
   # SETTINGS ROUTES
-  get "settings", to: "settings#menu", as: "settings"
+  get "settings", to: "settings#menu", as: :settings
 
 end

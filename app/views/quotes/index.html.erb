@@ -1,4 +1,4 @@
-<h1>Schüler- und Lerherzitate</h1>
+<h1>Schüler- und Lehrerzitate</h1>
 
 <table>
   <thead>
@@ -18,9 +18,9 @@
         <td><%= quote.sender %></td>
         <td><%= quote.text %></td>
         <td><%= quote.teacher %></td>
-        <td><%= link_to 'Show', quote %></td>
-        <td><%= link_to 'Edit', edit_quote_path(quote) %></td>
-        <td><%= link_to 'Destroy', quote, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Anzeigen', quote %></td>
+        <td><%= link_to 'Bearbeiten', edit_quote_path(quote) %></td>
+        <td><%= link_to 'Löschen', quote, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>

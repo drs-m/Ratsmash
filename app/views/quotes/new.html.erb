@@ -1,3 +1,3 @@
-<h1>Zitat einreichen</h1>
+<h1><%= @quote.teacher ? "Lehrerzitat" : "Schülerzitat" %> einreichen</h1>
 
 <%= render 'form' %>
