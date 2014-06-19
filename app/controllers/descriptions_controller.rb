@@ -1,4 +1,4 @@
-class DescriptionController < ApplicationController
+class DescriptionsController < ApplicationController
 	before_action -> { check_session redirect: true }
 
 	def index
@@ -20,7 +20,7 @@ class DescriptionController < ApplicationController
 				end
 			end
 		end
-		redirect_to description_index_path
+		redirect_to descriptions_path
 	end
 
 
@@ -35,7 +35,7 @@ class DescriptionController < ApplicationController
 	def destroy
 		description = Description.find_by_id params[:id]
 		description.delete
-		redirect_to description_index_path
+		redirect_to descriptions_path
 	end
 
 end

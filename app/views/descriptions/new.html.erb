@@ -1,5 +1,5 @@
 <h1>Beschreibung erstellen</h1>
-<%= form_tag(description_index_path, method: :post) do %>
+<%= form_tag(descriptions_path, method: :post) do %>
 	<%= text_field_tag :name, nil, placeholder: "Für" %><br /><br />
 	<%= text_area_tag :description, nil, placeholder: "Beschreibung",rows: 15, cols: 80 %><br /><br />
 	<%= text_field_tag :interests, nil, placeholder: "Interessen" %><br /><br />
