@@ -1,23 +1,111 @@
 <h1>Beschreibungen</h1>
-<h2>Beschreibungen über mich</h2>
-<table>
-	<tr>
-		<td>Von</td>
-		<td>Inhalt</td>
-		<td>Zusätzliche Autoren</td>
-		<td>Erstellt am</td>
-		<td>Bearbeitet am</td>
-		<td>Aktionen</td>
-	</tr>
-	<% @descriptions_for_me.each do |description| %>
-		<tr>
-			<td><%= Student.find_by_id(description.from_id).name %></td>
-			<td><%= description.content %></td>
-			<td><%= description.additional_authors %></td>
-			<td><%= description.created_at %></td>
-			<td><%= description.updated_at %></td>
-			<td><%= link_to "Löschen", description_path(description.id), :method => :delete, :confirm => "Wirklich löschen?" %></td>
-		</tr>
-	<% end %>
-</table>
 <%= link_to "Beschreibung erstellen", new_description_path %>
+<br />
+<h2>Zugelassene Beschreibung über mich</h2>
+<% if @allowed_description_for_me != nil %>
+	<table>
+		<tr>
+			<td>Von</td>
+			<td>Inhalt</td>
+			<td>Zusätzliche Autoren</td>
+			<td>Erstellt am</td>
+			<td>Bearbeitet am</td>
+			<td>Aktionen</td>
+		</tr>
+		<tr>
+			<td><%= Student.find_by_id(@allowed_description_for_me.from_id).name %></td>
+			<td><%= @allowed_description_for_me.content %></td>
+			<td><%= @allowed_description_for_me.additional_authors %></td>
+			<td><%= @allowed_description_for_me.created_at %></td>
+			<td><%= @allowed_description_for_me.updated_at %></td>
+			<td><%= link_to "Löschen", description_path(@allowed_description_for_me.id), :method => :delete, :confirm => "Wirklich löschen?" %></td>
+		</tr>
+	</table>
+<% else %>
+	keine
+<% end %>
+<h2>Noch nicht eingeordnete Beschreibungen über mich</h2>
+<% if @unaccepted_descriptions_for_me.count > 0 %>
+	<table>
+		<tr>
+			<td>Von</td>
+			<td>Inhalt</td>
+			<td>Zusätzliche Autoren</td>
+			<td>Erstellt am</td>
+			<td>Bearbeitet am</td>
+			<td>Aktionen</td>
+		</tr>
+		<% @unaccepted_descriptions_for_me.each do |description| %>
+			<tr>
+				<td><%= Student.find_by_id(description.from_id).name %></td>
+				<td><%= description.content %></td>
+				<td><%= description.additional_authors %></td>
+				<td><%= description.created_at %></td>
+				<td><%= description.updated_at %></td>
+				<td><%= link_to "Löschen", description_path(description.id), :method => :delete, :confirm => "Wirklich löschen?" %></td>
+			</tr>
+		<% end %>
+	</table>
+<% else %>
+	keine
+<% end %>
+<h2>Abgelehnte Beschreibungen über mich</h2>
+<% if @rejected_descriptions_for_me.count > 0 %>
+	<table>
+		<tr>
+			<td>Von</td>
+			<td>Inhalt</td>
+			<td>Zusätzliche Autoren</td>
+			<td>Erstellt am</td>
+			<td>Bearbeitet am</td>
+			<td>Aktionen</td>
+		</tr>
+		<% @rejected_descriptions_for_me.each do |description| %>
+			<tr>
+				<td><%= Student.find_by_id(description.from_id).name %></td>
+				<td><%= description.content %></td>
+				<td><%= description.additional_authors %></td>
+				<td><%= description.created_at %></td>
+				<td><%= description.updated_at %></td>
+				<td><%= link_to "Löschen", description_path(description.id), :method => :delete, :confirm => "Wirklich löschen?" %></td>
+			</tr>
+		<% end %>
+	</table>
+<% else %>
+	keine
+<% end %>
+<h2>Geschriebene Beschreibungen</h2>
+<% if @written_descriptions.count > 0 %>
+	<table>
+		<tr>
+			<td>Von</td>
+			<td>Inhalt</td>
+			<td>Zusätzliche Autoren</td>
+			<td>Erstellt am</td>
+			<td>Bearbeitet am</td>
+			<td>Status</td>
+			<td>Aktionen</td>
+		</tr>
+		<% @written_descriptions.each do |description| %>
+			<tr>
+				<td><%= Student.find_by_id(description.from_id).name %></td>
+				<td><%= description.content %></td>
+				<td><%= description.additional_authors %></td>
+				<td><%= description.created_at %></td>
+				<td><%= description.updated_at %></td>
+				<td>
+					<% if description.status == -1 %>
+						Abgelehnt
+					<% elsif description.status == 0 %>
+						noch nicht eingeordnet
+					<% elsif description.status == 1 %>
+						Angenommen
+					<% end %>
+				</td>
+				<td><%= link_to "Löschen", description_path(description.id), :method => :delete, :confirm => "Wirklich löschen?" %></td>
+			</tr>
+		<% end %>
+	</table>
+<% else %>
+	keine
+<% end %>
