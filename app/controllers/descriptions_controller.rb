@@ -56,4 +56,17 @@ class DescriptionsController < ApplicationController
 		redirect_to descriptions_path
 	end
 
+	def allow_description
+		if Description.find_by_id params[:id]
+			if Description.where(:for_id => @current_user.id, :status => 1).count > 0
+				Description.where(:for_id => @current_user.id, :status => 1).first.update_attributes :status => 0
+				Description.find_by_id(params[:id]).update_attributes :status => 1
+			else
+				Description.find_by_id(params[:id]).update_attributes :status => 1
+			end
+		end
+
+		redirect_to descriptions_path
+	end
+
 end
