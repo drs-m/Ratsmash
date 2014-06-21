@@ -1,0 +1,10 @@
+<h1>Beschreibung für <%= Student.find_by_id(@description.for_id).name %> bearbeiten</h1>
+<%= form_tag description_path(@description.id), method: :put do %>
+	<%= hidden_field_tag :description_id, @description.id %>
+	<%= hidden_field_tag :for_id, @description.for_id %>
+	<%= text_area_tag :description, @description.content, placeholder: "Beschreibung",rows: 15, cols: 80 %><br /><br />
+	<%= text_field_tag :interests, @description.interests, placeholder: "Interessen" %><br /><br />
+	<%= text_field_tag :hobbies, @description.hobbies, placeholder: "Hobbies" %><br /><br />
+	<%= text_field_tag :additional_authors, @description.additional_authors, placeholder: "Zusätzliche Autoren" %><br /><br />
+	<%= submit_tag "Bearbeiten" %>
+<% end %>

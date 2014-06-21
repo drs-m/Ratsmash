@@ -102,7 +102,10 @@
 						Angenommen
 					<% end %>
 				</td>
-				<td><%= link_to "Löschen", description_path(description.id), :method => :delete, :confirm => "Wirklich löschen?" %></td>
+				<td>
+					<%= link_to "Bearbeiten", edit_description_path(description.id) %>
+					<%= link_to "Löschen", description_path(description.id), :method => :delete, :confirm => "Wirklich löschen?" %>
+				</td>
 			</tr>
 		<% end %>
 	</table>

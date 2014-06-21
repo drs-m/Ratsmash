@@ -28,11 +28,18 @@ class DescriptionsController < ApplicationController
 
 
 	def edit
-
+		@description = Description.find_by_id params[:id]
 	end
 
 	def update
-
+		if Description.find_by_id params[:description_id]
+			if Student.find_by_id params[:for_id]
+				if params[:description] && params[:interests] && params[:hobbies] && params[:additional_authors]
+					Description.find_by_id(params[:description_id]).update_attributes :content => params[:description], :interests => params[:interests], :hobbies => params[:hobbies], :additional_authors => params[:additional_authors], :status => 0
+				end
+			end
+		end
+		redirect_to descriptions_path
 	end
 
 	def destroy
