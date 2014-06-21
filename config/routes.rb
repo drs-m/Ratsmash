@@ -15,6 +15,8 @@ Ratsmash::Application.routes.draw do
   post "reject_description/(:id)", to: "descriptions#reject_description"
   get "allow_description/(:id)", to: "descriptions#allow_description", as: :allow_description
   post "allow_description/(:id)", to: "descriptions#allow_description"
+  get "unordered_description/(:id)", to: "descriptions#unordered_description", as: :unordered_description
+  post "unordered_description/(:id)", to: "descriptions#unordered_description"
 
   # account activation / password reset 
   get "reset_password", to: "session#reset_password", as: :reset_password

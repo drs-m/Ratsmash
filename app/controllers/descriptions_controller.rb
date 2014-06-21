@@ -69,4 +69,12 @@ class DescriptionsController < ApplicationController
 		redirect_to descriptions_path
 	end
 
+	def unordered_description
+		if Description.find_by_id params[:id]
+			Description.find_by_id(params[:id]).update_attributes :status => 0
+		end
+
+		redirect_to descriptions_path
+	end
+
 end
