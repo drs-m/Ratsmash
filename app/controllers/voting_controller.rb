@@ -3,6 +3,14 @@ class VotingController < ApplicationController
 
 	before_action -> { check_session redirect: true }
 
+	def home
+		@descriptions_status = "keine ungeordneten Beschreibungen"
+
+		if Description.where(:for_id => @current_user.id, :status => 0).count > 0
+			@descriptions_status = "Du hast noch nicht eingeordnete Beschreibungen"
+		end
+	end
+
 	def results
 		@categoryResults = []
 
