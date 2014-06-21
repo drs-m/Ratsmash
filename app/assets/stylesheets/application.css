@@ -19,6 +19,9 @@ body{
 	background-size: 100%;
 	background-attachment: fixed;
 }
+li{
+	list-style: none;
+}
 #webseite{
 	margin-top: 50px;
 }

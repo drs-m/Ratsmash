@@ -26,6 +26,13 @@ class DescriptionsController < ApplicationController
 		redirect_to descriptions_path
 	end
 
+	def show 
+		if Description.find_by_id params[:id]
+			@description = Description.find_by_id params[:id]
+		else
+			redirect_to descriptions_path
+		end
+	end
 
 	def edit
 		@description = Description.find_by_id params[:id]
