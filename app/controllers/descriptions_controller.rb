@@ -48,4 +48,12 @@ class DescriptionsController < ApplicationController
 		redirect_to descriptions_path
 	end
 
+	def reject_description
+		if Description.find_by_id params[:id]
+			Description.find_by_id(params[:id]).update_attributes :status => -1
+		end
+
+		redirect_to descriptions_path
+	end
+
 end

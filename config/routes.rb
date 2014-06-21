@@ -9,7 +9,10 @@ Ratsmash::Application.routes.draw do
 
   resources :categories
 
+  #DESCRIPTION ROUTES
   resources :descriptions
+  get "reject_description/(:id)", to: "descriptions#reject_description", as: :reject_description
+  post "reject_description/(:id)", to: "descriptions#reject_description"
 
   # account activation / password reset 
   get "reset_password", to: "session#reset_password", as: :reset_password
