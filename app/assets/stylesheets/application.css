@@ -1,6 +1,49 @@
 /*= require jquery-ui-flick */
 /*= require script-notifier */
 /*= require voting */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font-family: Arial;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
 html{
 	height: 100%;
 	width: 100%;
@@ -103,9 +146,17 @@ li{
 #reset_password_wrapper{
 	float: left;
 	width: 10%;
-	height: 31px;
+	height: 26px;
 	display: block;
 	border-radius: 0px 5px 5px 0px;
+	border: none;
+	cursor: pointer;
+	text-align: center;
+	color: black;
+	text-decoration: none;
+	padding-top: 5px;
+	font-weight: bold;
+	font-size: 20px;
 	background-attachment: fixed;
 	background: #98d8f2; /* Old browsers */
 	background: -moz-linear-gradient(45deg, #98d8f2 0%, #60abf8 66%, #4096ee 100%); /* FF3.6+ */
@@ -116,9 +167,6 @@ li{
 	background: linear-gradient(45deg, #98d8f2 0%,#60abf8 66%,#4096ee 100%); /* W3C */
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#98d8f2', endColorstr='#4096ee',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 	background-size: 100%;
-	border: none;
-	cursor: pointer;
-	text-align: center;
 }
 #reset_password_wrapper:hover{
 	box-shadow: 1px 1px 2px 1px gray;
@@ -162,11 +210,6 @@ li{
 }
 #send_login:hover{
 	box-shadow: 1px 1px 2px 1px gray;
-}
-
-#login div a:hover{
-	background: none;
-	color: black;
 }
 
 @media only screen and (max-width: 1024px){
