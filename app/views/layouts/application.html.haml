@@ -18,6 +18,14 @@
 			%ul
 				%li 
 					= link_to "Account", "#", class: "account_link"
+				%li
+					= link_to "Administration", :settings if @current_user.admin_permissions
+				%li
+					= link_to "Beschreibungen", descriptions_path
+				%li
+					= link_to "Kategorien", :category_list
+				%li
+					= link_to "Hauptmenü", :home
 		#webseite
 			= yield
 			= render "shared/footer"
