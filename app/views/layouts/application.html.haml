@@ -8,8 +8,16 @@
 		= csrf_meta_tags
 
 	%body
+		#acc_link_dd
+			%ul
+				%li
+					= link_to "Logout", :logout
+				%li
+					= link_to "Passwort ändern", :change_password
 		#menue
-
+			%ul
+				%li 
+					= link_to "Account", "#", class: "account_link"
 		#webseite
 			= yield
 			= render "shared/footer"
