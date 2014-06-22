@@ -169,6 +169,11 @@ h1{
 	background: url('cloud1.png') no-repeat center;
 	background-size: 100%;
 }
+#menue a img{
+	margin-top: 5px;
+	margin-left: 10%;
+	float: left;
+}
 #login div{
 	width: 50%;
 	height: 50%;

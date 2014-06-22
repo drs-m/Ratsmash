@@ -11,10 +11,12 @@
 		#acc_link_dd
 			%ul
 				%li
-					= link_to "Logout", :logout
-				%li
 					= link_to "Passwort ändern", :change_password
+				%li
+					= link_to "Logout", :logout
 		#menue
+			%a{:title => "Ratsmash-Logo", :href => "/"}
+				= image_tag("R.ico", height: 40, alt: "Ratsmash-Logo")
 			%ul
 				%li 
 					= link_to raw("Account &or;"), "#", class: "account_link" 
