@@ -27,7 +27,7 @@ footer, header, hgroup, menu, nav, section {
 	display: block;
 }
 body {
-	line-height: 1;
+	line-height: 1.5;
 }
 ol, ul {
 	list-style: none;
@@ -62,11 +62,15 @@ body{
 	background-size: 100%;
 	background-attachment: fixed;
 }
-li{
-	list-style: none;
+h1{
+	font-size: 24px;
+	margin-bottom: 20px;
+	text-align: center;
 }
 #webseite{
-	margin-top: 50px;
+	width: 80%;
+	margin: 0 auto;
+	margin-top: 70px;
 }
 #menue{
 	position: fixed;
