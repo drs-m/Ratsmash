@@ -93,7 +93,7 @@
 <% if @written_descriptions.count > 0 %>
 	<table>
 		<tr>
-			<td>Von</td>
+			<td>Für</td>
 			<td>Inhalt</td>
 			<td>Zusätzliche Autoren</td>
 			<td>Erstellt am</td>
@@ -103,7 +103,7 @@
 		</tr>
 		<% @written_descriptions.each do |description| %>
 			<tr>
-				<td><%= Student.find_by_id(description.from_id).name %></td>
+				<td><%= Student.find_by_id(description.for_id).name %></td>
 				<td><%= description.content[0,200] + "..." %></td>
 				<td><%= description.additional_authors %></td>
 				<td><%= description.created_at %></td>
