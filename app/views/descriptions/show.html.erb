@@ -13,11 +13,11 @@
 	<li><b>Erstellt am:</b> <%= @description.created_at %></li>
 	<li><b>Bearbeitet am:</b> <%= @description.updated_at %></li>
 	<% if @description.status == -1 %>
-		<li><b>Status: Abgelehnt</b></li>
+		<li><b>Status:</b> Abgelehnt</li>
 	<% elsif @description.status == 0 %>
-		<li><b>Status: Noch nicht sicher</b></li>
+		<li><b>Status:</b> Noch nicht sicher</li>
 	<% elsif @description.status == 1 %>
-		<li><b>Status: Angenommen</b></li>
+		<li><b>Status:</b> Angenommen</li>
 	<% end %>
 </ul>
 <br />

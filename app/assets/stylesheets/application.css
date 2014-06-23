@@ -44,6 +44,20 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
+table thead th{
+	text-align: center;
+	font-weight: bold;
+}
+table tr td{
+	padding: 5px 10px 5px 10px;
+}
+table tr td a{
+	margin-right: 10px;
+}
+p{
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
 html{
 	height: 100%;
 	width: 100%;
@@ -67,10 +81,57 @@ h1{
 	margin-bottom: 20px;
 	text-align: center;
 }
+h2{
+	font-size: 20px;
+	margin-top: 20px;
+	margin-bottom: 10px;
+	text-align: left;
+}
+#little_menue{
+	width: 70%;
+	height: auto;
+	padding-top: 20px;
+	padding-left: 20px;
+	display: none;
+	position: absolute;
+	top: 30px;
+	right: 0px;
+}
+#little_menue ul li{
+	width: 100%;
+	height: 50px;
+	border-top: 1px solid white;
+}
+#little_menue ul li a{
+	display: block;
+	width: 100%;
+	padding-top: 10px;
+	padding-left: 50px;
+	height: 40px;
+	color: white;
+	font-size: 16px;
+	background: black;
+	font-weight: bold;
+	text-decoration: none;
+}
+#little_menue ul li a:hover{
+	color: black;
+	background: white;
+}
+#little_menue_button img{
+	display: none;
+	float: right;
+	padding-top: 5px;
+	cursor: pointer;
+	margin-right: 10%;
+}
 #webseite{
 	width: 80%;
 	margin: 0 auto;
 	margin-top: 70px;
+}
+#webseite li{
+	line-height: 1.5;
 }
 #acc_link_dd{
 	box-shadow: 1px 1px 2px 2px gray;
@@ -334,6 +395,12 @@ h1{
 	}
 	#reset_password_wrapper{
 		height: 25px;
+	}
+	#menue ul{
+		display: none;
+	}
+	#little_menue_button img{
+		display: block;
 	}
 }
 @media only screen and (max-width: 480px){

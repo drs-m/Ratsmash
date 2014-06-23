@@ -1,23 +1,28 @@
 <h1>Beschreibungen</h1>
-<%= link_to "Beschreibung erstellen", new_description_path %>
-<br />
+<p>
+	<%= link_to "Beschreibung erstellen", new_description_path %>
+</p>
 <h2>Zugelassene Beschreibung über mich</h2>
 <% if @allowed_description_for_me != nil %>
 	<table>
-		<tr>
-			<td>Von</td>
-			<td>Inhalt</td>
-			<td>Zusätzliche Autoren</td>
-			<td>Erstellt am</td>
-			<td>Bearbeitet am</td>
-			<td>Aktionen</td>
-		</tr>
+		<thead>
+			<th>Von</th>
+			<th>Inhalt</th>
+			<th>Zusätzliche Autoren</th>
+			<th>Erstellt am</th>
+			<th>Bearbeitet am</th>
+			<th>Aktionen</th>
+		</thead>
 		<tr>
 			<td><%= Student.find_by_id(@allowed_description_for_me.from_id).name %></td>
 			<td><%= @allowed_description_for_me.content[0,200] + "..." %></td>
 			<td><%= @allowed_description_for_me.additional_authors %></td>
-			<td><%= @allowed_description_for_me.created_at %></td>
-			<td><%= @allowed_description_for_me.updated_at %></td>
+			<td>
+				<%= @allowed_description_for_me.created_at.day.to_s+"."+@allowed_description_for_me.created_at.month.to_s+"."+@allowed_description_for_me.created_at.year.to_s+" - "+(@allowed_description_for_me.created_at.hour+@timezone).to_s+":"+@allowed_description_for_me.created_at.min.to_s+" Uhr" %>
+			</td>
+			<td>
+				<%= @allowed_description_for_me.updated_at.day.to_s+"."+@allowed_description_for_me.updated_at.month.to_s+"."+@allowed_description_for_me.updated_at.year.to_s+" - "+(@allowed_description_for_me.updated_at.hour+@timezone).to_s+":"+@allowed_description_for_me.updated_at.min.to_s+" Uhr" %>
+			</td>
 			<td>
 				<%= link_to "Zeigen", description_path(@allowed_description_for_me.id) %>
 				<%= link_to "Noch nicht sicher", unordered_description_path(@allowed_description_for_me.id) %>
@@ -32,21 +37,25 @@
 <h2>Noch nicht eingeordnete Beschreibungen über mich</h2>
 <% if @unaccepted_descriptions_for_me.count > 0 %>
 	<table>
-		<tr>
-			<td>Von</td>
-			<td>Inhalt</td>
-			<td>Zusätzliche Autoren</td>
-			<td>Erstellt am</td>
-			<td>Bearbeitet am</td>
-			<td>Aktionen</td>
-		</tr>
+		<thead>
+			<th>Von</th>
+			<th>Inhalt</th>
+			<th>Zusätzliche Autoren</th>
+			<th>Erstellt am</th>
+			<th>Bearbeitet am</th>
+			<th>Aktionen</th>
+		</thead>
 		<% @unaccepted_descriptions_for_me.each do |description| %>
 			<tr>
 				<td><%= Student.find_by_id(description.from_id).name %></td>
 				<td><%= description.content[0,200] + "..." %></td>
 				<td><%= description.additional_authors %></td>
-				<td><%= description.created_at %></td>
-				<td><%= description.updated_at %></td>
+				<td>
+					<%= description.created_at.day.to_s+"."+description.created_at.month.to_s+"."+description.created_at.year.to_s+" - "+(description.created_at.hour+@timezone).to_s+":"+description.created_at.min.to_s+" Uhr" %>
+				</td>
+				<td>
+					<%= description.updated_at.day.to_s+"."+description.updated_at.month.to_s+"."+description.updated_at.year.to_s+" - "+(description.updated_at.hour+@timezone).to_s+":"+description.updated_at.min.to_s+" Uhr" %>
+				</td>
 				<td>
 					<%= link_to "Zeigen", description_path(description.id) %>
 					<%= link_to "Annehmen", allow_description_path(description.id) %>
@@ -62,21 +71,25 @@
 <h2>Abgelehnte Beschreibungen über mich</h2>
 <% if @rejected_descriptions_for_me.count > 0 %>
 	<table>
-		<tr>
-			<td>Von</td>
-			<td>Inhalt</td>
-			<td>Zusätzliche Autoren</td>
-			<td>Erstellt am</td>
-			<td>Bearbeitet am</td>
-			<td>Aktionen</td>
-		</tr>
+		<thead>
+			<th>Von</th>
+			<th>Inhalt</th>
+			<th>Zusätzliche Autoren</th>
+			<th>Erstellt am</th>
+			<th>Bearbeitet am</th>
+			<th>Aktionen</th>
+		</thead>
 		<% @rejected_descriptions_for_me.each do |description| %>
 			<tr>
 				<td><%= Student.find_by_id(description.from_id).name %></td>
 				<td><%= description.content[0,200] + "..." %></td>
 				<td><%= description.additional_authors %></td>
-				<td><%= description.created_at %></td>
-				<td><%= description.updated_at %></td>
+				<td>
+					<%= description.created_at.day.to_s+"."+description.created_at.month.to_s+"."+description.created_at.year.to_s+" - "+(description.created_at.hour+@timezone).to_s+":"+description.created_at.min.to_s+" Uhr" %>
+				</td>
+				<td>
+					<%= description.updated_at.day.to_s+"."+description.updated_at.month.to_s+"."+description.updated_at.year.to_s+" - "+(description.updated_at.hour+@timezone).to_s+":"+description.updated_at.min.to_s+" Uhr" %>
+				</td>
 				<td>
 					<%= link_to "Zeigen", description_path(description.id) %>
 					<%= link_to "Noch nicht sicher", unordered_description_path(description.id) %>
@@ -92,22 +105,26 @@
 <h2>Geschriebene Beschreibungen</h2>
 <% if @written_descriptions.count > 0 %>
 	<table>
-		<tr>
-			<td>Für</td>
-			<td>Inhalt</td>
-			<td>Zusätzliche Autoren</td>
-			<td>Erstellt am</td>
-			<td>Bearbeitet am</td>
-			<td>Status</td>
-			<td>Aktionen</td>
-		</tr>
+		<thead>
+			<th>Für</th>
+			<th>Inhalt</th>
+			<th>Zusätzliche Autoren</th>
+			<th>Erstellt am</th>
+			<th>Bearbeitet am</th>
+			<th>Status</th>
+			<th>Aktionen</th>
+		</thead>
 		<% @written_descriptions.each do |description| %>
 			<tr>
 				<td><%= Student.find_by_id(description.for_id).name %></td>
 				<td><%= description.content[0,200] + "..." %></td>
 				<td><%= description.additional_authors %></td>
-				<td><%= description.created_at %></td>
-				<td><%= description.updated_at %></td>
+				<td>
+					<%= description.created_at.day.to_s+"."+description.created_at.month.to_s+"."+description.created_at.year.to_s+" - "+(description.created_at.hour+@timezone).to_s+":"+description.created_at.min.to_s+" Uhr" %>
+				</td>
+				<td>
+					<%= description.updated_at.day.to_s+"."+description.updated_at.month.to_s+"."+description.updated_at.year.to_s+" - "+(description.updated_at.hour+@timezone).to_s+":"+description.updated_at.min.to_s+" Uhr" %>
+				</td>
 				<td>
 					<% if description.status == -1 %>
 						Abgelehnt

@@ -8,12 +8,29 @@
 		= csrf_meta_tags
 
 	%body
+
+		#little_menue
+			%ul
+				%li
+					= link_to "Hauptmenü", :home
+				%li
+					= link_to "Kategorien", :category_list
+				%li
+					= link_to "Beschreibungen", descriptions_path
+				%li
+					= link_to "Administration", :settings if @current_user.admin_permissions
+				%li
+					= link_to "Passwort ändern", :change_password
+				%li
+					= link_to "Logout", :logout
+
 		#acc_link_dd
 			%ul
 				%li
 					= link_to "Passwort ändern", :change_password
 				%li
 					= link_to "Logout", :logout
+
 		#menue
 			%a{:title => "Ratsmash-Logo", :href => "/"}
 				= image_tag("R.ico", height: 40, alt: "Ratsmash-Logo")
@@ -29,6 +46,10 @@
 						= link_to "Kategorien", :category_list
 					%li
 						= link_to "Hauptmenü", :home
+
+			#little_menue_button
+				= image_tag("menue_button.png", height: 40, alt: "Menübutton")
+
 		#webseite
 			= yield
 			= render "shared/footer"

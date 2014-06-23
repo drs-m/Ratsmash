@@ -12,4 +12,9 @@ $(document).ready(function(){
 	$(".account_link").click(function(){
 		$("#acc_link_dd").slideToggle(0);
 	});
+
+	$("#little_menue_button").click(function(){
+		isClicked = true;
+		$("#little_menue").slideToggle(0);
+	});
 });
