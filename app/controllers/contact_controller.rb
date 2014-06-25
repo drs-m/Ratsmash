@@ -9,7 +9,7 @@ class ContactController < ApplicationController
 
 	def send_contact_form
 		if !params[:name].blank? && !params[:mail].blank? && !params[:subject].blank? && !params[:message].blank? 
-			ContactMailer.send_contact_form(params[:mail], params[:subject]).deliver
+			ContactMailer.send_contact_form("julius.rueckin@rats-os.de", params[:subject]).deliver
 		end
 
 		redirect_to :contact
