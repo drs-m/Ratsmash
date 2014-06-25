@@ -3,11 +3,19 @@
 	<table>
 		<tr>
 			<td><%= label_tag :name, "Dein Name" %></td>
-			<td><%= text_field_tag :name %></td>
+			<% if cookies[:at] %>
+				<td><%= text_field_tag :name, @name, disabled: true %></td>
+			<% else %>
+				<td><%= text_field_tag :name %></td>
+			<% end %>
 		</tr>
 		<tr>
 			<td><%= label_tag :mail, "Deine Mailadresse" %></td>
-			<td><%= text_field_tag :mail %></td>
+			<% if cookies[:at] %>
+				<td><%= text_field_tag :mail, @mail, disabled: true %></td>
+			<% else %>
+				<td><%= text_field_tag :mail %></td>
+			<% end %>
 		</tr>
 		<tr>
 			<td><%= label_tag :subject, "Betreff" %></td>
