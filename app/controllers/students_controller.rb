@@ -74,10 +74,10 @@ class StudentsController < ApplicationController
       @errors << "Dieser Link ist ungültig" and @fatal = true and return unless student
       @name = student.name
       # @errors << "Dieser Link ist abgelaufen" and @fatal = true if student.password_reset_sent_at < 2.hours.ago
-      if params[:password]
-        if params[:password_confirmation].present? && params[:password] == params[:password_confirmation]
-          student.password = params[:password]
-          student.password_confirmation = params[:password]
+      if params[:new_password]
+        if params[:password_confirmation].present? && params[:new_password] == params[:password_confirmation]
+          student.password = params[:new_password]
+          student.password_confirmation = params[:new_password]
           student.password_reset_token = nil
           student.password_reset_sent_at = nil
           student.save
@@ -89,11 +89,11 @@ class StudentsController < ApplicationController
     else
       check_session redirect: true
       # password-änderung
-      if params[:password]
+      if params[:new_password]
         @errors << "Das alte Passwort ist nicht richtig" and return unless @current_user.authenticate params[:old_password]
-        if params[:password_confirmation].present? && params[:password] == params[:password_confirmation]
-            @current_user.password = params[:password]
-            @current_user.password_confirmation = params[:password]
+        if params[:password_confirmation].present? && params[:new_password] == params[:password_confirmation]
+            @current_user.password = params[:new_password]
+            @current_user.password_confirmation = params[:new_password]
             @current_user.save
             redirect_to :home, notice: "Dein Passwort wurde erfolgreich geändert!"
         else

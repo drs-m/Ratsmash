@@ -1,6 +1,12 @@
-- if @current_user
-	%hr
-	%p Eingeloggt als  #{@current_user.name}
-	%p
-		= link_to "Logout", :logout
-		= link_to "Hauptmenü", :home
+#footer
+	- if @current_user
+		%p
+			Eingeloggt als  #{@current_user.name}
+
+	%ul
+		%li 
+			= link_to "Impressum", "#"
+		%li 
+			= link_to "Kontakt", :contact
+		%li 
+			= link_to "Startseite", :login

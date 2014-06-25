@@ -1,0 +1,24 @@
+<h1>Kontakt</h1>
+<%= form_tag("/send_contact_form",method: :post) do %>
+	<table>
+		<tr>
+			<td><%= label_tag :name, "Dein Name" %></td>
+			<td><%= text_field_tag :name %></td>
+		</tr>
+		<tr>
+			<td><%= label_tag :mail, "Deine Mailadresse" %></td>
+			<td><%= text_field_tag :mail %></td>
+		</tr>
+		<tr>
+			<td><%= label_tag :subject, "Betreff" %></td>
+			<td><%= text_field_tag :subject %></td>
+		<tr>
+			<td style="vertical-align:top;"><%= label_tag :name, "Deine Nachricht" %></td>
+			<td><%= text_area_tag :message, nil, rows: 10, cols: 40 %></td>
+		</tr>
+		<tr>
+			<td><%= submit_tag "Abschicken" %></td>
+			<td></td>
+		</tr>
+	</table>
+<% end %>

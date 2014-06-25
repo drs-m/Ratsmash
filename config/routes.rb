@@ -18,6 +18,11 @@ Ratsmash::Application.routes.draw do
   get "unordered_description/(:id)", to: "descriptions#unordered_description", as: :unordered_description
   post "unordered_description/(:id)", to: "descriptions#unordered_description"
 
+  #CONTACT ROUTES
+  get "/contact", to: "contact#index", as: :contact
+  get "/send_contact_form", to: "contact#send_contact_form", as: :send_contact_form
+  post "/send_contact_form", to: "contact#send_contact_form"
+
   # account activation / password reset 
   get "reset_password", to: "session#reset_password", as: :reset_password
   post "reset_password", to: "session#reset_password"

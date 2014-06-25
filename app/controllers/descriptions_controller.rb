@@ -13,7 +13,7 @@ class DescriptionsController < ApplicationController
 	end
 
 	def create
-		if params[:name] && params[:description] && params[:interests] && params[:hobbies]
+		if !params[:name].blank? && !params[:description].blank? && !params[:interests].blank? && !params[:hobbies].blank?
 			from_id = @current_user.id
 
 			if Student.find_by_name params[:name]
@@ -41,8 +41,10 @@ class DescriptionsController < ApplicationController
 	def update
 		if Description.find_by_id params[:description_id]
 			if Student.find_by_id params[:for_id]
-				if params[:description] && params[:interests] && params[:hobbies] && params[:additional_authors]
-					Description.find_by_id(params[:description_id]).update_attributes :content => params[:description], :interests => params[:interests], :hobbies => params[:hobbies], :additional_authors => params[:additional_authors], :status => 0
+				if !params[:name].blank? && !params[:description].blank? && !params[:interests].blank? && !params[:hobbies].blank?
+					if params[:description] && params[:interests] && params[:hobbies] && params[:additional_authors]
+						Description.find_by_id(params[:description_id]).update_attributes :content => params[:description], :interests => params[:interests], :hobbies => params[:hobbies], :additional_authors => params[:additional_authors], :status => 0
+					end
 				end
 			end
 		end
