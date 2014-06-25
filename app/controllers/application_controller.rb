@@ -19,7 +19,7 @@ class ApplicationController < ActionController::Base
 		    		redirect_to :logout if options[:redirect]
 		    	end
 		  	else
-		  		redirect_to :not_logged_in_default and return if options[:redirect] # es ist keine session vorhanden --> user muss sich einloggen: weiterleitung
+		  		redirect_to :login and return if options[:redirect] # es ist keine session vorhanden --> user muss sich einloggen: weiterleitung
 		 	end
 		end
 
