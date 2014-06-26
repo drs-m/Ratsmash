@@ -42,6 +42,14 @@ ActiveRecord::Schema.define(version: 20140618124540) do
     t.datetime "updated_at"
   end
 
+  create_table "quotes", force: true do |t|
+    t.string   "sender"
+    t.text     "text"
+    t.boolean  "teacher"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "students", force: true do |t|
     t.string   "name"
     t.boolean  "gender"

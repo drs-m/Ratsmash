@@ -21,9 +21,9 @@ module Ratsmash
     # config.i18n.default_locale = :de
     config.assets.enabled = true
     config.assets.version = '1.0'
-    config.assets.compress = true
-    config.assets.css_compressor = :yui
-    config.assets.js_compressor = :uglifier
+    config.assets.compress = false
+    # config.assets.css_compressor = :yui
+    # config.assets.js_compressor = :uglifier
     config.assets.initialize_on_precompile = false
   end
 end

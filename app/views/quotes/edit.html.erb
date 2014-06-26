@@ -1,0 +1,6 @@
+<h1><%= @quote.teacher ? "Lehrerzitat" : "Schülerzitat" %> bearbeiten</h1>
+
+<%= render 'form' %>
+
+<%= link_to 'Anzeigen', @quote %> |
+<%= link_to 'Liste', quotes_path %>

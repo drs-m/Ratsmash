@@ -1,16 +1,15 @@
 Ratsmash::Application.routes.draw do
 
   # voting#home als startseite
-  root "voting#home", as: "home"
-
-  # STUDENT AND TEACHER ROUTES
+  root "voting#home", as: :home
+  
   resources :students
   resources :teachers 
-
   resources :categories
+  resources :quotes
+  resources :descriptions
 
   #DESCRIPTION ROUTES
-  resources :descriptions
   get "reject_description/(:id)", to: "descriptions#reject_description", as: :reject_description
   post "reject_description/(:id)", to: "descriptions#reject_description"
   get "allow_description/(:id)", to: "descriptions#allow_description", as: :allow_description
@@ -30,9 +29,9 @@ Ratsmash::Application.routes.draw do
   post "change_password/(:t)", to: "students#change_password"
 
   # SESSION ROUTES
-  get "login", to: "session#login", as: "login"
+  get "login", to: "session#login", as: :login
   post "login", to: "session#login"
-  get "logout", to: "session#logout", as: "logout"
+  get "logout", to: "session#logout", as: :logout
   # temp for dev!
   get "session/instantlogin"
   
@@ -51,6 +50,6 @@ Ratsmash::Application.routes.draw do
   post "vote/:category_id", to: "voting#commit", category_id: /[0-9]{1,2}/
 
   # SETTINGS ROUTES
-  get "settings", to: "settings#menu", as: "settings"
+  get "settings", to: "settings#menu", as: :settings
 
 end

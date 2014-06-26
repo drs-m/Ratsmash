@@ -1,0 +1,16 @@
+<p id="notice"><%= notice %></p>
+
+<h2><%= @quote.teacher ? "Lehrerzitat" : "Schülerzitat" %></h2>
+
+<p>
+  <strong>Absender:</strong>
+  <%= @quote.sender %>
+</p>
+
+<p>
+  <strong>Text:</strong>
+  <%= @quote.text %>
+</p>
+
+<%= link_to 'Edit', edit_quote_path(@quote) %> |
+<%= link_to 'Back', quotes_path %>
