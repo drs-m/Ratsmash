@@ -33,7 +33,7 @@ class SessionController < ApplicationController
 
 	def logout
 		cookies.delete :at
-		redirect_to :not_logged_in_default
+		redirect_to :login
 	end
 
 	def reset_password
