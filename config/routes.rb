@@ -8,6 +8,7 @@ Ratsmash::Application.routes.draw do
   resources :categories
   resources :quotes
   resources :descriptions
+  resources :project_goes_live, :only => "index"
 
   #DESCRIPTION ROUTES
   get "reject_description/(:id)", to: "descriptions#reject_description", as: :reject_description
