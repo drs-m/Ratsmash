@@ -1,10 +1,11 @@
 <h1>Kontakt</h1>
-<%= form_tag("/send_contact_form",method: :post) do %>
+<%= form_tag(send_contact_form_path,method: :post) do %>
 	<table>
 		<tr>
 			<td><%= label_tag :name, "Dein Name" %></td>
 			<% if cookies[:at] %>
-				<td><%= text_field_tag :name, @name, disabled: true %></td>
+				<%= hidden_field_tag :name, @name %>
+				<td><%= @name %></td>
 			<% else %>
 				<td><%= text_field_tag :name %></td>
 			<% end %>
@@ -12,7 +13,8 @@
 		<tr>
 			<td><%= label_tag :mail, "Deine Mailadresse" %></td>
 			<% if cookies[:at] %>
-				<td><%= text_field_tag :mail, @mail, disabled: true %></td>
+				<%= hidden_field_tag :mail, @mail %>
+				<td><%= @mail %></td>
 			<% else %>
 				<td><%= text_field_tag :mail %></td>
 			<% end %>

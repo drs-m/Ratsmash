@@ -1,8 +1,12 @@
 class ContactMailer < ActionMailer::Base
-    default from: "no-reply@rmash.com"
+    default from: "rmashteam@gmail.com"
 
-    def send_contact_form(mail,subject)
-    	mail(to: mail, subject: subject)
+    def send_contact_mail(name,from_mail,to_mail,subject,message)
+    	@name = name
+    	@from_mail = from_mail
+    	@subject = subject
+    	@message = message
+    	mail to: to_mail, subject: "Ratsmash-Team - " + subject
     end
 
 end

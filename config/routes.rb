@@ -18,9 +18,9 @@ Ratsmash::Application.routes.draw do
   post "unordered_description/(:id)", to: "descriptions#unordered_description"
 
   #CONTACT ROUTES
-  get "/contact", to: "contact#index", as: :contact
-  get "/send_contact_form", to: "contact#send_contact_form", as: :send_contact_form
-  post "/send_contact_form", to: "contact#send_contact_form"
+  get "/contacts", to: "contacts#index", as: :contacts
+  get "/send_contact_form", to: "contacts#send_contact_form", as: :send_contact_form
+  post "/send_contact_form", to: "contacts#send_contact_form"
 
   # account activation / password reset 
   get "reset_password", to: "session#reset_password", as: :reset_password
@@ -35,7 +35,7 @@ Ratsmash::Application.routes.draw do
   # temp for dev!
   get "session/instantlogin"
   
-  # voting ROUTES
+  # VOTING ROUTES
   get "vote", to: "voting#list", as: :category_list
   get "vote/edit"
   post "vote/edit", to: "voting#update"

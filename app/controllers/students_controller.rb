@@ -95,6 +95,7 @@ class StudentsController < ApplicationController
             @current_user.password = params[:new_password]
             @current_user.password_confirmation = params[:new_password]
             @current_user.save
+            StudentMailer.password_reset(Student.find_by_id(@current_user.id)).deliver
             redirect_to :home, notice: "Dein Passwort wurde erfolgreich geändert!"
         else
           @errors << "Die Passwörter stimmen nicht überein!"
