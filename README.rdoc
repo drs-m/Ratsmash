@@ -2,4 +2,4 @@
 
 Projekt für den Informatik-Unterricht am Ratsgymnasium Osnabrück.
 
-[Preview](http://rmash.herokuapp.com)
+http://rmash.herokuapp.com
