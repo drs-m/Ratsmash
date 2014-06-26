@@ -22,6 +22,7 @@ puts Group.count.to_s + " Gruppen wurden erstellt!"
 student_categories = ["Toll",  "Schön",  "Schlau", "Nett", "Tollpatschig", "Kompetent"]
 Group.all.each do |group|
 	student_categories.each { |category| Category.create name: category, group_id: group.id }
+	Category.create name: group.name, group_id: group.id
 end
 puts Category.count.to_s + " Kategorien wurden erstellt!"
 

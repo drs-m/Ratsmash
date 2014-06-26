@@ -1,0 +1,22 @@
+%h1 Liste der Kriterien
+
+%table
+	%tr
+		%th Schüler und Lehrer
+		%th Schüler
+		%th Lehrer
+	%tr
+		- @groupset.each do |groups_ordered_by_profession|
+			%td
+				%table
+					%tr
+						%th unisex
+						%th weiblich
+						%th männlich
+					%tr
+						- groups_ordered_by_profession.each do |group|
+							%td
+								%ul
+									- group.categories.each do |category|
+										%li= link_to category.name, give_vote_path(category.id)
+										

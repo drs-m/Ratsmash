@@ -1351,6 +1351,9 @@ class VotingController < ApplicationController
 	end
 
 	def list
+		@groupset = [[Group.everyone, Group.all_female, Group.all_male], [Group.all_students, Group.female_students, Group.male_students], [Group.all_teachers, Group.female_teachers, Group.male_teachers]]
+		return
+
 		# ordnen der Kategorien nach Typ
 		@categories_all = Group.everyone.categories
 		@categories_all_female = Group.all_female.categories

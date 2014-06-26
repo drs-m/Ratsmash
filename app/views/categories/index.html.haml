@@ -11,7 +11,7 @@
   %tbody
     - @categories.each do |category|
       %tr
-        %td= category.name
+        %td{style: category.locked ? "background-color: red;" : ""}= category.name
         %td= category.group.name
         %td= link_to 'Bearbeiten', edit_category_path(category)
         %td= link_to 'Löschen', category, method: :delete, data: { confirm: 'Soll Eintrag Nr. ' + category.id.to_s + " wirklich gelöscht werden?" }
