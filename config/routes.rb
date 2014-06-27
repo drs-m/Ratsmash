@@ -10,6 +10,9 @@ Ratsmash::Application.routes.draw do
   resources :descriptions
   resources :project_goes_live, :only => "index"
 
+  #PROJECT GOES LIVE
+  post "send_mails_to_students", to: "project_goes_live#send_mails_to_students", as: :send_mails_to_students
+
   #DESCRIPTION ROUTES
   get "reject_description/(:id)", to: "descriptions#reject_description", as: :reject_description
   post "reject_description/(:id)", to: "descriptions#reject_description"
