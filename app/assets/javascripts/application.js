@@ -17,4 +17,10 @@ $(document).ready(function(){
 		isClicked = true;
 		$("#little_menue").slideToggle(0);
 	});
+	$("body").mousemove(function(e){
+		var x = e.clientX;
+		var y = e.clientY;
+		$("#stempel_cursor").css("top",y);
+		$("#stempel_cursor").css("left",x);
+	});
 });

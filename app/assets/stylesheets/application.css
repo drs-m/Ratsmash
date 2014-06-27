@@ -87,6 +87,11 @@ h2{
 	margin-bottom: 10px;
 	text-align: left;
 }
+#stempel_cursor{
+	position: absolute;
+	top: 70px;
+	left: 10%;
+}
 #little_menue{
 	width: 70%;
 	height: auto;
