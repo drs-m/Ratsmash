@@ -87,10 +87,14 @@ h2{
 	margin-bottom: 10px;
 	text-align: left;
 }
+#send_mail_button{
+	cursor: none;
+}
 #stempel_cursor{
 	position: absolute;
 	top: 70px;
 	left: 10%;
+	cursor: none;
 }
 #little_menue{
 	width: 70%;
