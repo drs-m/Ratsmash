@@ -9,9 +9,9 @@ class ApplicationController < ActionController::Base
 	private
 		def check_session(options = {})
 			# wenn eine session vorhanden ist
-			if cookies[:at]
+			if cookies.signed[:at]
 		 	 	# wenn current_user nicht gesetzt ist, finde ihn anhand des tokens in der datenbank
-		 	 	if @current_user ||= Student.find_by(auth_token: cookies[:at])
+		 	 	if @current_user ||= Student.find_by(auth_token: cookies.signed[:at])
 		 	 		# leite um wenn der user keine berechtigung hat
 		    		redirect_to :home if options[:admin_permissions] && !@current_user.admin_permissions
 		    	else

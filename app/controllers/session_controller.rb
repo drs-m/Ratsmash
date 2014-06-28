@@ -17,9 +17,9 @@ class SessionController < ApplicationController
 						flash[:notice] = "Dein Account wurde gesperrt! Bitte wende dich an die Abizeitung oder das Ratsmash-Team."
 					else
 						if params[:persist]	
-							cookies.permanent[:at] = student.auth_token
+							cookies.permanent.signed[:at] = student.auth_token
 						else	
-							cookies[:at] = student.auth_token
+							cookies.signed[:at] = student.auth_token
 						end
 						redirect_to :home
 					end
@@ -46,7 +46,7 @@ class SessionController < ApplicationController
 	end
 
 	def instantlogin
-		cookies.permanent[:at] = Student.offset(rand(Student.count)).first.auth_token
+		cookies.permanent.signed[:at] = Student.offset(rand(Student.count)).first.auth_token
 		redirect_to :home
 	end
 
