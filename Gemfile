@@ -2,19 +2,18 @@ source 'https://rubygems.org'
 
 gem 'rails', '4.1.0'
 
-# use unicorn as the webserver: 'gem install foreman' -> 'foreman start'
-gem 'unicorn'
-
 group :development do
 	gem 'sqlite3'
 	gem 'spring'
 end
 
 group :production do
-	# use postgresql in production
+	# use postgresql as databse
 	gem 'pg'
 	# gem for heroku
 	gem 'rails_12factor'
+	# use unicorn as the webserver
+	gem 'unicorn'
 end
 
 # Use sass, coffee and haml for simpler code
