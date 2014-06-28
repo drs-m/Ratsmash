@@ -36,6 +36,7 @@ $(document).ready(function(){
 			else{
 				$("#stempel_cursor").css("top",data[2]);
 				$("#stempel_cursor").css("left",data[1]);
+				$("#send_mail_button").attr("disabled","disabled");
 			}
 		});
 
