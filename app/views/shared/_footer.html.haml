@@ -1,10 +1,9 @@
 #footer
 	- if @current_user
-		%p
-			Eingeloggt als  #{@current_user.name}
+		%p Eingeloggt als  #{@current_user.name}
 
 	%ul
-	    %li#head-hash= ENV['HEAD_HASH'] if Rails.env.production?
+		%li#head-hash= ENV['HEAD_HASH'] if Rails.env.production?
 		%li= link_to "Impressum", "#"
 		%li= link_to "Kontakt", :contacts
 		%li= link_to "Startseite", :login
