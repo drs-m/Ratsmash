@@ -21,3 +21,5 @@
 
 # Ignore ‚git-ignored intern files‘
 /giif
+
+bind_heroku_c9

@@ -1,0 +1,10 @@
+#!/bin/sh
+
+url=$2
+
+if [[ $url =~ heroku ]] ; then
+    hash_name=HEAD_HASH
+    hash=$(git rev-parse HEAD)
+    echo Setting version info to $hash
+    heroku config:set $hash_name=$hash --app rmash
+fi
