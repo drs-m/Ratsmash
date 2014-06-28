@@ -4,16 +4,15 @@ gem 'rails', '4.1.0'
 
 group :development do
 	gem 'sqlite3'
-	#gem 'spring'
 end
 
 group :production do
-	# use postgresql as databse
+	# use postgresql as database
 	gem 'pg'
 	# gem for heroku
 	gem 'rails_12factor'
 	# use unicorn as the webserver
-	#gem 'unicorn'
+	gem 'unicorn'
 end
 
 # Use sass, coffee and haml for simpler code
