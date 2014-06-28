@@ -34,9 +34,11 @@ $(document).ready(function(){
 				});
 			}
 			else{
-				$("#stempel_cursor").css("top",data[2]);
-				$("#stempel_cursor").css("left",data[1]);
 				$("#send_mail_button").attr("disabled","disabled");
+				$("#stempel_cursor").css("display","none");
+				$("#stempelabdruck").css("display","block");
+				$("#stempelabdruck").css("top",data[2]);
+				$("#stempelabdruck").css("left",data[1]);
 			}
 		});
 

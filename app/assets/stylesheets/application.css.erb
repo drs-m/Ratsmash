@@ -87,14 +87,47 @@ h2{
 	margin-bottom: 10px;
 	text-align: left;
 }
+#stempelabdruck{
+	width: 200px;
+	position: absolute;
+	display: none;
+	z-index: 3;
+}
+#letter_wrapper{
+	width: 800px;
+	height: 600px;
+	margin: 0 auto;
+}
+#letter{
+	width:  800px;
+	height: 600px;
+	position: absolute;
+	z-index: 1;
+}
 #send_mail_button{
+	position: absolute;
+	width: 800px;
+	height: 600px;
 	cursor: none;
+	border: none;
+	background: transparent;
+	z-index: 2;
+}
+#send_mail_buttoninput:disabled{
+	position: absolute;
+	width: 800px;
+	height: 600px;
+	cursor: none;
+	border: none;
+	background: transparent;
+	z-index: 2;
 }
 #stempel_cursor{
 	position: absolute;
 	top: 70px;
 	left: 10%;
 	cursor: none;
+	z-index: 4;
 }
 #little_menue{
 	width: 70%;

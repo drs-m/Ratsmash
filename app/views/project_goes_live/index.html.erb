@@ -1,7 +1,11 @@
 <%= image_tag("menue_button.png", height: 40, alt: "Menübutton", id: "stempel_cursor") %>
+<%= image_tag("menue_button.png", alt: "Versandt-Stempelabdruck", id: "stempelabdruck") %>
 
 <h1>Go Live</h1>
 <p>In diesem Moment werden an alle Schüler in der Tabelle Students Mails verschickt, die auf Ratsmash hinweisen und darauf aufmerksam machen, dass sie dort ab sofort registriert sind!</p>
 <%= form_tag(send_mails_to_students_path,method: :post) do %>
-	<%= submit_tag "Mails verschicken", id: "send_mail_button" %>
+	<div id="letter_wrapper">
+		<%= submit_tag "", id: "send_mail_button" %>
+		<%= image_tag("menue_button.png", alt: "letter", id: "letter") %>
+	</div>
 <% end %>
