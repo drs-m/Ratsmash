@@ -1,5 +1,7 @@
 class ProjectGoesLiveController < ApplicationController
 
+	# before_action -> { check_session redirect: true, admin_permissions: true }
+
 	def index
 
 	end
