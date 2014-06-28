@@ -4,9 +4,7 @@
 			Eingeloggt als  #{@current_user.name}
 
 	%ul
-		%li 
-			= link_to "Impressum", "#"
-		%li 
-			= link_to "Kontakt", :contacts
-		%li 
-			= link_to "Startseite", :login
+	    %li#head-hash= ENV['HEAD_HASH'] if Rails.env.production?
+		%li= link_to "Impressum", "#"
+		%li= link_to "Kontakt", :contacts
+		%li= link_to "Startseite", :login
