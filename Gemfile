@@ -4,7 +4,7 @@ gem 'rails', '4.1.0'
 
 group :development do
 	gem 'sqlite3'
-	gem 'spring'
+	#gem 'spring'
 end
 
 group :production do
@@ -13,7 +13,7 @@ group :production do
 	# gem for heroku
 	gem 'rails_12factor'
 	# use unicorn as the webserver
-	gem 'unicorn'
+	#gem 'unicorn'
 end
 
 # Use sass, coffee and haml for simpler code
@@ -24,6 +24,8 @@ gem 'coffee-rails', '~> 4.0.0'
 # use yui and uglifier for asset compression
 gem 'yui-compressor'
 gem 'uglifier', '>= 1.3.0'
+
+gem 'tzinfo-data'
 
 gem 'jquery-rails'
 # gem 'jquery-ui-rails'
