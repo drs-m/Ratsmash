@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.0.4'
+gem 'rails', '4.1.0'
 
 # use unicorn as the webserver: 'gem install foreman' -> 'foreman start'
 gem 'unicorn'
