@@ -1,4 +1,4 @@
-class GoLiveMailer < ActionMailer::Base
+class ReleaseStateMailer < ActionMailer::Base
   	default from: "from@example.com"
 
   	def send_first_mail_to_students(student)

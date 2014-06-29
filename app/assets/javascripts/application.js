@@ -18,7 +18,7 @@ $(document).ready(function(){
 		$("#little_menue").slideToggle(0);
 	});
 
-	if(window.location.pathname == "/project_goes_live"){
+	if(window.location.pathname == "/release_state"){
 		$.ajax({
 			url: "get_mail_status",
 			type: "post"

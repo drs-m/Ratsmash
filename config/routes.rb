@@ -8,11 +8,11 @@ Ratsmash::Application.routes.draw do
   resources :categories
   resources :quotes
   resources :descriptions
-  resources :project_goes_live, :only => "index"
+  resources :release_state, :only => "index"
 
   #PROJECT GOES LIVE
-  post "send_mails_to_students", to: "project_goes_live#send_mails_to_students"
-  post "get_mail_status", to: "project_goes_live#get_mail_status"
+  post "send_mails_to_students", to: "release_state#send_mails_to_students"
+  post "get_mail_status", to: "release_state#get_mail_status"
 
   #DESCRIPTION ROUTES
   get "reject_description/(:id)", to: "descriptions#reject_description", as: :reject_description

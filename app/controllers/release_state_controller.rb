@@ -1,4 +1,4 @@
-class ProjectGoesLiveController < ApplicationController
+class ReleaseStateController < ApplicationController
 
 	# before_action -> { check_session redirect: true, admin_permissions: true }
 
@@ -17,12 +17,12 @@ class ProjectGoesLiveController < ApplicationController
 			GoLive.create :send_mails => true, :xpos => params[:xpos], :ypos => params[:ypos]
 			IO.read("students_names.txt").force_encoding("ISO-8859-1").encode("utf-8", replace: nil).each_line do |line|
 				if Student.find_by_name(line)
-					GoLiveMailer.send_first_mail_to_students(Student.find_by_name(line)).deliver
+					ReleaseStateMailer.send_first_mail_to_students(Student.find_by_name(line)).deliver
 				end
 			end
 		end
 
-		redirect_to project_goes_live_index_path
+		redirect_to release_state_index_path
 	end
 
 	def get_mail_status
