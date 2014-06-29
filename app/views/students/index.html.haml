@@ -19,7 +19,7 @@
         %td{style: student.closed ? "background-color: red;" : ""}= student.name
         %td= student.gender ? "m" : "w"
         %td= student.mail_address
-        %td= student.admin_permissions ? "Ja" : "Nein"
+        %td= raw(student.admin_permissions ? "<span style='color:#00ff00;'>&#x2713;</span>" : "&#x2717;")
         %td= link_to 'Anzeigen', student
         %td= link_to 'Bearbeiten', edit_student_path(student)
         %td= link_to 'Löschen', student, method: :delete, data: { confirm: 'Soll Eintrag Nr. ' + student.id.to_s + " wirklich gelöscht werden?" }
