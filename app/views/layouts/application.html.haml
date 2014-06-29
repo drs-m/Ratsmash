@@ -43,17 +43,18 @@
 					%li
 						= link_to "Administration", :settings if @current_user.admin_permissions
 					%li
+						= link_to "Lustige Zitate", :quotes
+					%li
 						= link_to "Beschreibungen", descriptions_path
 					%li
 						= link_to "Kategorien", :category_list
-					%li
-						= link_to "Hauptmenü", :home
 
 			#little_menue_button
 				= image_tag("menue_button.png", height: 40, alt: "Menübutton")
 
 		#webseite
 			= yield
-			= render "shared/footer"
+
+		= render "shared/footer"
 
 	%div#script-notifier UM DIESE WEBSITE ZU NUTZEN MUSS JAVASCRIPT AKTIVIERT SEIN
