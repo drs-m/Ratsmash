@@ -17,6 +17,25 @@ class Student < ActiveRecord::Base
 
 	validates :name, :mail_address, presence: true
 
+
+	def male
+		if self.gender
+			return true
+
+		else
+			return false
+		end
+	end
+
+	def female
+		if !self.gender
+			return true
+
+		else
+			return false
+		end
+	end
+
 	def send_password_help_mail
 		generate_token :password_reset_token
 		self.password_reset_sent_at = Time.now

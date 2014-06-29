@@ -882,6 +882,7 @@ class VotingController < ApplicationController
 	end
 
 	def commit
+		votedIsAllowedForCategory = true
 		isAlreadyVotedFor = false
 		@category = Category.find_by_id(params[:category_id])
 		redirect_to(give_vote_path(category_id: @category.id), notice: "Die Kategorie wurde nicht gefunden!") and return unless @category
@@ -894,12 +895,28 @@ class VotingController < ApplicationController
 			#erhalte vom voter abgebene votes zu dieser kategorie
 			@given_votes = Vote.by_voter_in_category voter: @current_user, category: @category
 
+			#prüfe, ob bei den schon abgegebenen votes jetzt ein doppelvote entstehen würde
 			if @given_votes.count > 0
 				@given_votes.each do |vote|
 					if vote != nil
-						if vote.voted_id == voted.id
+						if vote.voted_id == voted.id && voted.class.to_s.downcase == vote.voted_type.to_s.downcase
 							isAlreadyVotedFor = true
 						end
+					end
+				end
+			end
+
+			#prüfe, ob für diese Person in dieser Kategorie gevotet werden darf
+			if @category.group.male && @category.group.female
+
+			else
+				if Student.find_by name: params[:candidate]
+					if @category.group.male != voted.male || @category.group.female != voted.female || !@category.group.student
+						votedIsAllowedForCategory = false
+					end
+				elsif Teacher.find_by name: params[:candidate]
+					if @category.group.male != voted.male || @category.group.female != voted.female || !@category.group.teacher
+						votedIsAllowedForCategory = false
 					end
 				end
 			end
@@ -907,22 +924,28 @@ class VotingController < ApplicationController
 			# breche ab wenn das rating zu hoch/niedrig ist
 			redirect_to(give_vote_path(category_id: @category.id), notice: "Rating (" + params[:rating] + ") zu hoch/niedrig!") and return unless (1..3).include?(params[:rating].to_i)
 
-			#fahre nur fort, wenn man noch nicht in dieser kategorie für den gevoteten abgestimmt hat
-			if !isAlreadyVotedFor
-				#fahre nur fort, wenn gevoteter nicht man selbst ist
-				if voted.id != @current_user.id
-					# abspeicherung der stimme
-					@current_user.given_votes << voted.achieved_votes.build(category_id: @category.id, rating: params[:rating])
-					
-					# umleitung zur abstimmungsseite, sofern die stimmabgabe erfolgreich war
-					redirect_to give_vote_path(category_id: @category.id), notice: "Erfolgreich abgestimmt"
+			#breche ab, wenn man für diese Person in dieser Kategorie nicht voten darf
+			if votedIsAllowedForCategory
+				#fahre nur fort, wenn man noch nicht in dieser kategorie für den gevoteten abgestimmt hat
+				if !isAlreadyVotedFor
+					#fahre nur fort, wenn gevoteter nicht man selbst ist
+					if Student.find_by_name voted.name && voted.id == @current_user.id
+						# umleitung zur abstimmungsseite mit dem hinweis, dass man nicht für sich selbst voten darf
+						redirect_to give_vote_path(category_id: @category.id), notice: "Du darfst nicht für dich selbst voten"
+					else
+						# abspeicherung der stimme
+						@current_user.given_votes << voted.achieved_votes.build(category_id: @category.id, rating: params[:rating])
+						
+						# umleitung zur abstimmungsseite, sofern die stimmabgabe erfolgreich war
+						redirect_to give_vote_path(category_id: @category.id), notice: "Erfolgreich abgestimmt"
+					end
 				else
-					# umleitung zur abstimmungsseite mit dem hinweis, dass man nicht für sich selbst voten darf
-					redirect_to give_vote_path(category_id: @category.id), notice: "Du darfst nicht für dich selbst voten"
+					# umleitung zur abstimmungsseite mit dem hinweis, dass man nicht zwei mail für den selben in einer kategorie voten darf
+					redirect_to give_vote_path(category_id: @category.id), notice: "Du darfst nicht mehrmals mail für den Selben in einer Kategorie voten"
 				end
 			else
-				# umleitung zur abstimmungsseite mit dem hinweis, dass man nicht zwei mail für den selben in einer kategorie voten darf
-				redirect_to give_vote_path(category_id: @category.id), notice: "Du darfst nicht mehrmals mail für den Selben in einer Kategorie voten"
+				# umleitung zur abstimmungsseite mit dem hinweis, dass in dieser Kategorie nicht für diese Person gevotet werden darf
+				redirect_to give_vote_path(category_id: @category.id), notice: "Du darfst in dieser Kategorie nicht für diese Person voten"
 			end
 		else
 			# breche ab wenn kein kandidat gefunden wurde

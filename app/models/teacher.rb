@@ -8,6 +8,24 @@ class Teacher < ActiveRecord::Base
 	scope :male, -> { where gender: true }
 	scope :female, -> { where gender: false }
 	
+	def male
+		if self.gender
+			return true
+
+		else
+			return false
+		end
+	end
+
+	def female
+		if !self.gender
+			return true
+
+		else
+			return false
+		end
+	end
+	
 	private
 			def set_defaults
 				self.closed ||= false
