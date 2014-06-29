@@ -1,3 +1,4 @@
+# encoding: utf-8
 class ReleaseStateController < ApplicationController
 
 	before_action -> { check_session redirect: true, admin_permissions: true }
@@ -22,10 +23,10 @@ class ReleaseStateController < ApplicationController
 			settings["launch"]["ypos"] = params[:ypos]
 			# speichern
 			File.open(settings_path, "w") { |f| f.write settings.to_yaml }
-			IO.read("students_names.txt").force_encoding("ISO-8859-1").encode("utf-8", replace: nil).each_line do |line|
-				if Student.find_by_name(line)
-					ReleaseStateMailer.send_first_mail_to_students(Student.find_by_name(line)).deliver
-				end
+			IO.read("students_names.txt").force_encoding("utf-8").each_line do |line|
+				line = line.rstrip # remove trailing whitespace
+				student = Student.find_by name: line
+				ReleaseStateMailer.send_first_mail_to_students(student).deliver if student
 			end
 		end
 
