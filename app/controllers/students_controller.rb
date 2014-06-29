@@ -8,7 +8,8 @@ class StudentsController < ApplicationController
   # GET /students
   # GET /students.json
   def index
-    @students = Student.all
+    # studenten wurden nach aufsteigendem nachnamen gespeichert
+    @students = Student.order :id
   end
 
   # GET /students/1
