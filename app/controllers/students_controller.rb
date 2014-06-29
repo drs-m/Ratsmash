@@ -8,8 +8,12 @@ class StudentsController < ApplicationController
   # GET /students
   # GET /students.json
   def index
-    # studenten wurden nach aufsteigendem nachnamen gespeichert
+    # schüler wurden nach aufsteigendem nachnamen gespeichert
     @students = Student.order :id
+    respond_to do |format|
+      format.html
+      format.json { render json: JSON.pretty_generate(JSON.parse(Student.all.to_json)) }
+    end
   end
 
   # GET /students/1
