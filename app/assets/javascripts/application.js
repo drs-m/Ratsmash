@@ -16,7 +16,7 @@ $(document).ready(function(){
 			$("#icon_info_box").html($(this).attr("alt"));
 		});
 		$("img").mouseout(function(){
-			$("#icon_info_box").css("display","block");
+			$("#icon_info_box").css("display","none");
 		});
 	}
 
