@@ -49,4 +49,12 @@ class ReleaseStateController < ApplicationController
 		end
 	end
 
+	def reset
+		settings_path = Rails.root + "config" + "settings.yml"
+		settings = YAML.load_file settings_path
+		settings["launch"]["released"] = false
+		File.open(settings_path, "w") { |f| f.write settings.to_yaml }
+		redirect_to release_state_index_path
+	end
+
 end

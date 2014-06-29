@@ -13,6 +13,7 @@ Ratsmash::Application.routes.draw do
   #PROJECT GOES LIVE
   post "send_mails_to_students", to: "release_state#send_mails_to_students"
   post "get_mail_status", to: "release_state#get_mail_status"
+  get "launch_reset", to: "release_state#reset", as: :launch_reset
 
   #DESCRIPTION ROUTES
   get "reject_description/(:id)", to: "descriptions#reject_description", as: :reject_description
