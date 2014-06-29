@@ -68,9 +68,9 @@ class StudentsController < ApplicationController
   # NOT VERY DRY! - TODO
   def change_password
     @errors = []
-    if params[:t]
+    if params[:token]
       # password-reset
-      student = Student.find_by password_reset_token: params[:t]
+      student = Student.find_by password_reset_token: params[:token]
       @errors << "Dieser Link ist ungültig" and @fatal = true and return unless student
       @name = student.name
       # @errors << "Dieser Link ist abgelaufen" and @fatal = true if student.password_reset_sent_at < 2.hours.ago

@@ -1,10 +1,15 @@
 # encoding: utf-8
 class StudentMailer < ActionMailer::Base
-  default from: "rmashteam@gmail.com"
+  default from: "Abizeitung & Ratsmash-Team <rmashteam@gmail.com>"
 
   def password_reset(student)
     @student = student
     mail to: student.mail_address, subject: "Passwort zurücksetzen"
+  end
+
+  def launch_info(student)
+  	@student = student
+  	mail to: student.mail_address, subject: "Aktiviere deinen Ratsmash-Account"
   end
 
 end

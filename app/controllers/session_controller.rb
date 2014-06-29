@@ -40,7 +40,7 @@ class SessionController < ApplicationController
 	def reset_password
 		if params[:email]
 			student = Student.find_by mail_address: params[:email]
-			student.send_password_reset if student
+			student.send_password_help_mail if student
 			@success = true
 		end
 	end

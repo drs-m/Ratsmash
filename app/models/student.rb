@@ -17,12 +17,20 @@ class Student < ActiveRecord::Base
 
 	validates :name, :mail_address, presence: true
 
-	def send_password_reset
+	def send_password_help_mail
 		generate_token :password_reset_token
 		self.password_reset_sent_at = Time.now
 		save!
 		StudentMailer.password_reset(self).deliver
-	end	
+	end
+
+	def send_launch_info_mail
+		generate_token :password_reset_token
+		self.password_reset_sent_at = nil
+		save!
+		StudentMailer.launch_info(self).deliver
+		puts "[#{Time.now}] Launch info mail has been sent to " + self.name
+	end
 
 	private
 		def set_defaults

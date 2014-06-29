@@ -23,11 +23,8 @@ class ReleaseStateController < ApplicationController
 			settings["launch"]["ypos"] = params[:ypos]
 			# speichern
 			File.open(settings_path, "w") { |f| f.write settings.to_yaml }
-			IO.read("students_names.txt").force_encoding("utf-8").each_line do |line|
-				line = line.rstrip # remove trailing whitespace
-				student = Student.find_by name: line
-				ReleaseStateMailer.send_first_mail_to_students(student).deliver if student
-			end
+			# spawne neuen prozess der die mails verschickt
+			system "rake rmash:launch_mail_delivery rails_env=#{Rails.env} --trace >> #{Rails.root}/log/rake.log &"
 		end
 
 		redirect_to release_state_index_path

@@ -2,7 +2,7 @@ Hallo <%= @student.name %>,
 
 du bist nun bei Ratsmash registriert.
 
-Hier folgt eine kleine Beschreibung der Webseite!!!
+Aktiviere deinen Account über den folgenden Link: <%= change_password_url token: @student.password_reset_token %>
 
 Viel Spaß 
 
