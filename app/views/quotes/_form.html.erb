@@ -19,7 +19,10 @@
     <%= f.label :text, "Text" %><br>
     <%= f.text_area :text %>
   </div>
-  <%= hidden_field_tag "quote[teacher]", nil, value: @quote.teacher %>
+  <div class="field">
+    <%= f.label :teacher, "Lehrer beteiligt?" %><br>
+    <%= f.check_box :teacher %>
+  </div>
   <div class="actions">
     <%= f.submit "Bestätigen" %>
   </div>

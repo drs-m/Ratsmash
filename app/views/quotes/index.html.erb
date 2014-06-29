@@ -17,7 +17,7 @@
       <tr>
         <td><%= quote.sender %></td>
         <td><%= quote.text %></td>
-        <td><%= quote.teacher %></td>
+        <td><%= raw(quote.teacher ? "&#x2713;" : "&#x2717;") %></td>
         <td><%= link_to 'Anzeigen', quote %></td>
         <td><%= link_to 'Bearbeiten', edit_quote_path(quote) %></td>
         <td><%= link_to 'Löschen', quote, method: :delete, data: { confirm: 'Are you sure?' } %></td>

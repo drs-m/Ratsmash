@@ -42,7 +42,7 @@
 					%li
 						= link_to "Administration", :settings if @current_user.admin_permissions
 					%li
-						= link_to "Lustige Zitate", :quotes
+						= link_to "Lustige Zitate", new_quote_path
 					%li
 						= link_to "Beschreibungen", descriptions_path
 					%li

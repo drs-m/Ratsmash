@@ -1,7 +1,7 @@
 # encoding: utf-8
 class QuotesController < ApplicationController
 
-  before_action -> { check_session redirect: true, admin_permissions: true }, except: [:create, :new, :start]
+  before_action -> { check_session redirect: true, admin_permissions: true }, except: [:create, :new]
   before_action :set_quote, only: [:show, :edit, :update, :destroy]
 
   # GET /quotes
@@ -18,7 +18,6 @@ class QuotesController < ApplicationController
   # GET /quotes/new
   def new
     @quote = Quote.new
-    @quote.teacher = params[:teacher] == "1" ? "true" : "false"
   end
 
   # GET /quotes/1/edit
