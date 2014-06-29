@@ -2,7 +2,7 @@ class Student < ActiveRecord::Base
 
 	# attributes: name, gender, mail_address, (password), (password_confirmation), password_digest, password_resetkey, admin_permissions, closed
 
-	has_secure_password
+	has_secure_password validations: false
 
 	has_many :given_votes, foreign_key: "voter_id", class_name: "Vote"
 	has_many :achieved_votes, class_name: "Vote", :as => :voted

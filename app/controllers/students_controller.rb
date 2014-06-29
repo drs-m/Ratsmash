@@ -77,7 +77,6 @@ class StudentsController < ApplicationController
       if params[:new_password]
         if params[:password_confirmation].present? && params[:new_password] == params[:password_confirmation]
           student.password = params[:new_password]
-          student.password_confirmation = params[:new_password]
           student.password_reset_token = nil
           student.password_reset_sent_at = nil
           student.save

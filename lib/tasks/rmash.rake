@@ -13,4 +13,16 @@ namespace :rmash do
 
 	end
 
+	task :populate => :environment do
+		File.read("students.txt").each_line do |line|
+			name = line.rstrip
+			email = (name.gsub(" ", ".") + "@rats-os.de").downcase
+			puts name + " <#{email}>"
+			gender_string = STDIN.gets.chomp
+			next if gender_string == "d" # delete
+			gender = gender_string == "m" # male
+			Student.create name: name, mail_address: email, gender: gender
+		end
+	end
+
 end
