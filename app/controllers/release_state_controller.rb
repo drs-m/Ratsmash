@@ -3,18 +3,20 @@ class ReleaseStateController < ApplicationController
 	# before_action -> { check_session redirect: true, admin_permissions: true }
 
 	def index
-
+		
 	end
 
 	def send_mails_to_students
-		if GoLive.all.count > 0
-			status = GoLive.all.last.send_mails 
+		if RELEASE_STATE_CONFIG["sended_first_mail_to_students"]
+			status = true 
 		else
 			status = false
 		end
 
 		if !status
-			GoLive.create :send_mails => true, :xpos => params[:xpos], :ypos => params[:ypos]
+			RELEASE_STATE_CONFIG["sended_first_mail_to_students"] = true
+			RELEASE_STATE_CONFIG["xpos"] = params[:xpos]
+			RELEASE_STATE_CONFIG["ypos"] = params[:ypos]
 			IO.read("students_names.txt").force_encoding("ISO-8859-1").encode("utf-8", replace: nil).each_line do |line|
 				if Student.find_by_name(line)
 					ReleaseStateMailer.send_first_mail_to_students(Student.find_by_name(line)).deliver
@@ -27,16 +29,16 @@ class ReleaseStateController < ApplicationController
 
 	def get_mail_status
 		data = []
-		if GoLive.all.count > 0
-			status = GoLive.all.last.send_mails 
-			xpos = GoLive.all.last.xpos
-			ypos = GoLive.all.last.ypos
+		if RELEASE_STATE_CONFIG["sended_first_mail_to_students"]
+			status = true 
+			xpos = RELEASE_STATE_CONFIG["xpos"]
+			ypos = RELEASE_STATE_CONFIG["ypos"]
 		else
 			status = false
 		end
 		data[0] = status
-		data[1] = xpos
-		data[2] = ypos
+		data[1] = xpos.to_i
+		data[2] = ypos.to_i
 
 		respond_to do |format|
 		  	format.json { render :json => data }
