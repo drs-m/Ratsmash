@@ -6,7 +6,7 @@
 //= require script-notifier
 
 $(document).ready(function(){
-	
+
 	$("#webseite").click(function(){
 		$("#acc_link_dd").css("display","none");
 	});
@@ -36,9 +36,11 @@ $(document).ready(function(){
 			else{
 				$("#send_mail_button").attr("disabled","disabled");
 				$("#stempel_cursor").css("display","none");
-				$("#stempelabdruck").css("display","block");
-				$("#stempelabdruck").css("top",data[2]);
-				$("#stempelabdruck").css("left",data[1]);
+				var stempelabdruck = $("#stempelabdruck")
+				var offset = parseInt(stempelabdruck.css("height")) / 2;
+				stempelabdruck.css("display","block");
+				stempelabdruck.css("top",data[2] - offset);
+				stempelabdruck.css("left",data[1] - offset);
 			}
 		});
 
