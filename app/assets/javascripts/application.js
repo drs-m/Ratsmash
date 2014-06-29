@@ -3,11 +3,22 @@
 //= require jquery_ujs
 //= require jquery.ui.autocomplete
 //= require modernizr
-
 //= require voting
 //= require script-notifier
 
 $(document).ready(function(){
+
+	if(window.location.pathname == "/vote"){
+		$("img").mousemove(function(e){
+			$("#icon_info_box").css("display","block");
+			$("#icon_info_box").css("top",e.clientY);
+			$("#icon_info_box").css("left",e.clientX);
+			$("#icon_info_box").html($(this).attr("alt"));
+		});
+		$("img").mouseout(function(){
+			$("#icon_info_box").css("display","block");
+		});
+	}
 
 	$("#webseite").click(function(){
 		$("#acc_link_dd").css("display","none");
