@@ -15,7 +15,8 @@ namespace :rmash do
 
 	task :populate => :environment do
 		File.read("students.txt").each_line do |line|
-			name = line.rstrip
+			name_data = line.rstrip.split(", ")
+			name = name_data[1] + " " + name_data[0]
 			email = (name.gsub(" ", ".") + "@rats-os.de").downcase
 			puts name + " <#{email}>"
 			gender_string = STDIN.gets.chomp
