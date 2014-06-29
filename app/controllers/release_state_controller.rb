@@ -7,16 +7,21 @@ class ReleaseStateController < ApplicationController
 	end
 
 	def send_mails_to_students
-		if RELEASE_STATE_CONFIG["sended_first_mail_to_students"]
-			status = true 
-		else
-			status = false
+		# muss hier geladen werden, da environment.rb nur beim starten ausgeführt wird
+		settings_path = Rails.root + "config" + "settings.yml"
+		settings = YAML.load_file settings_path
+
+		if !settings
+			flash['notice'] = "Fehler: settings.yml wurde nicht gefunden"
+			return
 		end
 
-		if !status
-			RELEASE_STATE_CONFIG["sended_first_mail_to_students"] = true
-			RELEASE_STATE_CONFIG["xpos"] = params[:xpos]
-			RELEASE_STATE_CONFIG["ypos"] = params[:ypos]
+		if !settings["launch"]["released"]
+			settings["launch"]["released"] = true
+			settings["launch"]["xpos"] = params[:xpos]
+			settings["launch"]["ypos"] = params[:ypos]
+			# speichern
+			File.open(settings_path, "w") { |f| f.write settings.to_yaml }
 			IO.read("students_names.txt").force_encoding("ISO-8859-1").encode("utf-8", replace: nil).each_line do |line|
 				if Student.find_by_name(line)
 					ReleaseStateMailer.send_first_mail_to_students(Student.find_by_name(line)).deliver
@@ -28,20 +33,19 @@ class ReleaseStateController < ApplicationController
 	end
 
 	def get_mail_status
-		data = []
-		if RELEASE_STATE_CONFIG["sended_first_mail_to_students"]
+		settings_path = Rails.root + "config" + "settings.yml"
+		settings = YAML.load_file settings_path
+
+		if settings["launch"]["released"]
 			status = true 
-			xpos = RELEASE_STATE_CONFIG["xpos"]
-			ypos = RELEASE_STATE_CONFIG["ypos"]
+			xpos = settings["launch"]["xpos"]
+			ypos = settings["launch"]["ypos"]
 		else
 			status = false
 		end
-		data[0] = status
-		data[1] = xpos.to_i
-		data[2] = ypos.to_i
 
 		respond_to do |format|
-		  	format.json { render :json => data }
+		  	format.json { render json: [status, xpos.to_i, ypos.to_i] }
 		end
 	end
 

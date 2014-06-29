@@ -1,0 +1,10 @@
+---
+launch:
+  released: true
+  xpos: '844'
+  ypos: '326'
+voting:
+  enabled: true
+  time-limited:
+    enabled: false
+    ending-time: 0
