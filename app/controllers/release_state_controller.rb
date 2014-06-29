@@ -1,6 +1,6 @@
 class ReleaseStateController < ApplicationController
 
-	# before_action -> { check_session redirect: true, admin_permissions: true }
+	before_action -> { check_session redirect: true, admin_permissions: true }
 
 	def index
 		
