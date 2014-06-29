@@ -1,5 +1,7 @@
 %h1 Kategorieliste
 
+= link_to 'Kategorie hinzufügen', new_category_path
+
 %table
   %thead
     %tr
@@ -15,8 +17,3 @@
         %td= category.group.name
         %td= link_to 'Bearbeiten', edit_category_path(category)
         %td= link_to 'Löschen', category, method: :delete, data: { confirm: 'Soll Eintrag Nr. ' + category.id.to_s + " wirklich gelöscht werden?" }
-
-%br
-
-= link_to 'Kategorie hinzufügen', new_category_path
-= link_to "Administration", :settings
