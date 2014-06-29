@@ -10,9 +10,9 @@
 			%td
 				%table
 					%tr
-						%th unisex
-						%th weiblich
-						%th männlich
+						%th= image_tag("mars_and_venus_together.png", alt: "unisex", height: 50)
+						%th= image_tag("venus.png", alt: "weiblich", height: 50)
+						%th= image_tag("mars.png", alt: "männlich", height: 50)
 					%tr
 						- groups_ordered_by_profession.each do |group|
 							%td
