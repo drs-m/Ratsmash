@@ -1,3 +1,4 @@
+# encoding: utf-8
 namespace :rmash do
 
 	desc "Initial mail delivery"
