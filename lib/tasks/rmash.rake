@@ -4,7 +4,7 @@ namespace :rmash do
 	task :launch_mail_delivery => :environment do
 		puts "sending emails..."
 		# array für menschen aus dem informatik-kurs
-		important = ["Darius Mewes"]
+		important = ["Darius Mewes", "Julius Rückin"]
  		results = Student.where name: important
 		# results << Student.where(password_digest: nil).where.not(name: important) # alle anderen ohne passwort
 		results.each do |student|
@@ -12,7 +12,7 @@ namespace :rmash do
 		end
 		
 		180.times do |i|
-			puts "Sending mail i+1. of 180..."
+			puts "Sending mail #{i+1}. of 180..."
 			sleep 3
 			puts "Sent!"
 		end
