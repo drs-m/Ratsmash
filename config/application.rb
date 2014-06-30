@@ -25,6 +25,7 @@ module Ratsmash
 	# config.assets.css_compressor = :yui
 	# config.assets.js_compressor = :uglifier
 	config.assets.initialize_on_precompile = false
+	config.action_controller.include_all_helpers = false
 
 	# dont show passwords in logs
 	config.filter_parameters += [:password, :password_confirmation]

@@ -7,6 +7,7 @@
     %tr
       %th Name
       %th Geschlecht
+      %th Status
       %th
       %th
       %th
@@ -14,8 +15,9 @@
   %tbody
     - @teachers.each do |teacher|
       %tr
-        %td{style: teacher.closed ? "background-color: red;" : ""}= teacher.name
+        %td= teacher.name
         %td= teacher.gender ? "m" : "w"
+        %td= closed_symbol teacher
         %td= link_to 'Anzeigen', teacher
         %td= link_to 'Bearbeiten', edit_teacher_path(teacher)
         %td= link_to 'Löschen', teacher, method: :delete, data: { confirm: 'Soll Eintrag Nr. ' + teacher.id.to_s + " wirklich gelöscht werden?" }

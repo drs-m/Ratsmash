@@ -4,7 +4,8 @@ class ApplicationController < ActionController::Base
 	# For APIs, you may want to use :null_session instead.
 	protect_from_forgery with: :exception
 
-	# helper_method :check_session
+	# include symbol helper in all views
+	helper :symbol
 
 	def default_url_options
 		Rails.env.production? ? {:host => "rmash.herokuapp.com"} : {}
