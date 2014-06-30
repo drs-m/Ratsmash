@@ -6,6 +6,11 @@ class ApplicationController < ActionController::Base
 
 	# helper_method :check_session
 
+	def default_url_options
+		Rails.env.production? ? {:host => "rmash.herokuapp.com"} : {}
+ 	end
+
+
 	private
 		def check_session(options = {})
 			# wenn eine session vorhanden ist
@@ -29,4 +34,5 @@ class ApplicationController < ActionController::Base
 			check_session redirect: false
 			return @current_user.present?
 		end
+
 end
