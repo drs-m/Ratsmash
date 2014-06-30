@@ -3,6 +3,7 @@
 //= require jquery_ujs
 //= require jquery.ui.autocomplete
 //= require modernizr
+
 //= require voting
 //= require script-notifier
 
@@ -47,10 +48,10 @@ $(document).ready(function(){
 				});
 
 				$("#send_mail_button").mousemove(function(){
-					$("#stempel_cursor").attr("src","/assets/stempel_cursor_hover.png");
+					$("#stempel_cursor").attr("src", "<%= asset_path('stempel_cursor_hover.png') %>");
 				});
 				$("#send_mail_button").mouseout(function(){
-					$("#stempel_cursor").attr("src","/assets/stempel_cursor.png");
+					$("#stempel_cursor").attr("src", "<%= asset_path('stempel_cursor.png') %>");
 				});
 			}
 			else{
