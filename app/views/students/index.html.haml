@@ -20,8 +20,8 @@
         %td= student.name
         %td= student.gender ? "m" : "w"
         %td= student.mail_address
-        %td.symbol= admin_symbol student
-        %td.symbol= member_symbol student
+        %td= admin_symbol student
+        %td= member_symbol student
         %td= link_to 'Anzeigen', student
         %td= link_to 'Bearbeiten', edit_student_path(student)
         %td= link_to 'Löschen', student, method: :delete, data: { confirm: 'Soll Eintrag Nr. ' + student.id.to_s + " wirklich gelöscht werden?" }
