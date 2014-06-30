@@ -1,7 +1,7 @@
 # default config from heroku
 
-worker_processes Integer(ENV["WEB_CONCURRENCY"] || 3)
-timeout 15
+worker_processes Integer(ENV["WEB_CONCURRENCY"] || 5)
+timeout 20
 preload_app true
 
 before_fork do |server, worker|
