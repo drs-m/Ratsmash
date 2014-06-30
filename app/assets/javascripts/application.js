@@ -45,6 +45,13 @@ $(document).ready(function(){
 					$("#stempel_cursor").css("left",x+1);
 					$("body").css("cursor","none");
 				});
+
+				$("#send_mail_button").mousemove(function(){
+					$("#stempel_cursor").attr("src","/assets/stempel_cursor_hover.png");
+				});
+				$("#send_mail_button").mouseout(function(){
+					$("#stempel_cursor").attr("src","/assets/stempel_cursor.png");
+				});
 			}
 			else{
 				$("#send_mail_button").attr("disabled","disabled");
