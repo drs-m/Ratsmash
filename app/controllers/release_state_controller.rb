@@ -24,7 +24,7 @@ class ReleaseStateController < ApplicationController
 			# speichern
 			File.open(settings_path, "w") { |f| f.write settings.to_yaml }
 			# spawne neuen prozess der die mails verschickt
-			system "rake rmash:launch_mail_delivery rails_env=#{Rails.env} --trace >> #{Rails.root}/log/rake.log &"
+			system "rake rmash:launch_mail_delivery rails_env=#{Rails.env} --trace 2>&1 &"
 		end
 
 		redirect_to release_state_index_path

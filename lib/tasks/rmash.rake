@@ -2,11 +2,11 @@ namespace :rmash do
 
 	desc "Initial mail delivery"
 	task :launch_mail_delivery => :environment do
-
+		puts "sending emails..."
 		# array für menschen aus dem informatik-kurs
-		important = ["Darius Mewes", "Julius Rückin"]
+		important = ["Darius Mewes"]
  		results = Student.where name: important
-		# results << Student.where password_digest = nil # alle anderen ohne passwort
+		# results << Student.where(password_digest: nil).where.not(name: important) # alle anderen ohne passwort
 		results.each do |student|
 			student.send_launch_info_mail
 		end
