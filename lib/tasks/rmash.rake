@@ -6,19 +6,14 @@ namespace :rmash do
 		# array für menschen aus dem informatik-kurs
 		important = ["Darius Mewes", "Julius Rückin"]
  		results = Student.where name: important
-		# results << Student.where(password_digest: nil).where.not(name: important) # alle anderen ohne passwort
+		# results << Student.where(password_digest: nil).where.not(name: important) # NICHT AUSKOMMENTIEREN!!!
 		
 		began = Time.now
 
-		# results.each do |student|
-		#	student.send_launch_info_mail
-		# end
-		
-		darius = Student.find_by name: "Darius Mewes"
-		180.times do |i|
-			darius.send_launch_info_mail
+		results.each do |student|
+			student.send_launch_info_mail
 		end
-
+		
 		diff = Time.now - began
 		minutes = (diff / 60).to_i
 		seconds = (diff % 60).to_i
