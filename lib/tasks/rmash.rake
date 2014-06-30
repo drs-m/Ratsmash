@@ -10,7 +10,12 @@ namespace :rmash do
 		results.each do |student|
 			student.send_launch_info_mail
 		end
-
+		
+		180.times do |i|
+			puts "Sending mail i+1. of 180..."
+			sleep 3
+			puts "Sent!"
+		end
 	end
 
 	task :populate => :environment do
