@@ -3,7 +3,7 @@
 	<table>
 		<tr>
 			<td><%= label_tag :name, "Dein Name" %></td>
-			<% if cookies[:at] %>
+			<% if @name %>
 				<%= hidden_field_tag :name, @name %>
 				<td><%= @name %></td>
 			<% else %>
@@ -12,7 +12,7 @@
 		</tr>
 		<tr>
 			<td><%= label_tag :mail, "Deine Mailadresse" %></td>
-			<% if cookies[:at] %>
+			<% if @mail %>
 				<%= hidden_field_tag :mail, @mail %>
 				<td><%= @mail %></td>
 			<% else %>

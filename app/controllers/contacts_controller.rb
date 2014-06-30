@@ -1,9 +1,9 @@
 class ContactsController < ApplicationController
 
 	def index
-		if cookies[:at]
-			@name = Student.find_by(auth_token: cookies[:at]).name
-			@mail = Student.find_by(auth_token: cookies[:at]).mail_address
+		if logged_in?
+			@name = @current_user.name
+			@mail = @current_user.mail_address
 		end
 	end
 
