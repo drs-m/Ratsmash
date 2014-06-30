@@ -10,7 +10,7 @@ class Category < ActiveRecord::Base
 
 	private
 		def set_defaults
-			self.locked ||= false
+			self.closed ||= false
 		end
 
 end

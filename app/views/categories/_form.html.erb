@@ -20,8 +20,8 @@
     <%= collection_select(:category, :group_id, Group.all, :id, :name, prompt: "Bitte auswählen!") %>
   </div>
   <div class="field">
-    <%= f.label :locked, "Geschlossen" %><br>
-    <%= f.check_box :locked %>
+    <%= f.label :closed, "Geschlossen" %><br>
+    <%= f.check_box :closed %>
   </div>
   <div class="actions">
     <%= f.submit "Bestätigen" %>
