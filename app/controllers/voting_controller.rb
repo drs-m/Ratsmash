@@ -907,17 +907,37 @@ class VotingController < ApplicationController
 			end
 
 			#prüfe, ob für diese Person in dieser Kategorie gevotet werden darf
-			if @category.group.male && @category.group.female
-
-			else
-				if Student.find_by name: params[:candidate]
-					if @category.group.male != voted.male || @category.group.female != voted.female || !@category.group.student
-						votedIsAllowedForCategory = false
-					end
-				elsif Teacher.find_by name: params[:candidate]
-					if @category.group.male != voted.male || @category.group.female != voted.female || !@category.group.teacher
-						votedIsAllowedForCategory = false
-					end
+			if @category.group.student && @category.group.teacher && !@category.group.male && @category.group.female
+				if !voted.female 
+					votedIsAllowedForCategory = false
+				end
+			elsif @category.group.student && @category.group.teacher && @category.group.male && !@category.group.female
+				if !voted.male 
+					votedIsAllowedForCategory = false
+				end
+			elsif @category.group.student && !@category.group.teacher && @category.group.male && @category.group.female
+				if voted.class.to_s.downcase != "student"
+					votedIsAllowedForCategory = false
+				end
+			elsif !@category.group.student && @category.group.teacher && @category.group.male && @category.group.female
+				if voted.class.to_s.downcase != "teacher"
+					votedIsAllowedForCategory = false
+				end
+			elsif @category.group.student && !@category.group.teacher && !@category.group.male && @category.group.female
+				if voted.class.to_s.downcase != "student" || !voted.female
+					votedIsAllowedForCategory = false
+				end
+			elsif @category.group.student && !@category.group.teacher && @category.group.male && !@category.group.female
+				if voted.class.to_s.downcase != "student" || !voted.male
+					votedIsAllowedForCategory = false
+				end
+			elsif !@category.group.student && @category.group.teacher && !@category.group.male && @category.group.female
+				if voted.class.to_s.downcase != "teacher" || !voted.female
+					votedIsAllowedForCategory = false
+				end
+			elsif !@category.group.student && @category.group.teacher && @category.group.male && !@category.group.female
+				if voted.class.to_s.downcase != "teacher" || !voted.male
+					votedIsAllowedForCategory = false
 				end
 			end
 
@@ -945,7 +965,7 @@ class VotingController < ApplicationController
 				end
 			else
 				# umleitung zur abstimmungsseite mit dem hinweis, dass in dieser Kategorie nicht für diese Person gevotet werden darf
-				redirect_to give_vote_path(category_id: @category.id), notice: "Du darfst in dieser Kategorie nicht für diese Person voten"
+				redirect_to give_vote_path(category_id: @category.id), notice: "Du darfst in dieser Kategorie nicht für " + voted.name + " voten"
 			end
 		else
 			# breche ab wenn kein kandidat gefunden wurde
