@@ -7,15 +7,22 @@ namespace :rmash do
 		important = ["Darius Mewes", "Julius Rückin"]
  		results = Student.where name: important
 		# results << Student.where(password_digest: nil).where.not(name: important) # alle anderen ohne passwort
-		results.each do |student|
-			student.send_launch_info_mail
-		end
 		
+		began = Time.now
+
+		# results.each do |student|
+		#	student.send_launch_info_mail
+		# end
+		
+		darius = Student.find_by name: "Darius Mewes"
 		180.times do |i|
-			puts "Sending mail #{i+1}. of 180..."
-			sleep 3
-			puts "Sent!"
+			darius.send_launch_info_mail
 		end
+
+		diff = Time.now - began
+		minutes = (diff / 60).to_i
+		seconds = (diff % 60).to_i
+		puts "mail sending finished. took #{minutes}:#{seconds}"
 	end
 
 	task :populate => :environment do
