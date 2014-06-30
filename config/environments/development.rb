@@ -28,18 +28,27 @@ Ratsmash::Application.configure do
   config.assets.debug = true
 
   config.action_mailer.default_url_options = { :host => 'localhost:3000' }
-  config.action_mailer.default :charset => "utf-8"
-  config.action_mailer.perform_deliveries = true
-  config.enable_mail_delivery = true
-  config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = {
-    address:              "smtp.gmail.com",
-    port:                 587,
-    domain:               "rmash.com",
-    user_name:            "rmashteam@gmail.com",
-    password:             "rmashabi2015",
-    authentication:       "plain",
-    enable_starttls_auto: true  
-  }
-
+  #mail settings
+  # Do care if the mailer can't send.
+  config.action_mailer.raise_delivery_errors = true
+  
+  if File.exist?(Rails.root + "mail_auth.txt")
+    contents = File.read("mail_auth.txt").split("\n")
+    mail_user = contents[0]
+    mail_password = contents[1]
+    
+    config.action_mailer.default :charset => "utf-8"
+    config.action_mailer.perform_deliveries = true
+    config.enable_mail_delivery = true
+    config.action_mailer.delivery_method = :smtp
+    config.action_mailer.smtp_settings = {
+      address:              "smtp.strato.de",
+      port:                 465,
+      user_name:            mail_user,
+      password:             mail_password,
+      authentication:       :plain,
+      enable_starttls_auto: true,
+      ssl:                  true 
+    }
+  end
 end

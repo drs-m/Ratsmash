@@ -21,3 +21,6 @@
 
 # Ignore ‚git-ignored intern files‘
 /giif
+
+passwords.txt
+mail_auth.txt

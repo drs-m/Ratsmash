@@ -1,6 +1,6 @@
 # encoding: utf-8
 class StudentMailer < ActionMailer::Base
-  default from: "Abizeitung & Ratsmash-Team <rmashteam@gmail.com>"
+  default from: "Abizeitung & Ratsmash-Team <team@rmash.dariusmewes.de>"
 
   def password_reset(student)
     @student = student
