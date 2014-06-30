@@ -19,21 +19,11 @@ class Student < ActiveRecord::Base
 
 
 	def male
-		if self.gender
-			return true
-
-		else
-			return false
-		end
+		self.gender
 	end
 
 	def female
-		if !self.gender
-			return true
-
-		else
-			return false
-		end
+		!self.gender
 	end
 
 	def send_password_help_mail
