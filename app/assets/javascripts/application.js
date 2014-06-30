@@ -66,7 +66,7 @@ $(document).ready(function(){
 
 		$("#send_mail_button").click(function(e){
 			var x = e.clientX;
-			var y = e.clientY;
+			var y = e.clientY + 100;
 			$.ajax({
 				url: "/send_mails_to_students",
 				type: "POST",
