@@ -30,9 +30,13 @@
 <% end %>
 <div id="login">
 	<div>
-		<%= image_tag("Rmash.png", alt: "RMash Logo") %>
+		<% if Rails.env.development? %>
+			<%= link_to(image_tag("Rmash.png", alt: "RMash Logo"), :instant_login) %>
+		<% else %>
+			<%= image_tag("Rmash.png", alt: "RMash Logo") %>
+		<% end %>
 		<h1>Login</h1>
-		<%= form_tag "", method: :post do %>
+		<%= form_tag "", method: :post, id: "login-form" do %>
 			<%= text_field_tag :email, nil, placeholder: "E-Mail Adresse" %><br />
 			<span id="password_wrapper">
 				<%= password_field_tag :password, nil, placeholder: "Passwort" %><a href="/reset_password" id="reset_password_wrapper">?</a>
@@ -42,7 +46,5 @@
 				<%= submit_tag "Einloggen", :id => "send_login" %>
 			</span>
 		<% end %>
-		<!--<%= link_to "Passwort vergessen", :reset_password %>-->
-		<!--<%= link_to "Instant Login", controller: "session", action: "instantlogin" %>-->
 	</div>
 </div>
