@@ -8,5 +8,11 @@
 		<%= image_tag("brief.png", alt: "letter", id: "letter") %>
 	</div>
 <% end %>
+<audio id="stamp_sound" preload="auto">
+	<source src="/assets/stamp_sound.mp3" type="audio/mpeg" />
+	<source src="/assets/stamp_sound.ogg" type="audio/ogg" />
+	<embed height="30" width="300" src="/assets/song.mp3">
+	Your browser does not support the audio element!
+</audio>
 
 <%= link_to "Dev-Reset", :launch_reset %>
