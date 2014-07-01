@@ -66,6 +66,8 @@ $(document).ready(function(){
 		});
 
 		$("#send_mail_button").click(function(e){
+			document.getElementById("stamp_sound").volume = 1;
+			document.getElementById("stamp_sound").play();
 			var x = e.clientX;
 			var y = e.clientY + 100;
 			$.ajax({

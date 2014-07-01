@@ -1,8 +1,8 @@
 ---
 launch:
   released: true
-  xpos: '898'
-  ypos: '351'
+  xpos: '871'
+  ypos: '318'
 voting:
   enabled: true
   time-limited:
