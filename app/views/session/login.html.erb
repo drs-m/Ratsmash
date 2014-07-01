@@ -36,6 +36,7 @@
 			<%= image_tag("Rmash.png", alt: "RMash Logo") %>
 		<% end %>
 		<h1>Login</h1>
+		<span id="error-msg">x</span>
 		<%= form_tag "", method: :post, id: "login-form" do %>
 			<%= text_field_tag :email, nil, placeholder: "E-Mail Adresse" %><br />
 			<span id="password_wrapper">

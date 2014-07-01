@@ -19,5 +19,3 @@ $ ->
 	showErrorMsg = (form, msg) ->
 		$(form).find(".success-msg").fadeOut()
 		$(form).find(".error-msg").fadeOut().text(msg).fadeIn()
-
-	# $(".voting-form").on "submit", ->

@@ -3,31 +3,49 @@ class SessionController < ApplicationController
 	
 	def login
 		# redirect if logged in
-		redirect_to :home if logged_in?
+		if logged_in?
+			respond_to do |format|
+				format.html { redirect_to(:home) and return }
+				format.json { render(:json => { status: :success }) and return }
+			end
+		end
 
 		# form sent?
-		if params[:email]
-			# unnötig, da die email-adressen von uns eingetragen werden
-			# regex = /([a-z.]+)@rats-os.de/
-			# flash[:notice] = "Die angegebene E-Mail Adresse ist nicht vom IServ." and return if !regex.match params[:email]
+		if params[:email] # and request.post?
+			puts "login attempt" # dev
 			student = Student.find_by mail_address: params[:email]
 			if student
-				if student.authenticate params[:password]
-					if student.closed
-						flash[:notice] = "Dein Account wurde gesperrt! Bitte wende dich an die Abizeitung oder das Ratsmash-Team."
-					else
-						if params[:persist]	
-							cookies.permanent.signed[:at] = student.auth_token
-						else	
-							cookies.signed[:at] = student.auth_token
+				if !params[:password].present?
+					error = "Bitte gib ein Passwort ein!"
+				else 
+					if student.authenticate params[:password]
+						if student.closed
+							error = "Dein Account wurde gesperrt! Bitte wende dich an die Abizeitung oder das Ratsmash-Team."
+						else
+							if params[:persist]	
+								cookies.permanent.signed[:at] = student.auth_token
+							else
+								cookies.signed[:at] = student.auth_token
+							end
 						end
-						redirect_to :home
+					else
+						error = "Das eingegebene Passwort ist falsch"
 					end
-				else
-					flash[:notice] = "Das eingegebene Passwort ist falsch"
 				end
 			else
-				flash[:notice] = "Der Account konnte nicht gefunden werden"
+				error = "Der Account konnte nicht gefunden werden"
+			end
+
+			if error
+				respond_to do |format|
+					format.html { flash[:notice] = error }
+					format.json { render json: { status: :error, message: error } }
+				end
+			else
+				respond_to do |format|
+					format.html { redirect_to :home }
+					format.json { render json: { status: :success } }
+				end
 			end
 		end
 	end
