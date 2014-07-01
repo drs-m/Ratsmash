@@ -38,8 +38,8 @@ Ratsmash::Application.routes.draw do
   get "login", to: "session#login", as: :login
   post "login", to: "session#login"
   get "logout", to: "session#logout", as: :logout
-  # temp for dev!
-  get "session/instantlogin"
+  # ONYL FOR DEVELOPMENT
+  get "instant_login", to: "session#instant_login", as: :instant_login
   
   # VOTING ROUTES
   get "vote", to: "voting#list", as: :category_list

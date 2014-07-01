@@ -51,8 +51,9 @@ class SessionController < ApplicationController
 		end
 	end
 
-	def instantlogin
-		cookies.permanent.signed[:at] = Student.offset(rand(Student.count)).first.auth_token
+	def instant_login
+		redirect_to :login and return if not Rails.env.development?
+		cookies.permanent.signed[:at] = Student.where(admin_permissions: true).first.auth_token
 		redirect_to :home
 	end
 
