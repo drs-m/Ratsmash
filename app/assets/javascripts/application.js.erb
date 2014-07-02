@@ -50,10 +50,12 @@ $(document).ready(function(){
 				});
 
 				$("#send_mail_button").mousemove(function(){
-					$("#stempel_cursor").attr("src", "<%= asset_path('stempel_cursor_hover.png') %>");
+					$("#stempel_schatten").css("display","block");
+					$("#stempel_schatten").css("top",parseInt($("#stempel_cursor").css("top")) + 100);
+					$("#stempel_schatten").css("left",$("#stempel_cursor").css("left"));
 				});
 				$("#send_mail_button").mouseout(function(){
-					$("#stempel_cursor").attr("src", "<%= asset_path('stempel_cursor.png') %>");
+					$("#stempel_schatten").css("display","none");
 				});
 			}
 			else{
