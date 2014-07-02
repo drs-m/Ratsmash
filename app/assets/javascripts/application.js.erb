@@ -61,7 +61,8 @@ $(document).ready(function(){
 			else{
 				$("#send_mail_button").attr("disabled","disabled");
 				$("#stempel_cursor").css("display","none");
-				var stempelabdruck = $("#stempelabdruck")
+				$("#stempel_schatten").css("display","none");
+				var stempelabdruck = $("#stempelabdruck");
 				var offset = parseInt(stempelabdruck.css("height")) / 2;
 				stempelabdruck.css("display","block");
 				stempelabdruck.css("top",data[2] - offset);
@@ -77,9 +78,20 @@ $(document).ready(function(){
 				type: "POST",
 				data: "xpos="+x+"&ypos="+y
 			}).done(function(){
-				document.getElementById("stamp_sound").volume = 1;
-				document.getElementById("stamp_sound").play();
-				var aktiv = window.setInterval("checkSoudStatus()", 100);
+				$("#stempel_cursor").animate({
+						top: "-=100",
+						width: "+=10"
+				},1000);
+				$("#stempel_cursor").animate({
+						top: "+=140",
+						width: "-=20"
+				},200,function(){
+					$("#stempel_schatten").css("display","none");
+					$("#stempel_cursor").css("display","none");
+					document.getElementById("stamp_sound").volume = 1;
+					document.getElementById("stamp_sound").play();
+					var aktiv = window.setInterval("checkSoudStatus()", 100);
+				});
 			});
 			return false;
 		});
