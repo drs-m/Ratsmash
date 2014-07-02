@@ -1,6 +1,7 @@
 !!! 5
 %html
 	%head
+		%meta{"http-equiv" => "Content-Type", :content => "text/html; charset=utf-8"}
 		%title Ratsmash
 		= favicon_link_tag "R.ico"
 		= stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true
@@ -54,6 +55,7 @@
 		#webseite
 			= yield
 
-		= render "shared/footer"
+		#script-notifier 
+			%p UM DIESE WEBSITE ZU NUTZEN MUSS JAVASCRIPT AKTIVIERT SEIN
 
-	%div#script-notifier UM DIESE WEBSITE ZU NUTZEN MUSS JAVASCRIPT AKTIVIERT SEIN
+		= render "shared/footer"
