@@ -949,7 +949,7 @@ class VotingController < ApplicationController
 				#fahre nur fort, wenn man noch nicht in dieser kategorie für den gevoteten abgestimmt hat
 				if !isAlreadyVotedFor
 					#fahre nur fort, wenn gevoteter nicht man selbst ist
-					if Student.find_by_name voted.name && voted.id == @current_user.id
+					if voted.id == @current_user.id && voted.class.to_s.downcase == "student"
 						# umleitung zur abstimmungsseite mit dem hinweis, dass man nicht für sich selbst voten darf
 						redirect_to give_vote_path(category_id: @category.id), notice: "Du darfst nicht für dich selbst voten"
 					else
@@ -970,6 +970,43 @@ class VotingController < ApplicationController
 		else
 			# breche ab wenn kein kandidat gefunden wurde
 			redirect_to give_vote_path(category_id: @category.id), notice: "Der Kandidat " + params[:candidate] + " wurde nicht gefunden!"
+		end
+	end
+
+	def delete_vote
+		#prüfe, ob Parameter category_id übergeben wurde
+		if params[:category_id]
+			#prüfe, ob Kategrie vorhanden ist
+			if Category.find_by_id params[:category_id]
+				@category = Category.find_by_id params[:category_id]
+			else
+				redirect_to category_list_path, notice: "Vote konnte nicht gelöscht werden. Unbekannte Kategorie!"
+			end
+		else
+			redirect_to category_list_path, notice: "Vote konnte nicht gelöscht werden. Unbekannte Kategorie!"
+		end
+		#prüfe, ob Parameter vote_id übergeben wurden
+		if params[:vote_id]
+			#prüfe, ob Vote vorhanden ist
+			if Vote.find_by_id params[:vote_id]
+				#prüfe, ob angemeldeter Benutzer Vote selbst erstellt hat
+				if Vote.find_by_id(params[:vote_id]).voter_id == @current_user.id || Vote.find_by_id(params[:vote_id]).voter_id.class.to_s.downcase == @current_user.class.to_s.downcase
+					vote = Vote.find_by_id params[:vote_id]
+					vote. delete
+					#prüfe, ob Löschung erfolgreich war
+					if !Vote.find_by_id params[:vote_id]
+						redirect_to give_vote_path(category_id: @category.id), notice: "Vote erfolgreich gelöscht!"
+					else
+						redirect_to give_vote_path(category_id: @category.id), notice: "Vote konnte nicht gelöscht werden. Fehler im System. Versuche es bitte später erneut!"
+					end
+				else
+					redirect_to give_vote_path(category_id: @category.id), notice: "Du kannst den Vote nicht löschen, da du ihn nicht selbst erstellt hast!"
+				end
+			else
+				redirect_to give_vote_path(category_id: @category.id), notice: "Der zu löschende Vote wurde nicht gefunden!"
+			end
+		else
+			redirect_to give_vote_path(category_id: @category.id)
 		end
 	end
 

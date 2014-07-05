@@ -44,6 +44,7 @@ Ratsmash::Application.routes.draw do
   # VOTING ROUTES
   get "vote", to: "voting#list", as: :category_list
   get "vote/results", to: "voting#results", as: :results
+  post "vote/delete_vote", to: "voting#delete_vote", as: :delete_vote
 
   get "vote/autocomplete", to: "voting#autocomplete"
 
