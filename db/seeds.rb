@@ -44,22 +44,3 @@ end
 # Lehrer
 teachers = [["Lisa Müller", false], ["Hans-Christian Schmidt", true], ["Florian Obstkorb", true], ["Klarissa Kuh", false], ["Megan Schnase", false], ["Klaus-Markus König", true], ["Christina Tosko", false]]
 teachers.each { |teacher| Teacher.create name: teacher[0], gender: teacher[1] }
-
-# Votes
-max = Student.count
-cat_max = Category.count
-Student.all.each do |student|
-	rating = rand(1..3)
-	achiever = Student.find(rand(1..max))
-	cat_id = rand(1..cat_max)
-	achiever.achieved_votes << student.given_votes.build(category_id: cat_id, rating: rating)
-	puts student.name + " hat eine Stimme für " + achiever.name + " abgegeben: Kategorie-ID: #{cat_id}, Rating: #{rating}"
-end
-
-Student.all.each do |student|
-	rating = rand(1..3)
-	achiever = Student.find(rand(1..max))
-	cat_id = 2
-	achiever.achieved_votes << student.given_votes.build(category_id: cat_id, rating: rating)
-	puts student.name + " hat eine Stimme für " + achiever.name + " abgegeben: Kategorie-ID: #{cat_id}, Rating: #{rating}"
-end
