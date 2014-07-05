@@ -12,15 +12,26 @@
 			%h2 #{i}. Platz
 			%table
 				%tr
-					%td
-						= form_tag({}, method: "post", class: "voting-form") do
-							%p
-								%label{for: "name_#{i+1}"} Name:
-								%input.candidate-input{type: "text", id: "candidate_#{i}", name: "candidate", placeholder: "Kandidat", value: @given_votes[i-1].present? ? @given_votes[i-1].voted.name : ""}
-								= hidden_field_tag :rating, 4-i
-								= submit_tag "Abstimmen"
-							%span.success-msg
-							%span.error-msg
+					- if Vote.find_by :category_id => @category.id, :voter_id => @current_user.id, :rating => 4-i
+						%td
+							= form_tag({}, method: "post", class: "voting-form") do
+								%p
+									%label{for: "name_#{i+1}"} Name:
+									%input.candidate-input{type: "text", id: "candidate_#{i}", name: "candidate", placeholder: "Kandidat", value: @given_votes[i-1].present? ? @given_votes[i-1].voted.name : "", disabled: "disabled"}
+									= hidden_field_tag :rating, 4-i
+									= submit_tag("Abstimmen",disabled: "disabled")
+								%span.success-msg
+								%span.error-msg
+					- else 
+						%td
+							= form_tag({}, method: "post", class: "voting-form") do
+								%p
+									%label{for: "name_#{i+1}"} Name:
+									%input.candidate-input{type: "text", id: "candidate_#{i}", name: "candidate", placeholder: "Kandidat", value: @given_votes[i-1].present? ? @given_votes[i-1].voted.name : ""}
+									= hidden_field_tag :rating, 4-i
+									= submit_tag "Abstimmen"
+								%span.success-msg
+								%span.error-msg
 					%td
 						- if Vote.find_by :category_id => @category.id, :voter_id => @current_user.id, :rating => 4-i
 							= form_tag(delete_vote_path, method: "post") do
