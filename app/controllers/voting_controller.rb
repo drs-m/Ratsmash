@@ -12,12 +12,25 @@ class VotingController < ApplicationController
 	end
 
 	def results
+		@results_s = []
+		@results_t = []
 		@results = []
 		Category.ids.each do |category_id|
 			if Category.find_by_id(category_id).group.student && !Category.find_by_id(category_id).group.teacher
 				@results << {category_id: category_id, ranking: Vote.connection.select_all("select name, sum(rating) as points from votes v inner join students s on v.voted_id = s.id where v.category_id = #{category_id} group by name order by points desc limit 3").to_a } 
 			elsif !Category.find_by_id(category_id).group.student && Category.find_by_id(category_id).group.teacher
 				@results << {category_id: category_id, ranking: Vote.connection.select_all("select name, sum(rating) as points from votes v inner join teachers t on v.voted_id = t.id where v.category_id = #{category_id} group by name order by points desc limit 3").to_a }
+			elsif Category.find_by_id(category_id).group.student && Category.find_by_id(category_id).group.teacher
+				@results_s << {category_id: category_id, ranking: Vote.connection.select_all("select name, sum(rating) as points from votes v inner join students s on v.voted_id = s.id where v.category_id = #{category_id} group by name order by points desc limit 3").to_a }
+				@results_t << {category_id: category_id, ranking: Vote.connection.select_all("select name, sum(rating) as points from votes v inner join teachers t on v.voted_id = t.id where v.category_id = #{category_id} group by name order by points desc limit 3").to_a }
+				@results = @results_s.zip(@results_t).flatten.compact
+				#ist noch nicht korrekt
+				#erst länge des rankings abfragen, wenn größer als 3, dann eintrag mit name und points mit den geringsten points löschen
+				3.times do
+					@results.each do |result|
+						result[:ranking].min.delete
+					end
+				end
 			end
 		end
 	end
