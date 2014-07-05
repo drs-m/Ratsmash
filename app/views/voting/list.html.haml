@@ -4,9 +4,12 @@
 
 %table
 	%tr
-		%th= image_tag("student_and_teacher.jpg", alt: "Schüler und Lehrer", height: 75)
-		%th= image_tag("student.jpg", alt: "Schüler", height: 75)
-		%th= image_tag("teacher.png", alt: "Lehrer", height: 75)
+		%th
+			.cat_info_box Schüler und Lehrer
+		%th
+			.cat_info_box Schüler
+		%th
+			.cat_info_box Lehrer
 	%tr
 		- @groupset.each do |groups_ordered_by_profession|
 			%td
