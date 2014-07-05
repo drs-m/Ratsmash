@@ -11,8 +11,6 @@ Ratsmash::Application.routes.draw do
   resources :quotes
   resources :descriptions
   resources :release_state, :only => "index"
-  resources :impress, :only => "index"
-  resources :privacy, :only => "index"
 
   #PROJECT GOES LIVE
   post "send_mails_to_students", to: "release_state#send_mails_to_students"
@@ -58,5 +56,8 @@ Ratsmash::Application.routes.draw do
 
   # SETTINGS ROUTES
   get "settings", to: "settings#menu", as: :settings
+
+  # static content
+  get ':action' => 'static#:action'
 
 end
