@@ -9,6 +9,40 @@
 //= require session
 //= require script-notifier
 
+mobileMenueIsShown = false;
+accountMenueIsShown = false;
+
+function closeDdMenues(){
+	document.getElementById("acc_link_dd").style.display = "none";
+	accountMenueIsShown = false;
+	document.getElementById("little_menue").style.display = "none";
+	mobileMenueIsShown = false;
+}
+
+function manageAccountDd(){
+	if(!mobileMenueIsShown){
+		document.getElementById("account_link").style.color = "black";
+		document.getElementById("acc_link_dd").style.display = "block";
+		mobileMenueIsShown = true;
+	}
+	else{
+		document.getElementById("account_link").style.color = "gray";
+		document.getElementById("acc_link_dd").style.display = "none";
+		mobileMenueIsShown = false;
+	}
+}
+
+function manageMobileMenue(){
+	if(!mobileMenueIsShown){
+		document.getElementById("little_menue").style.display = "block";
+		mobileMenueIsShown = true;
+	}
+	else{
+		document.getElementById("little_menue").style.display = "none";
+		mobileMenueIsShown = false;
+	}
+}
+
 $(document).ready(function(){
 
 	if(window.location.pathname == "/vote"){
@@ -22,17 +56,6 @@ $(document).ready(function(){
 			$("#icon_info_box").css("display","none");
 		});
 	}
-
-	$("#webseite").click(function(){
-		$("#acc_link_dd").css("display","none");
-	});
-	$(".account_link").click(function(){
-		$("#acc_link_dd").slideToggle(0);
-	});
-
-	$("#little_menue_button").click(function(){
-		$("#little_menue").slideToggle(0);
-	});
 
 	if(window.location.pathname == "/release_state"){
 		$.ajax({

@@ -39,7 +39,7 @@
 			%ul
 				- if @current_user != nil
 					%li 
-						= link_to raw("Account &or;"), "#", class: "account_link" 
+						= link_to raw("Account &or;"), "#", id: "account_link", onclick: "manageAccountDd();"
 					%li
 						= link_to "Administration", :settings if @current_user.admin_permissions
 					%li
@@ -49,10 +49,9 @@
 					%li
 						= link_to "Kategorien", :category_list
 
-			#little_menue_button
-				= image_tag("menue_button.png", height: 40, alt: "Menübutton")
+			= image_tag("menue_button.png", height: 40, alt: "Menübutton", id: "little_menue_button", onclick: "manageMobileMenue();")
 
-		#webseite
+		#webseite{onclick: "closeDdMenues();"}
 			= yield
 
 		#script-notifier 
