@@ -830,12 +830,10 @@ class VotingController < ApplicationController
 
 		redirect_to :home unless params[:format] == "json"
 
-		# check if searchstring and category are provided
-		@error = "too few arguments provided" and return render unless params[:q] && params[:c]
 		category = Category.find_by id: params[:c]
 		# wenn keine kategorie gefunden wurde, dann alle möglichen namen ausgeben
+		@results = []
 		if category
-			@results = []
 			# xor
 			if category.group.male ^ category.group.female
 				@results += Student.name_search(params[:q]).where(gender: category.group.male, closed: false).to_a if category.group.student
