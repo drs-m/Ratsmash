@@ -1,3 +1,5 @@
 <h1><%= @quote.teacher ? "Lehrerzitat" : "Schülerzitat" %> einreichen</h1>
 
 <%= render 'form' %>
+
+<%= link_to "Zitatübersicht", quotes_path %>
