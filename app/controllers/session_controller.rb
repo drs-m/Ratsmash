@@ -56,7 +56,7 @@ class SessionController < ApplicationController
 	end
 
 	def reset_password
-		if params[:email]
+		if params[:email] and not ENV["launched"] == "no"
 			student = Student.find_by mail_address: params[:email]
 			if student
 				if student.closed
