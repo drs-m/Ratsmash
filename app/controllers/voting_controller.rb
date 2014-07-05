@@ -833,17 +833,19 @@ class VotingController < ApplicationController
 		# check if searchstring and category are provided
 		@error = "too few arguments provided" and return render unless params[:q] && params[:c]
 		category = Category.find_by id: params[:c]
-		# breche ab wenn keine kategorie gefunden wurde
-		@error = "category not found" and return render unless category
-
-		@results = []
-		# xor
-		if category.group.male ^ category.group.female
-			@results += Student.name_search(params[:q]).where(gender: category.group.male, closed: false).to_a if category.group.student
-			@results += Teacher.name_search(params[:q]).where(gender: category.group.male, closed: false).to_a if category.group.teacher
+		# wenn keine kategorie gefunden wurde, dann alle möglichen namen ausgeben
+		if category
+			@results = []
+			# xor
+			if category.group.male ^ category.group.female
+				@results += Student.name_search(params[:q]).where(gender: category.group.male, closed: false).to_a if category.group.student
+				@results += Teacher.name_search(params[:q]).where(gender: category.group.male, closed: false).to_a if category.group.teacher
+			else
+				@results += Student.name_search(params[:q]).where(closed: false).to_a if category.group.student
+				@results += Teacher.name_search(params[:q]).where(closed: false).to_a if category.group.teacher
+			end
 		else
-			@results += Student.name_search(params[:q]).where(closed: false).to_a if category.group.student
-			@results += Teacher.name_search(params[:q]).where(closed: false).to_a if category.group.teacher
+			@results += Student.name_search(params[:q]).to_a
 		end
 
 		# übersichtlichere ausgabe wenn ?p= angegeben wurde (PrettyPrint)
