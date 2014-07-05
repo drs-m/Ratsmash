@@ -12,7 +12,8 @@ class StudentsController < ApplicationController
     @students = Student.order :id
     respond_to do |format|
       format.html
-      format.json { render json: JSON.pretty_generate(JSON.parse(Student.all.to_json)) }
+      # json ausgabe für die speicherung in einer text datei, sodass man die schüler bei db-absturz aus der json einlesen kann
+      format.json { render json: JSON.pretty_generate(JSON.parse(Student.all.pluck(:name, :gender, :mail_address, :admin_permissions, :closed).to_json)) }
     end
   end
 
