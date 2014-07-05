@@ -1,6 +1,7 @@
 # encoding: utf-8
 class QuotesController < ApplicationController
 
+  before_action -> { check_session redirect: true }, only: [:create, :new]
   before_action -> { check_session redirect: true, admin_permissions: true }, except: [:create, :new]
   before_action :set_quote, only: [:show, :edit, :update, :destroy]
 

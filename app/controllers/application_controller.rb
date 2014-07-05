@@ -13,6 +13,7 @@ class ApplicationController < ActionController::Base
 
 
 	private
+		# optionen: admin_permissions || redirect 
 		def check_session(options = {})
 			# wenn eine session vorhanden ist
 			if cookies.signed[:at]
