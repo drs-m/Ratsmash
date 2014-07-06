@@ -10,7 +10,7 @@
       %th E-Mail Adresse
       %th Admin-Rechte
       %th Status
-      %th
+      %th Beschreibungen
       %th
       %th
 
@@ -22,6 +22,7 @@
         %td= student.mail_address
         %td= admin_symbol student
         %td= member_symbol student
+        %td= student.descriptions.count
         %td= link_to 'Anzeigen', student
         %td= link_to 'Bearbeiten', edit_student_path(student)
         %td= link_to 'Löschen', student, method: :delete, data: { confirm: 'Soll Eintrag Nr. ' + student.id.to_s + " wirklich gelöscht werden?" }
