@@ -19,7 +19,7 @@
 		- if @current_user != nil
 			%li= link_to raw("Account &or;"), "#", id: "account_link", onclick: "manageAccountDd();"
 			%li= link_to "Administration", :settings if @current_user.admin_permissions
-			%li= link_to "Lustige Zitate", quotes_path
+			%li= link_to "Zitat einreichen", :new_quote
 			%li= link_to "Beschreibungen", descriptions_path
 			%li= link_to "Kategorien", :category_list
 

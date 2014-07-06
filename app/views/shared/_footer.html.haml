@@ -6,6 +6,5 @@
 		%li= link_to "Impressum", "imprint"
 		%li= link_to "Datenschutz", "privacy-declaration"
 		%li= link_to "Kontakt", :contacts
-		%li= link_to "Lustige Zitate einreichen", :new_quote
 		%li= link_to("Go Live", release_state_index_path) if @current_user and @current_user.admin_permissions
 		%li= link_to "Startseite", :login
