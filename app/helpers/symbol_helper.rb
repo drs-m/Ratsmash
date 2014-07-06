@@ -32,8 +32,8 @@ module SymbolHelper
         return raw("<span class='symbol #{state}' title='#{options[:hover]}' style='color:#{COLORS[color]};'>#{CODES[type]}</span>")
     end
 
-    def admin_symbol(student)
-        if student.admin_permissions
+    def simple_symbol(options)
+        if options[:condition]
             symbol :right, hover: "Ja"
         else
             symbol :wrong, hover: "Nein"
