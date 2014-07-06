@@ -9,7 +9,12 @@ Ratsmash::Application.routes.draw do
   resources :teachers 
   resources :categories
   resources :quotes
-  resources :descriptions
+  resources :descriptions do
+    member do
+      get 'categorize'
+    end
+  end
+
   resources :release_state, :only => "index"
 
   #PROJECT GOES LIVE
@@ -18,12 +23,7 @@ Ratsmash::Application.routes.draw do
   get "launch_reset", to: "release_state#reset", as: :launch_reset
 
   #DESCRIPTION ROUTES
-  get "reject_description/(:id)", to: "descriptions#reject_description", as: :reject_description
-  post "reject_description/(:id)", to: "descriptions#reject_description"
-  get "allow_description/(:id)", to: "descriptions#allow_description", as: :allow_description
-  post "allow_description/(:id)", to: "descriptions#allow_description"
-  get "unordered_description/(:id)", to: "descriptions#unordered_description", as: :unordered_description
-  post "unordered_description/(:id)", to: "descriptions#unordered_description"
+  #get "categorize_description/:id/:state", to: "descriptions#categorize", as: :categorize_description
 
   #CONTACT ROUTES
   get "/contacts", to: "contacts#index", as: :contacts

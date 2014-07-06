@@ -68,11 +68,11 @@ module SymbolHelper
     def description_status_symbol(description)
         case description.status
             when -1
-                symbol :no
+                symbol :wrong, hover: "Abgelehnt"
             when 0
-                symbol :pending
+                symbol :pending, hover: "Noch nicht eingeordnet"
             when 1
-                symbol :yes
+                symbol :right, hover: "Angenommen"
         end
     end
 

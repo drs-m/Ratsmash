@@ -8,6 +8,18 @@ class Description < ActiveRecord::Base
     belongs_to :author, class_name: "Student"
     belongs_to :described, class_name: "Student"
 
-    validates :content, :hobbies, :interests, :author_id, :described_id, presence: true
-	
+    validates :author_id, :described_id, :content, :hobbies, :interests, :additional_authors, presence: true
+    validate :no_self_description
+
+    after_validation :set_defaults
+
+    private
+        def set_defaults
+            self.status ||= 0
+        end
+
+        def no_self_description
+            errors.add(:described_id, "Du darfst keine Beschreibung für dich selbst einreichen") if self.author_id == self.described_id
+        end
+
 end

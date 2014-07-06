@@ -1,22 +1,25 @@
 <% if not descriptions.empty? %>
-    <table>
-        <thead>
-            <th>Von</th>
-            <th>Zusätzliche Autoren</th>
-            <th>Zuletzt geändert am</th>
-            <th>Aktionen</th>
-        </thead>
-         <tr>
-            <% descriptions.each do |description| %>
-                <td><%= description.author.name %></td>
-                <td><%= description.additional_authors %></td>
-                <td><%= description.updated_at.strftime "%H:%M %d.%m.%Y" %></td>
-                <td>
-                    <%= link_to "Noch nicht sicher", unordered_description_path(description.id) %>
-                    <%= link_to "Ablehnen", reject_description_path(description.id) %>
-                    <%= link_to "Löschen", description_path(description.id), :method => :delete, :confirm => "Wirklich löschen?" %>
-                </td>
-            <% end %>
-        </tr>
-    </table>
+	<table>
+		<thead>
+			<th>Von</th>
+			<th>Zusätzliche Autoren</th>
+			<th>Status</th>
+			<th>Zuletzt geändert am</th>
+			<th>Aktionen</th>
+		</thead>
+		<% descriptions.each do |description| %> 
+			<tr>
+				<td><%= description.author.name %></td>
+				<td><%= description.additional_authors %></td>
+				<td><%= description_status_symbol description %>
+				<td><%= description.updated_at.strftime "%d.%m.%Y %H:%M" %></td>
+				<td>
+					<%= link_to "Anzeigen", description if admin_view %>
+					<%= link_to "Akzeptieren", categorize_description_path(id: description.id, state: :accept) if not admin_view %>
+					<%= link_to "Ablehnen", categorize_description_path(id: description.id, state: :reject) if not admin_view %>
+					<%= link_to "Löschen", description_path(description.id), :method => :delete, :confirm => "Wirklich löschen?" if admin_view %>
+				</td>
+			</tr>
+		<% end %>
+	</table>
 <% end %>

@@ -1,38 +1,13 @@
 <h1>Beschreibung anzeigen</h1>
 <ul>
-	<% if @description.from_id == @current_user.id %>
-		<li><b>Von:</b> dir</li>
-	<% else %>
-		<li><b>Von:</b> <%= Student.find_by_id(@description.from_id).name %></li>
-	<% end %>
-	<li><b>Für:</b> <%= Student.find_by_id(@description.for_id).name %></li>
+	<li><b>Von:</b> <%= @description.author.name %></li>
+	<li><b>Für:</b> <%= @description.described.name %></li>
+	<li><b>Status:</b> <%= description_status_symbol @description %>
 	<li><b>Beschreibung:</b><br /><%= @description.content %></li>
 	<li><b>Interessen:</b> <%= @description.interests %></li>
 	<li><b>Hobbies:</b> <%= @description.hobbies %></li>
 	<li><b>Zusätzliche Autoren:</b> <%= @description.additional_authors %></li>
-	<li><b>Erstellt am:</b> <%= @description.created_at %></li>
-	<li><b>Bearbeitet am:</b> <%= @description.updated_at %></li>
-	<% if @description.status == -1 %>
-		<li><b>Status:</b> Abgelehnt</li>
-	<% elsif @description.status == 0 %>
-		<li><b>Status:</b> Noch nicht sicher</li>
-	<% elsif @description.status == 1 %>
-		<li><b>Status:</b> Angenommen</li>
-	<% end %>
+	<li><b>Zuletzt verändert am:</b> <%= @description.updated_at.strftime "%d.%m.%Y %H:%M" %></li>
 </ul>
 <br />
-<% if @description.from_id == @current_user.id %>
-	<%= link_to "Bearbeiten", edit_description_path(@description.id) %>
-<% else %>
-	<% if @description.status == 0 %>
-		<%= link_to "Annehmen", allow_description_path(@description.id) %>
-		<%= link_to "Ablehnen", reject_description_path(@description.id) %>
-	<% elsif @description.status == -1 %>
-		<%= link_to "Noch nicht sicher", unordered_description_path(@description.id) %>
-		<%= link_to "Annehmen", allow_description_path(@description.id) %>
-	<% elsif @description.status == 1 %>
-		<%= link_to "Noch nicht sicher", unordered_description_path(@description.id) %>
-		<%= link_to "Ablehnen", reject_description_path(@description.id) %>
-	<% end %>
-<% end %>
-<%= link_to "Zurück", descriptions_path %>
+<%= link_to @description.described.name, @description.described %>

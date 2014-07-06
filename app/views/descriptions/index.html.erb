@@ -2,14 +2,9 @@
 <p>
 	<%= link_to "Beschreibung erstellen", new_description_path %>
 </p>
-<h2>Ungeprüfte Beschreibungen</h2>
-<%= render partial: "table", locals: { descriptions: @own_descriptions.unchecked } %>
 
-<h2>Zugelassene Beschreibung</h2>
-<%= render partial: "table", locals: { descriptions: @own_descriptions.accepted } %>
-
-<h2>Abgelehnte Beschreibungen</h2>
-<%= render partial: "table", locals: { descriptions: @own_descriptions.rejected } %>
+<h2>Beschreibungen über mich</h2>
+<%= render partial: "table", locals: { descriptions: @own_descriptions, admin_view: false } %>
 
 <h2>Geschriebene Beschreibungen</h2>
 <% if not @written_descriptions.empty? %>
@@ -17,19 +12,19 @@
 		<thead>
 			<th>Für</th>
 			<th>Zusätzliche Autoren</th>
-			<th>Zuletzt geändert am</th>
 			<th>Status</th>
+			<th>Zuletzt geändert am</th>
 			<th>Aktionen</th>
 		</thead>
 		<% @written_descriptions.each do |description| %>
 			<tr>
 				<td><%= description.described.name %></td>
 				<td><%= description.additional_authors %></td>
-				<td><%= description.updated_at.strftime "%H:%M %d.%m.%Y" %></td>
 				<td><%= description_status_symbol description %>
+				<td><%= description.updated_at.strftime "%d.%m.%Y %H:%M" %></td>
 				<td>
 					<%= link_to "Bearbeiten", edit_description_path(description.id) %>
-					<%= link_to "Löschen", description_path(description.id), :method => :delete, :confirm => "Wirklich löschen?" %>
+					<%= link_to "Zurückziehen", description_path(description.id), method: :delete, data: { confirm: "Wirklich löschen?" } %>
 				</td>
 			</tr>
 		<% end %>

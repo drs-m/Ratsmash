@@ -1,5 +1,6 @@
 $ ->
-    $("#name").autocomplete
+    
+    $("#description_described_name").autocomplete
         messages:
             result: (count) ->
             noResults: ''   
