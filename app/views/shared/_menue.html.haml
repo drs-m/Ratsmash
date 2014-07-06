@@ -1,0 +1,26 @@
+#little_menue
+	%ul
+		- if @current_user != nil
+			%li= link_to "Hauptmenü", :home
+			%li= link_to "Kategorien", :category_list
+			%li= link_to "Beschreibungen", descriptions_path
+			%li= link_to "Administration", :settings if @current_user.admin_permissions
+			%li= link_to "Passwort ändern", :change_password
+			%li= link_to "Logout", :logout
+
+#acc_link_dd
+	%ul
+		%li= link_to "Passwort ändern", :change_password
+		%li= link_to "Logout", :logout
+
+#menue
+	%a{:title => "Ratsmash-Logo", :href => "/"}= image_tag("Rmash.png", height: 40, alt: "Ratsmash-Logo")
+	%ul
+		- if @current_user != nil
+			%li= link_to raw("Account &or;"), "#", id: "account_link", onclick: "manageAccountDd();"
+			%li= link_to "Administration", :settings if @current_user.admin_permissions
+			%li= link_to "Lustige Zitate", quotes_path
+			%li= link_to "Beschreibungen", descriptions_path
+			%li= link_to "Kategorien", :category_list
+
+	= image_tag("menue_button.png", height: 40, alt: "Menübutton", id: "little_menue_button", onclick: "manageMobileMenue();")
