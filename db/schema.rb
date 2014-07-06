@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140630191724) do
+ActiveRecord::Schema.define(version: 20140706170418) do
 
   create_table "categories", force: true do |t|
     t.string   "name"
@@ -22,8 +22,8 @@ ActiveRecord::Schema.define(version: 20140630191724) do
   end
 
   create_table "descriptions", force: true do |t|
-    t.integer  "from_id"
-    t.integer  "for_id"
+    t.integer  "author_id"
+    t.integer  "described_id"
     t.text     "content"
     t.integer  "status"
     t.string   "additional_authors"

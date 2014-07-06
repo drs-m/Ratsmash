@@ -1,3 +1,4 @@
+# encoding: utf-8
 class Student < ActiveRecord::Base
 
 	# attributes: name, gender, mail_address, (password), (password_confirmation), password_digest, password_resetkey, admin_permissions, closed
@@ -6,6 +7,9 @@ class Student < ActiveRecord::Base
 
 	has_many :given_votes, foreign_key: "voter_id", class_name: "Vote"
 	has_many :achieved_votes, class_name: "Vote", :as => :voted
+
+	has_many :descriptions, foreign_key: "described_id"
+	has_many :written_descriptions, class_name: "Description", foreign_key: "author_id"
 
 	# einträge lassen sich bei before_validation oder before_save seltsamerweise nicht speichern! hat vermutlich was mit has_secure_password zu tun
 	after_validation :set_defaults
