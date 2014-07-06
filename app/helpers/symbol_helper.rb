@@ -20,38 +20,38 @@ module SymbolHelper
 
     # key: zustand
     STATES = {
-        right: [:green, :checkmark], # admin-rechte vergeben
-        wrong: [:red, :cross], # account/kategorie gesperrt
-        inactive: [:black, :circle], # keine registrierungsmail gesendet
-        pending: [:yellow, :progress_circle], # registrierungsmail gesendet aber nicht aktiv
+        right: [:green, :checkmark],
+        wrong: [:red, :cross],
+        inactive: [:black, :circle],
+        pending: [:yellow, :progress_circle]
     }
 
-    def symbol(state)
+    def symbol(state, options = {})
         color = STATES[state][0]
         type = STATES[state][1]
-        return raw("<span class='symbol #{state}' style='color:#{COLORS[color]};'>#{CODES[type]}</span>")
+        return raw("<span class='symbol #{state}' title='#{options[:hover]}' style='color:#{COLORS[color]};'>#{CODES[type]}</span>")
     end
 
     def admin_symbol(student)
         if student.admin_permissions
-            symbol :right
+            symbol :right, hover: "Ja"
         else
-            symbol :wrong
+            symbol :wrong, hover: "Nein"
         end
     end
 
     def member_symbol(student)
         if student.closed
-            return symbol :wrong
+            return symbol :wrong, hover: "gesperrt"
         end
         
         if student.password_digest.present?
-            symbol :right
+            symbol :right, hover: "aktiv"
         else
             if student.password_reset_token.present?
-                symbol :pending
+                symbol :pending, hover: "Mail verschickt"
             else
-                symbol :inactive
+                symbol :inactive, hover: "inaktiv" # noch keine registrierungmail verschickt
             end
         end
     end

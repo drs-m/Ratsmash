@@ -6,10 +6,6 @@ class DescriptionsController < ApplicationController
 	def index
 		@own_descriptions = @current_user.descriptions
 		@written_descriptions = @current_user.written_descriptions
-		#@unaccepted_descriptions_for_me = Description.where(:for_id => @current_user.id, :status => 0).order(:updated_at).reverse
-		#@rejected_descriptions_for_me = Description.where(:for_id => @current_user.id, :status => -1).order(:updated_at).reverse
-		#@allowed_description_for_me = Description.where(:for_id => @current_user.id, :status => 1).first
-		#@written_descriptions = Description.where(:from_id => @current_user.id).order(:updated_at).reverse
 	end
 
 	def new 
