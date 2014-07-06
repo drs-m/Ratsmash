@@ -26,3 +26,6 @@
 
 <%= link_to 'Bearbeiten', edit_student_path(@student) %> |
 <%= link_to 'Zurück', students_path %>
+
+<h2>Erhaltene Beschreibungen</h2>
+<%= render partial: "descriptions/table", locals: { descriptions: @student.descriptions } %>

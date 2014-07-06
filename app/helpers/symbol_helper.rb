@@ -20,12 +20,10 @@ module SymbolHelper
 
     # key: zustand
     STATES = {
-        admin: [:green, :checkmark], # admin-rechte vergeben
-        noadmin: [:red, :cross], # keine admin-rechte
-        closed: [:red, :cross], # account/kategorie gesperrt
+        right: [:green, :checkmark], # admin-rechte vergeben
+        wrong: [:red, :cross], # account/kategorie gesperrt
         inactive: [:black, :circle], # keine registrierungsmail gesendet
         pending: [:yellow, :progress_circle], # registrierungsmail gesendet aber nicht aktiv
-        active: [:green, :checkmark] # account wurde aktiviert
     }
 
     def symbol(state)
@@ -36,19 +34,19 @@ module SymbolHelper
 
     def admin_symbol(student)
         if student.admin_permissions
-            symbol :admin
+            symbol :right
         else
-            symbol :noadmin
+            symbol :wrong
         end
     end
 
     def member_symbol(student)
         if student.closed
-            return symbol :closed
+            return symbol :wrong
         end
         
         if student.password_digest.present?
-            symbol :active
+            symbol :right
         else
             if student.password_reset_token.present?
                 symbol :pending
@@ -61,9 +59,20 @@ module SymbolHelper
     # for teachers and categories
     def closed_symbol(closeable)
         if closeable.closed
-            symbol :closed
+            symbol :wrong
         else
-            symbol :active
+            symbol :right
+        end
+    end
+
+    def description_status_symbol(description)
+        case description.status
+            when -1
+                symbol :no
+            when 0
+                symbol :pending
+            when 1
+                symbol :yes
         end
     end
 

@@ -1,11 +1,15 @@
+# encoding: utf-8
 class DescriptionsController < ApplicationController
-	before_action -> { check_session redirect: true }
+	before_action -> { check_session redirect: true, admin_permissions: true }, only: [:show]
+	before_action -> { check_session redirect: true }, except: [:show]
 
 	def index
-		@unaccepted_descriptions_for_me = Description.where(:for_id => @current_user.id, :status => 0).order(:updated_at).reverse
-		@rejected_descriptions_for_me = Description.where(:for_id => @current_user.id, :status => -1).order(:updated_at).reverse
-		@allowed_description_for_me = Description.where(:for_id => @current_user.id, :status => 1).first
-		@written_descriptions = Description.where(:from_id => @current_user.id).order(:updated_at).reverse
+		@own_descriptions = @current_user.descriptions
+		@written_descriptions = @current_user.written_descriptions
+		#@unaccepted_descriptions_for_me = Description.where(:for_id => @current_user.id, :status => 0).order(:updated_at).reverse
+		#@rejected_descriptions_for_me = Description.where(:for_id => @current_user.id, :status => -1).order(:updated_at).reverse
+		#@allowed_description_for_me = Description.where(:for_id => @current_user.id, :status => 1).first
+		#@written_descriptions = Description.where(:from_id => @current_user.id).order(:updated_at).reverse
 	end
 
 	def new 
@@ -13,6 +17,7 @@ class DescriptionsController < ApplicationController
 	end
 
 	def create
+		@description = Description.new(description_params)
 		if !params[:name].blank? && !params[:description].blank? && !params[:interests].blank? && !params[:hobbies].blank?
 			from_id = @current_user.id
 
@@ -85,5 +90,11 @@ class DescriptionsController < ApplicationController
 
 		redirect_to descriptions_path
 	end
+
+	private
+	    # Never trust parameters from the scary internet, only allow the white list through.
+	    def category_params
+	      params.require(:description).permit(:content, :interests, :hobbies, :additional_authors)
+	    end
 
 end

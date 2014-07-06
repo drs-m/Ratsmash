@@ -1,0 +1,22 @@
+<% if not descriptions.empty? %>
+    <table>
+        <thead>
+            <th>Von</th>
+            <th>Zusätzliche Autoren</th>
+            <th>Zuletzt geändert am</th>
+            <th>Aktionen</th>
+        </thead>
+         <tr>
+            <% descriptions.each do |description| %>
+                <td><%= description.author.name %></td>
+                <td><%= description.additional_authors %></td>
+                <td><%= description.updated_at.strftime "%H:%M %d.%m.%Y" %></td>
+                <td>
+                    <%= link_to "Noch nicht sicher", unordered_description_path(description.id) %>
+                    <%= link_to "Ablehnen", reject_description_path(description.id) %>
+                    <%= link_to "Löschen", description_path(description.id), :method => :delete, :confirm => "Wirklich löschen?" %>
+                </td>
+            <% end %>
+        </tr>
+    </table>
+<% end %>
