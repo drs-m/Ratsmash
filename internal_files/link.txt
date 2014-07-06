@@ -1,1 +1,0 @@
-Sprocket-Help: https://github.com/sstephenson/sprockets#sprockets-directives

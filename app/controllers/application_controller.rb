@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
 	helper :symbol
 
 	def default_url_options
-		Rails.env.production? ? {:host => "rmash.herokuapp.com"} : {}
+		Rails.env.production? ? {:host => "rmash.herokuapp.com"} : {} # necessary?
  	end
 
 
