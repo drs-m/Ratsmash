@@ -4,48 +4,24 @@
 	</div>
 	<br />
 <% end %>-->
-<% if flash.count > 0 %>
-	<style>
-		#email{
-			border: 1px solid red;
-			color:red;
-		}
-		#email:focus{
-			box-shadow: 0px 0px 1px 1px red inset;
-			border: none;
-			outline:none;
-			color:black;
-		}
-		#password{
-			border: 1px solid red;
-			color:red;
-		}
-		#password:focus{
-			box-shadow: 0px 0px 1px 1px red inset;
-			border: none;
-			outline:none;
-			color:black;
-		}
-	</style>
-<% end %>
+
+<%= image_tag("cloud1.png",alt:"Wolke",id:"login_bg") %>
 <div id="login">
-	<div>
-		<% if Rails.env.development? %>
-			<%= link_to(image_tag("Rmash.png", alt: "RMash Logo"), :instant_login) %>
-		<% else %>
-			<%= image_tag("Rmash.png", alt: "RMash Logo") %>
-		<% end %>
-		<h1>Login</h1>
-		<span id="error-msg">x</span>
-		<%= form_tag "/login", method: :post, id: "login-form" do %>
-			<%= text_field_tag :email, nil, placeholder: "E-Mail Adresse" %><br />
-			<span id="password_wrapper">
-				<%= password_field_tag :password, nil, placeholder: "Passwort" %><a href="/reset_password" id="reset_password_wrapper">?</a>
-			</span>
-			<span id="buttons_wrapper">
-				<label id="persist_label" for="persist">Eingeloggt bleiben: </label><%= check_box_tag :persist %>
-				<%= submit_tag "Einloggen", :id => "send_login" %>
-			</span>
-		<% end %>
-	</div>
+	<% if Rails.env.development? %>
+		<%= link_to(image_tag("Rmash.png", alt: "RMash Logo"), :instant_login) %>
+	<% else %>
+		<%= image_tag("Rmash.png", alt: "RMash Logo") %>
+	<% end %>
+	<h1>Login</h1>
+	<span id="error-msg">x</span>
+	<%= form_tag "/login", method: :post, id: "login-form" do %>
+		<%= text_field_tag :email, nil, placeholder: "E-Mail Adresse" %><br />
+		<span id="password_wrapper">
+			<%= password_field_tag :password, nil, placeholder: "Passwort" %><a href="/reset_password" id="reset_password">?</a>
+		</span>
+		<div id="buttons_wrapper">
+			<span id="persist_label"><label for="persist">Eingeloggt bleiben: </label><%= check_box_tag :persist %></span>
+			<%= submit_tag "Einloggen", :id => "send_login" %>
+		</div>
+	<% end %>
 </div>

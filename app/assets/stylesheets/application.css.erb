@@ -327,88 +327,79 @@ a#git-version {
 	background: white;
 	margin: 20px 0px;
 }
-#login{
-	position: fixed;
-	top:50%;
-	left: 50%;
-	margin-left: -634px;
-	margin-top: -400px;
-	width: 1268px;
-	height: 772px;
-	background: url(<%= asset_path 'cloud1.png' %>) center;
-	background-size: 100%;
-	background-repeat: no-repeat;
-}
 #menue a img{
 	margin-top: 5px;
 	margin-left: 10%;
 	float: left;
 }
-#login div{
-	width: 50%;
-	height: 50%;
-	margin-left: 25%;
-	margin-top: 20%;
+
+/* login form starts */
+
+#login_bg{
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	margin-top: -17%;
+	margin-left: -30%;
+	width: 60%;
+	z-index: 1;
+	min-height: 400px;
 }
-#buttons_wrapper{
-	margin: 0;
-	padding: 0;
-	width: 100%;
-	height: auto;
+#login{
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	margin-top: -17%;
+	margin-left: -30%;
+	width: 60%;
+	height: 70%;
+	z-index: 2;
 }
-#login div img{
-	margin-left: 25%;
-	width: 50%;
-	margin-bottom: 30px;
+#login img{
+	width: 30%;
+	margin-left: 33%;
+	margin-top: 7%;
 }
-#login div h1{
-	margin: 0;
-	margin-bottom: 20px;
-	text-align: center;
-	font-family: verdana, arial, helvetica, sans-serif;
-	font-size: 36px;
+#login h1{
+	margin-top: 3%;
+	font-size: 200%;
 }
-#login div label{
-	margin-bottom: 10px;
-	display: block;
-	font-size: 16px;
-	font-family: verdana, arial, helvetica, sans-serif;
-	font-weight: bold;
+#login form{
+	width: 60%;
+	margin-left: 20%;
+	margin-top: 3%;
 }
-#email{
+#login form #email{
 	width: 100%;
 	height: 25px;
 	border-radius: 5px;
-	margin-bottom:20px;
 	font-size: 16px;
-	font-family: verdana, arial, helvetica, sans-serif;
 }
-#password{
-	display: block;
-	float: left;
-	width: 89%;
+#login form #password_wrapper{
+	width: 100%;
+}
+#login form #password_wrapper #password{
+	width: 88%;
 	height: 25px;
-	margin: 0;
 	border-radius: 5px 0px 0px 5px;
-	margin-bottom: 20px;
 	font-size: 16px;
-	font-family: verdana, arial, helvetica, sans-serif;
-	border-right: none;
-}
-#reset_password_wrapper{
 	float: left;
-	width: 10%;
-	height: 26px;
-	display: block;
-	border-radius: 0px 5px 5px 0px;
-	border: none;
-	cursor: pointer;
+	border-right: none;
+	margin-top: 2%;
+}
+#login form #password_wrapper #reset_password{
 	text-align: center;
+	display: block;
+	padding-top: 0;
 	color: black;
 	text-decoration: none;
-	padding-bottom: 5px;
+	font-size: 25px;
 	font-weight: bold;
-	font-size: 20px;
+	margin-top: 2%;
+	width: 10%;
+	height: 32px;
+	float: left;
+	border-radius: 0px 5px 5px 0px;
 	background-attachment: fixed;
 	background: #98d8f2; /* Old browsers */
 	background: -moz-linear-gradient(45deg, #98d8f2 0%, #60abf8 66%, #4096ee 100%); /* FF3.6+ */
@@ -418,37 +409,27 @@ a#git-version {
 	background: -ms-linear-gradient(45deg, #98d8f2 0%,#60abf8 66%,#4096ee 100%); /* IE10+ */
 	background: linear-gradient(45deg, #98d8f2 0%,#60abf8 66%,#4096ee 100%); /* W3C */
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#98d8f2', endColorstr='#4096ee',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
-	background-size: 100%;
 }
-#reset_password_wrapper:hover{
-	box-shadow: 1px 1px 2px 1px gray;
+#login form #password_wrapper #reset_password:hover{
+	box-shadow: 1px 1px 1px;
 }
-#persist_label{
-	font-size: 16px;
-	font-weight: normal;
-	font-family: verdana, arial, helvetica, sans-serif;
-	color:black;
-	float: left;
-	margin-top: 20px;
-	margin-bottom: 20px;
+#login form #buttons_wrapper{
+	width: 100%;
 }
-#persist{
-	width: 20px;
-	height:20px;
-	float: left;
-	margin-top: 20px;
-}
-#send_login{
-	float: right;
-	font-size: 16px;
-	font-weight: bold;
-	font-family: verdana, arial, helvetica, sans-serif;
-	color:black;
-	border: none;
+#login form #buttons_wrapper #persist_label{
 	display: block;
-	min-width: 25%;
-	padding: 10px 0px;
-	border-radius: 5px;
+	float: left;
+	font-weight: bold;
+	font-size: 16px;
+	margin-top: 3%;
+}
+#login form #buttons_wrapper #persist_label input{
+	width: 20px;
+	height: 20px;
+}
+#login form #buttons_wrapper #send_login{
+	display: block;
+	float: right;
 	background-attachment: fixed;
 	background: #98d8f2; /* Old browsers */
 	background: -moz-linear-gradient(45deg, #98d8f2 0%, #60abf8 66%, #4096ee 100%); /* FF3.6+ */
@@ -458,11 +439,20 @@ a#git-version {
 	background: -ms-linear-gradient(45deg, #98d8f2 0%,#60abf8 66%,#4096ee 100%); /* IE10+ */
 	background: linear-gradient(45deg, #98d8f2 0%,#60abf8 66%,#4096ee 100%); /* W3C */
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#98d8f2', endColorstr='#4096ee',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
-	background-size: 100%;
+	border: none;
+	padding: 5px 10px;
+	color: black;
+	font-weight: bold;
+	font-size: 16px;
+	border-radius: 5px;
+	margin-top: 3%;
 }
-#send_login:hover{
-	box-shadow: 1px 1px 2px 1px gray;
+#login form #buttons_wrapper #send_login:hover{
+	box-shadow: 1px 1px 1px;
 }
+
+/* login form ends */
+
 #footer{
 	position: fixed;
 	bottom: 0;
@@ -524,54 +514,31 @@ td span.symbol.inactive {
 #login span#error-msg {
 	color: red;
 	display: none;
+	margin-left:20%;
 }
 
-@media only screen and (max-width: 1024px){
-	#login{
-		width: 800px;
-		height:600px;
-		margin-top: -300px;
-		margin-left: -400px;
-	}
-	#login div{
-		margin-top: 15%;
-	}
-}
 @media only screen and (max-width: 860px){
-	#login{
-		width: 600px;
-		height:400px;
-		margin-top: -200px;
-		margin-left: -300px;
-	}
-	#login div {
-		width: 50%;
-		height: 40%;
-		margin-left: 25%;
-		margin-top: 7%;
-	}
-	#login div h1{
-		font-size: 24px;
-	}
-	#login div form label{
-		margin-bottom: 5px; 
-	}
-	#email{
-		margin-bottom: 10px;
-		height: 20px;
-	}
-	#password{
-		margin-bottom: 10px;
-		height: 20px;
-	}
-	#reset_password_wrapper{
-		height: 25px;
-	}
 	#menue ul{
 		display: none;
 	}
 	#little_menue_button{
 		display: block;
+	}
+	#login form #buttons_wrapper #persist_label{
+		margin-top: 5%;
+		float: none;
+	}
+	#login form #buttons_wrapper #persist_label input{
+		margin-top: 5%;
+	}
+	#login form #buttons_wrapper #send_login{
+		float: none;
+	}
+	#login form #password_wrapper #password{
+		margin-top: 5%;
+	}
+	#login form #password_wrapper #reset_password{
+		margin-top: 5%;
 	}
 }
 @media only screen and (max-width: 480px){
@@ -586,13 +553,27 @@ td span.symbol.inactive {
 		background: white;
 		box-shadow: 1px 1px 2px 1px gray;
 	}
-	#login div{
-		width: 90%;
-		height: 90%;
-		margin-left: 5%;
+	#login img{
+		margin-left: 25%;
+		width: 50%;
+	}
+	#login form #buttons_wrapper{
+		clear: both;
+	}
+	#login form #buttons_wrapper #persist_label{
+		margin-top: 5%;
+		float: none;
+	}
+	#login form #buttons_wrapper #persist_label input{
 		margin-top: 5%;
 	}
-	#reset_password_wrapper{
-		height: 25px;
+	#login form #buttons_wrapper #send_login{
+		float: none;
+	}
+	#login form #password_wrapper #password{
+		margin-top: 5%;
+	}
+	#login form #password_wrapper #reset_password{
+		margin-top: 5%;
 	}
 }

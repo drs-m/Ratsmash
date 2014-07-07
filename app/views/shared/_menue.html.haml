@@ -22,5 +22,5 @@
 			%li= link_to "Zitat einreichen", :new_quote
 			%li= link_to "Beschreibungen", descriptions_path
 			%li= link_to "Kategorien", :category_list
-
-	= image_tag("menue_button.png", height: 40, alt: "Menübutton", id: "little_menue_button", onclick: "manageMobileMenue();")
+	- if @current_user != nil
+		= image_tag("menue_button.png", height: 40, alt: "Menübutton", id: "little_menue_button", onclick: "manageMobileMenue();")
