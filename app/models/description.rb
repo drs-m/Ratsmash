@@ -8,7 +8,7 @@ class Description < ActiveRecord::Base
     belongs_to :author, class_name: "Student"
     belongs_to :described, class_name: "Student"
 
-    validates :author_id, :described_id, :content, :hobbies, :interests, :additional_authors, presence: true
+    validates :author_id, :described_id, :content, :hobbies, :interests, presence: true
     validate :no_self_description
 
     after_validation :set_defaults

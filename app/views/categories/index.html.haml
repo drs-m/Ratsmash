@@ -16,6 +16,6 @@
       %tr
         %td= category.name
         %td= category.group.name
-        %td= closed_symbol category
+        %td= simple_symbol condition: !category.closed?, msg_true: "Offen", msg_false: "Geschlossen"
         %td= link_to 'Bearbeiten', edit_category_path(category)
         %td= link_to 'Löschen', category, method: :delete, data: { confirm: 'Soll Eintrag Nr. ' + category.id.to_s + " wirklich gelöscht werden?" }

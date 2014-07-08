@@ -3,10 +3,10 @@ namespace :rmash do
 
 	desc "Initial mail delivery"
 	task :launch_mail_delivery => :environment do
-		puts "sending emails..."
+		puts "[#{Time.now}] Sending emails..."
 		# array für menschen aus dem informatik-kurs
-		important = ["Darius Mewes", "Julius Rückin"]
- 		results = Student.where name: important
+		important = ["Darius Mewes"]
+		results = Student.where name: important if not important.empty?
 		# results << Student.where(password_digest: nil).where.not(name: important) # NICHT AUSKOMMENTIEREN!!!
 		
 		began = Time.now
@@ -18,7 +18,7 @@ namespace :rmash do
 		diff = Time.now - began
 		minutes = (diff / 60).to_i
 		seconds = (diff % 60).to_i
-		puts "mail sending finished. took #{minutes}:#{seconds}"
+		puts "[#{Time.now}] Mail sending finished. Took #{minutes}:#{seconds}"
 	end
 
 	task :populate => :environment do

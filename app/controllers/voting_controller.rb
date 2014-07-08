@@ -60,20 +60,6 @@ class VotingController < ApplicationController
 
 	def list
 		@groupset = [[Group.everyone, Group.all_female, Group.all_male], [Group.all_students, Group.female_students, Group.male_students], [Group.all_teachers, Group.female_teachers, Group.male_teachers]]
-		return
-
-		# ordnen der Kategorien nach Typ
-		@categories_all = Group.everyone.categories
-		@categories_all_female = Group.all_female.categories
-		@categories_all_male = Group.all_male.categories
-	
-		@categories_student_all = Group.all_students.categories
-		@categories_student_female = Group.female_students.categories
-		@categories_student_male = Group.male_students.categories
-	
-		@categories_teacher_all = Group.all_teachers.categories
-		@categories_teacher_female = Group.female_teachers.categories
-		@categories_teacher_male = Group.male_teachers.categories
 	end
 
 	def choose
@@ -88,6 +74,9 @@ class VotingController < ApplicationController
 		isAlreadyVotedFor = false
 		@category = Category.find_by_id(params[:category_id])
 		redirect_to(give_vote_path(category_id: @category.id), notice: "Die Kategorie wurde nicht gefunden!") and return unless @category
+		if @category.closed
+			display_error(message: "Diese Kategorie ist momentan gesperrt!", back: :category_list) and return
+		end
 		
 		# find the voted account by searching in student db first and in teacher db if nothing has been found
 		voted = Student.find_by name: params[:candidate]

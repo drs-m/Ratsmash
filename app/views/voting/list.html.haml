@@ -22,6 +22,6 @@
 						- groups_ordered_by_profession.each do |group|
 							%td
 								%ul
-									- group.categories.each do |category|
+									- group.categories.order(:name).each do |category|
 										%li= link_to category.name, give_vote_path(category.id)
 										

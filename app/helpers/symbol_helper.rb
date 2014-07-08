@@ -34,9 +34,9 @@ module SymbolHelper
 
     def simple_symbol(options)
         if options[:condition]
-            symbol :right, hover: "Ja"
+            symbol :right, hover: options[:msg_true] || "Ja"
         else
-            symbol :wrong, hover: "Nein"
+            symbol :wrong, hover: options[:msg_false] || "Nein"
         end
     end
 
@@ -53,15 +53,6 @@ module SymbolHelper
             else
                 symbol :inactive, hover: "inaktiv" # noch keine registrierungmail verschickt
             end
-        end
-    end
-
-    # for teachers and categories
-    def closed_symbol(closeable)
-        if closeable.closed
-            symbol :wrong
-        else
-            symbol :right
         end
     end
 
