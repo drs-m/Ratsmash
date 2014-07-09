@@ -8,6 +8,7 @@ Ratsmash::Application.routes.draw do
   resources :students
   resources :teachers 
   resources :categories
+  resources :news
   resources :quotes
   resources :descriptions do
     member do

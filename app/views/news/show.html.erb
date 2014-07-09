@@ -1,0 +1,9 @@
+<h1><%= @news.subject %></h1>
+<ul>
+	<li><b>Überschrift:</b> <%= @news.subject %></li>
+	<li><b>Autoren:</b> <%= @news.author %></li>
+	<li><b>Inhalt:</b> <br /><%= @news.content %></li>
+</ul>
+<p>
+	<%= link_to "News", news_index_path %> <%= link_to "Bearbeiten", edit_news_path(@news.id) %> <%= link_to "Löschen", news_path(@news.id), method: :delete, data: { confirm: "Wirklich löschen?" } %>
+</p>

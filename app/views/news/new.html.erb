@@ -1,0 +1,8 @@
+<h1>Neue News</h1>
+
+<%= form_tag News.new, method: :post do %>
+	<%= text_field_tag :subject, nil, placeholder: "Überschrift/Betreff" %><br />
+	<%= text_field_tag :author, nil, placeholder: "Autoren" %><br />
+	<%= text_area_tag :content, nil, placeholder: "Inhalt", :rows => 15, :cols => 80 %><br />
+	<%= submit_tag "News erstellen" %>
+<% end %>
