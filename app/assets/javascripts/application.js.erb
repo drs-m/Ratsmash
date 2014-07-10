@@ -45,6 +45,70 @@ function manageMobileMenue(){
 
 $(document).ready(function(){
 
+	$("#news_ticker_li_0").css("display","block");
+	$("news_point_0").css("background","black");
+	$("#news_point_0").click(function(){
+		$("#news_point_1").css("background","gray");
+		$("#news_point_2").css("background","gray");
+		$("#news_point_3").css("background","gray");
+		$("#news_point_4").css("background","gray");
+		$(this).css("background","black");
+		$("#news_ticker_li_0").show();
+		$("#news_ticker_li_1").hide();
+		$("#news_ticker_li_2").hide();
+		$("#news_ticker_li_3").hide();
+		$("#news_ticker_li_4").hide();
+	});
+	$("#news_point_1").click(function(){
+		$("#news_point_0").css("background","gray");
+		$("#news_point_2").css("background","gray");
+		$("#news_point_3").css("background","gray");
+		$("#news_point_4").css("background","gray");
+		$(this).css("background","black");
+		$("#news_ticker_li_1").show();
+		$("#news_ticker_li_0").hide();
+		$("#news_ticker_li_2").hide();
+		$("#news_ticker_li_3").hide();
+		$("#news_ticker_li_4").hide();
+	});
+	$("#news_point_2").click(function(){
+		$("#news_point_1").css("background","gray");
+		$("#news_point_0").css("background","gray");
+		$("#news_point_3").css("background","gray");
+		$("#news_point_4").css("background","gray");
+		$(this).css("background","black");
+		$("#news_ticker_li_2").show();
+		$("#news_ticker_li_1").hide();
+		$("#news_ticker_li_0").hide();
+		$("#news_ticker_li_3").hide();
+		$("#news_ticker_li_4").hide();
+	});
+	$("#news_point_3").click(function(){
+		$("#news_point_1").css("background","gray");
+		$("#news_point_2").css("background","gray");
+		$("#news_point_0").css("background","gray");
+		$("#news_point_4").css("background","gray");
+		$(this).css("background","black");
+		$("#news_ticker_li_3").show();
+		$("#news_ticker_li_1").hide();
+		$("#news_ticker_li_2").hide();
+		$("#news_ticker_li_0").hide();
+		$("#news_ticker_li_4").hide();
+	});
+	$("#news_point_4").click(function(){
+		$("#news_point_1").css("background","gray");
+		$("#news_point_2").css("background","gray");
+		$("#news_point_3").css("background","gray");
+		$("#news_point_0").css("background","gray");
+		$(this).css("background","black");
+		$("#news_ticker_li_4").show();
+		$("#news_ticker_li_1").hide();
+		$("#news_ticker_li_2").hide();
+		$("#news_ticker_li_3").hide();
+		$("#news_ticker_li_0").hide();
+	});
+
+
 	if(window.location.pathname == "/vote"){
 		$("img").mousemove(function(e){
 			$("#icon_info_box").css("display","block");
