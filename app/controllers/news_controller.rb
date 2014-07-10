@@ -9,6 +9,7 @@ class NewsController < ApplicationController
     def show
         if News.find_by_id params[:id]
             @news = News.find_by_id params[:id]
+            @news_content = @news.content.split("[p_end]")
         else 
             redirect_to news_index_path
         end
