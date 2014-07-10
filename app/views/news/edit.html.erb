@@ -1,11 +1,24 @@
 <h1>News bearbeiten</h1>
-<%= form_tag news_path, method: :put do %>
-	<%= hidden_field_tag :news_id, @news.id %>
-	<b>Überschrift:</b> <%= text_field_tag :subject, @news.subject %><br />
-	<b>Autoren:</b> <%= text_field_tag :author, @news.author %><br />
-	<b>Inhalt:</b> <br /><%= text_area_tag :content, @news.content, :rows => 15, :cols => 80 %><br />
-	<%= submit_tag "News bearbeiten" %>
-<% end %>
+<div id="news">
+	<article>
+		<%= form_tag news_path, method: :put do %>
+			<%= hidden_field_tag :news_id, @news.id %>
+			<b>Überschrift:</b> <%= text_field_tag :subject, @news.subject %><br />
+			<b>Autoren:</b> <%= text_field_tag :author, @news.author %><br />
+			<b>Inhalt:</b> <br /><%= text_area_tag :content, @news.content, :rows => 15, :cols => 80 %><br />
+			<%= submit_tag "News bearbeiten" %>
+		<% end %>
+	</article>
+</div>
 <p>
-	<%= link_to "News", news_index_path %> <%= link_to "Löschen", news_path(@news.id), method: :delete, data: { confirm: "Wirklich löschen?" } %>
+	<table>
+		<tr>
+			<td>
+				<%= link_to "News", news_index_path, class: "news_links" %> 
+			</td>
+			<td>
+				<%= link_to "Löschen", news_path(@news.id), method: :delete, data: { confirm: "Wirklich löschen?" }, class: "news_links" %>
+			</td>
+		</tr>
+	</table>
 </p>
