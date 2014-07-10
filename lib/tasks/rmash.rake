@@ -5,6 +5,7 @@ namespace :rmash do
 	task :launch_mail_delivery => :environment do
 		puts "[#{Time.now}] Sending emails..."
 		# array für menschen aus dem informatik-kurs
+		# important = ["Aaron Asman", "Baris Bektas", "Claudia Marquard", "Daniel Ehrmanntraut", "Dominik Lammers", "Eric Cassens", "Lutz Jansing", "Marcel Sievers", "Moritz Kerstan", "Rafael Berdelmann", "Sebastian Stelter", "Tom Ricciuti"]
 		important = ["Darius Mewes"]
 		results = Student.where name: important if not important.empty?
 		# results << Student.where(password_digest: nil).where.not(name: important) # NICHT AUSKOMMENTIEREN!!!
