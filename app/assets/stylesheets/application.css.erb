@@ -523,7 +523,70 @@ td span.symbol.inactive {
 	margin-left:20%;
 }
 
-@media only screen and (max-width: 860px){
+#news{
+	background: white;
+	width: 100%;
+	padding: 20px;
+}
+#news article{
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+#news hr{
+	height: 1px;
+	background: #98d8f2;
+	width: 100%;
+	border: none;
+}
+#news article .news_date{
+	color: gray;
+	font-size: 16px;
+	text-decoration: none;
+	margin: 0px;
+	padding: 0px;
+}
+#news article h2{
+	margin: 0px;
+	padding: 0px;
+}
+#news article h2 a{
+	font-size: 24px;
+	color: black;
+	text-decoration: none;
+}
+#news article h2 a:hover{
+	text-decoration: underline;
+}
+#news article p{
+	font-size: 16px;
+	color: black;
+	margin: 5px 0px;
+}
+#news article .author{
+	display: inline;
+	font-size: 16px;
+	font-style: italic;
+	color: black;
+}
+#news article footer a{
+	color: gray;
+	font-size: 16px;
+	text-decoration: none;
+	margin-right: 20px;
+}
+#news article footer a:hover{
+	color:black;
+}
+.news_links{
+	color: gray;
+	font-size: 16px;
+	text-decoration: none;
+}
+.news_links:hover{
+	color: black;
+}
+
+@media only screen and (max-width: 940px){
 	#menue ul{
 		display: none;
 	}
@@ -547,7 +610,10 @@ td span.symbol.inactive {
 		margin-top: 5%;
 	}
 }
-@media only screen and (max-width: 480px){
+@media only screen and (max-width: 800px){
+	#login_bg{
+		display:none;
+	}
 	#login{
 		top:50%;
 		left: 50%;

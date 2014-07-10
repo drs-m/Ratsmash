@@ -1,0 +1,26 @@
+<h1>Neue News</h1>
+<p>
+	Codes zur Textgestaltung:
+	<ul>
+		<li><b>Absatzende:</b> [p_end]</li>
+	</ul>
+</p>
+<div id="news">
+	<article>
+		<%= form_tag News.new, method: :post do %>
+			<%= text_field_tag :subject, nil, placeholder: "Überschrift/Betreff" %><br />
+			<%= text_field_tag :author, nil, placeholder: "Autoren" %><br />
+			<%= text_area_tag :content, nil, placeholder: "Inhalt", :rows => 15, :cols => 80 %><br />
+			<%= submit_tag "News erstellen" %>
+		<% end %>
+	</article>
+</div>
+<p>
+	<table>
+		<tr>
+			<td>
+				<%= link_to "News", news_index_path, class: "news_links" %> 
+			</td>
+		</tr>
+	</table>
+</p>

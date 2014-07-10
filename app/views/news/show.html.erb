@@ -1,0 +1,28 @@
+<h1>News anzeigen</h1>
+<div id="news">
+	<article>
+		<span class="news_date"><%= @news.updated_at.day.to_s+"."+@news.updated_at.month.to_s+"."+@news.updated_at.year.to_s %></span>
+		<h2><%= link_to @news.subject, news_path(@news.id) %></h2>
+		<span class="author">Von <%= @news.author %></span>
+		<% @news_content.each do |p_content| %>
+			<p>
+				<%= p_content %>
+			</p>
+		<% end %>
+	</article>
+</div>
+<p>
+	<table>
+		<tr>
+			<td>
+				<%= link_to "News", news_index_path, class: "news_links" %> 
+			</td>
+			<td>
+				<%= link_to "Bearbeiten", edit_news_path(@news.id), class: "news_links" %> 
+			</td>
+			<td>
+				<%= link_to "Löschen", news_path(@news.id), method: :delete, data: { confirm: "Wirklich löschen?" }, class: "news_links" %>
+			</td>
+		</tr>
+	</table>
+</p>

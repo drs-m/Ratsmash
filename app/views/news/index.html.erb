@@ -1,0 +1,32 @@
+<h1>News</h1>
+<% if @current_user.admin_permissions %>
+	<p><%= link_to "Neue News erstellen", new_news_path, class: "news_links" %></p>
+<% end %>
+<div id="news">
+	<% if @news.count > 0 %>
+		<% @news.each do |news| %>
+			<article>
+					<span class="news_date"><%= news.updated_at.day.to_s+"."+news.updated_at.month.to_s+"."+news.updated_at.year.to_s %></span>
+					<h2><%= link_to news.subject, news_path(news.id) %></h2>
+					<p>
+						<% content = news.content.split("[p_end]") %>
+						<% new_content = "" %>
+						<% content.each do |c| %>
+							<% new_content += c %>
+						<% end %>
+						<%= new_content[0,200]+"..." %>
+						<span class="author">Von <%= news.author %></span>
+					</p>
+					<% if @current_user.admin_permissions %>
+						<footer>
+							<%= link_to "Bearbeiten", edit_news_path(news.id) %>
+							<%= link_to "Löschen", news_path(news.id), method: :delete, data: { confirm: "Wirklich löschen?" } %>
+						</footer>
+					<% end %>
+			</article>
+			<hr />
+		<% end %>
+	<% else %>
+		<p>Noch keine News vorhanden</p>
+	<% end %>
+</div>
