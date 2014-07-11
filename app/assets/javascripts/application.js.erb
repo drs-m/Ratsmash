@@ -46,6 +46,13 @@ function manageMobileMenue(){
 
 $(document).ready(function(){
 
+	$(".paste_legend_for_news_button a").click(function(){
+		paste_content = $(this).attr("title");
+		written_until_now = $(".news_content_field_area").val();
+		$(".news_content_field_area").val(written_until_now+" "+paste_content);
+		return false;
+	});
+
 	amount_of_actual_news = $("#amount_of_actual_news").val();
 	amount_of_actual_news = parseInt(amount_of_actual_news);
 

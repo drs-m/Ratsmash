@@ -10,7 +10,10 @@
 		<%= form_tag News.new, method: :post do %>
 			<%= text_field_tag :subject, nil, placeholder: "Überschrift/Betreff" %><br />
 			<%= text_field_tag :author, nil, placeholder: "Autoren" %><br />
-			<%= text_area_tag :content, nil, placeholder: "Inhalt", :rows => 15, :cols => 80 %><br />
+			<div class="paste_legend_for_news_button">
+				<%= link_to "Absatzende einfügen", "#", title: "[p_end]" %>
+			</div>
+			<%= text_area_tag :content, nil, placeholder: "Inhalt", :rows => 15, :cols => 80, class: "news_content_field_area" %><br />
 			<%= submit_tag "News erstellen" %>
 		<% end %>
 	</article>

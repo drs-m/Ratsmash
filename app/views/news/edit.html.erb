@@ -11,7 +11,11 @@
 			<%= hidden_field_tag :news_id, @news.id %>
 			<b>Überschrift:</b> <%= text_field_tag :subject, @news.subject %><br />
 			<b>Autoren:</b> <%= text_field_tag :author, @news.author %><br />
-			<b>Inhalt:</b> <br /><%= text_area_tag :content, @news.content, :rows => 15, :cols => 80 %><br />
+			<b>Inhalt:</b> <br />
+			<div class="paste_legend_for_news_button">
+				<%= link_to "Absatzende einfügen", "#", title: "[p_end]" %>
+			</div>
+			<%= text_area_tag :content, @news.content, :rows => 15, :cols => 80, class: "news_content_field_area" %><br />
 			<%= submit_tag "News bearbeiten" %>
 		<% end %>
 	</article>
