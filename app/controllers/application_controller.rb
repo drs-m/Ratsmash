@@ -29,7 +29,7 @@ class ApplicationController < ActionController::Base
 		  		redirect_to :login and return if options[:redirect] # es ist keine session vorhanden --> user muss sich einloggen: weiterleitung
 		 	end
 		 	#Zeitzone setzten bzw. Zeitverschiebung zu UTC
-		 	@timezone = 2
+		 	@timezone = 2		 	
 		end
 
 		def logged_in?

@@ -11,6 +11,7 @@
 
 mobileMenueIsShown = false;
 accountMenueIsShown = false;
+news_index = 0;
 
 function closeDdMenues(){
 	document.getElementById("acc_link_dd").style.display = "none";
@@ -45,69 +46,49 @@ function manageMobileMenue(){
 
 $(document).ready(function(){
 
-	$("#news_ticker_li_0").css("display","block");
+	amount_of_actual_news = $("#amount_of_actual_news").val();
+	amount_of_actual_news = parseInt(amount_of_actual_news);
+
+	$("#news_ticker_li_"+news_index).css("display","block");
 	$("news_point_0").css("background","black");
 	$("#news_point_0").click(function(){
-		$("#news_point_1").css("background","gray");
-		$("#news_point_2").css("background","gray");
-		$("#news_point_3").css("background","gray");
-		$("#news_point_4").css("background","gray");
-		$(this).css("background","black");
-		$("#news_ticker_li_0").show();
-		$("#news_ticker_li_1").hide();
-		$("#news_ticker_li_2").hide();
-		$("#news_ticker_li_3").hide();
-		$("#news_ticker_li_4").hide();
+		news_index = 0;
+		update_newsticker();
 	});
 	$("#news_point_1").click(function(){
-		$("#news_point_0").css("background","gray");
-		$("#news_point_2").css("background","gray");
-		$("#news_point_3").css("background","gray");
-		$("#news_point_4").css("background","gray");
-		$(this).css("background","black");
-		$("#news_ticker_li_1").show();
-		$("#news_ticker_li_0").hide();
-		$("#news_ticker_li_2").hide();
-		$("#news_ticker_li_3").hide();
-		$("#news_ticker_li_4").hide();
+		news_index = 1;
+		update_newsticker();
 	});
 	$("#news_point_2").click(function(){
-		$("#news_point_1").css("background","gray");
-		$("#news_point_0").css("background","gray");
-		$("#news_point_3").css("background","gray");
-		$("#news_point_4").css("background","gray");
-		$(this).css("background","black");
-		$("#news_ticker_li_2").show();
-		$("#news_ticker_li_1").hide();
-		$("#news_ticker_li_0").hide();
-		$("#news_ticker_li_3").hide();
-		$("#news_ticker_li_4").hide();
+		news_index = 2;
+		update_newsticker();
 	});
 	$("#news_point_3").click(function(){
-		$("#news_point_1").css("background","gray");
-		$("#news_point_2").css("background","gray");
-		$("#news_point_0").css("background","gray");
-		$("#news_point_4").css("background","gray");
-		$(this).css("background","black");
-		$("#news_ticker_li_3").show();
-		$("#news_ticker_li_1").hide();
-		$("#news_ticker_li_2").hide();
-		$("#news_ticker_li_0").hide();
-		$("#news_ticker_li_4").hide();
+		news_index = 3;
+		update_newsticker();
 	});
 	$("#news_point_4").click(function(){
-		$("#news_point_1").css("background","gray");
-		$("#news_point_2").css("background","gray");
-		$("#news_point_3").css("background","gray");
-		$("#news_point_0").css("background","gray");
-		$(this).css("background","black");
-		$("#news_ticker_li_4").show();
-		$("#news_ticker_li_1").hide();
-		$("#news_ticker_li_2").hide();
-		$("#news_ticker_li_3").hide();
-		$("#news_ticker_li_0").hide();
+		news_index = 4;
+		update_newsticker();
 	});
-
+	$("#left_arrow").click(function(){
+		if(news_index==0){
+			news_index = amount_of_actual_news - 1;
+		}
+		else{
+			news_index --;
+		}
+		update_newsticker();
+	});
+	$("#right_arrow").click(function(){
+		if(news_index==amount_of_actual_news - 1){
+			news_index = 0;
+		}
+		else{
+			news_index ++;
+		}
+		update_newsticker();
+	});
 
 	if(window.location.pathname == "/vote"){
 		$("img").mousemove(function(e){
@@ -184,6 +165,22 @@ $(document).ready(function(){
 		});
 	}
 });
+
+function update_newsticker(){
+	$("#news_point_0").css("background","gray");
+	$("#news_point_1").css("background","gray");
+	$("#news_point_2").css("background","gray");
+	$("#news_point_3").css("background","gray");
+	$("#news_point_4").css("background","gray");
+	$("#news_point_"+news_index).css("background","black");
+
+	$("#news_ticker_li_0").hide();
+	$("#news_ticker_li_1").hide();
+	$("#news_ticker_li_2").hide();
+	$("#news_ticker_li_3").hide();
+	$("#news_ticker_li_4").hide();
+	$("#news_ticker_li_"+news_index).fadeIn(1000);
+}
 
 function checkSoudStatus(){
 	if(document.getElementById("stamp_sound").ended){

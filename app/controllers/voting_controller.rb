@@ -6,6 +6,7 @@ class VotingController < ApplicationController
 	def home
 		@descriptions_status = @current_user.descriptions.unchecked.empty? ? "keine ungeordneten Beschreibungen" : "Du hast noch nicht eingeordnete Beschreibungen"
 		@actual_news = News.all.order(:updated_at).reverse.first(5)
+		@amount_of_actual_news = @actual_news.count
 	end
 
 	def results
