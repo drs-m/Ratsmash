@@ -99,6 +99,13 @@ $(document).ready(function(){
 		update_newsticker();
 	});
 
+	$("#newsticker ul li .ticker_subject").hover(function(){
+		clearInterval(newsticker_interval);
+	});
+	$("#newsticker ul li .ticker_subject").mouseout(function(){
+		newsticker_interval = window.setInterval("nextNews()", 5000);
+	});
+
 	if(window.location.pathname == "/vote"){
 		$("img").mousemove(function(e){
 			$("#icon_info_box").css("display","block");
