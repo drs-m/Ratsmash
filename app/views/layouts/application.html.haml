@@ -9,11 +9,14 @@
 		= csrf_meta_tags
 
 	%body
-		= render "shared/menue"
+		-if @terminalDevice == "Desktop-PC"
+			= render "shared/menue"
 
-		#webseite{onclick: "closeDdMenues();"}
-			= yield
-			%noscript 
-				%p BITTE JAVASCRIPT AKTIVIEREN, UM DIE VOLLE FUNKTIONALITÄT DER SEITE ZU NUTZEN
+			#webseite{onclick: "closeDdMenues();"}
+				= yield
+				%noscript 
+					%p BITTE JAVASCRIPT AKTIVIEREN, UM DIE VOLLE FUNKTIONALITÄT DER SEITE ZU NUTZEN
 
-		= render "shared/footer"
+			= render "shared/footer"
+		-else
+			.device_error Es ist noch keine mobile Version der Seite vorhanden!

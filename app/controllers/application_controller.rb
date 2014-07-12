@@ -4,8 +4,22 @@ class ApplicationController < ActionController::Base
 	# For APIs, you may want to use :null_session instead.
 	protect_from_forgery with: :exception
 
+	before_filter :terminalDeviceCheck
+
 	# include symbol helper in all views
 	helper :symbol
+
+	#Endgerät prüfen
+	def terminalDeviceCheck
+		user_agent =  request.env['HTTP_USER_AGENT'].downcase 
+		@terminalDevice = ""
+		
+		if user_agent =~ /\b(android|iphone|ipad|windows phone|opera mobi|kindle|backberry|playbook)\b/i
+			@terminalDevice = "Smartphone"
+		else
+			@terminalDevice = "Desktop-PC"
+		end	
+	end
 
 	def default_url_options
 		Rails.env.production? ? {:host => "rmash.herokuapp.com"} : {} # necessary?
@@ -29,7 +43,7 @@ class ApplicationController < ActionController::Base
 		  		redirect_to :login and return if options[:redirect] # es ist keine session vorhanden --> user muss sich einloggen: weiterleitung
 		 	end
 		 	#Zeitzone setzten bzw. Zeitverschiebung zu UTC
-		 	@timezone = 2		 	
+		 	@timezone = 2			
 		end
 
 		def logged_in?
