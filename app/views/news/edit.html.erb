@@ -9,9 +9,9 @@
 	<article>
 		<%= form_tag news_path, method: :put do %>
 			<%= hidden_field_tag :news_id, @news.id %>
-			<b>Überschrift:</b> <%= text_field_tag :subject, @news.subject %><br />
-			<b>Autoren:</b> <%= text_field_tag :author, @news.author %><br />
-			<b>Inhalt:</b> <br />
+			<b>Überschrift</b> <%= text_field_tag :subject, @news.subject %><br />
+			<b>Autoren</b> <%= text_field_tag :author, @news.author %><br /><br />
+			<b>Inhalt</b>
 			<div class="paste_legend_for_news_button">
 				<%= link_to "Absatzende einfügen", "#", title: "[p_end]" %>
 			</div>

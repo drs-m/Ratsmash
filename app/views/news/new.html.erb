@@ -8,8 +8,9 @@
 <div id="news">
 	<article>
 		<%= form_tag News.new, method: :post do %>
-			<%= text_field_tag :subject, nil, placeholder: "Überschrift/Betreff" %><br />
-			<%= text_field_tag :author, nil, placeholder: "Autoren" %><br />
+			<b>Überschrift/Betreff</b> <%= text_field_tag :subject, nil, placeholder: "Überschrift/Betreff" %><br />
+			<b>Autoren</b> <%= text_field_tag :author, nil, placeholder: "Autoren" %><br /><br />
+			<b>Inhalt</b> 
 			<div class="paste_legend_for_news_button">
 				<%= link_to "Absatzende einfügen", "#", title: "[p_end]" %>
 			</div>
