@@ -12,7 +12,7 @@ class ContactsController < ApplicationController
 			ContactMailer.send_contact_mail(params[:name],params[:mail],"rmashteam@gmail.com", params[:subject], params[:message]).deliver
 		end
 
-		redirect_to :contacts
+		redirect_to :contacts, notice: 'Deine Nachricht wurde erfolgreich an das Ratsmah-Team geschickt!'
 	end
 
 end
