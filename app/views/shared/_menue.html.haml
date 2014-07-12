@@ -16,7 +16,7 @@
 		%li= link_to "Logout", :logout
 
 #menue
-	%a{:title => "Ratsmash-Logo", :href => "/"}= image_tag("Rmash.png", height: 40, alt: "Ratsmash-Logo")
+	%a{:title => "Ratsmash-Logo", :href => "/"}= image_tag("Rmash.png", height: 70, alt: "Ratsmash-Logo")
 	%ul
 		- if @current_user != nil
 			%li= link_to raw("Account &or;"), "#", id: "account_link", onclick: "manageAccountDd();"
@@ -27,4 +27,4 @@
 			%li= link_to "Beschreibungen", descriptions_path
 			%li= link_to "Kategorien", :category_list
 	- if @current_user != nil
-		= image_tag("menue_button.png", height: 40, alt: "Menübutton", id: "little_menue_button", onclick: "manageMobileMenue();")
+		= image_tag("menue_button.png", height: 80, alt: "Menübutton", id: "little_menue_button", onclick: "manageMobileMenue();")

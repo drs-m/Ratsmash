@@ -4,19 +4,19 @@
 		%meta{"http-equiv" => "Content-Type", :content => "text/html; charset=utf-8"}
 		%title Ratsmash
 		= favicon_link_tag "R.ico"
-		= stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true
+		-if @terminalDevice == "Smartphone"
+			= stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true
+		-else
+			= stylesheet_link_tag "mobile_design", media: "all", "data-turbolinks-track" => true
 		= javascript_include_tag "application", "data-turbolinks-track" => true
 		= csrf_meta_tags
 
 	%body
-		-if @terminalDevice == "Desktop-PC"
-			= render "shared/menue"
+		= render "shared/menue"
 
-			#webseite{onclick: "closeDdMenues();"}
-				= yield
-				%noscript 
-					%p BITTE JAVASCRIPT AKTIVIEREN, UM DIE VOLLE FUNKTIONALITÄT DER SEITE ZU NUTZEN
+		#webseite{onclick: "closeDdMenues();"}
+			= yield
+			%noscript 
+				%p BITTE JAVASCRIPT AKTIVIEREN, UM DIE VOLLE FUNKTIONALITÄT DER SEITE ZU NUTZEN
 
-			= render "shared/footer"
-		-else
-			.device_error Es ist noch keine mobile Version der Seite vorhanden!
+		= render "shared/footer"
