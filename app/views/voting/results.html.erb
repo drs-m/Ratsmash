@@ -1,5 +1,5 @@
 <h1>Ergebnisse</h1>
-<table>
+<table id="results_table">
 	<thead>
 		<tr>
 			<th>Gruppe</th>
@@ -14,8 +14,15 @@
 			<tr>
 				<td><%= Group.find_by_id(Category.find_by_id(result[:category_id]).group_id).name %></td>
 				<td><%= Category.find_by_id(result[:category_id]).name %>(<%= Category.find_by_id(result[:category_id]).id %>)</td>
+				<% i = 0 %>
 				<% result[:ranking].each do |voted| %>
 					<td><%= voted["name"] + " (" + voted["points"].to_s + ")" %></td>
+					<% i = i + 1 %>
+				<% end %>
+				<% if i < 3 %>
+					<% (3-i).times do %>
+						<td>kein Voting vorhanden</td>
+					<% end %>
 				<% end %>
 			</tr>
 		<% end %>

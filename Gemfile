@@ -19,6 +19,7 @@ end
 gem 'sass-rails', '~> 4.0.2'
 gem 'haml'
 gem 'coffee-rails', '~> 4.0.0'
+gem 'jquery-datatables-rails', github: 'rweng/jquery-datatables-rails'
 
 # use yui and uglifier for asset compression
 gem 'yui-compressor'

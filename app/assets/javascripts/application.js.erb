@@ -4,6 +4,7 @@
 //= require jquery-ui/autocomplete
 //= require jquery-ui/effect-shake
 //= require modernizr
+//= require dataTables/jquery.dataTables
 
 //= require descriptions
 //= require voting
@@ -45,6 +46,8 @@ function manageMobileMenue(){
 }
 
 $(document).ready(function(){
+
+	$("#results_table").dataTable();
 
 	$(".paste_legend_for_news_button a").click(function(){
 		paste_content = $(this).attr("title");
