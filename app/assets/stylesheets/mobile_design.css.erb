@@ -378,6 +378,111 @@ td span.symbol.inactive {
 	margin-left:20%;
 }
 
+#login_bg{
+	display: none;
+}
+#login{
+	position: absolute;
+	width: 50%;
+	left: 25%;
+	top: 25%;
+	padding: 30px;
+	background: white;
+	border-radius: 10px;
+}
+#login img{
+	width: 50%;
+	margin-left: 25%;
+}
+#login h1{
+	font-size: 36px;
+	margin-top: 3%;
+	color: black;
+}
+#login form{
+	margin-top: 3%;
+	padding: 0;
+}
+#login form #email{
+	width: 100%;
+	border-radius: 5px;
+	height: 25px;
+}
+#login form #password_wrapper{
+	width: 100%;
+}
+#login form #password_wrapper #password{
+	width: 88%;
+	height: 25px;
+	border-radius: 5px 0px 0px 5px;
+	font-size: 16px;
+	float: left;
+	border-right: none;
+	margin-top: 2%;
+}
+#login form #password_wrapper #reset_password{
+	text-align: center;
+	display: block;
+	padding-top: 0;
+	color: black;
+	text-decoration: none;
+	font-size: 25px;
+	font-weight: bold;
+	margin-top: 2%;
+	width: 10%;
+	height: 32px;
+	float: left;
+	border-radius: 0px 5px 5px 0px;
+	background-attachment: fixed;
+	background: #98d8f2; /* Old browsers */
+	background: -moz-linear-gradient(45deg, #98d8f2 0%, #60abf8 66%, #4096ee 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left bottom, right top, color-stop(0%,#98d8f2), color-stop(66%,#60abf8), color-stop(100%,#4096ee)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(45deg, #98d8f2 0%,#60abf8 66%,#4096ee 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(45deg, #98d8f2 0%,#60abf8 66%,#4096ee 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(45deg, #98d8f2 0%,#60abf8 66%,#4096ee 100%); /* IE10+ */
+	background: linear-gradient(45deg, #98d8f2 0%,#60abf8 66%,#4096ee 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#98d8f2', endColorstr='#4096ee',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+}
+#login form #password_wrapper #reset_password:hover{
+	box-shadow: 1px 1px 1px;
+}
+#login form #buttons_wrapper{
+	width: 100%;
+}
+#login form #buttons_wrapper #persist_label{
+	display: block;
+	float: left;
+	font-weight: bold;
+	font-size: 16px;
+	margin-top: 3%;
+}
+#login form #buttons_wrapper #persist_label input{
+	width: 20px;
+	height: 20px;
+}
+#login form #buttons_wrapper #send_login{
+	display: block;
+	float: right;
+	background-attachment: fixed;
+	background: #98d8f2; /* Old browsers */
+	background: -moz-linear-gradient(45deg, #98d8f2 0%, #60abf8 66%, #4096ee 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left bottom, right top, color-stop(0%,#98d8f2), color-stop(66%,#60abf8), color-stop(100%,#4096ee)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(45deg, #98d8f2 0%,#60abf8 66%,#4096ee 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(45deg, #98d8f2 0%,#60abf8 66%,#4096ee 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(45deg, #98d8f2 0%,#60abf8 66%,#4096ee 100%); /* IE10+ */
+	background: linear-gradient(45deg, #98d8f2 0%,#60abf8 66%,#4096ee 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#98d8f2', endColorstr='#4096ee',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+	border: none;
+	padding: 5px 10px;
+	color: black;
+	font-weight: bold;
+	font-size: 16px;
+	border-radius: 5px;
+	margin-top: 3%;
+}
+#login form #buttons_wrapper #send_login:hover{
+	box-shadow: 1px 1px 1px;
+}
 #news{
 	background: white;
 	width: 100%;
@@ -529,4 +634,14 @@ td span.symbol.inactive {
 	font-size: 24px;
 	font-weight: bold;
 	background: red;
+}
+
+@media only screen and (max-width: 600px){
+	#login form #buttons_wrapper #persist_label{
+		float: none;
+	}
+	#login form #buttons_wrapper #send_login{
+		float: none;
+	}
+
 }
