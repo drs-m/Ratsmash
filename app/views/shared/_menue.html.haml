@@ -19,7 +19,7 @@
 	-if @terminalDevice == "Desktop-PC"
 		%a{:title => "Ratsmash-Logo", :href => "/"}= image_tag("Rmash.png", height: 40, alt: "Ratsmash-Logo")
 	-else
-		%a{:title => "Ratsmash-Logo", :href => "/"}= image_tag("Rmash.png", height: 70, alt: "Ratsmash-Logo")
+		%a{:title => "Ratsmash-Logo", :href => "/"}= image_tag("Rmash.png", alt: "Ratsmash-Logo")
 	%ul
 		- if @current_user != nil
 			%li= link_to raw("Account &or;"), "#", id: "account_link", onclick: "manageAccountDd();"
@@ -33,4 +33,4 @@
 		-if @terminalDevice == "Desktop-PC"
 			= image_tag("menue_button.png", height: 40, alt: "Menübutton", id: "little_menue_button", onclick: "manageMobileMenue();")
 		-else
-			= image_tag("menue_button.png", height: 80, alt: "Menübutton", id: "little_menue_button", onclick: "manageMobileMenue();")
+			= image_tag("menue_button.png", alt: "Menübutton", id: "little_menue_button", onclick: "manageMobileMenue();")
