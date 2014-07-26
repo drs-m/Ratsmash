@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<title>Ratsmash</title>
+		<%= favicon_link_tag "R.ico" %>
+		<% if @terminalDevice == "Desktop-PC" %>
+			<%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true %>
+			<%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+			<%= csrf_meta_tags %>
+		<% else %>
+			<meta name="viewport" content="width=device-width, initial-scale=1">
+			<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.0/jquery.mobile-1.3.0.css" />
+			<%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+			<script type="text/javascript" src="http://code.jquery.com/mobile/1.3.0/jquery.mobile-1.3.0.js"></script>
+			<%= csrf_meta_tags %>
+		<% end %>
+	</head>
+	<body>
+		<% if @terminalDevice == "Desktop-PC" %>
+			<%= render "shared/menue" %>
+
+			<div id="webseite" onclick="closeDdMenues();">
+				<%= yield %>
+				<noscript>
+					<p>BITTE JAVASCRIPT AKTIVIEREN, UM DIE VOLLE FUNKTIONALITÄT DER SEITE ZU NUTZEN</p>
+				</noscript>
+			<%= render "shared/footer" %>
+		<% else %>
+			<div data-role="page">
+				<header data-position="fixed" data-role="header" data-theme="b">
+					<a href="#menuepanel" data-role="button" data-icon="bars" data-iconpos="notext" data-corners="true" data-shadow="false" data-iconshadow="false"></a>
+					<h1>Ratsmash</h1>
+					<a href="/" data-role="button" data-icon="home" data-iconpos="notext" data-corners="true" data-shadow="false" data-iconshadow="false"></a>
+				</header>
+				<nav data-role="panel" data-display="overlay" data-position="left" data-theme="b" id="menuepanel">
+					<ul data-role="listview">
+						<li role="heading">Navigation</li>
+						<% if @current_user != nil %>
+							<li><a href="/">Home</a></li>
+						    <li><a href="/news">News</a></li>
+							<li><a href="/vote">Voting</a></li>
+							<li><a href="/descriptions">Beschreibungen</a></li>
+							<li><a href="/quotes">Zitate einreichen</a></li>
+							<% if @current_user.admin_permissions %>
+								<li><a href="/settings">Administration</a></li>
+							<% end %>
+						<% end %>
+						<li><a href="/contacts">Kontakt</a></li>
+						<li><a href="/privacy-declaration">Datenschutz</a></li>
+						<li><a href="/imprint">Impressum</a></li>
+						<% if @current_user != nil %>
+							<li><a href="/change_password">Passwort ändern</a></li>
+							<li><a href="/logout">Logout</a></li>
+						<% end %>
+					</ul>
+				</nav>
+				<section data-role="content">
+					<%= yield %>
+				</section>
+				<% if @current_user != nil %>
+					<footer data-role="footer" data-theme="b" data-position="fixed">
+							<h3>
+								<%= raw("Eingeloggt als " + @current_user.name + ((Rails.env.production? and @current_user.admin_permissions) ? " <span><a id='git-version' href='http://github.com/Ratsmash-dev/RMash/commit/#{ENV['HEAD_HASH']}' target='_blank'>Version: #{ENV['HEAD_HASH'][0..5]}</a></span>" : "")) %>
+							</h3>
+					</footer>
+				<% end %>
+			</div>
+		<% end %>
+	</body>
+</html>

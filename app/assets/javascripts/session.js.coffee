@@ -1,5 +1,5 @@
 $ ->
-
+    
     $("#login-form").submit (event) ->
         event.preventDefault()
         email = $("#email").val()
