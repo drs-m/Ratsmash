@@ -1,41 +1,84 @@
-%h1{id: "category-heading", data: {category: @category.id}}	Deine Wahl in der Kategorie #{@category.name}
+-if @terminalDevice == "Desktop-PC"
+	%h1{id: "category-heading", data: {category: @category.id}}	Deine Wahl in der Kategorie #{@category.name}
 
-.notice= flash[:notice]
+	.notice= flash[:notice]
 
-- if @category.closed
-	%p Diese Kategorie ist momentan gesperrt!
-- else
+	- if @category.closed
+		%p Diese Kategorie ist momentan gesperrt!
+	- else
 
-	- (1..3).each do |i|
-		.voting
-			%h2 #{i}. Platz
-			%table
-				%tr
-					- if Vote.find_by :category_id => @category.id, :voter_id => @current_user.id, :rating => 4-i
-						%td
-							= form_tag({}, method: "post", class: "voting-form") do
-								%p
-									%label{for: "name_#{i+1}"} Name:
-									%input.candidate-input{type: "text", id: "candidate_#{i}", name: "candidate", placeholder: "Kandidat", value: @given_votes[i-1].present? ? @given_votes[i-1].voted.name : "", disabled: "disabled"}
-									= hidden_field_tag :rating, 4-i
-									= submit_tag("Abstimmen",disabled: "disabled")
-								%span.success-msg
-								%span.error-msg
-					- else 
-						%td
-							= form_tag({}, method: "post", class: "voting-form") do
-								%p
-									%label{for: "name_#{i+1}"} Name:
-									%input.candidate-input{type: "text", id: "candidate_#{i}", name: "candidate", placeholder: "Kandidat", value: @given_votes[i-1].present? ? @given_votes[i-1].voted.name : ""}
-									= hidden_field_tag :rating, 4-i
-									= submit_tag "Abstimmen"
-								%span.success-msg
-								%span.error-msg
-					%td
+		- (1..3).each do |i|
+			.voting
+				%h2 #{i}. Platz
+				%table
+					%tr
 						- if Vote.find_by :category_id => @category.id, :voter_id => @current_user.id, :rating => 4-i
-							= form_tag(delete_vote_path, method: "post") do
-								= hidden_field_tag :category_id, @category.id
-								= hidden_field_tag :vote_id, Vote.find_by(:category_id => @category.id, :voter_id => @current_user.id, :rating => 4-i).id
-								= submit_tag "Löschen"
+							%td
+								= form_tag({}, method: "post", class: "voting-form") do
+									%p
+										%label{for: "name_#{i+1}"} Name:
+										%input.candidate-input{type: "text", id: "candidate_#{i}", name: "candidate", placeholder: "Kandidat", value: @given_votes[i-1].present? ? @given_votes[i-1].voted.name : "", disabled: "disabled"}
+										= hidden_field_tag :rating, 4-i
+										= submit_tag("Abstimmen",disabled: "disabled")
+									%span.success-msg
+									%span.error-msg
+						- else 
+							%td
+								= form_tag({}, method: "post", class: "voting-form") do
+									%p
+										%label{for: "name_#{i+1}"} Name:
+										%input.candidate-input{type: "text", id: "candidate_#{i}", name: "candidate", placeholder: "Kandidat", value: @given_votes[i-1].present? ? @given_votes[i-1].voted.name : ""}
+										= hidden_field_tag :rating, 4-i
+										= submit_tag "Abstimmen"
+									%span.success-msg
+									%span.error-msg
+						%td
+							- if Vote.find_by :category_id => @category.id, :voter_id => @current_user.id, :rating => 4-i
+								= form_tag(delete_vote_path, method: "post") do
+									= hidden_field_tag :category_id, @category.id
+									= hidden_field_tag :vote_id, Vote.find_by(:category_id => @category.id, :voter_id => @current_user.id, :rating => 4-i).id
+									= submit_tag "Löschen"
 
-=link_to "Kategorie-Liste", category_list_path
+	=link_to "Kategorie-Liste", category_list_path
+-else
+	%h1{id: "category-heading", data: {category: @category.id}}	Deine Wahl in der Kategorie #{@category.name}
+
+	.notice= flash[:notice]
+
+	- if @category.closed
+		%p Diese Kategorie ist momentan gesperrt!
+	- else
+
+		- (1..3).each do |i|
+			.voting
+				%h2 #{i}. Platz
+				%table{:style=>"width:100%;"}
+					%tr
+						- if Vote.find_by :category_id => @category.id, :voter_id => @current_user.id, :rating => 4-i
+							%td
+								= form_tag({}, method: "post", class: "voting-form") do
+									%p
+										%label.ui-hidden-accessible{for: "candidate_#{i}"} Name:
+										%input.candidate-input{type: "text", id: "candidate_#{i}", name: "candidate", placeholder: "Kandidat", value: @given_votes[i-1].present? ? @given_votes[i-1].voted.name : "", disabled: "disabled"}
+										= hidden_field_tag :rating, 4-i
+										= submit_tag("Abstimmen",disabled: "disabled")
+									%span.success-msg
+									%span.error-msg
+						- else 
+							%td
+								= form_tag({}, method: "post", class: "voting-form") do
+									%p
+										%label.ui-hidden-accessible{for: "candidate_#{i}"} Name:
+										%input.candidate-input{type: "text", id: "candidate_#{i}", name: "candidate", placeholder: "Kandidat", value: @given_votes[i-1].present? ? @given_votes[i-1].voted.name : ""}
+										= hidden_field_tag :rating, 4-i
+										= submit_tag "Abstimmen"
+									%span.success-msg
+									%span.error-msg
+						%td
+							- if Vote.find_by :category_id => @category.id, :voter_id => @current_user.id, :rating => 4-i
+								= form_tag(delete_vote_path, method: "post") do
+									= hidden_field_tag :category_id, @category.id
+									= hidden_field_tag :vote_id, Vote.find_by(:category_id => @category.id, :voter_id => @current_user.id, :rating => 4-i).id
+									= submit_tag "Löschen"
+
+	=link_to "Kategorie-Liste", category_list_path
