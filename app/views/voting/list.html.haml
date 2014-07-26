@@ -1,26 +1,117 @@
-#icon_info_box
+- if @terminalDevice == "Desktop-P"
+	#icon_info_box
 
-%h1 Liste der Kriterien
+	%h1 Liste der Kriterien
 
-%table
-	%tr
-		%th
-			.cat_info_box Schüler und Lehrer
-		%th
-			.cat_info_box Schüler
-		%th
-			.cat_info_box Lehrer
-	%tr
-		- @groupset.each do |groups_ordered_by_profession|
-			%td
-				%table
-					%tr
-						%th= image_tag("mars_and_venus_together.png", alt: "unisex", height: 50)
-						%th= image_tag("venus.png", alt: "weiblich", height: 50)
-						%th= image_tag("mars.png", alt: "männlich", height: 50)
-					%tr
-						- groups_ordered_by_profession.each do |group|
-							%td
-								%ul
-									- group.categories.order(:name).each do |category|
-										%li= link_to category.name, give_vote_path(category.id)					
+	%table
+		%tr
+			%th
+				.cat_info_box Schüler und Lehrer
+			%th
+				.cat_info_box Schüler
+			%th
+				.cat_info_box Lehrer
+		%tr
+			- @groupset.each do |groups_ordered_by_profession|
+				%td
+					%table
+						%tr
+							%th= image_tag("mars_and_venus_together.png", alt: "unisex", height: 50)
+							%th= image_tag("venus.png", alt: "weiblich", height: 50)
+							%th= image_tag("mars.png", alt: "männlich", height: 50)
+						%tr
+							- groups_ordered_by_profession.each do |group|
+								%td
+									%ul
+										- group.categories.order(:name).each do |category|
+											%li= link_to category.name, give_vote_path(category.id)		
+- else 	
+	#icon_info_box
+
+	%h1 Liste der Kriterien
+	%h3 Gruppen
+	%div{:data => {:role => "collapsible-set", :theme => "b"}}
+		%div{:data=>{:role => "collapsible", :theme => "b"}} 
+			%h2 Schüler und Lehrer
+			%ul{:data=>{:role => "listview", :theme=>"d", :inset=>"true"}}
+				%div{:data => {:role => "collapsible-set", :theme => "b"}}
+					%div{:data=>{:role => "collapsible", :theme => "a"}}
+						%h2 Alle
+						%ul{:data=>{:role => "listview", :theme=>"d", :inset=>"true", :filter=>"true"}}
+							- Group.where(:teacher => true,:student => true,:male=>true,:female=>true).each do |group|
+								- group.categories.each do |category|
+									%li
+										=link_to category.name, give_vote_path(category.id)
+
+				%div{:data => {:role => "collapsible-set", :theme => "b"}}
+					%div{:data=>{:role => "collapsible", :theme => "a"}}
+						%h2 Männlich
+						%ul{:data=>{:role => "listview", :theme=>"d", :inset=>"true", :filter=>"true"}}
+							- Group.where(:teacher => true,:student => true,:male=>true,:female=>false).each do |group|
+								- group.categories.each do |category|
+									%li
+										=link_to category.name, give_vote_path(category.id)
+				%div{:data => {:role => "collapsible-set", :theme => "b"}}
+					%div{:data=>{:role => "collapsible", :theme => "a"}}
+						%h2 Weiblich
+						%ul{:data=>{:role => "listview", :theme=>"d", :inset=>"true", :filter=>"true"}}
+							- Group.where(:teacher => true,:student => true,:male=>false,:female=>true).each do |group|
+								- group.categories.each do |category|
+									%li
+										=link_to category.name, give_vote_path(category.id)
+		%div{:data=>{:role => "collapsible", :theme => "b"}} 
+			%h2 Schüler
+			%ul{:data=>{:role => "listview", :theme=>"b", :inset=>"true"}}
+				%div{:data => {:role => "collapsible-set", :theme => "b"}}
+					%div{:data=>{:role => "collapsible", :theme => "a"}}
+						%h2 Alle
+						%ul{:data=>{:role => "listview", :theme=>"d", :inset=>"true", :filter=>"true"}}
+							- Group.where(:teacher => false,:student => true,:male=>true,:female=>true).each do |group|
+								- group.categories.each do |category|
+									%li
+										=link_to category.name, give_vote_path(category.id)
+
+				%div{:data => {:role => "collapsible-set", :theme => "b"}}
+					%div{:data=>{:role => "collapsible", :theme => "a"}}
+						%h2 Männlich
+						%ul{:data=>{:role => "listview", :theme=>"d", :inset=>"true", :filter=>"true"}}
+							- Group.where(:teacher => false,:student => true,:male=>true,:female=>false).each do |group|
+								- group.categories.each do |category|
+									%li
+										=link_to category.name, give_vote_path(category.id)
+				%div{:data => {:role => "collapsible-set", :theme => "b"}}
+					%div{:data=>{:role => "collapsible", :theme => "a"}}
+						%h2 Weiblich
+						%ul{:data=>{:role => "listview", :theme=>"d", :inset=>"true", :filter=>"true"}}
+							- Group.where(:teacher => false,:student => true,:male=>false,:female=>true).each do |group|
+								- group.categories.each do |category|
+									%li
+										=link_to category.name, give_vote_path(category.id)
+		%div{:data=>{:role => "collapsible", :theme => "b"}} 
+			%h2 Lehrer
+			%ul{:data=>{:role => "listview", :theme=>"d", :inset=>"true"}}
+				%div{:data => {:role => "collapsible-set", :theme => "b"}}
+					%div{:data=>{:role => "collapsible", :theme => "a"}}
+						%h2 Alle
+						%ul{:data=>{:role => "listview", :theme=>"d", :inset=>"true", :filter=>"true"}}
+							- Group.where(:teacher => true,:student => false,:male=>true,:female=>true).each do |group|
+								- group.categories.each do |category|
+									%li
+										=link_to category.name, give_vote_path(category.id)
+
+				%div{:data => {:role => "collapsible-set", :theme => "b"}}
+					%div{:data=>{:role => "collapsible", :theme => "a"}}
+						%h2 Männlich
+						%ul{:data=>{:role => "listview", :theme=>"d", :inset=>"true", :filter=>"true"}}
+							- Group.where(:teacher => true,:student => false,:male=>true,:female=>false).each do |group|
+								- group.categories.each do |category|
+									%li
+										=link_to category.name, give_vote_path(category.id)
+				%div{:data => {:role => "collapsible-set", :theme => "b"}}
+					%div{:data=>{:role => "collapsible", :theme => "a"}}
+						%h2 Weiblich
+						%ul{:data=>{:role => "listview", :theme=>"d", :inset=>"true", :filter=>"true"}}
+							- Group.where(:teacher => true,:student => false,:male=>false,:female=>true).each do |group|
+								- group.categories.each do |category|
+									%li
+										=link_to category.name, give_vote_path(category.id)		
