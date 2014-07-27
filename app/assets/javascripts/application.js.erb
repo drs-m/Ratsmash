@@ -102,6 +102,24 @@ $(document).ready(function(){
 		}
 		update_newsticker();
 	});
+	$( "#newsticker").on( "swipeleft", function(){
+		if(news_index==amount_of_actual_news - 1){
+			news_index = 0;
+		}
+		else{
+			news_index ++;
+		}
+		update_newsticker();
+	});
+	$( "#newsticker").on( "swiperight", function(){
+		if(news_index==0){
+			news_index = amount_of_actual_news - 1;
+		}
+		else{
+			news_index --;
+		}
+		update_newsticker();
+	});
 
 	$("#newsticker ul li .ticker_subject").hover(function(){
 		clearInterval(newsticker_interval);
