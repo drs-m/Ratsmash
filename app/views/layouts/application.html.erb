@@ -4,7 +4,7 @@
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<title>Ratsmash</title>
 		<%= favicon_link_tag "R.ico" %>
-		<% if @terminalDevice == "Desktop-P" %>
+		<% if @terminalDevice == "Desktop-PC" %>
 			<%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true %>
 			<%= javascript_include_tag "application", "data-turbolinks-track" => true %>
 			<%= csrf_meta_tags %>
@@ -18,7 +18,7 @@
 		<% end %>
 	</head>
 	<body>
-		<% if @terminalDevice == "Desktop-P" %>
+		<% if @terminalDevice == "Desktop-PC" %>
 			<%= render "shared/menue" %>
 
 			<div id="webseite" onclick="closeDdMenues();">
