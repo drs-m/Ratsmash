@@ -15,7 +15,7 @@ class Student < ActiveRecord::Base
 	after_validation :set_defaults
 	before_create { generate_token(:auth_token) }
 
-	scope :name_search, ->(name = "") { where("name LIKE ?", "%#{name}%") unless name.empty? }
+	scope :name_search, ->(name = "") { where("lower(name) LIKE ?", "%#{name.downcase}%") unless name.empty? }
 	scope :male, -> { where gender: true }
 	scope :female, -> { where gender: false }
 
