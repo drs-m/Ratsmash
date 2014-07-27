@@ -4,20 +4,21 @@
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<title>Ratsmash</title>
 		<%= favicon_link_tag "R.ico" %>
-		<% if @terminalDevice == "Desktop-PC" %>
+		<% if @terminalDevice == "Desktop-P" %>
 			<%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true %>
 			<%= javascript_include_tag "application", "data-turbolinks-track" => true %>
 			<%= csrf_meta_tags %>
 		<% else %>
 			<meta name="viewport" content="width=device-width, initial-scale=1">
 			<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.0/jquery.mobile-1.3.0.css" />
+			<%= stylesheet_link_tag "mobile_design", media: "all", "data-turbolinks-track" => true %>
 			<%= javascript_include_tag "application", "data-turbolinks-track" => true %>
 			<script type="text/javascript" src="http://code.jquery.com/mobile/1.3.0/jquery.mobile-1.3.0.js"></script>
 			<%= csrf_meta_tags %>
 		<% end %>
 	</head>
 	<body>
-		<% if @terminalDevice == "Desktop-PC" %>
+		<% if @terminalDevice == "Desktop-P" %>
 			<%= render "shared/menue" %>
 
 			<div id="webseite" onclick="closeDdMenues();">
