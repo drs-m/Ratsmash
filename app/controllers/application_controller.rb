@@ -4,22 +4,9 @@ class ApplicationController < ActionController::Base
 	# For APIs, you may want to use :null_session instead.
 	protect_from_forgery with: :exception
 
-	before_filter :terminalDeviceCheck
-
 	# include symbol helper in all views
 	helper :symbol
-
-	#Endgerät prüfen
-	def terminalDeviceCheck
-		user_agent =  request.env['HTTP_USER_AGENT'].downcase 
-		@terminalDevice = ""
-		
-		if user_agent =~ /\b(android|iphone|ipad|windows phone|opera mobi|kindle|backberry|playbook)\b/i
-			@terminalDevice = "Smartphone"
-		else
-			@terminalDevice = "Desktop-PC"
-		end	
-	end
+	helper_method :mobile_device?
 
 	def default_url_options
 		Rails.env.production? ? {:host => "rmash.herokuapp.com"} : {} # necessary?
@@ -27,6 +14,10 @@ class ApplicationController < ActionController::Base
 
 
 	private
+		def mobile_device?
+			request.user_agent =~ /Mobile|webOS/
+		end
+
 		# optionen: admin_permissions || redirect 
 		def check_session(options = {})
 			# wenn eine session vorhanden ist

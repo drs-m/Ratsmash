@@ -1,4 +1,4 @@
-<% if @terminalDevice == "Desktop-PC" %>
+<% if !mobile_device? %>
 	<h1>Kontakt</h1>
 	<%= form_tag(send_contact_form_path,method: :post) do %>
 		<table>

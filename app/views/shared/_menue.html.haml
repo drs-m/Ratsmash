@@ -16,7 +16,7 @@
 		%li= link_to "Logout", :logout
 
 #menue
-	-if @terminalDevice == "Desktop-PC"
+	-if !mobile_device?
 		%a{:title => "Ratsmash-Logo", :href => "/"}= image_tag("Rmash.png", height: 40, alt: "Ratsmash-Logo")
 	-else
 		%a{:title => "Ratsmash-Logo", :href => "/"}= image_tag("Rmash.png", alt: "Ratsmash-Logo")
@@ -30,7 +30,7 @@
 			%li= link_to "Beschreibungen", descriptions_path
 			%li= link_to "Kategorien", :category_list
 	- if @current_user != nil
-		-if @terminalDevice == "Desktop-PC"
+		-if !mobile_device?
 			= image_tag("menue_button.png", height: 40, alt: "Menübutton", id: "little_menue_button", onclick: "manageMobileMenue();")
 		-else
 			= image_tag("menue_button.png", alt: "Menübutton", id: "little_menue_button", onclick: "manageMobileMenue();")
