@@ -3,8 +3,8 @@
 		%p= raw("Eingeloggt als " + @current_user.name + ((Rails.env.production? and @current_user.admin_permissions) ? " <span><a id='git-version' href='http://github.com/Ratsmash-dev/RMash/commit/#{ENV['HEAD_HASH']}' target='_blank'>Version: #{ENV['HEAD_HASH'][0..5]}</a></span>" : ""))
 
 	%ul
-		%li= link_to "Impressum", "imprint"
-		%li= link_to "Datenschutz", "privacy-declaration"
+		%li= link_to "Impressum", :static_imprint
+		%li= link_to "Datenschutz", :static_privacy
 		%li= link_to "Kontakt", :contacts
 		%li= link_to("Launch", release_state_index_path) if @current_user and @current_user.admin_permissions
 		%li= link_to "Startseite", :login
