@@ -1,29 +1,57 @@
-<h1>Schüler- und Lehrerzitate</h1>
-<p>
-  <%= link_to "Zitat einreichen", new_quote_path %>
-</p>
-<table>
-  <thead>
-    <tr>
-      <th>Absender</th>
-      <th>Text</th>
-      <th>Lehrer beteiligt?</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @quotes.each do |quote| %>
+<% if !mobile_device? %>
+  <h1>Schüler- und Lehrerzitate</h1>
+  <p>
+    <%= link_to "Zitat einreichen", new_quote_path %>
+  </p>
+  <table>
+    <thead>
       <tr>
-        <td><%= quote.sender %></td>
-        <td><%= quote.text %></td>
-        <td><%= simple_symbol condition: quote.teacher %></td>
-        <td><%= link_to 'Anzeigen', quote %></td>
-        <td><%= link_to 'Bearbeiten', edit_quote_path(quote) %></td>
-        <td><%= link_to 'Löschen', quote, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <th>Absender</th>
+        <th>Text</th>
+        <th>Lehrer beteiligt?</th>
+        <th style="text-align:center;" colspan="3">Aktionen</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+
+    <tbody>
+      <% @quotes.each do |quote| %>
+        <tr>
+          <td><%= quote.sender %></td>
+          <td><%= quote.text %></td>
+          <td><%= simple_symbol condition: quote.teacher %></td>
+          <td><%= link_to 'Anzeigen', quote %></td>
+          <td><%= link_to 'Bearbeiten', edit_quote_path(quote) %></td>
+          <td><%= link_to 'Löschen', quote, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <h1>Schüler- und Lehrerzitate</h1>
+  <p>
+    <%= link_to "Zitat einreichen", new_quote_path %>
+  </p>
+  <table class="ui-responsive" data-role="table" data-mode="columntoggle" id="quotes_table" data-column-btn-text="Spalten" data-column-btn-theme="b">
+    <thead>
+      <tr>
+        <th data-priority="3">Absender</th>
+        <th data-priority="1">Text</th>
+        <th data-priority="4">Lehrer beteiligt?</th>
+        <th style="text-align:center;" data-priority="2" colspan="3">Aktionen</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @quotes.each do |quote| %>
+        <tr>
+          <td><%= quote.sender %></td>
+          <td><%= quote.text %></td>
+          <td><%= simple_symbol condition: quote.teacher %></td>
+          <td><%= link_to 'Anzeigen', quote %></td>
+          <td><%= link_to 'Bearbeiten', edit_quote_path(quote) %></td>
+          <td><%= link_to 'Löschen', quote, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
