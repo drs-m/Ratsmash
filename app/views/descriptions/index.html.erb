@@ -1,34 +1,77 @@
-<h1>Beschreibungen</h1>
-<p>
-	<%= link_to "Beschreibung erstellen", new_description_path %>
-</p>
+<% if !mobile_device? %>
+	<h1>Beschreibungen</h1>
+	<p>
+		<%= link_to "Beschreibung erstellen", new_description_path %>
+	</p>
 
-<h2>Beschreibungen über mich</h2>
-<%= render partial: "table", locals: { descriptions: @own_descriptions, admin_view: false } %>
+	<h2>Beschreibungen über mich</h2>
+	<%= render partial: "table", locals: { descriptions: @own_descriptions, admin_view: false } %>
 
-<h2>Geschriebene Beschreibungen</h2>
-<% if not @written_descriptions.empty? %>
-	<table>
-		<thead>
-			<th>Für</th>
-			<th>Zusätzliche Autoren</th>
-			<th>Status</th>
-			<th>Zuletzt geändert am</th>
-			<th>Aktionen</th>
-		</thead>
-		<% @written_descriptions.each do |description| %>
-			<tr>
-				<td><%= description.described.name %></td>
-				<td><%= description.additional_authors %></td>
-				<td><%= description_status_symbol description %>
-				<td><%= description.updated_at.strftime "%d.%m.%Y %H:%M" %></td>
-				<td>
-					<%= link_to "Bearbeiten", edit_description_path(description.id) %>
-					<%= link_to "Zurückziehen", description_path(description.id), method: :delete, data: { confirm: "Wirklich löschen?" } %>
-				</td>
-			</tr>
-		<% end %>
-	</table>
+	<h2>Geschriebene Beschreibungen</h2>
+	<% if not @written_descriptions.empty? %>
+		<table>
+			<thead>
+				<tr>
+					<th>Für</th>
+					<th>Zusätzliche Autoren</th>
+					<th>Status</th>
+					<th>Zuletzt geändert am</th>
+					<th>Aktionen</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% @written_descriptions.each do |description| %>
+					<tr>
+						<td><%= description.described.name %></td>
+						<td><%= description.additional_authors %></td>
+						<td><%= description_status_symbol description %>
+						<td><%= description.updated_at.strftime "%d.%m.%Y %H:%M" %></td>
+						<td>
+							<%= link_to "Bearbeiten", edit_description_path(description.id) %>
+							<%= link_to "Zurückziehen", description_path(description.id), method: :delete, data: { confirm: "Wirklich löschen?" } %>
+						</td>
+					</tr>
+				<% end %>
+			</tbody>
+		</table>
+	<% else %>
+		Du hast noch keine Beschreibung geschrieben
+	<% end %>
 <% else %>
-	Du hast noch keine Beschreibung geschrieben
+	<h1>Beschreibungen</h1>
+	<p>
+		<%= link_to "Beschreibung erstellen", new_description_path %>
+	</p>
+
+	<h2>Beschreibungen über mich</h2>
+	<%= render partial: "table", locals: { descriptions: @own_descriptions, admin_view: false } %>
+
+	<h2>Geschriebene Beschreibungen</h2>
+	<% if not @written_descriptions.empty? %>
+		<table class="ui-responsive" data-role="table" data-mode="columntoggle" id="written_descriptions_table" data-column-btn-text="Spalten" data-column-btn-theme="b">
+			<thead>
+				<th data-priority="1">Für</th>
+				<th data-priority="2">Zusätzliche Autoren</th>
+				<th data-priority="3">Status</th>
+				<th data-priority="5">Zuletzt geändert am</th>
+				<th data-priority="4">Aktionen</th>
+			</thead>
+			<tbody>
+				<% @written_descriptions.each do |description| %>
+					<tr>
+						<td><%= description.described.name %></td>
+						<td><%= description.additional_authors %></td>
+						<td><%= description_status_symbol description %>
+						<td><%= description.updated_at.strftime "%d.%m.%Y %H:%M" %></td>
+						<td>
+							<%= link_to "Bearbeiten", edit_description_path(description.id) %>
+							<%= link_to "Zurückziehen", description_path(description.id), method: :delete, data: { confirm: "Wirklich löschen?" } %>
+						</td>
+					</tr>
+				<% end %>
+			</tbody>
+		</table>
+	<% else %>
+		Du hast noch keine Beschreibung geschrieben
+	<% end %>
 <% end %>
