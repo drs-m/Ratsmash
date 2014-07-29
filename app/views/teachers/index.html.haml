@@ -2,7 +2,7 @@
   %h1 Lehrerliste
 
   = link_to 'Lehrer hinzufügen', new_teacher_path
-  %div{style:"margin-bottom:30px;",id:"colTogglePlaceholder"}
+  
   %table
     %thead
       %tr
@@ -24,7 +24,7 @@
   %h1 Lehrerliste
 
   = link_to 'Lehrer hinzufügen', new_teacher_path
-
+  %div{style:"margin-bottom:30px;",id:"colTogglePlaceholder"}
   %div{style:"width:100%;overflow:auto;"}
     %table.ui-responsive{style:"width:100%;overflow:auto;",id:"teacher_table",:data=>{:role=>"table",:mode=>"columntoggle",:column_btn_text=>"Spalten",:column_btn_theme=>"b"}}
       %thead

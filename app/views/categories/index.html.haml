@@ -23,7 +23,7 @@
   %h1 Kategorieliste
 
   = link_to 'Kategorie hinzufügen', new_category_path
-
+  %div{style:"margin-bottom:30px;",id:"colTogglePlaceholder"}
   %div{style:"width:100%;overflow:auto;"}
     %table.ui-responsive{style:"width:100%;overflow:auto;",id:"category_table",:data=>{:role=>"table",:mode=>"columntoggle",:column_btn_text=>"Spalten",:column_btn_theme=>"b"}}
       %thead

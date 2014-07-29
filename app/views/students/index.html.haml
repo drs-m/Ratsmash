@@ -2,7 +2,7 @@
   %h1 Schülerliste
 
   = link_to 'Schüler hinzufügen', new_student_path
-  %div{style:"margin-bottom:30px;",id:"colTogglePlaceholder"}
+
   %table
     %thead
       %tr
@@ -30,6 +30,7 @@
   %h1 Schülerliste
 
   = link_to 'Schüler hinzufügen', new_student_path
+  %div{style:"margin-bottom:30px;",id:"colTogglePlaceholder"}
   %div{style:"width:100%;overflow:auto;"}
     %table.ui-responsive{id:"student_table",:data=>{:role=>"table",:mode=>"columntoggle",:column_btn_text=>"Spalten",:column_btn_theme=>"b"}}
       %thead
