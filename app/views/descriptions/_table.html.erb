@@ -30,30 +30,33 @@
 	<% end %>
 <% else %>
 	<% if not descriptions.empty? %>
-		<table class="ui-responsive" data-role="table"  data-mode="columntoggle" id="descriptions_table" data-column-btn-text="Spalten" data-column-btn-theme="b">
-			<thead>
-				<th data-priority="1">Von</th>
-				<th data-priority="2">Zusätzliche Autoren</th>
-				<th data-priority="3">Status</th>
-				<th data-priority="5">Zuletzt geändert am</th>
-				<th data-priority="4">Aktionen</th>
-			</thead>
-			<tbody>
-				<% descriptions.each do |description| %> 
-					<tr>
-						<td><%= description.author.name %></td>
-						<td><%= description.additional_authors %></td>
-						<td><%= description_status_symbol description %>
-						<td><%= description.updated_at.strftime "%d.%m.%Y %H:%M" %></td>
-						<td>
-							<%= link_to "Anzeigen", description if admin_view %>
-							<%= link_to "Akzeptieren", categorize_description_path(id: description.id, state: :accept) if not admin_view %>
-							<%= link_to "Ablehnen", categorize_description_path(id: description.id, state: :reject) if not admin_view %>
-							<%= link_to "Löschen", description_path(description.id), :method => :delete, :confirm => "Wirklich löschen?" if admin_view %>
-						</td>
-					</tr>
-				<% end %>
-			</tbody>
-		</table>
+		<div style="margin-bottom:30px;" id="colTogglePlaceholder"></div>
+		<div style="width: 100%;overflow: auto;">
+			<table class="ui-responsive" data-role="table"  data-mode="columntoggle" id="descriptions_table" data-column-btn-text="Spalten" data-column-btn-theme="b">
+				<thead>
+					<th data-priority="1">Von</th>
+					<th data-priority="2">Zusätzliche Autoren</th>
+					<th data-priority="3">Status</th>
+					<th data-priority="5">Zuletzt geändert am</th>
+					<th data-priority="4">Aktionen</th>
+				</thead>
+				<tbody>
+					<% descriptions.each do |description| %> 
+						<tr>
+							<td><%= description.author.name %></td>
+							<td><%= description.additional_authors %></td>
+							<td><%= description_status_symbol description %>
+							<td><%= description.updated_at.strftime "%d.%m.%Y %H:%M" %></td>
+							<td>
+								<%= link_to "Anzeigen", description if admin_view %>
+								<%= link_to "Akzeptieren", categorize_description_path(id: description.id, state: :accept) if not admin_view %>
+								<%= link_to "Ablehnen", categorize_description_path(id: description.id, state: :reject) if not admin_view %>
+								<%= link_to "Löschen", description_path(description.id), :method => :delete, :confirm => "Wirklich löschen?" if admin_view %>
+							</td>
+						</tr>
+					<% end %>
+				</tbody>
+			</table>
+		</div>
 	<% end %>
 <% end %>
