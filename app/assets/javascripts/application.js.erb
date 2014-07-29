@@ -121,10 +121,10 @@ $(document).ready(function(){
 		update_newsticker();
 	});
 
-	$("#newsticker ul li .ticker_subject").hover(function(){
+	$("#newsticker").hover(function(){
 		clearInterval(newsticker_interval);
 	});
-	$("#newsticker ul li .ticker_subject").mouseout(function(){
+	$("#newsticker").mouseout(function(){
 		newsticker_interval = window.setInterval("nextNews()", 5000);
 	});
 
