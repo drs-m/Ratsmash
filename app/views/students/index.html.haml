@@ -30,27 +30,27 @@
   %h1 Schülerliste
 
   = link_to 'Schüler hinzufügen', new_student_path
-
-  %table.ui-responsive{style:"width:100%;overflow:auto;",id:"student_table",:data=>{:role=>"table",:mode=>"columntoggle",:column_btn_text=>"Spalten",:column_btn_theme=>"b"}}
-    %thead
-      %tr
-        %th{:data=>{:priority=>""}} Name
-        %th{:data=>{:priority=>"3"}} Geschlecht
-        %th{:data=>{:priority=>"1"}} E-Mail Adresse
-        %th{:data=>{:priority=>"4"}} Admin-Rechte
-        %th{:data=>{:priority=>"6"}} Status
-        %th{:data=>{:priority=>"5"}} Beschreibungen
-        %th{colspan:"3",style:"text-align:center;",:data=>{:priority=>"2"}} Aktionen
-
-    %tbody
-      - @students.each do |student|
+  %div{style:"width:100%;overflow:auto;"}
+    %table.ui-responsive{id:"student_table",:data=>{:role=>"table",:mode=>"columntoggle",:column_btn_text=>"Spalten",:column_btn_theme=>"b"}}
+      %thead
         %tr
-          %td= student.name
-          %td= student.gender ? "m" : "w"
-          %td= student.mail_address
-          %td= simple_symbol condition: student.admin_permissions
-          %td= member_symbol student
-          %td= student.descriptions.count
-          %td= link_to 'Anzeigen', student
-          %td= link_to 'Bearbeiten', edit_student_path(student)
-          %td= link_to 'Löschen', student, method: :delete, data: { confirm: 'Soll Eintrag Nr. ' + student.id.to_s + " wirklich gelöscht werden?" }
+          %th{:data=>{:priority=>""}} Name
+          %th{:data=>{:priority=>"3"}} Geschlecht
+          %th{:data=>{:priority=>"1"}} E-Mail Adresse
+          %th{:data=>{:priority=>"4"}} Admin-Rechte
+          %th{:data=>{:priority=>"6"}} Status
+          %th{:data=>{:priority=>"5"}} Beschreibungen
+          %th{colspan:"3",style:"text-align:center;",:data=>{:priority=>"2"}} Aktionen
+
+      %tbody
+        - @students.each do |student|
+          %tr
+            %td= student.name
+            %td= student.gender ? "m" : "w"
+            %td= student.mail_address
+            %td= simple_symbol condition: student.admin_permissions
+            %td= member_symbol student
+            %td= student.descriptions.count
+            %td= link_to 'Anzeigen', student
+            %td= link_to 'Bearbeiten', edit_student_path(student)
+            %td= link_to 'Löschen', student, method: :delete, data: { confirm: 'Soll Eintrag Nr. ' + student.id.to_s + " wirklich gelöscht werden?" }

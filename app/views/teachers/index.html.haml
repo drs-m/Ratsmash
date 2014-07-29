@@ -25,20 +25,21 @@
 
   = link_to 'Lehrer hinzufügen', new_teacher_path
 
-  %table.ui-responsive{style:"width:100%;overflow:auto;",id:"teacher_table",:data=>{:role=>"table",:mode=>"columntoggle",:column_btn_text=>"Spalten",:column_btn_theme=>"b"}}
-    %thead
-      %tr
-        %th{:data=>{:priority=>"1"}} Name
-        %th{:data=>{:priority=>"3"}} Geschlecht
-        %th{:data=>{:priority=>"4"}} Status
-        %th{colspan:"3",style:"text-align:center;",:data=>{:priority=>"2"}} Aktionen
-
-    %tbody
-      - @teachers.each do |teacher|
+  %div{style:"width:100%;overflow:auto;"}
+    %table.ui-responsive{style:"width:100%;overflow:auto;",id:"teacher_table",:data=>{:role=>"table",:mode=>"columntoggle",:column_btn_text=>"Spalten",:column_btn_theme=>"b"}}
+      %thead
         %tr
-          %td= teacher.name
-          %td= teacher.gender ? "m" : "w"
-          %td= simple_symbol condition: !teacher.closed?, msg_true: "Freigegeben", msg_false: "Gesperrt"
-          %td= link_to 'Anzeigen', teacher
-          %td= link_to 'Bearbeiten', edit_teacher_path(teacher)
-          %td= link_to 'Löschen', teacher, method: :delete, data: { confirm: 'Soll Eintrag Nr. ' + teacher.id.to_s + " wirklich gelöscht werden?" }
+          %th{:data=>{:priority=>"1"}} Name
+          %th{:data=>{:priority=>"3"}} Geschlecht
+          %th{:data=>{:priority=>"4"}} Status
+          %th{colspan:"3",style:"text-align:center;",:data=>{:priority=>"2"}} Aktionen
+
+      %tbody
+        - @teachers.each do |teacher|
+          %tr
+            %td= teacher.name
+            %td= teacher.gender ? "m" : "w"
+            %td= simple_symbol condition: !teacher.closed?, msg_true: "Freigegeben", msg_false: "Gesperrt"
+            %td= link_to 'Anzeigen', teacher
+            %td= link_to 'Bearbeiten', edit_teacher_path(teacher)
+            %td= link_to 'Löschen', teacher, method: :delete, data: { confirm: 'Soll Eintrag Nr. ' + teacher.id.to_s + " wirklich gelöscht werden?" }

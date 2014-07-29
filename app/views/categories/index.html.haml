@@ -24,19 +24,20 @@
 
   = link_to 'Kategorie hinzufügen', new_category_path
 
-  %table.ui-responsive{style:"width:100%;overflow:auto;",id:"category_table",:data=>{:role=>"table",:mode=>"columntoggle",:column_btn_text=>"Spalten",:column_btn_theme=>"b"}}
-    %thead
-      %tr
-        %th{:data=>{:priority=>"1"}} Name
-        %th{:data=>{:priority=>"2"}} Gruppe
-        %th{:data=>{:priority=>"4"}} Status
-        %th{colspan:"2",style:"text-align:center;",:data=>{:priority=>"3"}} Aktionen
-
-    %tbody
-      - @categories.each do |category|
+  %div{style:"width:100%;overflow:auto;"}
+    %table.ui-responsive{style:"width:100%;overflow:auto;",id:"category_table",:data=>{:role=>"table",:mode=>"columntoggle",:column_btn_text=>"Spalten",:column_btn_theme=>"b"}}
+      %thead
         %tr
-          %td= category.name
-          %td= category.group.name
-          %td= simple_symbol condition: !category.closed?, msg_true: "Offen", msg_false: "Geschlossen"
-          %td= link_to 'Bearbeiten', edit_category_path(category)
-          %td= link_to 'Löschen', category, method: :delete, data: { confirm: 'Soll Eintrag Nr. ' + category.id.to_s + " wirklich gelöscht werden?" }
+          %th{:data=>{:priority=>"1"}} Name
+          %th{:data=>{:priority=>"2"}} Gruppe
+          %th{:data=>{:priority=>"4"}} Status
+          %th{colspan:"2",style:"text-align:center;",:data=>{:priority=>"3"}} Aktionen
+
+      %tbody
+        - @categories.each do |category|
+          %tr
+            %td= category.name
+            %td= category.group.name
+            %td= simple_symbol condition: !category.closed?, msg_true: "Offen", msg_false: "Geschlossen"
+            %td= link_to 'Bearbeiten', edit_category_path(category)
+            %td= link_to 'Löschen', category, method: :delete, data: { confirm: 'Soll Eintrag Nr. ' + category.id.to_s + " wirklich gelöscht werden?" }
