@@ -1,24 +1,48 @@
-%h1 Hauptmenü
-- flash.each do |name, message|
-	%ul
-		%li= message
+-if !mobile_device?
+	%h1 Hauptmenü
+	- flash.each do |name, message|
+		%ul
+			%li= message
 
-%p= "Hallo " + @current_user.name
+	%p= "Hallo " + @current_user.name
 
-%p= @descriptions_status
-%h2 Newsticker
-#newsticker
-	= image_tag("left_arrow.jpg",height:30,id:"left_arrow")
-	%ul
-		-@actual_news.each_with_index  do |news,index|
-			%li{:id => "news_ticker_li_#{index}"}
-				%span.ticker_date= news.updated_at.day.to_s+"."+news.updated_at.month.to_s+"."+news.updated_at.year.to_s
-				%span.ticker_subject= link_to news.subject, news_path(news.id)	
-	= image_tag("right_arrow.jpg",height:30,id:"right_arrow")
+	%p= @descriptions_status
+	%h2 Newsticker
+	#newsticker
+		= image_tag("left_arrow.jpg",height:30,id:"left_arrow")
+		%ul
+			-@actual_news.each_with_index  do |news,index|
+				%li{:id => "news_ticker_li_#{index}"}
+					%span.ticker_date= news.updated_at.day.to_s+"."+news.updated_at.month.to_s+"."+news.updated_at.year.to_s
+					%span.ticker_subject= link_to news.subject, news_path(news.id)	
+		= image_tag("right_arrow.jpg",height:30,id:"right_arrow")
 
-	#news_points_wrapper
-		-i=0
-		-@actual_news.count.times do
-			%div{:id => "news_point_#{i}"}
-			-i+=1
-= hidden_field_tag :amount_of_actual_news, @amount_of_actual_news, id: "amount_of_actual_news"
+		#news_points_wrapper
+			-i=0
+			-@actual_news.count.times do
+				%div{:id => "news_point_#{i}"}
+				-i+=1
+	= hidden_field_tag :amount_of_actual_news, @amount_of_actual_news, id: "amount_of_actual_news"
+-else
+	%h1 Hauptmenü
+	- flash.each do |name, message|
+		%ul
+			%li= message
+
+	%p= "Hallo " + @current_user.name
+
+	%p= @descriptions_status
+	%h2 Newsticker
+	#newsticker
+		%ul
+			-@actual_news.each_with_index  do |news,index|
+				%li{:id => "news_ticker_li_#{index}"}
+					%span.ticker_date= news.updated_at.day.to_s+"."+news.updated_at.month.to_s+"."+news.updated_at.year.to_s
+					%span.ticker_subject= link_to news.subject, news_path(news.id)	
+
+		#news_points_wrapper
+			-i=0
+			-@actual_news.count.times do
+				%div{:id => "news_point_#{i}"}
+				-i+=1
+	= hidden_field_tag :amount_of_actual_news, @amount_of_actual_news, id: "amount_of_actual_news"
