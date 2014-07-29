@@ -46,6 +46,12 @@ function manageMobileMenue(){
 	}
 }
 
+$(document).on("pageinit", "#my_content_section", function () {
+
+    $(".ui-table-columntoggle-btn").appendTo("#colTogglePlaceholder");
+
+});
+
 $(document).ready(function(){
 
 	$("#results_table").dataTable();
