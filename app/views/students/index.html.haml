@@ -31,7 +31,7 @@
 
   = link_to 'Schüler hinzufügen', new_student_path
 
-  %table.ui-responsive{id:"student_table",:data=>{:role=>"table",:mode=>"columntoggle",:column_btn_text=>"Spalten",:column_btn_theme=>"b"}}
+  %table.ui-responsive{style:"width:100%;overflow:auto;",id:"student_table",:data=>{:role=>"table",:mode=>"columntoggle",:column_btn_text=>"Spalten",:column_btn_theme=>"b"}}
     %thead
       %tr
         %th{:data=>{:priority=>""}} Name

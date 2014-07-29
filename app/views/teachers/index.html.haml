@@ -25,7 +25,7 @@
 
   = link_to 'Lehrer hinzufügen', new_teacher_path
 
-  %table.ui-responsive{id:"teacher_table",:data=>{:role=>"table",:mode=>"columntoggle",:column_btn_text=>"Spalten",:column_btn_theme=>"b"}}
+  %table.ui-responsive{style:"width:100%;overflow:auto;",id:"teacher_table",:data=>{:role=>"table",:mode=>"columntoggle",:column_btn_text=>"Spalten",:column_btn_theme=>"b"}}
     %thead
       %tr
         %th{:data=>{:priority=>"1"}} Name
