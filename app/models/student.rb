@@ -11,6 +11,8 @@ class Student < ActiveRecord::Base
 	has_many :descriptions, foreign_key: "described_id"
 	has_many :written_descriptions, class_name: "Description", foreign_key: "author_id"
 
+	has_many :logins
+
 	# einträge lassen sich bei before_validation oder before_save seltsamerweise nicht speichern! hat vermutlich was mit has_secure_password zu tun
 	after_validation :set_defaults
 	before_create { generate_token(:auth_token) }
@@ -21,6 +23,17 @@ class Student < ActiveRecord::Base
 
 	validates :name, :mail_address, presence: true
 
+	def online?
+		if self.last_seen_at != nil
+			if self.updated_at > 10.minutes.ago
+				return true
+			else
+				return false
+			end
+		else 
+			return false
+		end
+	end
 
 	def male
 		self.gender

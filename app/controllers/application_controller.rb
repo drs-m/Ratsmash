@@ -7,11 +7,17 @@ class ApplicationController < ActionController::Base
 	# include symbol helper in all views
 	helper :symbol
 	helper_method :mobile_device?
+	before_filter :setOnlineStatus
 
 	def default_url_options
 		Rails.env.production? ? {:host => "rmash.herokuapp.com"} : {} # necessary?
  	end
 
+ 	def setOnlineStatus
+ 		if logged_in?
+ 			@current_user.update_attributes :last_seen_at => Time.now
+ 		end
+ 	end
 
 	private
 		def mobile_device?

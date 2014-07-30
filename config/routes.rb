@@ -1,5 +1,8 @@
 Ratsmash::Application.routes.draw do
 
+  get 'page_stats/index'
+  post 'page_stats/index'
+
   get 'impress/index'
 
   # voting#home als startseite

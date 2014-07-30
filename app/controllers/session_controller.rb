@@ -21,7 +21,8 @@ class SessionController < ApplicationController
 					if student.authenticate params[:password]
 						if student.closed
 							error = "Dein Account wurde gesperrt! Bitte wende dich an die Abizeitung oder das Ratsmash-Team."
-						else
+						else	
+							Login.create :user_id => student.id
 							if params[:persist]	
 								cookies.permanent.signed[:at] = student.auth_token
 							else

@@ -1,0 +1,15 @@
+<h1>Seitenstatistiken</h1>
+<h2>Allgemeine Kennzahlen</h2>
+<ul>
+	<li>Gesamte Logins: <%= @total_logins %></li>
+	<li>Logins in der letzten Stunde: <%= @logins_sice_last_hour %></li>
+	<li>Logins in den letzten 24 h: <%= @logins_sice_last_24_hours %></li>
+	<li>Logins in der letzten Woche: <%= @logins_sice_last_week %></li>
+	<li>Logins im letzten Monat: <%= @logins_sice_last_month %></li>
+</ul>
+<h2>Gerade online</h2>
+<ul>
+	<% @now_online_students.each do |student| %>
+		<li><%= link_to student.name, student_path(student.id) %></li>
+	<% end %>
+</ul>
