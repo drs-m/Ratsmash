@@ -19,6 +19,8 @@
 *.sublime-workspace
 *.sublime-project
 
+.c9/
+
 # Ignore ‚git-ignored intern files‘
 /giif
 
