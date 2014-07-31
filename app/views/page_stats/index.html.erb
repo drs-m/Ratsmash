@@ -15,7 +15,7 @@
 </ul>
 <h2>Logins eines bestimmten Nutzers</h2>
 <%= form_tag(page_stats_index_path, method: :post) do %>
-	<%= text_field_tag :name, nil, placeholder: "Schülername" %>
+	<%= select_tag "name", options_from_collection_for_select(Student.all, "name", "name") %>
 	<%= submit_tag "Logins anzeigen" %>
 <% end %>
 <p>
