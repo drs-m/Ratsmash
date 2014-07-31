@@ -13,3 +13,71 @@
 		<li><%= link_to student.name, student_path(student.id) %></li>
 	<% end %>
 </ul>
+<h2>Logins eines bestimmten Nutzers</h2>
+<%= form_tag(page_stats_index_path, method: :post) do %>
+	<%= text_field_tag :name, nil, placeholder: "Schülername" %>
+	<%= submit_tag "Logins anzeigen" %>
+<% end %>
+<p>
+<% if @students_logins_name != nil %>
+	<h2>Logins von <%= @students_logins_name %></h2>
+<% end %>
+</p>
+<p>
+	<% if @students_logins != nil && @students_logins.count > 0 %>
+		<strong>Allgemeine Kenndaten</strong>
+		<ul>
+			<li>Gesamte Logins: <%= @students_logins.count %></li>
+			<li>
+				Logins in der letzten Stunde: 
+				<% i = 0 %>
+				<% @students_logins.each do |login| %>
+					<% if login.created_at > 1.hours.ago %>
+						<% i += 1 %>
+					<% end %>
+				<% end %>
+				<%= i %>
+			</li>
+			<li>
+				Logins in den letzten 24 Stunden: 
+				<% i = 0 %>
+				<% @students_logins.each do |login| %>
+					<% if login.created_at > 1.days.ago %>
+						<% i += 1 %>
+					<% end %>
+				<% end %>
+				<%= i %>
+			</li>
+			<li>
+				Logins in der letzten Woche: 
+				<% i = 0 %>
+				<% @students_logins.each do |login| %>
+					<% if login.created_at > 1.weeks.ago %>
+						<% i += 1 %>
+					<% end %>
+				<% end %>
+				<%= i %>
+			</li>
+			<li>
+				Logins im letzten Monat: 
+				<% i = 0 %>
+				<% @students_logins.each do |login| %>
+					<% if login.created_at > 1.month.ago %>
+						<% i += 1 %>
+					<% end %>
+				<% end %>
+				<%= i %>
+			</li>
+		</ul>
+	<% else %>
+		<p>Keine Logins</p>
+	<% end %>
+</p>
+<% if @students_logins != nil && @students_logins.count > 0 %> 
+	<strong>Loginliste</strong>
+	<ul>
+		<% @students_logins.each do |login| %>
+			<li><%= login.created_at.day.to_s+"."+login.created_at.month.to_s+"."+login.created_at.year.to_s+" - "+(login.created_at.hour+@timezone).to_s+":"+login.created_at.min.to_s+" Uhr" %></li>
+		<% end %>
+	</ul>
+<% end %>

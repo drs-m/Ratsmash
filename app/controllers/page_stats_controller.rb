@@ -3,6 +3,16 @@ class PageStatsController < ApplicationController
 	before_action -> { check_session redirect: true, admin_permissions: true }
 
     def index
+        if params[:name]
+            if Student.find_by_name params[:name]
+                student = Student.find_by_name params[:name]
+                @students_logins_name = student.name
+                @students_logins = Login.where :user_id => student.id
+            else
+                flash[:notice] = "User nicht vorhanden!"
+            end
+        end
+
     	@now_online_students = []
 
     	Student.all.each do |student|
