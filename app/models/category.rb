@@ -6,7 +6,7 @@ class Category < ActiveRecord::Base
 	has_many :votes
 	belongs_to :group
 
-	validates :name, presence: true
+	validates :name, :group_id, presence: true
 
 	private
 		def set_defaults
