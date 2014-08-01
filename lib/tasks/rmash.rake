@@ -22,6 +22,24 @@ namespace :rmash do
 		puts "[#{Time.now}] Mail sending finished. Took #{minutes}:#{seconds}"
 	end
 
+	task :import_json, [:model_name] => [:environment] do |t, args|
+		args[:model_name]
+		if args[:model_name].blank?
+			puts "Bitte gib einen Dateinamen an!"
+		else
+			model_name = args[:model_name]
+			model = (model_name.to_s.singularize.capitalize.constantize)
+			model.destroy_all
+			puts "Tabelle geleert"
+			before = model.count
+			data = JSON.parse(File.read(model_name + ".json"))
+			data.each do |entity_data|
+				model.create entity_data
+			end
+			puts (model.count - before).to_s + " Datensätze hinzugefügt"
+		end
+	end
+
 	task :populate => :environment do
 		File.read("students.txt").each_line do |line|
 			name_data = line.rstrip.split(", ")

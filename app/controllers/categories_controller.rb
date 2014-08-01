@@ -10,7 +10,7 @@ class CategoriesController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.json { render(json: JSON.pretty_generate(JSON.parse(@categories.to_json(only: [:name, :group_id])))) }
+      format.json { render(json: JSON.pretty_generate(JSON.parse(@categories.to_json(except: [:id, :created_at, :updated_at])))) }
     end
   end
 
