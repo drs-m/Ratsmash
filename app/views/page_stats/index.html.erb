@@ -3,10 +3,10 @@
 <h2>Allgemeine Kennzahlen</h2>
 	<ul>
 		<li>Gesamte Logins: <%= @total_logins %></li>
-		<li>Logins in der letzten Stunde: <%= @logins_sice_last_hour %></li>
-		<li>Logins in den letzten 24 h: <%= @logins_sice_last_24_hours %></li>
-		<li>Logins in der letzten Woche: <%= @logins_sice_last_week %></li>
-		<li>Logins im letzten Monat: <%= @logins_sice_last_month %></li>
+		<li>Logins in der letzten Stunde: <%= @logins_in_last[:hour] %></li>
+		<li>Logins in den letzten 24 h: <%= @logins_in_last[:day] %></li>
+		<li>Logins in der letzten Woche: <%= @logins_in_last[:week] %></li>
+		<li>Logins im letzten Monat: <%= @logins_in_last[:month] %></li>
 	</ul>
 	<h2>Gerade online</h2>
 	<ul>
@@ -63,7 +63,7 @@
 <p>
 	<h2>Logins eines bestimmten Nutzers</h2>
 	<%= form_tag(page_stats_index_path, method: :post) do %>
-		<%= select_tag "name", options_from_collection_for_select(Student.all, "name", "name") %>
+		<%= select_tag "name", options_from_collection_for_select(Student.all.order(:name), "name", "name") %>
 		<%= submit_tag "Logins anzeigen" %>
 	<% end %>
 </p>
