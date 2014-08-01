@@ -1,5 +1,5 @@
 class Quote < ActiveRecord::Base
 
-	validates :sender, :text, presence: true
+	validates :text, presence: true
 
 end
