@@ -42,6 +42,7 @@ class PageStatsController < ApplicationController
                 student = Student.find_by_name params[:name]
                 @students_logins_name = student.name
                 @students_logins = Login.where :user_id => student.id
+                @students_logins = @students_logins.reverse
             else
                 flash[:notice] = "User nicht vorhanden!"
             end
