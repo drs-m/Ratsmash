@@ -7,6 +7,11 @@ class CategoriesController < ApplicationController
   # GET /categories
   def index
     @categories = Category.order :name
+
+    respond_to do |format|
+      format.html
+      format.json { render(json: JSON.pretty_generate(JSON.parse(@categories.to_json(only: [:name, :group_id])))) }
+    end
   end
 
   # GET /categories/new
