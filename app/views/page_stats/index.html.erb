@@ -1,23 +1,72 @@
 <h1>Seitenstatistiken</h1>
+<p>
 <h2>Allgemeine Kennzahlen</h2>
-<ul>
-	<li>Gesamte Logins: <%= @total_logins %></li>
-	<li>Logins in der letzten Stunde: <%= @logins_sice_last_hour %></li>
-	<li>Logins in den letzten 24 h: <%= @logins_sice_last_24_hours %></li>
-	<li>Logins in der letzten Woche: <%= @logins_sice_last_week %></li>
-	<li>Logins im letzten Monat: <%= @logins_sice_last_month %></li>
-</ul>
-<h2>Gerade online</h2>
-<ul>
-	<% @now_online_students.each do |student| %>
-		<li><%= link_to student.name, student_path(student.id) %></li>
+	<ul>
+		<li>Gesamte Logins: <%= @total_logins %></li>
+		<li>Logins in der letzten Stunde: <%= @logins_sice_last_hour %></li>
+		<li>Logins in den letzten 24 h: <%= @logins_sice_last_24_hours %></li>
+		<li>Logins in der letzten Woche: <%= @logins_sice_last_week %></li>
+		<li>Logins im letzten Monat: <%= @logins_sice_last_month %></li>
+	</ul>
+	<h2>Gerade online</h2>
+	<ul>
+		<% @now_online_students.each do |student| %>
+			<li><%= link_to student.name, student_path(student.id) %></li>
+		<% end %>
+	</ul>
+</p>
+<p>
+	<h2>Meiste Logins</h2>
+	<% if !mobile_device? %>
+		<table>
+			<thead>
+				<th>Platz</th>
+				<th>Schüler</th>
+				<th>Logins</th>
+			</thead>
+			<tbody>
+				<% i = 0 %>
+				<% 3.times do %>
+					<tr>
+						<td><%= i+1 %></td>
+						<td><%= @login_ranking[i][0] %></td>
+						<td><%= @login_ranking[i][1] %></td>
+					</tr>
+					<% i += 1 %>
+				<% end %>
+			</tbody>
+		</table>
+	<% else %>
+		<div style="margin-bottom:30px;" id="colTogglePlaceholder"></div>
+		<div style="width: 100%;overflow: auto;">
+			<table class="ui-responsive" data-role="table" data-mode="columntoggle" id="login_ranking_table" data-column-btn-text="Spalten" data-column-btn-theme="b">
+				<thead>
+					<th data-priority="2">Platz</th>
+					<th data-priority="1">Schüler</th>
+					<th data-priority="3">Logins</th>
+				</thead>
+				<tbody>
+					<% i = 0 %>
+					<% 3.times do %>
+						<tr>
+							<td><%= i+1 %></td>
+							<td><%= @login_ranking[i][0] %></td>
+							<td><%= @login_ranking[i][1] %></td>
+						</tr>
+						<% i += 1 %>
+					<% end %>
+				</tbody>
+			</table>
+		</div>
 	<% end %>
-</ul>
-<h2>Logins eines bestimmten Nutzers</h2>
-<%= form_tag(page_stats_index_path, method: :post) do %>
-	<%= select_tag "name", options_from_collection_for_select(Student.all, "name", "name") %>
-	<%= submit_tag "Logins anzeigen" %>
-<% end %>
+</p>
+<p>
+	<h2>Logins eines bestimmten Nutzers</h2>
+	<%= form_tag(page_stats_index_path, method: :post) do %>
+		<%= select_tag "name", options_from_collection_for_select(Student.all, "name", "name") %>
+		<%= submit_tag "Logins anzeigen" %>
+	<% end %>
+</p>
 <p>
 <% if @students_logins_name != nil %>
 	<h2>Logins von <%= @students_logins_name %></h2>
