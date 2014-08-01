@@ -29,5 +29,8 @@ module Ratsmash
 
 	# dont show passwords in logs
 	config.filter_parameters += [:password, :password_confirmation]
+
+	config.time_zone = "Europe/Berlin"
+	config.active_record.default_timezone = "Europe/Berlin"
   end
 end
