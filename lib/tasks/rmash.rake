@@ -54,6 +54,7 @@ namespace :rmash do
 	end
 
 	task :setup_groups => :environment do
+		Group.destroy_all
 		Group.create name: "Alle", female: true, male: true, student: true, teacher: true
 		Group.create name: "Alle Frauen", female: true, student: true, teacher: true
 		Group.create name: "Alle Männer", male: true, student: true, teacher: true

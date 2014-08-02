@@ -31,6 +31,6 @@ module Ratsmash
 	config.filter_parameters += [:password, :password_confirmation]
 
 	config.time_zone = "Europe/Berlin"
-	config.active_record.default_timezone = "Europe/Berlin"
+	config.active_record.default_timezone = :local
   end
 end
