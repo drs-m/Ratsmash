@@ -52,8 +52,10 @@ class PageStatsController < ApplicationController
 
     	@total_logins = Login.count
 
-
         @logins_in_last = {hour: Login.last_hour.count, day: Login.last_day.count, week: Login.last_week.count, month: Login.last_month.count}
+        
+        @last_10_logins = Login.order(created_at: :desc).limit(10)
+        
     end
 
 end

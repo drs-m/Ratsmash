@@ -11,7 +11,7 @@ class Student < ActiveRecord::Base
 	has_many :descriptions, foreign_key: "described_id"
 	has_many :written_descriptions, class_name: "Description", foreign_key: "author_id"
 
-	has_many :logins
+	has_many :logins, class_name: "Login", foreign_key: "user_id"
 
 	# einträge lassen sich bei before_validation oder before_save seltsamerweise nicht speichern! hat vermutlich was mit has_secure_password zu tun
 	after_validation :set_defaults

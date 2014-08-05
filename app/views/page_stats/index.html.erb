@@ -123,10 +123,20 @@
 	<% end %>
 </p>
 <% if @students_logins != nil && @students_logins.count > 0 %> 
-	<strong>Loginliste</strong>
+	<p>
+		<strong>Loginliste</strong>
+		<ul>
+			<% @students_logins.each do |login| %>
+				<li><%= login.created_at.day.to_s+"."+login.created_at.month.to_s+"."+login.created_at.year.to_s+" - "+(login.created_at.hour+@timezone).to_s+":"+login.created_at.min.to_s+" Uhr" %></li>
+			<% end %>
+		</ul>
+	</p>
+<% end %>
+<p>
+	<h2>Letzten 10 Logins</h2>
 	<ul>
-		<% @students_logins.each do |login| %>
-			<li><%= login.created_at.day.to_s+"."+login.created_at.month.to_s+"."+login.created_at.year.to_s+" - "+(login.created_at.hour+@timezone).to_s+":"+login.created_at.min.to_s+" Uhr" %></li>
+		<% @last_10_logins.each do |login| %>
+			<li><%= link_to Student.find_by_id(login.user_id).name, student_path(Student.find_by_id(login.user_id).id) %> am <%= login.created_at %></li>
 		<% end %>
 	</ul>
-<% end %>
+</p>
