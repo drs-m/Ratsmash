@@ -3,6 +3,8 @@
 <h2>Allgemeine Kennzahlen</h2>
 	<ul>
 		<li>Gesamte Logins: <%= @total_logins %></li>
+		<li>Logins mit mobilem Endgerät: <%= @mobile_device_logins %> (<%= ((@mobile_device_logins / (@mobile_device_logins + @desktop_device_logins)) * 100).to_i %>%)</li>
+		<li>Logins mit Desktop-PC: <%= @desktop_device_logins %> (<%= ((@desktop_device_logins / (@mobile_device_logins + @desktop_device_logins)) * 100).to_i %>%)</li>
 		<li>Logins in der letzten Stunde: <%= @logins_in_last[:hour] %></li>
 		<li>Logins in den letzten 24 h: <%= @logins_in_last[:day] %></li>
 		<li>Logins in der letzten Woche: <%= @logins_in_last[:week] %></li>
@@ -11,7 +13,15 @@
 	<h2>Gerade online</h2>
 	<ul>
 		<% @now_online_students.each do |student| %>
-			<li><%= link_to student.name, student_path(student.id) %></li>
+			<% if Login.where(:user_id => student.id).last != nil %>
+				<% if Login.where(:user_id => student.id).last.mobile_device %>
+					<li><%= link_to student.name, student_path(student.id) %> mit mobilem Endgerät online</li>
+				<% else %>
+					<li><%= link_to student.name, student_path(student.id) %> mit Desktop-PC online</li>
+				<% end %>
+			<% else %>
+				<li><%= link_to student.name, student_path(student.id) %> mit nicht erfassten Endgerät</li>
+			<% end %>
 		<% end %>
 	</ul>
 </p>
@@ -30,7 +40,7 @@
 					<tr>
 						<td><%= i+1 %></td>
 						<td><%= @login_ranking[i][0] %></td>
-						<td><%= @login_ranking[i][1] %></td>
+						<td><%= "Mobil: " + @login_ranking[i][2].to_s + " / Desktop: " + @login_ranking[i][3].to_s + " / Gesamt: " + @login_ranking[i][1].to_s %></td>
 					</tr>
 					<% i += 1 %>
 				<% end %>
@@ -51,7 +61,7 @@
 						<tr>
 							<td><%= i+1 %></td>
 							<td><%= @login_ranking[i][0] %></td>
-							<td><%= @login_ranking[i][1] %></td>
+							<td><%= "Mobil: " + @login_ranking[i][2].to_s + " / Desktop: " + @login_ranking[i][3].to_s + " / Gesamt: " + @login_ranking[i][1].to_s %></td>
 						</tr>
 						<% i += 1 %>
 					<% end %>
@@ -77,6 +87,26 @@
 		<strong>Allgemeine Kenndaten</strong>
 		<ul>
 			<li>Gesamte Logins: <%= @students_logins.count %></li>
+			<li>
+				Logins mit mobilem Endgerät: 
+				<% i = 0 %>
+				<% @students_logins.each do |login| %>
+					<% if login.mobile_device %>
+						<% i += 1 %>
+					<% end %>
+				<% end %>
+				<%= i %>
+			</li>
+			<li>
+				Logins mit Desktop-PC: 
+				<% i = 0 %>
+				<% @students_logins.each do |login| %>
+					<% if !login.mobile_device %>
+						<% i += 1 %>
+					<% end %>
+				<% end %>
+				<%= i %>
+			</li>
 			<li>
 				Logins in der letzten Stunde: 
 				<% i = 0 %>
@@ -127,7 +157,11 @@
 		<strong>Loginliste</strong>
 		<ul>
 			<% @students_logins.each do |login| %>
-				<li><%= login.created_at.day.to_s+"."+login.created_at.month.to_s+"."+login.created_at.year.to_s+" - "+(login.created_at.hour+@timezone).to_s+":"+login.created_at.min.to_s+" Uhr" %></li>
+				<% if login.mobile_device %>
+					<li><%= login.created_at.day.to_s+"."+login.created_at.month.to_s+"."+login.created_at.year.to_s+" - "+(login.created_at.hour+@timezone).to_s+":"+login.created_at.min.to_s+" Uhr" %> mit mobilem Endgerät</li>
+				<% else %>
+					<li><%= login.created_at.day.to_s+"."+login.created_at.month.to_s+"."+login.created_at.year.to_s+" - "+(login.created_at.hour+@timezone).to_s+":"+login.created_at.min.to_s+" Uhr" %> mit Desktop-PC</li>
+				<% end %>
 			<% end %>
 		</ul>
 	</p>
@@ -136,7 +170,11 @@
 	<h2>Letzten 10 Logins</h2>
 	<ul>
 		<% @last_10_logins.each do |login| %>
-			<li><%= link_to Student.find_by_id(login.user_id).name, student_path(Student.find_by_id(login.user_id).id) %> am <%= login.created_at %></li>
+			<% if login.mobile_device %>
+				<li><%= link_to Student.find_by_id(login.user_id).name, student_path(Student.find_by_id(login.user_id).id) %> am <%= login.created_at %> mit mobilem Endgerät</li>
+			<% else %>
+				<li><%= link_to Student.find_by_id(login.user_id).name, student_path(Student.find_by_id(login.user_id).id) %> am <%= login.created_at %> mit Desktop-PC</li>
+			<% end %>
 		<% end %>
 	</ul>
 </p>

@@ -11,22 +11,34 @@ class PageStatsController < ApplicationController
             if Login.where(:user_id=>student.id).count > most_logins[1]
                 third_most_logins[0] = second_most_logins[0]
                 third_most_logins[1] = second_most_logins[1]
+                third_most_logins[2] = second_most_logins[2]
+                third_most_logins[3] = second_most_logins[3]
                 second_most_logins[0] = most_logins[0]
                 second_most_logins[1] = most_logins[1]
+                second_most_logins[2] = most_logins[2]
+                second_most_logins[3] = most_logins[3]
 
                 most_logins[0] = student.name
                 most_logins[1] = Login.where(:user_id=>student.id).count
+                most_logins[2] = Login.where(:user_id=>student.id,:mobile_device => true).count
+                most_logins[3] = Login.where(:user_id=>student.id,:mobile_device => false).count
             else
                 if Login.where(:user_id=>student.id).count > second_most_logins[1]
                     third_most_logins[0] = second_most_logins[0]
                     third_most_logins[1] = second_most_logins[1]
+                    third_most_logins[2] = second_most_logins[2]
+                    third_most_logins[3] = second_most_logins[3]
                     
                     second_most_logins[0] = student.name
                     second_most_logins[1] = Login.where(:user_id=>student.id).count
+                    second_most_logins[2] = Login.where(:user_id=>student.id, :mobile_device => true).count
+                    second_most_logins[3] = Login.where(:user_id=>student.id, :mobile_device => false).count
                 else
                     if Login.where(:user_id=>student.id).count > third_most_logins[1]
                         third_most_logins[0] = student.name
                         third_most_logins[1] = Login.where(:user_id=>student.id).count
+                        third_most_logins[2] = Login.where(:user_id=>student.id, :mobile_device => true).count
+                        third_most_logins[3] = Login.where(:user_id=>student.id, :mobile_device => false).count
                     end
                 end
             end
@@ -51,6 +63,9 @@ class PageStatsController < ApplicationController
     	@now_online_students = Student.online
 
     	@total_logins = Login.count
+
+        @mobile_device_logins = Login.where(:mobile_device => true).count
+        @desktop_device_logins = Login.where(:mobile_device => false).count
 
         @logins_in_last = {hour: Login.last_hour.count, day: Login.last_day.count, week: Login.last_week.count, month: Login.last_month.count}
         
