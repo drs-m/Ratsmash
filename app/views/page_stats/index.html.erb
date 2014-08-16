@@ -3,8 +3,8 @@
 <h2>Allgemeine Kennzahlen</h2>
 	<ul>
 		<li>Gesamte Logins: <%= @total_logins %></li>
-		<li>Logins mit mobilem Endgerät: <%= @mobile_device_logins %> (<%= @mobile_login_percentage %>)</li>
-		<li>Logins mit Desktop-PC: <%= @desktop_device_logins %> (<%= @desktop_login_percentage %>)</li>
+		<li>Logins mit mobilem Endgerät: <%= @mobile_device_logins %> (<%= @mobile_login_percentage %>%)</li>
+		<li>Logins mit Desktop-PC: <%= @desktop_device_logins %> (<%= @desktop_login_percentage %>%)</li>
 		<li>Logins in der letzten Stunde: <%= @logins_in_last[:hour] %></li>
 		<li>Logins in den letzten 24 h: <%= @logins_in_last[:day] %></li>
 		<li>Logins in der letzten Woche: <%= @logins_in_last[:week] %></li>
