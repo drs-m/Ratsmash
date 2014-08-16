@@ -67,6 +67,15 @@ class PageStatsController < ApplicationController
         @mobile_device_logins = Login.where(:mobile_device => true).count
         @desktop_device_logins = Login.where(:mobile_device => false).count
 
+        @desktop_login_percentage = 0
+        if Login.count > 0
+            @desktop_login_percentage = ((desktop_device_logins / Login.count) * 100).to_i
+        end
+        @mobile_login_percentage = 0
+        if Login.count > 0
+            @mobile_login_percentage = ((desktop_device_logins / Login.count) * 100).to_i
+        end
+
         @logins_in_last = {hour: Login.last_hour.count, day: Login.last_day.count, week: Login.last_week.count, month: Login.last_month.count}
         
         @last_10_logins = Login.order(created_at: :desc).limit(10)
