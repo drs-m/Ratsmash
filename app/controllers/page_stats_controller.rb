@@ -69,11 +69,11 @@ class PageStatsController < ApplicationController
 
         @desktop_login_percentage = 0
         if Login.count > 0
-            @desktop_login_percentage = ((desktop_device_logins / Login.count) * 100).to_i
+            @desktop_login_percentage = ((@desktop_device_logins / Login.count) * 100).to_i
         end
         @mobile_login_percentage = 0
         if Login.count > 0
-            @mobile_login_percentage = ((desktop_device_logins / Login.count) * 100).to_i
+            @mobile_login_percentage = ((@mobile_device_logins / Login.count) * 100).to_i
         end
 
         @logins_in_last = {hour: Login.last_hour.count, day: Login.last_day.count, week: Login.last_week.count, month: Login.last_month.count}
