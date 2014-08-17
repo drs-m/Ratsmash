@@ -7,9 +7,9 @@ Ratsmash::Application.routes.draw do
 
   # voting#home als startseite
   root "voting#home", as: :home
-  
+
   resources :students
-  resources :teachers 
+  resources :teachers
   resources :categories
   resources :news
   resources :quotes
@@ -34,7 +34,7 @@ Ratsmash::Application.routes.draw do
   get "/send_contact_form", to: "contacts#send_contact_form", as: :send_contact_form
   post "/send_contact_form", to: "contacts#send_contact_form"
 
-  # account activation / password reset 
+  # account activation / password reset
   get "reset_password", to: "session#reset_password", as: :reset_password
   post "reset_password", to: "session#reset_password"
   get "change_password/(:token)", to: "students#change_password", as: :change_password
@@ -46,7 +46,7 @@ Ratsmash::Application.routes.draw do
   get "logout", to: "session#logout", as: :logout
   # ONYL FOR DEVELOPMENT
   get "instant_login", to: "session#instant_login", as: :instant_login
-  
+
   # VOTING ROUTES
   get "vote", to: "voting#list", as: :category_list
   get "vote/results", to: "voting#results", as: :results
@@ -62,7 +62,7 @@ Ratsmash::Application.routes.draw do
   get "settings", to: "settings#menu", as: :settings
 
   # STATIC PAGES
-  static_pages = [:imprint, :privacy]
+  static_pages = [:imprint, :privacy, :set_head_hash]
   static_pages.each { |static_page| get static_page.to_s, to: "static#" + static_page.to_s, as: ("static_" + static_page.to_s).intern }
 
 end
