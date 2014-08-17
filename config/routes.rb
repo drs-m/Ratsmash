@@ -62,7 +62,7 @@ Ratsmash::Application.routes.draw do
   get "settings", to: "settings#menu", as: :settings
 
   # STATIC PAGES
-  static_pages = [:imprint, :privacy, :set_head_hash]
+  static_pages = [:imprint, :privacy, :update_head_information]
   static_pages.each { |static_page| get static_page.to_s, to: "static#" + static_page.to_s, as: ("static_" + static_page.to_s).intern }
 
 end

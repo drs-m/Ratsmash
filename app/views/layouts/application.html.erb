@@ -62,7 +62,7 @@
 				<% if @current_user != nil %>
 					<footer data-role="footer" data-theme="b" data-position="fixed">
 							<h3>
-								<%= raw("Eingeloggt als " + @current_user.name + ((Rails.env.production? and @current_user.admin_permissions) ? " <span><a id='git-version' href='http://github.com/Ratsmash-dev/RMash/commit/#{ENV['HEAD_HASH']}' target='_blank'>Version: #{ENV['HEAD_HASH'][0..5]}</a></span>" : "")) %>
+								<%= "Eingeloggt als " + @current_user.name %>
 							</h3>
 					</footer>
 				<% end %>
