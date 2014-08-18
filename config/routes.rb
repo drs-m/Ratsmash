@@ -1,15 +1,19 @@
 Ratsmash::Application.routes.draw do
 
-
-    # namespace :api, path: "/", constraints: { subdomain: "api" } do
-    #    namespace :v1 do
-
+    # API Routing
+    namespace :api, path: "/", constraints: { subdomain: "api" } do
+        namespace :v1 do
+            resources :students, only: [:index]
+            resources :votes, only: [:index]
+            resources :categories, only: [:index]
+        end
+    end
 
     get 'page_stats/index'
     post 'page_stats/index'
 
     get 'impress/index'
-    
+
     # voting#home als startseite
     root "voting#home", as: :home
 
