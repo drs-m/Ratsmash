@@ -1,5 +1,3 @@
 == Ratsmash
 
 Projekt für den Informatik-Unterricht am Ratsgymnasium Osnabrück.
-
-http://rmash.herokuapp.com

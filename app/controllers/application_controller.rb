@@ -9,10 +9,6 @@ class ApplicationController < ActionController::Base
 	helper_method :mobile_device?
 	before_filter :setOnlineStatus
 
-	def default_url_options
-		Rails.env.production? ? {:host => "rmash.herokuapp.com"} : {} # necessary?
- 	end
-
  	def setOnlineStatus
  		if logged_in?
  			@current_user.update_attributes :last_seen_at => Time.now
@@ -24,7 +20,7 @@ class ApplicationController < ActionController::Base
 			request.user_agent =~ /Mobile|webOS|Android|PlayBook|Kindle|Kindle Fire|Windows Phone/
 		end
 
-		# optionen: admin_permissions || redirect 
+		# optionen: admin_permissions || redirect
 		def check_session(options = {})
 			# wenn eine session vorhanden ist
 			if cookies.signed[:at]
@@ -40,7 +36,7 @@ class ApplicationController < ActionController::Base
 		  		redirect_to :login and return if options[:redirect] # es ist keine session vorhanden --> user muss sich einloggen: weiterleitung
 		 	end
 		 	#Zeitzone setzten bzw. Zeitverschiebung zu UTC
-		 	@timezone = 2			
+		 	@timezone = 2
 		end
 
 		def logged_in?
