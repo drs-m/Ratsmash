@@ -9,13 +9,13 @@ namespace :rmash do
 		important = ["Darius Mewes"]
 		results = Student.where name: important if not important.empty?
 		# results << Student.where(password_digest: nil).where.not(name: important) # NICHT AUSKOMMENTIEREN!!!
-		
+
 		began = Time.now
 
 		results.each do |student|
 			student.send_launch_info_mail
 		end
-		
+
 		diff = Time.now - began
 		minutes = (diff / 60).to_i
 		seconds = (diff % 60).to_i
@@ -51,6 +51,34 @@ namespace :rmash do
 			gender = gender_string == "m" # male
 			Student.create name: name, mail_address: email, gender: gender
 		end
+	end
+
+	task :clear_table, [:model_name] => :environment do |t, args|
+		deleted_entries = (args[:model_name].to_s.singularize.capitalize.constantize).delete_all
+		puts deleted_entries.to_s + " Einträge gelöscht!"
+	end
+
+	task :generate_votes => :environment do
+		began = Time.now
+		count = 0
+		Student.all.each do |voter|
+			Student.all.each do |voted|
+				vote = voter.given_votes.build
+				vote.rating = rand(1..3)
+				vote.voted_type = "Student"
+				vote.voted_id = voted.id
+				random_category = Category.find Group.all_students.categories.sample
+				vote.category_id = random_category.id
+				vote.save
+				count += 1
+				puts "#{count}. Vote erstellt: #{voter.name} -> #{voted.name} | #{random_category.name}"
+			end
+		end
+
+		diff = Time.now - began
+		minutes = (diff / 60).to_i
+		seconds = (diff % 60).to_i
+		puts "[#{Time.now}] Votes generated. Took #{minutes}:#{seconds}"
 	end
 
 	task :setup_groups => :environment do
