@@ -44,4 +44,19 @@ class ApplicationController < ActionController::Base
 			return @current_user.present?
 		end
 
+		# API Controllers
+
+		def api_authentication
+			api_authenticate_http_basic || render_unauthorized
+		end
+
+		def api_authenticate_http_basic
+			authenticate_with_http_basic { |mail, password| Student.authenticate(mail, password) }
+		end
+
+		def render_unauthorized
+			self.headers["WWW-Authenticate"] = 'Basic realm="Application"'
+			render json: "Bad credentials", status: 401
+		end
+
 end

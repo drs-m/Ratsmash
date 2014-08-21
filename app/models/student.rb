@@ -24,6 +24,11 @@ class Student < ActiveRecord::Base
 
 	validates :name, :mail_address, presence: true
 
+	def self.authenticate(mail_address, password)
+		student = self.find_by(mail_address: mail_address)
+		return student.present? && student.authenticate(password).present?
+	end
+
 	def online?
 		if self.last_seen_at != nil
 			if self.updated_at > 10.minutes.ago
@@ -31,7 +36,7 @@ class Student < ActiveRecord::Base
 			else
 				return false
 			end
-		else 
+		else
 			return false
 		end
 	end

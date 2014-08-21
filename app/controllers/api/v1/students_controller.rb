@@ -3,6 +3,8 @@ module API
 module V1
 class StudentsController < ApplicationController
 
+    before_action :api_authentication
+
     def index
         students = Student.all
         students = students.where gender: (params[:gender] == "m") if params[:gender]
