@@ -1,11 +1,66 @@
 # encoding: utf-8
+
 namespace :rmash do
+
+	task :mirror_db => :environment do
+		require "net/http"
+		require "uri"
+
+		host = "http://api.dariusmewes.de/"
+		api_version = 1
+
+		puts "Lösche Datenbank..."
+		Rake::Task["db:drop"].invoke
+		puts "Erstelle neue Datenbank..."
+		Rake::Task["db:create"].invoke
+		puts "Erstelle neue Tabellen..."
+		Rake::Task["db:migrate"].invoke
+		puts "Erstelle Gruppen..."
+		Rake::Task["rmash:setup_groups"].invoke
+
+		puts "Importiere Daten von #{host} ..."
+		puts "Bitte gib deine E-Mail Adresse ein:"
+		email = STDIN.gets.chomp
+		puts "Bitte gib dein Passwort ein:"
+		password = STDIN.gets.chomp
+
+		error = false
+
+		[:students, :categories].each do |type|
+			uri = URI.parse(host + "v#{api_version.to_s}/#{type.to_s}")
+			http = Net::HTTP.new(uri.host, uri.port)
+			request = Net::HTTP::Get.new(uri.request_uri)
+			request.basic_auth email, password
+			response = http.request(request)
+			if response.code == "200"
+				json = JSON.parse(response.body)
+				json.each do |entry|
+					if type == :students
+						student_data = {}
+						student_data.merge!({ name: entry["name"] })
+						student_data.merge!({ mail_address: entry["mail_address"] })
+						student_data.merge!({ password_digest: entry["password_digest"] })
+						student_data.merge!({ gender: entry["gender"] })
+						student_data.merge!({ closed: entry["closed"] })
+						student_data.merge!({ admin_permissions: entry["admin_permissions"] })
+						student = Student.new student_data
+						student.valid? ? student.save : puts(student.errors.messages)
+					elsif type == :categories
+						category_data = { name: entry["name"], group_id: entry["group_id"], closed: entry["closed"] }
+						category = Category.new category_data
+						category.valid? ? category.save : puts(category.errors.messages)
+					end
+				end
+			else
+				error = true
+			end
+		end
+		puts(error ? "Die eingegebenen Daten sind nicht korrekt!" : "#{Category.count} Kategorien und #{Student.count} Schüler wurden hinzugefügt!")
+	end
 
 	desc "Initial mail delivery"
 	task :launch_mail_delivery => :environment do
 		puts "[#{Time.now}] Sending emails..."
-		# array für menschen aus dem informatik-kurs
-		# important = ["Aaron Asman", "Baris Bektas", "Claudia Marquard", "Daniel Ehrmanntraut", "Dominik Lammers", "Eric Cassens", "Lutz Jansing", "Marcel Sievers", "Moritz Kerstan", "Rafael Berdelmann", "Sebastian Stelter", "Tom Ricciuti"]
 		important = ["Darius Mewes"]
 		results = Student.where name: important if not important.empty?
 		# results << Student.where(password_digest: nil).where.not(name: important) # NICHT AUSKOMMENTIEREN!!!
