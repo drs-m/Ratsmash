@@ -8,6 +8,15 @@ group :development do
     gem 'binding_of_caller'
 end
 
+gem "spring", group: [:development, :test]
+
+group :test do
+	gem "rspec-rails"
+	gem "spring-commands-rspec"
+	gem "guard-rspec"
+	gem "rb-fsevent" if `uname` =~ /Darwin/
+end
+
 group :production do
 	# use postgresql as database
 	gem 'pg'
@@ -27,6 +36,7 @@ gem 'jquery-datatables-rails', github: 'rweng/jquery-datatables-rails'
 gem 'yui-compressor'
 gem 'uglifier', '>= 1.3.0'
 
+# timezone data
 gem 'tzinfo-data'
 
 gem 'jquery-rails', '>= 3.0.0'
@@ -42,9 +52,3 @@ end
 
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
-
-# Use Capistrano for deployment
-# gem 'capistrano', group: :development
-
-# Use debugger
-# gem 'debugger', group: [:development, :test]
