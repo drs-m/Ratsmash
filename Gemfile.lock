@@ -221,7 +221,6 @@ DEPENDENCIES
   pg
   rails (= 4.1.0)
   rails_12factor
-  rb-fsevent
   rspec-rails
   sass-rails (~> 4.0.2)
   sdoc
