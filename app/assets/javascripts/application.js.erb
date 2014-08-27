@@ -107,7 +107,7 @@ $(document).ready(function(){
 		}
 		update_newsticker();
 	});
-	$( "#newsticker").on( "swipeleft", function(){
+	$("#newsticker").on( "swipeleft", function(){
 		if(news_index==amount_of_actual_news - 1){
 			news_index = 0;
 		}
@@ -116,7 +116,7 @@ $(document).ready(function(){
 		}
 		update_newsticker();
 	});
-	$( "#newsticker").on( "swiperight", function(){
+	$("#newsticker").on( "swiperight", function(){
 		if(news_index==0){
 			news_index = amount_of_actual_news - 1;
 		}
@@ -126,10 +126,10 @@ $(document).ready(function(){
 		update_newsticker();
 	});
 
-	$("#newsticker").hover(function(){
+	$(".ticker_subject").hover(function(){
 		clearInterval(newsticker_interval);
 	});
-	$("#newsticker").mouseout(function(){
+	$(".ticker_subject").mouseout(function(){
 		newsticker_interval = window.setInterval("nextNews()", 5000);
 	});
 
