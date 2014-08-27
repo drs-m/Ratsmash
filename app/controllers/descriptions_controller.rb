@@ -50,6 +50,8 @@ class DescriptionsController < ApplicationController
 			case params[:state]
 				when "accept"
 					status = 1
+				when "not_sure"
+					status = 0
 				when "reject"
 					status = -1
 			end
