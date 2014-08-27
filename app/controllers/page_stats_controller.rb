@@ -64,17 +64,17 @@ class PageStatsController < ApplicationController
 
     	@total_logins = Login.count
 
-        @mobile_device_logins = Login.where(:mobile_device => true).count
-        @desktop_device_logins = Login.where(:mobile_device => false).count
+        @mobile_device_logins = Login.where(:mobile_device => true).count.to_f
+        @desktop_device_logins = Login.where(:mobile_device => false).count.to_f
 
-        @desktop_login_percentage = 0
+        @desktop_login_percentage = 0.0
         if Login.count > 0
-            @desktop_login_percentage = (@desktop_device_logins / Login.count) * 100
+            @desktop_login_percentage = (@desktop_device_logins / Login.count.to_f) * 100
             @desktop_login_percentage = @desktop_login_percentage.round(2)
         end
-        @mobile_login_percentage = 0
+        @mobile_login_percentage = 0.0
         if Login.count > 0
-            @mobile_login_percentage = (@mobile_device_logins / Login.count) * 100
+            @mobile_login_percentage = (@mobile_device_logins / Login.count.to_f) * 100
             @mobile_login_percentage = @mobile_login_percentage.round(2)
         end
 
