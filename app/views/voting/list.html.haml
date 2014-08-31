@@ -24,7 +24,7 @@
 								%td
 									%ul
 										- group.categories.order(:name).each do |category|
-											%li= link_to category.name, give_vote_path(category.id)		
+											%li= link_to category.name, give_vote_path(category.id)
 - else 	
 	#icon_info_box
 
