@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140813082909) do
+ActiveRecord::Schema.define(version: 20141002142615) do
 
   create_table "categories", force: true do |t|
     t.string   "name"
@@ -54,6 +54,28 @@ ActiveRecord::Schema.define(version: 20140813082909) do
     t.string   "subject"
     t.string   "author"
     t.text     "content"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "poll_answers", force: true do |t|
+    t.string   "description"
+    t.integer  "poll_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "poll_votes", force: true do |t|
+    t.integer  "student_id"
+    t.integer  "poll_answer_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "polls", force: true do |t|
+    t.string   "name"
+    t.text     "content"
+    t.integer  "student_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
