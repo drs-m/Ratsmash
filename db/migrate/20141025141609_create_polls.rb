@@ -2,8 +2,7 @@ class CreatePolls < ActiveRecord::Migration
   def change
     create_table :polls do |t|
       t.string :name
-      t.text :content
-      t.integer :student_id
+      t.text :description
 
       t.timestamps
     end

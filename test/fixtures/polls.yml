@@ -2,10 +2,8 @@
 
 one:
   name: MyString
-  content: MyText
-  author_id: MyString
+  description: MyText
 
 two:
   name: MyString
-  content: MyText
-  author_id: MyString
+  description: MyText
