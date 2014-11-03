@@ -61,7 +61,7 @@ namespace :rmash do
 	desc "Initial mail delivery"
 	task :launch_mail_delivery => :environment do
 		puts "[#{Time.now}] Sending emails..."
-		important = ["Darius Mewes"]
+		important = ["Darius Mewes", "Felix Stöckel"]
 		results = Student.where name: important if not important.empty?
 		# results << Student.where(password_digest: nil).where.not(name: important) # NICHT AUSKOMMENTIEREN!!!
 
