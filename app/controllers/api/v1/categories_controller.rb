@@ -6,11 +6,16 @@ class CategoriesController < ApplicationController
     before_action :api_authentication
 
     def index
-        categories = Category.all
+        categories = Category.order :id
         if params[:group_id]
             categories = categories.where group_id: params[:group_id]
         end
-        render json: categories, except: [:created_at, :updated_at], status: :ok
+
+        if params[:p]
+            render json: JSON.pretty_generate(JSON.parse(categories.to_json.to_s))
+        else
+            render json: categories, except: [:created_at, :updated_at], status: :ok
+        end
     end
 
 end
