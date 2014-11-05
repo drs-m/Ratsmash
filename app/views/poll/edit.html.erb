@@ -1,0 +1,39 @@
+<h1><%= @poll.name %>-Umfrage bearbeiten</h1>
+<%= form_tag poll_path, method: :put do %>
+	<%= hidden_field_tag :poll_id, @poll.id %>
+	<b>Thema</b> <%= text_field_tag :name, @poll.name %><br /><br />
+	<b>Frage</b> <%= text_field_tag :question, @poll.question %><br /><br /><br />
+	<fieldset>
+		<legend><b><i>Votingmöglichkeiten</i></b></legend>
+		<br />
+		<p>(Ein leeres Votingmöglichkeit-Eingabefeld kommt einer Löschung dieser Abstimmungsmöglichkeit und aller damit verbundenen bis jetzt abgegebenen Stimmabgaben zu dieser Möglichkeit gleich!!!)</p>
+		<br />
+		<% i = 0 %>
+		<% PollOption.where(:poll_id => @poll.id).each do |poll_option| %>
+			<b>Votingmöglichkeit</b> <%= text_field_tag "voting_op["+i.to_s+"]", poll_option.name %><br /><br />
+			<% i += 1 %>
+		<% end %>
+		<% i = 0 %>
+		<% PollOption.where(:poll_id => @poll.id).each do |poll_option| %>
+			<%= hidden_field_tag "poll_option_id["+i.to_s+"]", poll_option.id %>
+			<% i += 1 %>
+		<% end %>
+	</fieldset>
+	<%= submit_tag "Umfrage bearbeiten" %>
+<% end %>
+<p>
+	<br />
+	<table>
+		<tr>
+			<td>
+				<%= link_to "Zur Umfrage", poll_path(@poll.id) %>
+			</td>
+			<td>
+				<%= link_to "Löschen", poll_path(@poll.id), method: :delete, data: { confirm: "Wirklich löschen?" } %>
+			</td>
+			<td>
+				<%= link_to "Alle Umfragen", poll_index_path %>
+			</td>
+		</tr>
+	</table>
+</p>

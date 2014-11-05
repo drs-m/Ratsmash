@@ -13,6 +13,14 @@
 mobileMenueIsShown = false;
 accountMenueIsShown = false;
 news_index = 0;
+poll_option_fields_counter = 2;
+
+function add_poll_voting_opportunity(){
+	poll_option_fields_counter ++;
+	var poll_options_html = $('#poll_options').html();
+	var new_poll_option_field = '<b>Votingmöglichkeit</b> <input id="voting_op_'+(poll_option_fields_counter-1)+'" name="voting_op['+(poll_option_fields_counter-1)+']" placeholder="'+poll_option_fields_counter+'. Votingmöglichkeit" type="text" /><br /><br />';
+	$('#poll_options').html(poll_options_html+new_poll_option_field);
+}
 
 function closeDdMenues(){
 	document.getElementById("acc_link_dd").style.display = "none";

@@ -1,0 +1,70 @@
+<h1><%= @poll.name %></h1>
+<h2><%= @poll.question %></h2>
+<h2>Votingmöglichkeiten</h2>
+<ul>
+	<% i=0 %>
+	<% PollOption.where(:poll_id => @poll.id).each do |vote_option| %>
+		<table>
+			<tr>
+				<td>
+					<% if !@my_vote.blank? %>
+						<%= vote_option.name %> (<%= @poll_voting_absolute_results[i] %> Stimmen / <%= @poll_voting_relative_results[i] %> %)
+					<% else %>
+						<%= vote_option.name %> (? Stimmen / ? %)
+					<% end %>
+					<% i+=1 %>
+				</td>
+				<td>
+					<% if @my_vote.blank? %>
+						<%= form_tag "/vote_poll", method: :post do %>
+							<%= hidden_field_tag :poll_id, @poll.id %>
+							<%= hidden_field_tag :op_id, vote_option.id %>
+							<%= submit_tag "Vote for it!" %>
+						<% end %>
+					<% else %>
+						<% if @my_vote.poll_option_id == vote_option.id %>
+							<table>
+								<tr>
+									<td>
+										<button>Dein Vote!</button>
+									</td>
+									<td>
+										<%= form_tag "/remove_vote_poll", method: :post do %>
+											<%= hidden_field_tag :poll_id, @poll.id %>
+											<%= hidden_field_tag :op_id, vote_option.id %>
+											<%= submit_tag "Vote zurückziehen" %>
+										<% end %>
+									</td>
+								</tr>
+							</table>
+						<% end %>
+					<% end %>
+				</td>
+			</tr>
+		</table>
+	<% end %>
+</ul>
+<% if @current_user.admin_permissions %>
+	<h2>Füge Votingmöglichkeit hinzu</h2>
+	<%= form_tag "/add_poll_vote_options", method: :post do %>
+		<%= hidden_field_tag :poll_id, @poll.id %>
+		<b>Votingmöglichkeit</b> <%= text_field_tag :op, nil, placeholder: "Votingmöglichkeit" %>
+		<%= submit_tag "Hinzufügen" %>
+	<% end %>
+<% end %>
+<p>
+	<br />
+	<table>
+		<tr>
+			<td>
+				<%= link_to "Bearbeiten", edit_poll_path(@poll.id) %>
+			</td>
+			<td>
+				<%= link_to "Löschen", poll_path(@poll.id), method: :delete, data: { confirm: "Wirklich löschen?" } %>
+			</td>
+			<td>
+				<%= link_to "Alle Umfragen", poll_index_path %>
+			</td>
+		</tr>
+	</table>
+</p>

@@ -7,6 +7,14 @@ class VotingController < ApplicationController
 		@descriptions_status = @current_user.descriptions.unchecked.empty? ? "keine ungeordneten Beschreibungen" : "Du hast noch nicht eingeordnete Beschreibungen"
 		@actual_news = News.all.order(:updated_at).reverse.first(5)
 		@amount_of_actual_news = @actual_news.count
+
+		@not_voted_polls = false
+		polls_already_voted_for_id = PollVote.where(:student_id => @current_user.id).pluck(:poll_id)
+ 		Poll.all.each do |poll|
+ 			if !poll.id.in? polls_already_voted_for_id
+ 				@not_voted_polls = true
+ 			end
+ 		end
 	end
 
 	def results

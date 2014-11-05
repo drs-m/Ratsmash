@@ -6,7 +6,13 @@
 
 	%p= "Hallo " + @current_user.name
 
-	%p= @descriptions_status
+	%span= @descriptions_status + " - "
+	%span= link_to "Beschreibungen", descriptions_path
+	%p
+	- if @not_voted_polls
+		%span= "Du hast noch offene Umfragen - " 
+		%span= link_to "Umfragen", poll_index_path
+
 	%h2 Newsticker
 	#newsticker
 		= image_tag("left_arrow.jpg",height:30,id:"left_arrow")
@@ -31,7 +37,12 @@
 
 	%p= "Hallo " + @current_user.name
 
-	%p= @descriptions_status
+	%span= @descriptions_status + " - "
+	%span= link_to "Beschreibungen", descriptions_path
+	%p
+	- if @not_voted_polls
+		%span= "Du hast noch offene Umfragen - " 
+		%span= link_to "Umfragen", poll_index_path
 	%h2 Newsticker
 	#newsticker
 		%ul
