@@ -61,7 +61,7 @@ namespace :rmash do
 	desc "Initial mail delivery"
 	task :launch_mail_delivery => :environment do
 		puts "[#{Time.now}] Sending emails..."
-		important = ["Darius Mewes"]
+		important = ["Darius Mewes", "Felix Stöckel"]
 		results = Student.where name: important if not important.empty?
 		# results << Student.where(password_digest: nil).where.not(name: important) # NICHT AUSKOMMENTIEREN!!!
 
@@ -138,9 +138,9 @@ namespace :rmash do
 
 	task :setup_groups => :environment do
 		Group.destroy_all
-		Group.create name: "Alle", female: true, male: true, student: true, teacher: true
-		Group.create name: "Alle Frauen", female: true, student: true, teacher: true
-		Group.create name: "Alle Männer", male: true, student: true, teacher: true
+		Group.create name: "Alle", female: true, male: true, student: true, teacher: true # unused
+		Group.create name: "Alle Frauen", female: true, student: true, teacher: true # unused
+		Group.create name: "Alle Männer", male: true, student: true, teacher: true # unused
 		Group.create name: "Alle Schüler", female: true, male: true, student: true
 		Group.create name: "Alle Lehrer", female: true, male: true, teacher: true
 		Group.create name: "Schüler", male: true, student: true

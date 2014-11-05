@@ -1,5 +1,7 @@
 Ratsmash::Application.routes.draw do
 
+  resources :polls
+
     # API Routing
     namespace :api, path: "/", constraints: { subdomain: "api" } do
         namespace :v1 do

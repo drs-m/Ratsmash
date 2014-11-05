@@ -7,7 +7,7 @@
 			%li= link_to "Beschreibungen", descriptions_path
 			%li= link_to "News", news_index_path
 			-if @current_user.admin_permissions
-				%li= link_to "Administration", :settings 
+				%li= link_to "Administration", :settings
 			%li= link_to "Passwort ändern", :change_password
 			%li= link_to "Logout", :logout
 
@@ -18,14 +18,14 @@
 
 #menue
 	-if !mobile_device?
-		%a{:title => "Ratsmash-Logo", :href => "/"}= image_tag("Rmash.png", height: 40, alt: "Ratsmash-Logo")
+		%a{:title => "Ratsmash-Logo", :href => "/"}= image_tag("Rmash.png", height: 40)
 	-else
-		%a{:title => "Ratsmash-Logo", :href => "/"}= image_tag("Rmash.png", alt: "Ratsmash-Logo")
+		%a{:title => "Ratsmash-Logo", :href => "/"}= image_tag("Rmash.png")
 	%ul
 		- if @current_user != nil
 			%li= link_to raw("Account &or;"), "#", id: "account_link", onclick: "manageAccountDd();"
 			-if @current_user.admin_permissions
-				%li= link_to "Administration", :settings 
+				%li= link_to "Administration", :settings
 			%li= link_to "News", news_index_path
 			%li= link_to "Zitat einreichen", :new_quote
 			%li= link_to "Beschreibungen", descriptions_path
