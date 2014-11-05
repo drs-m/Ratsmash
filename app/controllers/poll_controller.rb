@@ -30,7 +30,9 @@ class PollController < ApplicationController
 		    if !params[:name].blank? && !params[:question].blank? && !params[:voting_op].blank? && params[:voting_op].count >= 2
 		      new_poll = Poll.create :name => params[:name], :question => params[:question]
 		      params[:voting_op].each do |voting_op|
-		        PollOption.create :poll_id => new_poll.id, :name => voting_op[1]
+		      	if !voting_op[1].blank?
+		        	PollOption.create :poll_id => new_poll.id, :name => voting_op[1]
+		        end
 		      end
 		    end
 		end
