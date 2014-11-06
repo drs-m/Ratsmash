@@ -6,8 +6,8 @@
 		<legend><b><i>Votingmöglichkeiten</i></b></legend>
 		<br />
 		<span id="poll_options">
-			<b>Votingmöglichkeit</b> <%= text_field_tag "voting_op[0]", nil, placeholder: "1. Votingmöglichkeit" %><br /><br />
-			<b>Votingmöglichkeit</b> <%= text_field_tag "voting_op[1]", nil, placeholder: "2. Votingmöglichkeit" %><br /><br />
+			<b>Votingmöglichkeit</b> <%= text_field_tag "voting_op[0]", nil, value: "", onkeyup: "store_poll_option_values(0);" %><br /><br />
+			<b>Votingmöglichkeit</b> <%= text_field_tag "voting_op[1]", nil, value: "", onkeyup: "store_poll_option_values(1);" %><br /><br />
 		</span>
 		<a href="#" onclick="add_poll_voting_opportunity();">Weitere Votingmöglichkeit hinzufügen</a><br />
 	</fieldset>
