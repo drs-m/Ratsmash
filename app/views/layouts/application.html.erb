@@ -20,7 +20,16 @@
 	<body>
 		<% if !mobile_device? %>
 			<%= render "shared/menue" %>
-
+			<% if !flash[:error].blank? %>
+				<div id="error_messages">
+					<p><%= flash[:error] %></p>
+				</div>
+			<% end %>
+			<% if !flash[:notice].blank? %>
+				<div id="success_messages">
+					<p><%= flash[:notice] %></p>
+				</div>
+			<% end %>
 			<div id="webseite" onclick="closeDdMenues();">
 				<%= yield %>
 				<noscript>
@@ -34,6 +43,16 @@
 					<h1>Ratsmash</h1>
 					<a href="/" data-role="button" data-icon="home" data-iconpos="notext" data-corners="true" data-shadow="false" data-iconshadow="false"></a>
 				</header>
+				<% if !flash[:error].blank? %>
+					<div id="error_messages">
+						<p><%= flash[:error] %></p>
+					</div>
+				<% end %>
+				<% if !flash[:notice].blank? %>
+				<div id="success_messages">
+					<p><%= flash[:notice] %></p>
+				</div>
+			<% end %>
 				<nav data-role="panel" data-display="overlay" data-position="left" data-theme="b" id="menuepanel">
 					<ul data-role="listview">
 						<li role="heading">Navigation</li>
