@@ -56,8 +56,10 @@ class PageStatsController < ApplicationController
                 @students_logins = Login.where :user_id => student.id
                 @students_logins = @students_logins.reverse
             else
-                flash[:notice] = "User nicht vorhanden!"
+                flash[:error] = "User nicht vorhanden!"
             end
+        else
+            flash[:error] = "Bitte Name des Schuelers eingeben!"
         end
 
     	@now_online_students = Student.online
