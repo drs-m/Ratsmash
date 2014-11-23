@@ -38,7 +38,7 @@ class StudentsController < ApplicationController
 
     respond_to do |format|
       if @student.save
-        format.html { redirect_to @student, notice: 'Der Schüler wurde erfolgreich hinzugefügt.' }
+        format.html { redirect_to @student, notice: 'Der Schueler wurde erfolgreich hinzugefuegt.' }
         format.json { render action: 'show', status: :created, location: @student }
       else
         format.html { render action: 'new' }
@@ -77,7 +77,7 @@ class StudentsController < ApplicationController
     if params[:token]
       # password-reset
       student = Student.find_by password_reset_token: params[:token]
-      @errors << "Dieser Link ist ungültig" and @fatal = true and return unless student
+      @errors << "Dieser Link ist ungueltig" and @fatal = true and return unless student
       @name = student.name
       # @errors << "Dieser Link ist abgelaufen" and @fatal = true if student.password_reset_sent_at < 2.hours.ago
       if params[:new_password]
@@ -86,9 +86,9 @@ class StudentsController < ApplicationController
           student.password_reset_token = nil
           student.password_reset_sent_at = nil
           student.save
-          redirect_to :login, notice: "Dein Passwort wurde erfolgreich geändert!"
+          redirect_to :login, notice: "Dein Passwort wurde erfolgreich geaendert!"
         else
-          @errors << "Die Passwörter stimmen nicht überein!"
+          @errors << "Die Passwoerter stimmen nicht ueberein!"
         end
       end
     else
@@ -100,9 +100,9 @@ class StudentsController < ApplicationController
             @current_user.password = params[:new_password]
             @current_user.password_confirmation = params[:new_password]
             @current_user.save
-            redirect_to :home, notice: "Dein Passwort wurde erfolgreich geändert!"
+            redirect_to :home, notice: "Dein Passwort wurde erfolgreich geaendert!"
         else
-          @errors << "Die Passwörter stimmen nicht überein!"
+          @errors << "Die Passwoerter stimmen nicht ueberein!"
         end
       end
     end

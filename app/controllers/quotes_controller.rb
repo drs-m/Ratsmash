@@ -32,7 +32,7 @@ class QuotesController < ApplicationController
 
     respond_to do |format|
       if @quote.save
-        format.html { redirect_to new_quote_path, notice: 'Das Zitat wurde gespeichert. Danke!' }
+        format.html { redirect_to new_quote_path, notice: 'Das Zitat wurde erfolgreich gespeichert. Danke!' }
       else
         format.html { render action: 'new' }
       end
@@ -44,7 +44,7 @@ class QuotesController < ApplicationController
   def update
     respond_to do |format|
       if @quote.update(quote_params)
-        format.html { redirect_to @quote, notice: 'Quote was successfully updated.' }
+        format.html { redirect_to @quote, notice: 'Zitat wurde erfolgreich bearbeitet!' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }

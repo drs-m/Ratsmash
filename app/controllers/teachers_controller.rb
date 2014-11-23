@@ -32,7 +32,7 @@ class TeachersController < ApplicationController
 
     respond_to do |format|
       if @teacher.save
-        format.html { redirect_to @teacher, notice: 'Der Lehrer wurde erfolgreich hinzugefügt.' }
+        format.html { redirect_to @teacher, notice: 'Der Lehrer wurde erfolgreich hinzugefuegt.' }
         format.json { render action: 'show', status: :created, location: @teacher }
       else
         format.html { render action: 'new' }
