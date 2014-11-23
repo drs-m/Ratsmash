@@ -143,7 +143,10 @@ class VotingController < ApplicationController
 			end
 
 			# breche ab wenn das rating zu hoch/niedrig ist
-			redirect_to(give_vote_path(category_id: @category.id), error: "Rating (" + params[:rating] + ") zu hoch/niedrig!") and return unless (1..3).include?(params[:rating].to_i)
+			if !((1..3).include?(params[:rating].to_i))
+				flash[:error] = "Rating (" + params[:rating] + ") zu hoch/niedrig!"
+				redirect_to give_vote_path(category_id: @category.id)
+			end
 
 			#breche ab, wenn man für diese Person in dieser Kategorie nicht voten darf
 			if votedIsAllowedForCategory
@@ -152,25 +155,30 @@ class VotingController < ApplicationController
 					#fahre nur fort, wenn gevoteter nicht man selbst ist
 					if voted.id == @current_user.id && voted.class.to_s.downcase == "student"
 						# umleitung zur abstimmungsseite mit dem hinweis, dass man nicht für sich selbst voten darf
-						redirect_to give_vote_path(category_id: @category.id), error: "Du darfst nicht für dich selbst voten"
+						flash[:error] = "Du darfst nicht für dich selbst voten!"
+						redirect_to give_vote_path(category_id: @category.id)
 					else
 						# abspeicherung der stimme
 						@current_user.given_votes << voted.achieved_votes.build(category_id: @category.id, rating: params[:rating])
 						
 						# umleitung zur abstimmungsseite, sofern die stimmabgabe erfolgreich war
-						redirect_to give_vote_path(category_id: @category.id), notice: "Erfolgreich abgestimmt"
+						flash[:notice] = "Erfolgreich abgestimmt!"
+						redirect_to give_vote_path(category_id: @category.id)
 					end
 				else
 					# umleitung zur abstimmungsseite mit dem hinweis, dass man nicht zwei mail für den selben in einer kategorie voten darf
-					redirect_to give_vote_path(category_id: @category.id), error: "Du darfst nicht mehrmals für den Selben in einer Kategorie voten"
+					flash[:error] = "Du darfst nicht mehrmals für den Selben in einer Kategorie voten!"
+					redirect_to give_vote_path(category_id: @category.id)
 				end
 			else
 				# umleitung zur abstimmungsseite mit dem hinweis, dass in dieser Kategorie nicht für diese Person gevotet werden darf
-				redirect_to give_vote_path(category_id: @category.id), error: "Du darfst in dieser Kategorie nicht für " + voted.name + " voten"
+				flash[:error] = "Du darfst in dieser Kategorie nicht für " + voted.name + " voten. Ueberpruefe die Personeneigenschaften (Schueler-Lehrer ? / Maennlich-Weiblich ?) der Kategorie!"
+				redirect_to give_vote_path(category_id: @category.id)
 			end
 		else
 			# breche ab wenn kein kandidat gefunden wurde
-			redirect_to give_vote_path(category_id: @category.id), error: "Der Kandidat " + params[:candidate] + " wurde nicht gefunden!"
+			flash[:error] = "Der Kandidat " + params[:candidate] + " wurde nicht gefunden!"
+			redirect_to give_vote_path(category_id: @category.id)
 		end
 	end
 
@@ -181,10 +189,12 @@ class VotingController < ApplicationController
 			if Category.find_by_id params[:category_id]
 				@category = Category.find_by_id params[:category_id]
 			else
-				redirect_to category_list_path, error: "Vote konnte nicht geloescht werden. Unbekannte Kategorie!"
+				flash[:error] = "Vote konnte nicht geloescht werden. Unbekannte Kategorie!"
+				redirect_to category_list_path
 			end
 		else
-			redirect_to category_list_path, error: "Vote konnte nicht geloescht werden. Unbekannte Kategorie!"
+			flash[:error] = "Vote konnte nicht geloescht werden. Unbekannte Kategorie!"
+			redirect_to category_list_path
 		end
 		#prüfe, ob Parameter vote_id übergeben wurden
 		if params[:vote_id]
@@ -196,17 +206,22 @@ class VotingController < ApplicationController
 					vote. delete
 					#prüfe, ob Löschung erfolgreich war
 					if !Vote.find_by_id params[:vote_id]
-						redirect_to give_vote_path(category_id: @category.id), notice: "Vote erfolgreich geloescht!"
+						flash[:notice] = "Vote erfolgreich geloescht!"
+						redirect_to give_vote_path(category_id: @category.id)
 					else
-						redirect_to give_vote_path(category_id: @category.id), error: "Vote konnte nicht geloescht werden. Fehler im System. Versuche es bitte spaeter erneut!"
+						flash[:error] = "Vote konnte nicht geloescht werden. Fehler im System. Versuche es bitte spaeter erneut!"
+						redirect_to give_vote_path(category_id: @category.id)
 					end
 				else
-					redirect_to give_vote_path(category_id: @category.id), error: "Du kannst den Vote nicht loeschen, da du ihn nicht selbst erstellt hast!"
+					flash[:error] = "Du kannst den Vote nicht loeschen, da du ihn nicht selbst erstellt hast!"
+					redirect_to give_vote_path(category_id: @category.id)
 				end
 			else
-				redirect_to give_vote_path(category_id: @category.id), error: "Der zu loeschende Vote wurde nicht gefunden!"
+				flash[:error] = "Der zu loeschende Vote wurde nicht gefunden!"
+				redirect_to give_vote_path(category_id: @category.id)
 			end
 		else
+			flash[:error] = "Fehler im System: Parameter des zu loeschenden Votes wurden nicht übergeben. Bitte versuche es spaeter erneut!"
 			redirect_to give_vote_path(category_id: @category.id)
 		end
 	end
