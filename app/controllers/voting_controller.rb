@@ -69,7 +69,22 @@ class VotingController < ApplicationController
 	end
 
 	def list
-		@groupset = [[Group.everyone, Group.all_female, Group.all_male], [Group.all_students, Group.female_students, Group.male_students], [Group.all_teachers, Group.female_teachers, Group.male_teachers]]
+		@teacher_cats = []
+		@student_cats = []
+
+		Category.all.order(:name).each do |cat|
+			if Group.find_by_id(cat.group_id).teacher && !Group.find_by_id(cat.group_id).student
+				@teacher_cats << cat
+			elsif !Group.find_by_id(cat.group_id).teacher && Group.find_by_id(cat.group_id).student
+				@student_cats << cat
+			end			
+		end
+
+		@more_student_cats = true
+
+		if @teacher_cats.count > @student_cats.count
+			@more_student_cats = false
+		end
 	end
 
 	def choose

@@ -151,18 +151,6 @@ $(document).ready(function(){
 		newsticker_interval = window.setInterval("nextNews()", 5000);
 	});
 
-	if(window.location.pathname == "/vote"){
-		$("img").mousemove(function(e){
-			$("#icon_info_box").css("display","block");
-			$("#icon_info_box").css("top",e.clientY);
-			$("#icon_info_box").css("left",e.clientX);
-			$("#icon_info_box").html($(this).attr("alt"));
-		});
-		$("img").mouseout(function(){
-			$("#icon_info_box").css("display","none");
-		});
-	}
-
 	if(window.location.pathname == "/release_state"){
 		$.ajax({
 			url: "get_mail_status",
