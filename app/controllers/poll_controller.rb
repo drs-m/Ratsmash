@@ -1,5 +1,7 @@
 class PollController < ApplicationController
 
+	before_action -> { check_session redirect: true }
+	
 	def index
  		polls_already_voted_for_id = PollVote.where(:student_id => @current_user.id).pluck(:poll_id)
  		@polls_already_voted_for = []
