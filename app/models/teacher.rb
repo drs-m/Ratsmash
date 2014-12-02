@@ -7,6 +7,8 @@ class Teacher < ActiveRecord::Base
 	scope :name_search, ->(name = "") { where("name LIKE ?", "%#{name}%") unless name.empty? }
 	scope :male, -> { where gender: true }
 	scope :female, -> { where gender: false }
+
+	validates :name, presence: true
 	
 	def male
 		if self.gender
