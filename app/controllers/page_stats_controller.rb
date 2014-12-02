@@ -58,8 +58,6 @@ class PageStatsController < ApplicationController
             else
                 flash[:error] = "User nicht vorhanden!"
             end
-        else
-            flash[:error] = "Bitte Name des Schuelers eingeben!"
         end
 
     	@now_online_students = Student.online

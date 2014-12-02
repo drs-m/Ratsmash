@@ -73,7 +73,7 @@
 <p>
 	<h2>Logins eines bestimmten Nutzers</h2>
 	<%= form_tag(page_stats_index_path, method: :post) do %>
-		<%= select_tag "name", options_from_collection_for_select(Student.all.order(:name), "name", "name") %>
+		<%= select_tag "name", options_from_collection_for_select(Student.all.order(:name), "name", "name"), prompt: "Bitte auswählen" %>
 		<%= submit_tag "Logins anzeigen" %>
 	<% end %>
 </p>
