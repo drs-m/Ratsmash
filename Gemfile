@@ -19,10 +19,6 @@ end
 group :production do
 	# use postgresql as database
 	gem 'pg'
-	# gem for heroku
-	gem 'rails_12factor'
-	# use unicorn as the webserver
-	gem 'unicorn'
 end
 
 # Use sass, coffee and haml for simpler code
