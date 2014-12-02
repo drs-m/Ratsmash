@@ -34,7 +34,8 @@ class QuotesController < ApplicationController
       if @quote.save
         format.html { redirect_to new_quote_path, notice: 'Das Zitat wurde erfolgreich gespeichert. Danke!' }
       else
-        format.html { render action: 'new', error: 'Zitat konnte nicht gespeichert werden' }
+        flash[:error] = 'Zitat konnte nicht gespeichert werden'
+        format.html { render action: 'new' }
       end
     end
   end
@@ -47,7 +48,8 @@ class QuotesController < ApplicationController
         format.html { redirect_to @quote, notice: 'Zitat wurde erfolgreich bearbeitet!' }
         format.json { head :no_content }
       else
-        format.html { render action: 'edit', error: 'Zitat konnte nicht bearbeitet werden' }
+        flash[:error] = 'Zitat konnte nicht bearbeitet werden'
+        format.html { render action: 'edit' }
         format.json { render json: @quote.errors, status: :unprocessable_entity }
       end
     end

@@ -31,7 +31,8 @@ class CategoriesController < ApplicationController
       if @category.save
         format.html { redirect_to categories_path, notice: 'Die Kategorie wurde erfolgreich hinzugefügt.' }
       else
-        format.html { render action: 'new', error: 'Kategorie konnte nicht angelegt werden' }
+        flash[:error] = 'Kategorie konnte nicht angelegt werden'
+        format.html { render action: 'new' }
       end
     end
   end
@@ -42,7 +43,8 @@ class CategoriesController < ApplicationController
       if @category.update(category_params)
         format.html { redirect_to categories_path, notice: 'Der Eintrag wurde erfolgreich bearbeitet.' }
       else
-        format.html { render action: 'edit', error: 'Kategorie konnte nicht bearbeitet werden' }
+        flash[:error] = 'Kategorie konnte nicht bearbeitet werden'
+        format.html { render action: 'edit' }
       end
     end
   end

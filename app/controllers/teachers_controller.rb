@@ -35,7 +35,8 @@ class TeachersController < ApplicationController
         format.html { redirect_to @teacher, notice: 'Der Lehrer wurde erfolgreich hinzugefuegt.' }
         format.json { render action: 'show', status: :created, location: @teacher }
       else
-        format.html { render action: 'new', error: 'Leherer konnte nicht angelegt werden' }
+        flash[:error] = 'Lehrer konnte nicht angelegt werden'
+        format.html { render action: 'new' }
         format.json { render json: @teacher.errors, status: :unprocessable_entity }
       end
     end
@@ -49,7 +50,8 @@ class TeachersController < ApplicationController
         format.html { redirect_to @teacher, notice: 'Der Eintrag wurde erfolgreich bearbeitet.' }
         format.json { head :no_content }
       else
-        format.html { render action: 'edit', error: 'Leherer konnte nicht bearbeitet werden' }
+        flash[:error] = 'Lehrer konnte nicht bearbeitet werden'
+        format.html { render action: 'edit' }
         format.json { render json: @teacher.errors, status: :unprocessable_entity }
       end
     end

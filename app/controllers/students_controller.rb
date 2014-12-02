@@ -41,7 +41,8 @@ class StudentsController < ApplicationController
         format.html { redirect_to @student, notice: 'Der Schueler wurde erfolgreich hinzugefuegt.' }
         format.json { render action: 'show', status: :created, location: @student }
       else
-        format.html { render action: 'new', error: 'Schueler konnte nicht angelegt werden' }
+        flash[:error] = 'Schueler konnte nicht angelegt werden'
+        format.html { render action: 'new' }
         format.json { render json: @student.errors, status: :unprocessable_entity }
       end
     end
@@ -55,7 +56,8 @@ class StudentsController < ApplicationController
         format.html { redirect_to @student, notice: 'Der Eintrag wurde erfolgreich bearbeitet.' }
         format.json { head :no_content }
       else
-        format.html { render action: 'edit', error: 'Schueler konnte nicht bearbeitet werden' }
+        flash[:error] = 'Schueler konnte nicht bearbeitet werden'
+        format.html { render action: 'edit' }
         format.json { render json: @student.errors, status: :unprocessable_entity }
       end
     end
