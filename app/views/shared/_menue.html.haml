@@ -6,6 +6,7 @@
 			%li= link_to "Umfragen", poll_index_path
 			%li= link_to "Beschreibungen", descriptions_path
 			%li= link_to "News", news_index_path
+			%li= link_to "Zitat einreichen", :new_quote
 			-if @current_user.admin_permissions
 				%li= link_to "Administration", :settings
 			%li= link_to "Passwort ändern", :change_password
