@@ -19,7 +19,10 @@
 *.sublime-workspace
 *.sublime-project
 
+# Ignore cloud 9 IDE folder (c9.io)
 .c9/
+
+*.swp
 
 # Ignore ‚git-ignored intern files‘
 /giif
