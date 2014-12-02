@@ -28,7 +28,7 @@ gem 'sass-rails', '~> 4.0.2'
 gem 'haml'
 gem 'coffee-rails', '~> 4.0.0'
 
-gem 'jquery-datatables-rails', github: 'rweng/jquery-datatables-rails'
+gem 'jquery-datatables-rails', '~> 3.1.1'
 gem 'jquery-rails', '>= 3.0.0'
 gem 'jquery-ui-rails', '5.0.0'
 
