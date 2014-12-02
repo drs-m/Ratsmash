@@ -6,6 +6,8 @@ group :development do
 	gem 'sqlite3'
     gem 'better_errors'
     gem 'binding_of_caller'
+	gem 'capistrano', '~> 3.1.0'
+	gem 'capistrano-rails', '~> 1.1.0'
 end
 
 gem "spring", group: [:development, :test]
@@ -25,7 +27,11 @@ end
 gem 'sass-rails', '~> 4.0.2'
 gem 'haml'
 gem 'coffee-rails', '~> 4.0.0'
+
 gem 'jquery-datatables-rails', github: 'rweng/jquery-datatables-rails'
+gem 'jquery-rails', '>= 3.0.0'
+gem 'jquery-ui-rails', '5.0.0'
+
 
 # use yui and uglifier for asset compression
 gem 'yui-compressor'
@@ -33,9 +39,6 @@ gem 'uglifier', '>= 1.3.0'
 
 # timezone data
 gem 'tzinfo-data'
-
-gem 'jquery-rails', '>= 3.0.0'
-gem 'jquery-ui-rails', '5.0.0'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
