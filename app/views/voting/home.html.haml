@@ -5,9 +5,10 @@
 			%li= message
 
 	%p= "Hallo " + @current_user.name
-
-	%span= @descriptions_status + " - "
-	%span= link_to "Beschreibungen", descriptions_path
+	%p
+	- if @not_ordered_descriptions
+		%span= "Du hast noch ungeordnete Beschreibungen - " 
+		%span= link_to "Beschreibungen", descriptions_path
 	%p
 	- if @not_voted_polls
 		%span= "Du hast noch offene Umfragen - " 
@@ -36,9 +37,10 @@
 			%li= message
 
 	%p= "Hallo " + @current_user.name
-
-	%span= @descriptions_status + " - "
-	%span= link_to "Beschreibungen", descriptions_path
+	%p
+	- if @not_ordered_descriptions
+		%span= "Du hast noch ungeordnete Beschreibungen - " 
+		%span= link_to "Beschreibungen", descriptions_path
 	%p
 	- if @not_voted_polls
 		%span= "Du hast noch offene Umfragen - " 

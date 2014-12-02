@@ -4,7 +4,10 @@ class VotingController < ApplicationController
 	before_action -> { check_session redirect: true }
 
 	def home
-		@descriptions_status = @current_user.descriptions.unchecked.empty? ? "keine ungeordneten Beschreibungen" : "Du hast noch nicht eingeordnete Beschreibungen"
+		@not_ordered_descriptions = false 
+		if !@current_user.descriptions.unchecked.empty?
+			@not_ordered_descriptions = true
+		end
 		@actual_news = News.all.order(:updated_at).reverse.first(5)
 		@amount_of_actual_news = @actual_news.count
 

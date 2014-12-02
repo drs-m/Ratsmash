@@ -20,7 +20,7 @@ class DescriptionsController < ApplicationController
 		#render text: @description.to_yaml and return
 
 		if @description.save
-			redirect_to :descriptions, notice: 'Die Kategorie wurde erfolgreich hinzugefügt.'
+			redirect_to :descriptions, notice: 'Die Beschreibung wurde erfolgreich verschickt.'
 		else
 			render action: 'new'
 		end
@@ -59,7 +59,7 @@ class DescriptionsController < ApplicationController
 			if @description.update status: status
 				redirect_to :descriptions
 			else
-				recirect_to :descriptions, notice: "Die Beschreibung konnte nicht eingeordnet werden"
+				recirect_to :descriptions, error: "Die Beschreibung konnte nicht eingeordnet werden"
 			end
 		end
 	end
