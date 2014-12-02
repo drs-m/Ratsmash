@@ -22,7 +22,7 @@ class DescriptionsController < ApplicationController
 		if @description.save
 			redirect_to :descriptions, notice: 'Die Beschreibung wurde erfolgreich verschickt.'
 		else
-			render action: 'new'
+			render action: 'new', error: 'Beschreibung konnte nicht erstellt werden'
 		end
 	end
 
@@ -36,7 +36,7 @@ class DescriptionsController < ApplicationController
 		if @description.update(description_params)
         	redirect_to descriptions_path, notice: 'Der Eintrag wurde erfolgreich bearbeitet.'
       	else
-       		render action: 'edit'
+       		render action: 'edit', error: 'Beschreibung konnte nicht bearbeitet werden'
       	end
 	end
 
