@@ -32,6 +32,7 @@ gem 'jquery-datatables-rails', github: 'rweng/jquery-datatables-rails'
 gem 'jquery-rails', '>= 3.0.0'
 gem 'jquery-ui-rails', '5.0.0'
 
+gem "therubyracer"
 
 # use yui and uglifier for asset compression
 gem 'yui-compressor'
