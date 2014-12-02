@@ -57,7 +57,7 @@ class DescriptionsController < ApplicationController
 			end
 
 			if @description.update status: status
-				redirect_to :descriptions
+				redirect_to :descriptions, notice: "Die Beschreibung wurde erfolgreich neu eingeordnet"
 			else
 				recirect_to :descriptions, error: "Die Beschreibung konnte nicht eingeordnet werden"
 			end
