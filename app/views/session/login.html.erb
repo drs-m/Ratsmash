@@ -8,11 +8,7 @@
 
 	<%= image_tag("cloud1.png",alt:"Wolke",id:"login_bg") %>
 	<div id="login">
-		<% if Rails.env.development? %>
-			<%= link_to(image_tag("Rmash.png", alt: "RMash Logo"), :instant_login) %>
-		<% else %>
-			<%= image_tag("Rmash.png", alt: "RMash Logo") %>
-		<% end %>
+		<%= image_tag("Rmash.png", alt: "RMash Logo") %>
 		<h1>Login</h1>
 		<span id="error-msg">x</span>
 		<%= form_tag "/login", method: :post, id: "login-form" do %>
