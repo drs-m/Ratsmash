@@ -8,7 +8,7 @@ default: &default
 development:
   <<: *default
   adapter: sqlite3
-  database: development_db
+  database: db/development.sqlite3
 
   #port: 5432 default
 
@@ -19,7 +19,7 @@ development:
 test:
   <<: *default
   adapter: sqlite3
-  database: test_db
+  database: db/test.sqlite3
 
 production:
   <<: *default

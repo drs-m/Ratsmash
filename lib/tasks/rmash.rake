@@ -6,7 +6,7 @@ namespace :rmash do
 		require "net/http"
 		require "uri"
 
-		host = "http://api.dariusmewes.de/"
+		host = "http://api.rmash.de/"
 		api_version = 1
 
 		puts "Lösche Datenbank..."
