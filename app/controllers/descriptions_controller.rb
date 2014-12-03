@@ -20,7 +20,8 @@ class DescriptionsController < ApplicationController
 		#render text: @description.to_yaml and return
 
 		if @description.save
-			redirect_to :descriptions, notice: 'Die Beschreibung wurde erfolgreich verschickt.'
+			flash[:notice] = 'Die Beschreibung wurde erfolgreich verschickt.'
+			redirect_to :descriptions
 		else
 			flash[:error] = 'Beschreibung konnte nicht erstellt werden'
 			render action: 'new'
