@@ -4,7 +4,7 @@ class VotingController < ApplicationController
 	before_action -> { check_session redirect: true }
 
 	def home
-		@not_ordered_descriptions = false 
+		@not_ordered_descriptions = false
 		if !@current_user.descriptions.unchecked.empty?
 			@not_ordered_descriptions = true
 		end
@@ -26,7 +26,7 @@ class VotingController < ApplicationController
 		@results = []
 		Category.ids.each do |category_id|
 			if Category.find_by_id(category_id).group.student && !Category.find_by_id(category_id).group.teacher
-				@results << {category_id: category_id, ranking: Vote.connection.select_all("select name, sum(rating) as points from votes v inner join students s on v.voted_id = s.id where v.category_id = #{category_id} group by name order by points desc limit 3").to_a } 
+				@results << {category_id: category_id, ranking: Vote.connection.select_all("select name, sum(rating) as points from votes v inner join students s on v.voted_id = s.id where v.category_id = #{category_id} group by name order by points desc limit 3").to_a }
 			elsif !Category.find_by_id(category_id).group.student && Category.find_by_id(category_id).group.teacher
 				@results << {category_id: category_id, ranking: Vote.connection.select_all("select name, sum(rating) as points from votes v inner join teachers t on v.voted_id = t.id where v.category_id = #{category_id} group by name order by points desc limit 3").to_a }
 			elsif Category.find_by_id(category_id).group.student && Category.find_by_id(category_id).group.teacher
@@ -63,31 +63,17 @@ class VotingController < ApplicationController
 
 		# übersichtlichere ausgabe wenn ?p= angegeben wurde (PrettyPrint)
 		render(:json => JSON.pretty_generate(JSON.parse(render_to_string))) and return if params[:p]
-		
+
 		# --> voting/autocomplete.json.jbuilder
 	end
-	
+
 	def menu
-		
+
 	end
 
 	def list
-		@teacher_cats = []
-		@student_cats = []
-
-		Category.all.order(:name).each do |cat|
-			if Group.find_by_id(cat.group_id).teacher && !Group.find_by_id(cat.group_id).student
-				@teacher_cats << cat
-			elsif !Group.find_by_id(cat.group_id).teacher && Group.find_by_id(cat.group_id).student
-				@student_cats << cat
-			end			
-		end
-
-		@more_student_cats = true
-
-		if @teacher_cats.count > @student_cats.count
-			@more_student_cats = false
-		end
+		@student_categories = Group.where(student: true, teacher: false).map(&:categories).flatten
+		@teacher_categories = Group.where(student: false, teacher: true).map(&:categories).flatten
 	end
 
 	def choose
@@ -105,7 +91,7 @@ class VotingController < ApplicationController
 		if @category.closed
 			display_error(message: "Diese Kategorie ist momentan gesperrt!", back: :category_list) and return
 		end
-		
+
 		# find the voted account by searching in student db first and in teacher db if nothing has been found
 		voted = Student.find_by name: params[:candidate]
 		voted = Teacher.find_by name: params[:candidate] unless voted
@@ -127,11 +113,11 @@ class VotingController < ApplicationController
 
 			#prüfe, ob für diese Person in dieser Kategorie gevotet werden darf
 			if @category.group.student && @category.group.teacher && !@category.group.male && @category.group.female
-				if !voted.female 
+				if !voted.female
 					votedIsAllowedForCategory = false
 				end
 			elsif @category.group.student && @category.group.teacher && @category.group.male && !@category.group.female
-				if !voted.male 
+				if !voted.male
 					votedIsAllowedForCategory = false
 				end
 			elsif @category.group.student && !@category.group.teacher && @category.group.male && @category.group.female
@@ -178,7 +164,7 @@ class VotingController < ApplicationController
 					else
 						# abspeicherung der stimme
 						@current_user.given_votes << voted.achieved_votes.build(category_id: @category.id, rating: params[:rating])
-						
+
 						# umleitung zur abstimmungsseite, sofern die stimmabgabe erfolgreich war
 						flash[:notice] = "Erfolgreich abgestimmt!"
 						redirect_to give_vote_path(category_id: @category.id)

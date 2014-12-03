@@ -13,7 +13,7 @@ class Group < ActiveRecord::Base
 	scope :male_students, -> { where(female: false, male: true, student: true, teacher: false).first }
 	scope :female_teachers, -> { where(female: true, male: false, student: false, teacher: true).first }
 	scope :male_teachers, -> { where(female: false, male: true, student: false, teacher: true).first }
-	
+
 	def active_filters
 		filters_to_return = []
 		@@used_filters.each { |filter| filters_to_return << filter if self[filter] }

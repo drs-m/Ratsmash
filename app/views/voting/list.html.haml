@@ -10,46 +10,21 @@
 				.cat_info_box Schüler
 			%th
 				.cat_info_box Lehrer
-		- i = 0
-		- if @more_student_cats
-			- @student_cats.each do |category|
-				%tr
-					- if Group.find_by_id(category.group_id).male && Group.find_by_id(category.group_id).female
-						%td= link_to category.name, give_vote_path(category.id)
-					- elsif Group.find_by_id(category.group_id).male && !Group.find_by_id(category.group_id).female
-						%td= link_to category.name+" (männlich)", give_vote_path(category.id)
-					- elsif !Group.find_by_id(category.group_id).male && Group.find_by_id(category.group_id).female
-						%td= link_to category.name+" (weiblich)", give_vote_path(category.id)
 
-					- if Group.find_by_id(@teacher_cats[i].group_id).male && Group.find_by_id(@teacher_cats[i].group_id).female
-						%td= link_to @teacher_cats[i].name, give_vote_path(@teacher_cats[i].id)
-					- elsif Group.find_by_id(@teacher_cats[i].group_id).male && !Group.find_by_id(@teacher_cats[i].group_id).female
-						%td= link_to @teacher_cats[i].name+" (männlich)", give_vote_path(@teacher_cats[i].id)
-					- elsif !Group.find_by_id(@teacher_cats[i].group_id).male && Group.find_by_id(@teacher_cats[i].group_id).female
-						%td= link_to @teacher_cats[i].name+" (weiblich)", give_vote_path(@teacher_cats[i].id)
-				- i += 1
-		- else
-			- @teacher_cats.each do |category|
-				%tr
-					- if Group.find_by_id(category.group_id).male && Group.find_by_id(category.group_id).female
-						%td= link_to category.name, give_vote_path(category.id)
-					- elsif Group.find_by_id(category.group_id).male && !Group.find_by_id(category.group_id).female
-						%td= link_to category.name+" (männlich)", give_vote_path(category.id)
-					- elsif !Group.find_by_id(category.group_id).male && Group.find_by_id(category.group_id).female
-						%td= link_to category.name+" (weiblich)", give_vote_path(category.id)
+		- (0..[@student_categories.count, @teacher_categories.count].max).each do |i|
+			%tr
+			- [@student_categories[i], @teacher_categories[i]].each do |category|
+				- next unless category
+				- if category.group.male && category.group.female
+					%td= link_to category.name, give_vote_path(category.id)
+				- else
+					%td= link_to category.name + (category.group.male ? " (männlich)" : " (weiblich)"), give_vote_path(category.id)
 
-					- if Group.find_by_id(@student_cats[i].group_id).male && Group.find_by_id(@student_cats[i].group_id).female
-						%td= link_to @student_cats[i].name, give_vote_path(@student_cats[i].id)
-					- elsif Group.find_by_id(@student_cats[i].group_id).male && !Group.find_by_id(@student_cats[i].group_id).female
-						%td= link_to @student_cats[i].name+" (männlich)", give_vote_path(@student_cats[i].id)
-					- elsif !Group.find_by_id(@student_cats[i].group_id).male && Group.find_by_id(@student_cats[i].group_id).female
-						%td= link_to @student_cats[i].name+" (weiblich)", give_vote_path(@student_cats[i].id)
-				- i += 1
-- else 	
+- else
 	#icon_info_box
 
 	%h1 Liste der Kriterien
-	%br 
+	%br
 	%br
 	%table
 		%tr
@@ -57,38 +32,12 @@
 				.cat_info_box Schüler
 			%th
 				.cat_info_box Lehrer
-		- i = 0
-		- if @more_student_cats
-			- @student_cats.each do |category|
-				%tr
-					- if Group.find_by_id(category.group_id).male && Group.find_by_id(category.group_id).female
-						%td= link_to category.name, give_vote_path(category.id)
-					- elsif Group.find_by_id(category.group_id).male && !Group.find_by_id(category.group_id).female
-						%td= link_to category.name+" (männlich)", give_vote_path(category.id)
-					- elsif !Group.find_by_id(category.group_id).male && Group.find_by_id(category.group_id).female
-						%td= link_to category.name+" (weiblich)", give_vote_path(category.id)
 
-					- if Group.find_by_id(@teacher_cats[i].group_id).male && Group.find_by_id(@teacher_cats[i].group_id).female
-						%td= link_to @teacher_cats[i].name, give_vote_path(@teacher_cats[i].id)
-					- elsif Group.find_by_id(@teacher_cats[i].group_id).male && !Group.find_by_id(@teacher_cats[i].group_id).female
-						%td= link_to @teacher_cats[i].name+" (männlich)", give_vote_path(@teacher_cats[i].id)
-					- elsif !Group.find_by_id(@teacher_cats[i].group_id).male && Group.find_by_id(@teacher_cats[i].group_id).female
-						%td= link_to @teacher_cats[i].name+" (weiblich)", give_vote_path(@teacher_cats[i].id)
-				- i += 1
-		- else
-			- @teacher_cats.each do |category|
-				%tr
-					- if Group.find_by_id(category.group_id).male && Group.find_by_id(category.group_id).female
-						%td= link_to category.name, give_vote_path(category.id)
-					- elsif Group.find_by_id(category.group_id).male && !Group.find_by_id(category.group_id).female
-						%td= link_to category.name+" (männlich)", give_vote_path(category.id)
-					- elsif !Group.find_by_id(category.group_id).male && Group.find_by_id(category.group_id).female
-						%td= link_to category.name+" (weiblich)", give_vote_path(category.id)
-
-					- if Group.find_by_id(@student_cats[i].group_id).male && Group.find_by_id(@student_cats[i].group_id).female
-						%td= link_to @student_cats[i].name, give_vote_path(@student_cats[i].id)
-					- elsif Group.find_by_id(@student_cats[i].group_id).male && !Group.find_by_id(@student_cats[i].group_id).female
-						%td= link_to @student_cats[i].name+" (männlich)", give_vote_path(@student_cats[i].id)
-					- elsif !Group.find_by_id(@student_cats[i].group_id).male && Group.find_by_id(@student_cats[i].group_id).female
-						%td= link_to @student_cats[i].name+" (weiblich)", give_vote_path(@student_cats[i].id)
-				- i += 1	
+		- (0..[@student_categories.count, @teacher_categories.count].max).each do |i|
+			%tr
+			- [@student_categories[i], @teacher_categories[i]].each do |category|
+				- next unless category
+				- if category.group.male && category.group.female
+					%td= link_to category.name, give_vote_path(category.id)
+				- else
+					%td= link_to category.name + (category.group.male ? " (männlich)" : " (weiblich)"), give_vote_path(category.id)
