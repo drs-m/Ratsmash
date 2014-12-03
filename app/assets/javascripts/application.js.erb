@@ -80,8 +80,7 @@ $(document).ready(function(){
 		$("textarea").focus();
 	});
 
-	amount_of_actual_news = $("#amount_of_actual_news").val();
-	amount_of_actual_news = parseInt(amount_of_actual_news);
+	amount_of_actual_news = $("#newsticker ul").children().length;
 
 	newsticker_interval = window.setInterval("nextNews()", 5000);
 

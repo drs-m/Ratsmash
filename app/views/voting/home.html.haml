@@ -29,7 +29,6 @@
 			-@actual_news.count.times do
 				%div{:id => "news_point_#{i}"}
 				-i+=1
-	= hidden_field_tag :amount_of_actual_news, @amount_of_actual_news, id: "amount_of_actual_news"
 -else
 	%h1 Hauptmenü
 	- flash.each do |name, message|
@@ -58,4 +57,3 @@
 			-@actual_news.count.times do
 				%div{:id => "news_point_#{i}"}
 				-i+=1
-	= hidden_field_tag :amount_of_actual_news, @amount_of_actual_news, id: "amount_of_actual_news"
