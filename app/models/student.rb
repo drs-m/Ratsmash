@@ -22,7 +22,7 @@ class Student < ActiveRecord::Base
 	scope :female, -> { where gender: false }
 	scope :online, -> { where("last_seen_at > ?", 10.minutes.ago)}
 
-	validates :name, :mail_address, :password, presence: true
+	validates :name, :mail_address, presence: true
 
 	def self.authenticate(mail_address, password)
 		student = self.find_by(mail_address: mail_address)
