@@ -1,6 +1,6 @@
 # encoding: utf-8
 class SessionController < ApplicationController
-	
+
 	def login
 		# redirect if logged in
 		if logged_in?
@@ -17,17 +17,17 @@ class SessionController < ApplicationController
 			if student
 				if !params[:password].present?
 					error = "Bitte gib ein Passwort ein!"
-				else 
+				else
 					if student.authenticate params[:password]
 						if student.closed
 							error = "Dein Account wurde gesperrt! Bitte wende dich an die Abizeitung oder das Ratsmash-Team."
-						else	
+						else
 							if mobile_device?
 								Login.create :user_id => student.id, :mobile_device => true
 							else
 								Login.create :user_id => student.id, :mobile_device => false
 							end
-							if params[:persist]	
+							if params[:persist]
 								cookies.permanent.signed[:at] = student.auth_token
 							else
 								cookies.signed[:at] = student.auth_token
@@ -72,12 +72,6 @@ class SessionController < ApplicationController
 				end
 			end
 		end
-	end
-
-	def instant_login
-		redirect_to :login and return if not Rails.env.development?
-		cookies.permanent.signed[:at] = Student.where(admin_permissions: true).first.auth_token
-		redirect_to :home
 	end
 
 end
