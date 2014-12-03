@@ -4,7 +4,7 @@ class ReleaseStateController < ApplicationController
 	before_action -> { check_session redirect: true, admin_permissions: true }
 
 	def index
-		
+
 	end
 
 	def send_mails_to_students
@@ -24,7 +24,10 @@ class ReleaseStateController < ApplicationController
 			# speichern
 			File.open(settings_path, "w") { |f| f.write settings.to_yaml }
 			# spawne neuen prozess der die mails verschickt
-			system "rake rmash:launch_mail_delivery rails_env=#{Rails.env} --trace 2>&1 &"
+
+			# funktioniert momentan nur über die konsole
+
+			# system "rake rmash:launch_mail_delivery rails_env=#{Rails.env} --trace 2>&1 &"
 		end
 
 		redirect_to release_state_index_path
@@ -35,7 +38,7 @@ class ReleaseStateController < ApplicationController
 		settings = YAML.load_file settings_path
 
 		if settings["launch"]["released"]
-			status = true 
+			status = true
 			xpos = settings["launch"]["xpos"]
 			ypos = settings["launch"]["ypos"]
 		else

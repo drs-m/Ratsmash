@@ -1,14 +1,14 @@
+# encoding: utf-8
 class ContactMailer < ActionMailer::Base
-    default from: "team@dariusmewes.de"
+    default from: "RMash Kontaktformular <team@rmash.de>"
 
     def send_mail(name, sender_address, subject, message)
-    	@name = name
-    	@sender_address = from_mail
-    	@subject = subject
-    	@message = message
-        recipient_address = "team@dariusmewes.de"
+        @name = name
+        @sender_address = from_mail
+        @subject = subject
+        @message = message
 
-        mail to: recipient_address, subject: "Kontaktformular: " + subject
+        mail to: "team@rmash.de", subject: "Kontaktformular: " + subject
     end
 
 end

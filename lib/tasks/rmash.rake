@@ -59,11 +59,18 @@ namespace :rmash do
 	end
 
 	desc "Initial mail delivery"
-	task :launch_mail_delivery => :environment do
-		puts "[#{Time.now}] Sending emails..."
-		important = ["Darius Mewes", "Felix Stöckel"]
-		results = Student.where name: important if not important.empty?
-		# results << Student.where(password_digest: nil).where.not(name: important) # NICHT AUSKOMMENTIEREN!!!
+	task :deliver_launch_mails, [:selected] => :environment do |t, args|
+		puts "[#{Time.now}] E-Mails werden versendet..."
+
+		# breche ab falls nichts angegeben wurde
+		puts "Keine Schüler angegeben!" and return if args[:selected].blank?
+
+		if args[:selected] == "all"
+			results = Student.where(password_digest: nil)
+		else
+			names = args[:selected].split " - "
+			results = Student.where password_digest: nil, name: names
+		end
 
 		began = Time.now
 
@@ -74,7 +81,7 @@ namespace :rmash do
 		diff = Time.now - began
 		minutes = (diff / 60).to_i
 		seconds = (diff % 60).to_i
-		puts "[#{Time.now}] Mail sending finished. Took #{minutes}:#{seconds}"
+		puts "[#{Time.now}] E-Mails gesendet nach #{minutes}:#{seconds}"
 	end
 
 	task :import_json, [:model_name] => [:environment] do |t, args|
@@ -95,7 +102,7 @@ namespace :rmash do
 		end
 	end
 
-	task :populate => :environment do
+	task :import_students => :environment do
 		File.read("students.txt").each_line do |line|
 			name_data = line.rstrip.split(", ")
 			name = name_data[1] + " " + name_data[0]
@@ -113,7 +120,7 @@ namespace :rmash do
 		puts deleted_entries.to_s + " Einträge gelöscht!"
 	end
 
-	task :generate_votes => :environment do
+	task :generate_random_votes => :environment do
 		began = Time.now
 		count = 0
 		Student.all.each do |voter|
