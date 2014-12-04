@@ -8,8 +8,6 @@ class VotingController < ApplicationController
 		if !@current_user.descriptions.unchecked.empty?
 			@not_ordered_descriptions = true
 		end
-		@actual_news = News.all.order(:updated_at).reverse.first(5)
-		@amount_of_actual_news = @actual_news.count
 
 		@not_voted_polls = false
 		polls_already_voted_for_id = PollVote.where(:student_id => @current_user.id).pluck(:poll_id)
@@ -18,6 +16,19 @@ class VotingController < ApplicationController
  				@not_voted_polls = true
  			end
  		end
+	end
+
+	def get_newsticker_news
+		actual_news = News.order(:updated_at).reverse.first(5)
+		newsticker = []
+		actual_news.each do |news|
+			news_arr = [news.id,news.updated_at.day.to_s+"."+news.updated_at.month.to_s+"."+news.updated_at.year.to_s,news.subject]
+			newsticker << news_arr
+		end
+
+		respond_to do |format|
+		  	format.json { render json: newsticker }
+		end
 	end
 
 	def results

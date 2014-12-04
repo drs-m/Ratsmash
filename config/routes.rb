@@ -23,6 +23,8 @@ Ratsmash::Application.routes.draw do
     # voting#home als startseite
     root "voting#home", as: :home
 
+    post "get_newsticker_news", to: "voting#get_newsticker_news"
+
     resources :students
     resources :teachers
     resources :categories
