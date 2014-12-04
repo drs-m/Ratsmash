@@ -5,10 +5,10 @@ class Student < ActiveRecord::Base
 
 	has_secure_password validations: false
 
-	has_many :given_votes, foreign_key: "voter_id", class_name: "Vote"
+	has_many :given_votes, foreign_key: "voter_id", class_name: "Vote", dependent: :destroy
 	has_many :achieved_votes, class_name: "Vote", :as => :voted
 
-	has_many :descriptions, foreign_key: "described_id"
+	has_many :descriptions, foreign_key: "described_id", dependent: :destroy
 	has_many :written_descriptions, class_name: "Description", foreign_key: "author_id"
 
 	has_many :logins, class_name: "Login", foreign_key: "user_id"
