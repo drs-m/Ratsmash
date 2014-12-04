@@ -13,7 +13,7 @@
 
   <div class="field">
     <%= f.label :described_name, "Für" %><br />
-    <%= f.text_field :described_name %>
+    <%= f.text_field :described_name, value: (@description.described.present? ? @description.described.name : "") %>
   </div>
   <div class="field">
     <%= f.label :content, "Text" %><br />
