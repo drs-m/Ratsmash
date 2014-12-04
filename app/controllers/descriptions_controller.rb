@@ -10,7 +10,7 @@ class DescriptionsController < ApplicationController
 		@written_descriptions = @current_user.written_descriptions
 	end
 
-	def new 
+	def new
 		@description = Description.new
 	end
 
@@ -20,7 +20,7 @@ class DescriptionsController < ApplicationController
 		#render text: @description.to_yaml and return
 
 		if @description.save
-			flash[:notice] = 'Die Beschreibung wurde erfolgreich verschickt.'
+			flash[:notice] = 'Die Beschreibung wurde erfolgreich verschickt'
 			redirect_to :descriptions
 		else
 			flash[:error] = 'Beschreibung konnte nicht erstellt werden'
@@ -36,7 +36,7 @@ class DescriptionsController < ApplicationController
 
 	def update
 		if @description.update(description_params)
-        	redirect_to descriptions_path, notice: 'Der Eintrag wurde erfolgreich bearbeitet.'
+        	redirect_to descriptions_path, notice: 'Der Eintrag wurde erfolgreich bearbeitet'
       	else
       		flash[:error] = 'Beschreibung konnte nicht bearbeitet werden'
        		render action: 'edit'
@@ -70,7 +70,7 @@ class DescriptionsController < ApplicationController
 	private
 		# Never trust parameters from the scary internet, only allow the white list through.
 		def description_params
-		  params.require(:description).permit(:described_id, :content, :interests, :hobbies, :additional_authors)
+		  params.require(:description).permit(:described_name, :content, :interests, :hobbies, :additional_authors)
 		end
 
 		def set_description

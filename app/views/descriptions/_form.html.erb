@@ -12,8 +12,8 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :described_id, "Für" %><br />
-    <%= collection_select(:description, :described_id, Student.all.order(:id), :id, :name, prompt: "Bitte auswählen") %>
+    <%= f.label :described_name, "Für" %><br />
+    <%= f.text_field :described_name %>
   </div>
   <div class="field">
     <%= f.label :content, "Text" %><br />

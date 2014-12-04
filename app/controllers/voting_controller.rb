@@ -4,10 +4,7 @@ class VotingController < ApplicationController
 	before_action -> { check_session redirect: true }
 
 	def home
-		@not_ordered_descriptions = false
-		if !@current_user.descriptions.unchecked.empty?
-			@not_ordered_descriptions = true
-		end
+		@not_ordered_descriptions = @current_user.descriptions.unchecked.present?
 
 		@not_voted_polls = false
 		polls_already_voted_for_id = PollVote.where(:student_id => @current_user.id).pluck(:poll_id)

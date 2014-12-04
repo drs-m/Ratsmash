@@ -1,9 +1,9 @@
 $ ->
-    
+
     $("#description_described_name").autocomplete
         messages:
             result: (count) ->
-            noResults: ''   
+            noResults: ''
         source: (request, response) ->
             $.get "/vote/autocomplete.json?q=#{request.term}", (data) ->
                 suggestions = []
