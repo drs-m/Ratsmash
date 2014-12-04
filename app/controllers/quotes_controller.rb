@@ -32,8 +32,7 @@ class QuotesController < ApplicationController
 
     respond_to do |format|
       if @quote.save
-        flash.keep[:notice] = 'Das Zitat wurde erfolgreich gespeichert. Danke!'
-        format.html { redirect_to new_quote_path }
+        format.html { redirect_to new_quote_path, flash: {notice: "Zitat wurde erfolgreich gespeichert"} }
       else
         flash[:error] = 'Zitat konnte nicht gespeichert werden'
         format.html { render action: 'new' }
@@ -46,7 +45,7 @@ class QuotesController < ApplicationController
   def update
     respond_to do |format|
       if @quote.update(quote_params)
-        format.html { redirect_to @quote, notice: 'Zitat wurde erfolgreich bearbeitet!' }
+        format.html { redirect_to @quote, flash: {notice: "Zitat wurde erfolgreich gespeichert."} }
         format.json { head :no_content }
       else
         flash[:error] = 'Zitat konnte nicht bearbeitet werden'
@@ -61,7 +60,7 @@ class QuotesController < ApplicationController
   def destroy
     @quote.destroy
     respond_to do |format|
-      format.html { redirect_to quotes_url }
+      format.html { redirect_to quotes_url, flash: {notice: "Zitat wurde erfolgreich geloescht!"} }
       format.json { head :no_content }
     end
   end

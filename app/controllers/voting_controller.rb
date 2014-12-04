@@ -95,7 +95,8 @@ class VotingController < ApplicationController
 		votedIsAllowedForCategory = true
 		isAlreadyVotedFor = false
 		@category = Category.find_by_id(params[:category_id])
-		redirect_to(give_vote_path(category_id: @category.id), error: "Die Kategorie wurde nicht gefunden!") and return unless @category
+		flash[:error] = "Die Kategorie wurde nicht gefunden"
+		redirect_to(give_vote_path(category_id: @category.id)) and return unless @category
 		if @category.closed
 			display_error(message: "Diese Kategorie ist momentan gesperrt!", back: :category_list) and return
 		end
@@ -174,8 +175,7 @@ class VotingController < ApplicationController
 						@current_user.given_votes << voted.achieved_votes.build(category_id: @category.id, rating: params[:rating])
 
 						# umleitung zur abstimmungsseite, sofern die stimmabgabe erfolgreich war
-						flash[:notice] = "Erfolgreich abgestimmt!"
-						redirect_to give_vote_path(category_id: @category.id)
+						redirect_to give_vote_path(category_id: @category.id), flash: {notice: "Voting erfolgreich"}
 					end
 				else
 					# umleitung zur abstimmungsseite mit dem hinweis, dass man nicht zwei mail für den selben in einer kategorie voten darf
@@ -218,8 +218,7 @@ class VotingController < ApplicationController
 					vote. delete
 					#prüfe, ob Löschung erfolgreich war
 					if !Vote.find_by_id params[:vote_id]
-						flash[:notice] = "Vote erfolgreich geloescht!"
-						redirect_to give_vote_path(category_id: @category.id)
+						redirect_to give_vote_path(category_id: @category.id), flash: {notice: "Vote erfolgreich geloescht"}
 					else
 						flash[:error] = "Vote konnte nicht geloescht werden. Fehler im System. Versuche es bitte spaeter erneut!"
 						redirect_to give_vote_path(category_id: @category.id)

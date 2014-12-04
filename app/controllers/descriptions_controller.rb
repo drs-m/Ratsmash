@@ -20,8 +20,7 @@ class DescriptionsController < ApplicationController
 		#render text: @description.to_yaml and return
 
 		if @description.save
-			flash[:notice] = 'Die Beschreibung wurde erfolgreich verschickt'
-			redirect_to :descriptions
+			redirect_to :descriptions, flash: {notice: "Beschreibung wurde erfolgreich erstellt"}
 		else
 			flash[:error] = 'Beschreibung konnte nicht erstellt werden'
 			render action: 'new'
@@ -36,7 +35,7 @@ class DescriptionsController < ApplicationController
 
 	def update
 		if @description.update(description_params)
-        	redirect_to descriptions_path, notice: 'Der Eintrag wurde erfolgreich bearbeitet'
+        	redirect_to descriptions_path, flash: {notice: "Beschreibung wurde erfolgreich bearbeitet"}
       	else
       		flash[:error] = 'Beschreibung konnte nicht bearbeitet werden'
        		render action: 'edit'
@@ -45,7 +44,7 @@ class DescriptionsController < ApplicationController
 
 	def destroy
 		@description.destroy
-		redirect_to descriptions_path
+		redirect_to descriptions_path, flash: {notice: "Beschreibung wurde erfolgreich geloescht"}
 	end
 
 	def categorize
@@ -60,9 +59,10 @@ class DescriptionsController < ApplicationController
 			end
 
 			if @description.update status: status
-				redirect_to :descriptions, notice: "Die Beschreibung wurde erfolgreich neu eingeordnet"
+				redirect_to :descriptions, flash: {notice: "Beschreibung wurde erfolgreich neu eingeordnet"}
 			else
-				recirect_to :descriptions, error: "Die Beschreibung konnte nicht eingeordnet werden"
+				flash[:error] = "Die Beschreibung konnte nicht eingeordnet werden"
+				recirect_to :descriptions
 			end
 		end
 	end

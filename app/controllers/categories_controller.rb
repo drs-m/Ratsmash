@@ -29,7 +29,7 @@ class CategoriesController < ApplicationController
 
     respond_to do |format|
       if @category.save
-        format.html { redirect_to categories_path, notice: 'Die Kategorie wurde erfolgreich hinzugefügt.' }
+        format.html { redirect_to categories_path, flash: {notice: "Kategorie wurde erfolgreich hinzugefuegt"} }
       else
         flash[:error] = 'Kategorie konnte nicht angelegt werden'
         format.html { render action: 'new' }
@@ -41,7 +41,7 @@ class CategoriesController < ApplicationController
   def update
     respond_to do |format|
       if @category.update(category_params)
-        format.html { redirect_to categories_path, notice: 'Der Eintrag wurde erfolgreich bearbeitet.' }
+        format.html { redirect_to categories_path, flash: {notice: "Kategorie wurde erfolgreich bearbeitet"} }
       else
         flash[:error] = 'Kategorie konnte nicht bearbeitet werden'
         format.html { render action: 'edit' }
@@ -53,7 +53,7 @@ class CategoriesController < ApplicationController
   def destroy
     @category.destroy
     respond_to do |format|
-      format.html { redirect_to categories_path }
+      format.html { redirect_to categories_path, flash: {notice: "Kategorie wurde erfolgreich geloescht"} }
     end
   end
 

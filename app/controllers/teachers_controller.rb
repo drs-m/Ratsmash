@@ -32,7 +32,7 @@ class TeachersController < ApplicationController
 
     respond_to do |format|
       if @teacher.save
-        format.html { redirect_to @teacher, notice: 'Der Lehrer wurde erfolgreich hinzugefuegt.' }
+        format.html { redirect_to @teacher, flash: {notice: "Lehrer wurde erfolgreich erstellt"} }
         format.json { render action: 'show', status: :created, location: @teacher }
       else
         flash[:error] = 'Lehrer konnte nicht angelegt werden'
@@ -47,7 +47,7 @@ class TeachersController < ApplicationController
   def update
     respond_to do |format|
       if @teacher.update(processed_params)
-        format.html { redirect_to @teacher, notice: 'Der Eintrag wurde erfolgreich bearbeitet.' }
+        format.html { redirect_to @teacher, flash: {notice: "Lehrer wurde erfolgreich bearbeitet"} }
         format.json { head :no_content }
       else
         flash[:error] = 'Lehrer konnte nicht bearbeitet werden'

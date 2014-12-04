@@ -13,7 +13,7 @@ class ReleaseStateController < ApplicationController
 		settings = YAML.load_file settings_path
 
 		if !settings
-			flash['notice'] = "Fehler: settings.yml wurde nicht gefunden"
+			flash[:error] = "Fehler: settings.yml wurde nicht gefunden"
 			return
 		end
 

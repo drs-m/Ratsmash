@@ -38,7 +38,7 @@ class StudentsController < ApplicationController
 
     respond_to do |format|
       if @student.save
-        format.html { redirect_to @student, notice: 'Der Schueler wurde erfolgreich hinzugefuegt.' }
+        format.html { redirect_to @student, flash: {notice: "Schueler wurde erfolgreich erstellt"} }
         format.json { render action: 'show', status: :created, location: @student }
       else
         flash[:error] = 'Schueler konnte nicht angelegt werden'
@@ -53,7 +53,7 @@ class StudentsController < ApplicationController
   def update
     respond_to do |format|
       if @student.update(processed_params)
-        format.html { redirect_to @student, notice: 'Der Eintrag wurde erfolgreich bearbeitet.' }
+        format.html { redirect_to @student, flash: {notice: "Schueler wurde erfolgreich bearbeitet"} }
         format.json { head :no_content }
       else
         flash[:error] = 'Schueler konnte nicht bearbeitet werden'
@@ -88,7 +88,7 @@ class StudentsController < ApplicationController
           student.password_reset_token = nil
           student.password_reset_sent_at = nil
           student.save
-          redirect_to :login, notice: "Dein Passwort wurde erfolgreich geaendert!"
+          redirect_to :login, flash: {notice: "Dein Passwort wurde erfolgreich geaendert"}
         else
           @errors << "Die Passwoerter stimmen nicht ueberein!"
         end
@@ -102,7 +102,7 @@ class StudentsController < ApplicationController
             @current_user.password = params[:new_password]
             @current_user.password_confirmation = params[:new_password]
             @current_user.save
-            redirect_to :home, notice: "Dein Passwort wurde erfolgreich geaendert!"
+            redirect_to :home, flash: {notice: "Dein Passwort wurde erfolgreich geaendert"}
         else
           @errors << "Die Passwoerter stimmen nicht ueberein!"
         end

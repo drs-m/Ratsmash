@@ -27,14 +27,15 @@ class NewsController < ApplicationController
         if @current_user.admin_permissions
             if !params[:author].blank? && !params[:subject].blank? && !params[:content].blank?
                 News.create :subject => params[:subject], :author => params[:author], :content => params[:content]
-                flash[:notice] = "News erfolgreich erstellt!"
+                redirect_to news_index_path, flash: {notice: "News wurden erfolgreich veroeffentlicht"}
             else
                 flash[:error] = "Bitte alle Felder ausfuellen zum Erstellen von neuen News!"
+                redirect_to news_index_path
             end
         else
             flash[:error] = "Du hast keine Administratorenrechte fuer das Erstellen neuer News!"
+            redirect_to news_index_path
         end
-        redirect_to news_index_path
     end
 
     def edit
@@ -57,17 +58,19 @@ class NewsController < ApplicationController
                 news = News.find_by_id params[:id]
                 if !params[:author].blank? && !params[:subject].blank? && !params[:content].blank?
                     news.update_attributes :subject => params[:subject], :author => params[:author], :content => params[:content]
-                    flash[:notice] = "News erfolgreich bearbeitet!"
+                    redirect_to news_index_path, flash: {notice: "News wurden erfolgreich bearbeitet"}
                 else
                     flash[:error] = "Bitte alle Felder ausfuellen zum bearbeiten von neuen News!"
+                    redirect_to news_index_path
                 end
             else 
                 flash[:error] = "Fehler: Newsbericht koennte nicht gefunden werden. Bitte versuche es spaeter erneut!"
+                redirect_to news_index_path
             end
         else
             flash[:error] = "Du hast keine Administratorenrechte fuer das Erstellen neuer News!"
+            redirect_to news_index_path
         end
-        redirect_to news_index_path
     end
 
     def destroy
@@ -75,12 +78,12 @@ class NewsController < ApplicationController
             if News.find_by_id params[:id]
                 news = News.find_by_id params[:id]
                 news.delete
-                flash[:notice] = "News erfolgreich geloescht!"
+                redirect_to news_index_path, flash: {notice: "News wurden erfolgreich geloescht"}
             else
                 flash[:error] = "Fehler: Newsbericht koennte nicht gefunden werden. Bitte versuche es spaeter erneut!"
+                redirect_to news_index_path
             end
         end
-        redirect_to news_index_path
     end
 
 end

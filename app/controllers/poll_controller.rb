@@ -37,14 +37,15 @@ class PollController < ApplicationController
 		        	PollOption.create :poll_id => new_poll.id, :name => voting_op[1]
 		        end
 		      end
-		      flash[:notice] = "Umfrage wurde erfolgreich erstellt!"
+		      redirect_to poll_index_path, flash: {notice: "Umfrage wurde erfolgreich erstellt"}
 		    else
 		    	flash[:error] = "Du musst alle Felder ausfuellen und mindestens 2 Abstimmungsmoeglichkeiten angeben, um eine Umfrage erstellen zu koennen!"
+		    	redirect_to poll_index_path
 		    end
 		else
 			flash[:error] = "Du hast keine Administratorenrechte fuer das Erstellen von Umfragen!"
+			redirect_to poll_index_path
 		end
-	    redirect_to poll_index_path
 	end
 
 	def show
@@ -72,10 +73,10 @@ class PollController < ApplicationController
       if PollVote.where(:poll_id => params[:poll_id], :student_id => @current_user.id).count == 0
       	PollVote.create :poll_id => params[:poll_id], :poll_option_id => params[:op_id], :student_id => @current_user.id
       else
-      	flash[:error] = "Du hast fuer diese Umfrage schon einmal abgestimmt!!"
+      	flash[:error] = "Du hast fuer diese Umfrage schon einmal abgestimmt!"
+      	redirect_to poll_path params[:poll_id]
       end
-      flash[:notice] = "Erfolgreich abgestimmt!"
-      redirect_to poll_path params[:poll_id]
+      redirect_to poll_path params[:poll_id], flash: {notice: "Du hast erfolgreich bei der Umfrage abgestimmt"}
     else
       flash[:error] = "Fehler: Umfrage oder Abstimmungsmoeglichkeit nicht gefunden! Bitte versuche es spaeter erneut!"
       redirect_to poll_index_path
@@ -89,9 +90,9 @@ class PollController < ApplicationController
   			vote.delete
   		else
   			flash[:error] = "Fehler: Umfrage, Abstimmungsmoeglichkeit oder Nutzer-ID nicht gefunden! Bitte versuche es spaeter erneut!"
+  			redirect_to poll_index_path
   		end
-  		flash[:notice] = "Vote erfolgreich zurueckgezogen!"
-  		redirect_to poll_path params[:poll_id]
+  		redirect_to poll_path params[:poll_id], flash: {notice: "Abstimmung erfolgreich zurueckgezogen"}
   	else
   		flash[:error] = "Fehler: Umfrage oder Abstimmungsmoeglichkeit nicht gefunden! Bitte versuche es spaeter erneut!"
   		redirect_to poll_index_path
@@ -101,8 +102,7 @@ class PollController < ApplicationController
   def add_poll_vote_options
     if !params[:poll_id].blank? && !params[:op].blank?
       PollOption.create :poll_id => params[:poll_id], :name => params[:op]
-      redirect_to poll_path(params[:poll_id])
-      flash[:notice] = "Abstimmungsmoeglichkeit erfolgreich hinzugefuegt!"
+      redirect_to poll_path params[:poll_id], flash: {notice: "Abstimmungsmoeglichkeit erfolgreich hinzugefuegt"}
     else
       flash[:error] = "Du musst alle Felder ausfuelen, um eine Abstimmungsmoeglichkeit hinzufuegen zu koennen!"
       redirect_to poll_index_path
@@ -139,8 +139,7 @@ class PollController < ApplicationController
 						end
 						i += 1
 					end
-					flash[:notice] = "Umfrage erfolgreich beabeitet!"
-					redirect_to poll_path params[:poll_id]
+					redirect_to poll_path params[:poll_id], flash: {notice: "Umfrage erfolgreich bearbeitet"}
 				else
 					flash[:error] = "Fehler: Umfrage nicht gefunden. Versuche es spaeter erneut!"
 					redirect_to poll_index_path
@@ -160,14 +159,15 @@ class PollController < ApplicationController
 		    if Poll.find_by_id params[:id]
 		    	poll = Poll.find_by_id params[:id]
 		      	poll.destroy
-		      	flash[:notice] = "Umfrage erfolgreich geloescht!"
+		      	redirect_to poll_path params[:poll_id], flash: {notice: "Umfrage erfolgreich geloescht"}
 		    else
 		    	flash[:error] = "Fehler: Umfrage nicht gefunden. Versuche es spaeter erneut!"
+		    	redirect_to poll_index_path
 		    end
 		else
 			flash[:error] = "Du hast keine Administratorenrechte fuer das Loeschen von Umfragen!"
+			redirect_to poll_index_path
 		end
-	    redirect_to poll_index_path
     end
 
 end
