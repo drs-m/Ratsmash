@@ -37,12 +37,11 @@ namespace :rmash do
 				json.each do |entry|
 					if type == :students
 						student_data = {}
-						student_data.merge!({ name: entry["name"] })
-						student_data.merge!({ mail_address: entry["mail_address"] })
-						student_data.merge!({ password_digest: entry["password_digest"] })
-						student_data.merge!({ gender: entry["gender"] })
-						student_data.merge!({ closed: entry["closed"] })
-						student_data.merge!({ admin_permissions: entry["admin_permissions"] })
+
+						[:name, :mail_address, :password_digest, :gender, :closed, :admin_permissions].each do |attribute_symbol|
+							student_data[attribute_symbol] = entry[attribute_symbol.to_s]
+						end
+
 						student = Student.new student_data
 						student.valid? ? student.save : puts(student.errors.messages)
 					elsif type == :categories
