@@ -8,7 +8,7 @@ class ContactMailer < ActionMailer::Base
         @subject = subject
         @message = message
 
-        mail to: "team@rmash.de", subject: ()"Kontaktformular: " + subject)
+        mail to: "team@rmash.de", subject: ("Kontaktformular: " + subject)
     end
 
 end
