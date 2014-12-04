@@ -9,25 +9,15 @@ class Teacher < ActiveRecord::Base
 	scope :female, -> { where gender: false }
 
 	validates :name, presence: true
-	
-	def male
-		if self.gender
-			return true
 
-		else
-			return false
-		end
+	def male
+		self.gender
 	end
 
 	def female
-		if !self.gender
-			return true
-
-		else
-			return false
-		end
+		!self.gender
 	end
-	
+
 	private
 			def set_defaults
 				self.closed ||= false
