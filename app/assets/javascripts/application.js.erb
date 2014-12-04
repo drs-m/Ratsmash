@@ -72,11 +72,6 @@ $(document).on("pageinit", "#my_content_section", function () {
 
 $(document).ready(function(){
 
-	if(!window.location.hash) {
-        window.location = window.location + '#loaded';
-        window.location.reload();
-    }
-
 	$("#results_table").dataTable();
 
 	$(".paste_legend_for_news_button a").click(function(){
