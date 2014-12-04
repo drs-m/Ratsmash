@@ -1,0 +1,2 @@
+automatische fehlermeldungen (cant be blank, etc...) übersetzen
+allgemein die automatische fehleranzeige korrigieren
