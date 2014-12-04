@@ -10,6 +10,7 @@
 //= require voting
 //= require session
 
+intervalInUse = false;
 mobileMenueIsShown = false;
 accountMenueIsShown = false;
 news_index = 0;
@@ -98,11 +99,10 @@ $(document).ready(function(){
 				$("#newsticker #news_points_wrapper").html(old_html+new_html);
 			}
 
-			$("#newsticker ul li").css("list-style","none");
-
 			amount_of_actual_news = $("#newsticker ul").children().length;
 
 			newsticker_interval = window.setInterval("nextNews()", 5000);
+			intervalInUse = true;
 
 			$("#news_ticker_li_"+news_index).css("display","block");
 			$("#news_point_0").css("background","black");
@@ -163,11 +163,17 @@ $(document).ready(function(){
 				update_newsticker();
 			});
 
-			$(".ticker_subject").hover(function(){
-				clearInterval(newsticker_interval);
+			$("#newsticker").hover(function(){
+				if(intervalInUse){
+					clearInterval(newsticker_interval);
+					intervalInUse = false;
+				}
 			});
-			$(".ticker_subject").mouseout(function(){
-				newsticker_interval = window.setInterval("nextNews()", 5000);
+			$("#newsticker").mouseout(function(){
+				if(!intervalInUse){
+					newsticker_interval = window.setInterval("nextNews()", 5000);
+					intervalInUse = true;
+				}
 			});
 		});
 	}
@@ -248,6 +254,23 @@ function nextNews(){
 }
 
 function update_newsticker(){
+	$("#newsticker").css("width","100%");
+	$("#newsticker").css("padding","10px");
+	$("#newsticker").css("background","white");
+	$("#newsticker ul li").css("list-style","none");
+	$("#newsticker ul li a").css("underline","none");
+	$("#newsticker ul li a").css("font-weight","bold");
+	$("#newsticker ul li a").css("color","black");
+	$("#newsticker ul li .ticker_date").css("margin-right", "20px");
+	$("#newsticker #news_points_wrapper").css("margin-top","10px");
+	$("#newsticker #news_points_wrapper div").css("float","left");
+	$("#newsticker #news_points_wrapper div").css("backround","gray");
+	$("#newsticker #news_points_wrapper div").css("width","10px");
+	$("#newsticker #news_points_wrapper div").css("height","10px");
+	$("#newsticker #news_points_wrapper div").css("border-radius","5px");
+	$("#newsticker #news_points_wrapper div").css("margin-left","5px");
+	$("#newsticker #news_points_wrapper div").css("margin-right","5px");
+
 	$("#news_point_0").css("background","gray");
 	$("#news_point_1").css("background","gray");
 	$("#news_point_2").css("background","gray");
