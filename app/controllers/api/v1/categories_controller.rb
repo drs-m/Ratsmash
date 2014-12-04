@@ -7,15 +7,10 @@ class CategoriesController < ApplicationController
 
     def index
         categories = Category.order :id
-        if params[:group_id]
-            categories = categories.where group_id: params[:group_id]
-        end
+        categories = categories.where group_id: params[:group_id] if params[:group_id]
 
-        if params[:p]
-            render json: JSON.pretty_generate(JSON.parse(categories.to_json.to_s))
-        else
-            render json: categories, except: [:created_at, :updated_at], status: :ok
-        end
+        categories = JSON.pretty_generate(JSON.parse(categories.to_json.to_s)) if params[:p]
+        render json: categories, except: [:created_at, :updated_at], status: :ok
     end
 
 end

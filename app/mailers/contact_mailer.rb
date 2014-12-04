@@ -4,11 +4,11 @@ class ContactMailer < ActionMailer::Base
 
     def send_mail(name, sender_address, subject, message)
         @name = name
-        @sender_address = from_mail
+        @sender_address = sender_address
         @subject = subject
         @message = message
 
-        mail to: "team@rmash.de", subject: "Kontaktformular: " + subject
+        mail to: "team@rmash.de", subject: ("Kontaktformular: " + subject)
     end
 
 end

@@ -2,6 +2,14 @@
 
 namespace :rmash do
 
+	task :append_salutation_to_teachers => :environment do
+		Teacher.all.each do |teacher|
+			teacher.name = (teacher.male ? "Herr " : "Frau ") + teacher.name
+			teacher.save
+		end
+		puts "Fertig!"
+	end
+
 	task :mirror_db => :environment do
 		require "net/http"
 		require "uri"
@@ -26,7 +34,7 @@ namespace :rmash do
 
 		error = false
 
-		[:students, :categories].each do |type|
+		[:students, :categories, :teachers].each do |type|
 			uri = URI.parse(host + "v#{api_version.to_s}/#{type.to_s}")
 			http = Net::HTTP.new(uri.host, uri.port)
 			request = Net::HTTP::Get.new(uri.request_uri)
@@ -37,25 +45,28 @@ namespace :rmash do
 				json.each do |entry|
 					if type == :students
 						student_data = {}
-						student_data.merge!({ name: entry["name"] })
-						student_data.merge!({ mail_address: entry["mail_address"] })
-						student_data.merge!({ password_digest: entry["password_digest"] })
-						student_data.merge!({ gender: entry["gender"] })
-						student_data.merge!({ closed: entry["closed"] })
-						student_data.merge!({ admin_permissions: entry["admin_permissions"] })
+
+						[:name, :mail_address, :password_digest, :gender, :closed, :admin_permissions].each do |attribute_symbol|
+							student_data[attribute_symbol] = entry[attribute_symbol.to_s]
+						end
+
 						student = Student.new student_data
 						student.valid? ? student.save : puts(student.errors.messages)
 					elsif type == :categories
 						category_data = { name: entry["name"], group_id: entry["group_id"], closed: entry["closed"] }
 						category = Category.new category_data
 						category.valid? ? category.save : puts(category.errors.messages)
+					elsif type == :teachers
+						teacher_data = { name: entry["name"], gender: entry["gender"], closed: entry["closed"] }
+						teacher = Teacher.new teacher_data
+						teacher.valid? ? teacher.save : puts(teachers.errors.messages)
 					end
 				end
 			else
 				error = true
 			end
 		end
-		puts(error ? "Die eingegebenen Daten sind nicht korrekt!" : "#{Category.count} Kategorien und #{Student.count} Schüler wurden hinzugefügt!")
+		puts(error ? "Die eingegebenen Daten sind nicht korrekt!" : "#{Category.count} Kategorien, #{Student.count} Schüler und #{Teacher.count} Lehrer wurden hinzugefügt!")
 	end
 
 	desc "Initial mail delivery"
