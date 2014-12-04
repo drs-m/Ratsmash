@@ -32,7 +32,8 @@ class QuotesController < ApplicationController
 
     respond_to do |format|
       if @quote.save
-        format.html { redirect_to new_quote_path, notice: 'Das Zitat wurde erfolgreich gespeichert. Danke!' }
+        flash[:notice] = 'Das Zitat wurde erfolgreich gespeichert. Danke!'
+        format.html { redirect_to new_quote_path }
       else
         flash[:error] = 'Zitat konnte nicht gespeichert werden'
         format.html { render action: 'new' }
