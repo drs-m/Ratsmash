@@ -2,3 +2,5 @@
 
 = render 'form'
 
+- if @current_user.admin_permissions
+    = link_to "Zitatübersicht", quotes_path
