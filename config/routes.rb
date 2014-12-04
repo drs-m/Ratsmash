@@ -5,6 +5,7 @@ Ratsmash::Application.routes.draw do
         namespace :v1 do
             resources :students, only: [:index]
             resources :categories, only: [:index]
+            resources :teachers, only: [:index]
         end
     end
 
