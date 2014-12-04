@@ -9,7 +9,7 @@ class ContactsController < ApplicationController
 
 	def send_contact_form
 		if !params[:name].blank? && !params[:mail].blank? && !params[:subject].blank? && !params[:message].blank?
-			ContactMailer.send_contact_mail(params[:name], params[:mail], params[:subject], params[:message]).deliver
+			ContactMailer.send_mail(params[:name], params[:mail], params[:subject], params[:message]).deliver
 			flash[:notice] = "Deine Nachricht wurde erfolgreich an das Ratsmash-Team geschickt!"
 		else
 			flash[:error] = "Bitte alle Felder ausfuellen zum Versenden der Mail!"
