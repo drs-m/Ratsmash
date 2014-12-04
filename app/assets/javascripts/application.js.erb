@@ -72,6 +72,11 @@ $(document).on("pageinit", "#my_content_section", function () {
 
 $(document).ready(function(){
 
+	if(!window.location.hash) {
+        window.location = window.location + '#loaded';
+        window.location.reload();
+    }
+
 	$("#results_table").dataTable();
 
 	$(".paste_legend_for_news_button a").click(function(){
@@ -81,8 +86,7 @@ $(document).ready(function(){
 		$("textarea").focus();
 	});
 
-	if(window.location.pathname == "/"){
-		window.reload();	
+	if(window.location.pathname == "/"){	
 		$.ajax({
 			url: "get_newsticker_news",
 			type: "post"
