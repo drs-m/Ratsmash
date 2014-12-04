@@ -2,6 +2,14 @@
 
 namespace :rmash do
 
+	task :append_salutation_to_teachers => :environment do
+		Teacher.all.each do |teacher|
+			teacher.name = (teacher.male ? "Herr " : "Frau ") + teacher.name
+			teacher.save
+		end
+		puts "Fertig!"
+	end
+
 	task :mirror_db => :environment do
 		require "net/http"
 		require "uri"
