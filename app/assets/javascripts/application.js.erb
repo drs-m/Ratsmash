@@ -98,12 +98,14 @@ $(document).ready(function(){
 				$("#newsticker #news_points_wrapper").html(old_html+new_html);
 			}
 
+			$("#newsticker ul li").css("list-style","none");
+
 			amount_of_actual_news = $("#newsticker ul").children().length;
+
+			newsticker_interval = window.setInterval("nextNews()", 5000);
 
 			$("#news_ticker_li_"+news_index).css("display","block");
 			$("#news_point_0").css("background","black");
-			newsticker_interval = window.setInterval("nextNews()", 5000);
-			
 			$("#news_point_0").click(function(){
 				news_index = 0;
 				update_newsticker();
