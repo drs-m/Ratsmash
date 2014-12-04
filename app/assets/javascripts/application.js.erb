@@ -81,7 +81,8 @@ $(document).ready(function(){
 		$("textarea").focus();
 	});
 
-	if(window.location.pathname == "/"){	
+	if(window.location.pathname == "/"){
+		window.reload();	
 		$.ajax({
 			url: "get_newsticker_news",
 			type: "post"
