@@ -4,7 +4,7 @@ class Teacher < ActiveRecord::Base
 
 	after_validation :set_defaults
 
-	scope :name_search, ->(name = "") { where("name LIKE ?", "%#{name}%") unless name.empty? }
+	scope :name_search, ->(name = "") { where("lower(name) LIKE ?", "%#{name.downcase}%") unless name.empty? }
 	scope :male, -> { where gender: true }
 	scope :female, -> { where gender: false }
 
