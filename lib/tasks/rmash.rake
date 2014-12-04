@@ -26,7 +26,7 @@ namespace :rmash do
 
 		error = false
 
-		[:students, :categories].each do |type|
+		[:students, :categories, :teachers].each do |type|
 			uri = URI.parse(host + "v#{api_version.to_s}/#{type.to_s}")
 			http = Net::HTTP.new(uri.host, uri.port)
 			request = Net::HTTP::Get.new(uri.request_uri)
@@ -48,13 +48,17 @@ namespace :rmash do
 						category_data = { name: entry["name"], group_id: entry["group_id"], closed: entry["closed"] }
 						category = Category.new category_data
 						category.valid? ? category.save : puts(category.errors.messages)
+					elsif type == :teachers
+						teacher_data = { name: entry["name"], gender: entry["gender"], closed: entry["closed"] }
+						teacher = Teacher.new teacher_data
+						teacher.valid? ? teacher.save : puts(teachers.errors.messages)
 					end
 				end
 			else
 				error = true
 			end
 		end
-		puts(error ? "Die eingegebenen Daten sind nicht korrekt!" : "#{Category.count} Kategorien und #{Student.count} Schüler wurden hinzugefügt!")
+		puts(error ? "Die eingegebenen Daten sind nicht korrekt!" : "#{Category.count} Kategorien, #{Student.count} Schüler und #{Teacher.count} Lehrer wurden hinzugefügt!")
 	end
 
 	desc "Initial mail delivery"
