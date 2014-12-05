@@ -29,22 +29,27 @@ class VotingController < ApplicationController
 	end
 
 	def results
-		@results_s = []
-		@results_t = []
-		@results = []
-		Category.ids.each do |category_id|
-			if Category.find_by_id(category_id).group.student && !Category.find_by_id(category_id).group.teacher
-				@results << {category_id: category_id, ranking: Vote.connection.select_all("select name, sum(rating) as points from votes v inner join students s on v.voted_id = s.id where v.category_id = #{category_id} group by name order by points desc limit 3").to_a }
-			elsif !Category.find_by_id(category_id).group.student && Category.find_by_id(category_id).group.teacher
-				@results << {category_id: category_id, ranking: Vote.connection.select_all("select name, sum(rating) as points from votes v inner join teachers t on v.voted_id = t.id where v.category_id = #{category_id} group by name order by points desc limit 3").to_a }
-			elsif Category.find_by_id(category_id).group.student && Category.find_by_id(category_id).group.teacher
-				#besten 3 schüler der Kategorie
-				@results << {category_id: category_id, ranking: Vote.connection.select_all("select name, sum(rating) as points from votes v inner join students s on v.voted_id = s.id where v.category_id = #{category_id} group by name order by points desc limit 3").to_a }
-				#besten 3 lehrer der kategorie
-				@results << {category_id: category_id, ranking: Vote.connection.select_all("select name, sum(rating) as points from votes v inner join teachers t on v.voted_id = t.id where v.category_id = #{category_id} group by name order by points desc limit 3").to_a }
-				#results_s und results_t einzelnt durchlaufen und in neuem array gemeinsam speichern
-				#dann im neuen array bei jeder category_id länge des rankings abfragen, wenn größer als 3, dann eintrag (name und points, also :ranking) mit den geringsten points löschen
+		if @current_user.admin_permissions
+			@results_s = []
+			@results_t = []
+			@results = []
+			Category.ids.each do |category_id|
+				if Category.find_by_id(category_id).group.student && !Category.find_by_id(category_id).group.teacher
+					@results << {category_id: category_id, ranking: Vote.connection.select_all("select name, sum(rating) as points from votes v inner join students s on v.voted_id = s.id where v.category_id = #{category_id} group by name order by points desc limit 3").to_a }
+				elsif !Category.find_by_id(category_id).group.student && Category.find_by_id(category_id).group.teacher
+					@results << {category_id: category_id, ranking: Vote.connection.select_all("select name, sum(rating) as points from votes v inner join teachers t on v.voted_id = t.id where v.category_id = #{category_id} group by name order by points desc limit 3").to_a }
+				elsif Category.find_by_id(category_id).group.student && Category.find_by_id(category_id).group.teacher
+					#besten 3 schüler der Kategorie
+					@results << {category_id: category_id, ranking: Vote.connection.select_all("select name, sum(rating) as points from votes v inner join students s on v.voted_id = s.id where v.category_id = #{category_id} group by name order by points desc limit 3").to_a }
+					#besten 3 lehrer der kategorie
+					@results << {category_id: category_id, ranking: Vote.connection.select_all("select name, sum(rating) as points from votes v inner join teachers t on v.voted_id = t.id where v.category_id = #{category_id} group by name order by points desc limit 3").to_a }
+					#results_s und results_t einzelnt durchlaufen und in neuem array gemeinsam speichern
+					#dann im neuen array bei jeder category_id länge des rankings abfragen, wenn größer als 3, dann eintrag (name und points, also :ranking) mit den geringsten points löschen
+				end
 			end
+		else
+			flash[:error] = "Fuer das Einsehen der Ergebnisse des Kategorien-Votings hast du keine Rechte"
+			redirect_to home_path
 		end
 	end
 
