@@ -49,6 +49,19 @@ class Student < ActiveRecord::Base
 		!self.gender
 	end
 
+	def complete_voted_categories
+		categories = []
+		self.given_votes.each do |vote|
+			if self.given_votes.where(:category_id => vote.category_id).count >= 3
+				if !categories.include? vote.category
+					categories << vote.category.id
+				end
+			end
+		end
+
+		return categories
+	end
+
 	def send_password_help_mail
 		generate_token :password_reset_token
 		self.password_reset_sent_at = Time.now
