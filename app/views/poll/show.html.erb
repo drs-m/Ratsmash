@@ -56,12 +56,14 @@
 	<br />
 	<table>
 		<tr>
-			<td>
-				<%= link_to "Bearbeiten", edit_poll_path(@poll.id) %>
-			</td>
-			<td>
-				<%= link_to "Löschen", poll_path(@poll.id), method: :delete, data: { confirm: "Wirklich löschen?" } %>
-			</td>
+			<% if @current_user.admin_permissions %>
+				<td>
+					<%= link_to "Bearbeiten", edit_poll_path(@poll.id) %>
+				</td>
+				<td>
+					<%= link_to "Löschen", poll_path(@poll.id), method: :delete, data: { confirm: "Wirklich löschen?" } %>
+				</td>
+			<% end %>
 			<td>
 				<%= link_to "Alle Umfragen", poll_index_path %>
 			</td>

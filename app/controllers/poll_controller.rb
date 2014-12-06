@@ -114,7 +114,7 @@ class PollController < ApplicationController
 			@poll = Poll.find_by_id params[:id]
 		else
 			flash[:error] = "Du hast keine Administratorenrechte fuer das Bearbeiten von Umfragen!"
-			poll_index_path
+			redirect_to poll_index_path
 		end
 	end
 
