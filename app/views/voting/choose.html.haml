@@ -6,7 +6,8 @@
 	- if @category.closed
 		%p Diese Kategorie ist momentan gesperrt!
 	- else
-
+		%p 
+			%b= "Voting-Gruppe: " + @category.group.name 
 		- (1..3).each do |i|
 			.voting
 				%h2 #{i}. Platz
