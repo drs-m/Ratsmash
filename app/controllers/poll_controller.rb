@@ -159,7 +159,7 @@ class PollController < ApplicationController
 		    if Poll.find_by_id params[:id]
 		    	poll = Poll.find_by_id params[:id]
 		      	poll.destroy
-		      	redirect_to poll_path params[:poll_id], flash: {notice: "Umfrage erfolgreich geloescht"}
+		      	redirect_to poll_index_path, flash: {notice: "Umfrage erfolgreich geloescht"}
 		    else
 		    	flash[:error] = "Fehler: Umfrage nicht gefunden. Versuche es spaeter erneut!"
 		    	redirect_to poll_index_path
