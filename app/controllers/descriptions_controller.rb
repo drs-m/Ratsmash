@@ -62,7 +62,7 @@ class DescriptionsController < ApplicationController
 				redirect_to :descriptions, flash: {notice: "Beschreibung wurde erfolgreich neu eingeordnet"}
 			else
 				flash[:error] = "Die Beschreibung konnte nicht eingeordnet werden"
-				recirect_to :descriptions
+				redirect_to :descriptions
 			end
 		end
 	end

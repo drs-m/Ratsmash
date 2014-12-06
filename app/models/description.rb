@@ -21,7 +21,7 @@ class Description < ActiveRecord::Base
         end
 
         def valid_and_strange_student
-            search_result = Student.where("lower(name) LIKE ?", self.described_name.downcase)
+            search_result = Student.where("lower(name) LIKE ?", self.described.name.downcase)
 
             errors.add(:described_name, "Es wurden mehrere Einträge für diesen Namen gefunden... Das ist nicht vorgesehen.") if search_result.count > 1
 
