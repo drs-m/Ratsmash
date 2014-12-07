@@ -19,8 +19,8 @@ class DescriptionsController < ApplicationController
 		@description.author_id = @current_user.id
 		#render text: @description.to_yaml and return
 
-		if Student.find_by_name @description.described_name.to_s.split.map(&:capitalize).join(' ')
-			described_id = Student.find_by_name(@description.described_name.to_s.split.map(&:capitalize).join(' ')).id
+		if Student.find_by_name @description.described_name.to_s.strip.split.map(&:capitalize).join(' ')
+			described_id = Student.find_by_name(@description.described_name.to_s.strip.split.map(&:capitalize).join(' ')).id
 			if Description.where(:author_id => @current_user.id, :described_id => described_id).count <1
 				if @description.save
 					redirect_to :descriptions, flash: {notice: "Beschreibung wurde erfolgreich erstellt"}
@@ -68,7 +68,7 @@ class DescriptionsController < ApplicationController
 				when "reject"
 					status = -1
 			end
-
+			@description.described_name = Student.find_by_id(@description.described_id).name
 			if @description.update status: status
 				redirect_to :descriptions, flash: {notice: "Beschreibung wurde erfolgreich neu eingeordnet"}
 			else
