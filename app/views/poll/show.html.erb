@@ -1,5 +1,8 @@
 <h1><%= @poll.name %></h1>
 <h2><%= @poll.question %></h2>
+<% if @poll.closed %>
+	<h2 style="color:green;">Umfrage beendet!</h2>
+<% end %>
 <h2>Votingmöglichkeiten</h2>
 <ul>
 	<% i=0 %>
@@ -7,7 +10,7 @@
 		<table>
 			<tr>
 				<td>
-					<% if !@my_vote.blank? %>
+					<% if @poll.closed %>
 						<%= vote_option.name %> (<%= @poll_voting_absolute_results[i] %> Stimmen / <%= @poll_voting_relative_results[i] %> %)
 					<% else %>
 						<%= vote_option.name %> (? Stimmen / ? %)
@@ -15,28 +18,42 @@
 					<% i+=1 %>
 				</td>
 				<td>
-					<% if @my_vote.blank? %>
-						<%= form_tag "/vote_poll", method: :post do %>
-							<%= hidden_field_tag :poll_id, @poll.id %>
-							<%= hidden_field_tag :op_id, vote_option.id %>
-							<%= submit_tag "Vote for it!" %>
+					<% if !@poll.closed %>
+						<% if @my_vote.blank? %>
+							<%= form_tag "/vote_poll", method: :post do %>
+								<%= hidden_field_tag :poll_id, @poll.id %>
+								<%= hidden_field_tag :op_id, vote_option.id %>
+								<%= submit_tag "Vote for it!" %>
+							<% end %>
+						<% else %>
+							<% if @my_vote.poll_option_id == vote_option.id %>
+								<table>
+									<tr>
+										<td>
+											<button>Dein Vote!</button>
+										</td>
+										<td>
+											<%= form_tag "/remove_vote_poll", method: :post do %>
+												<%= hidden_field_tag :poll_id, @poll.id %>
+												<%= hidden_field_tag :op_id, vote_option.id %>
+												<%= submit_tag "Vote zurückziehen" %>
+											<% end %>
+										</td>
+									</tr>
+								</table>
+							<% end %>
 						<% end %>
 					<% else %>
-						<% if @my_vote.poll_option_id == vote_option.id %>
-							<table>
-								<tr>
-									<td>
-										<button>Dein Vote!</button>
-									</td>
-									<td>
-										<%= form_tag "/remove_vote_poll", method: :post do %>
-											<%= hidden_field_tag :poll_id, @poll.id %>
-											<%= hidden_field_tag :op_id, vote_option.id %>
-											<%= submit_tag "Vote zurückziehen" %>
-										<% end %>
-									</td>
-								</tr>
-							</table>
+						<% if !@my_vote.nil? %>
+							<% if @my_vote.poll_option_id == vote_option.id %>
+								<table>
+									<tr>
+										<td>
+											<button>Dein Vote!</button>
+										</td>
+									</tr>
+								</table>
+							<% end %>
 						<% end %>
 					<% end %>
 				</td>
@@ -44,7 +61,7 @@
 		</table>
 	<% end %>
 </ul>
-<% if @current_user.admin_permissions %>
+<% if @current_user.admin_permissions && !@poll.closed %>
 	<h2>Füge Votingmöglichkeit hinzu</h2>
 	<%= form_tag "/add_poll_vote_options", method: :post do %>
 		<%= hidden_field_tag :poll_id, @poll.id %>
@@ -57,12 +74,21 @@
 	<table>
 		<tr>
 			<% if @current_user.admin_permissions %>
-				<td>
-					<%= link_to "Bearbeiten", edit_poll_path(@poll.id) %>
-				</td>
-				<td>
-					<%= link_to "Löschen", poll_path(@poll.id), method: :delete, data: { confirm: "Wirklich löschen?" } %>
-				</td>
+				<% if !@poll.closed %>
+					<td>
+						<%= link_to "Bearbeiten", edit_poll_path(@poll.id) %>
+					</td>
+					<td>
+						<%= link_to "Beenden", close_poll_path(@poll.id) %>
+					</td>
+					<td>
+						<%= link_to "Löschen", poll_path(@poll.id), method: :delete, data: { confirm: "Wirklich löschen?" } %>
+					</td>
+				<% else %>
+					<td>
+						<%= link_to "Umfrage wieder öffnen", open_poll_path(@poll.id) %>
+					</td>
+				<% end %>
 			<% end %>
 			<td>
 				<%= link_to "Alle Umfragen", poll_index_path %>

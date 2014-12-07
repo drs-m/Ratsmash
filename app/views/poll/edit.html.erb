@@ -29,6 +29,9 @@
 				<%= link_to "Zur Umfrage", poll_path(@poll.id) %>
 			</td>
 			<td>
+				<%= link_to "Beenden", close_poll_path(@poll.id) %>
+			</td>
+			<td>
 				<%= link_to "Löschen", poll_path(@poll.id), method: :delete, data: { confirm: "Wirklich löschen?" } %>
 			</td>
 			<td>

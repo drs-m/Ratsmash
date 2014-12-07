@@ -68,8 +68,40 @@ class PollController < ApplicationController
 	    @my_vote = PollVote.where(:poll_id => @poll.id, :student_id => @current_user.id).first
 	end
 
+	def open_poll
+		if @current_user.admin_permissions && Poll.find_by_id(params[:id]).closed
+			if !params[:id].blank? && Poll.find_by_id(params[:id])
+				poll = Poll.find_by_id params[:id]
+				poll.update_attributes :closed => false
+				redirect_to poll_path params[:id], flash: {notice: "Die Umfrage wurde erfolgreich wieder geoeffnet!"}
+			else
+				flash[:error] = "Fehler: Umfrage nicht gefunden! Bitte versuche es spaeter erneut!"
+	      		redirect_to poll_index_path
+			end
+		else
+			flash[:error] = "Du hast keine Administratorenrechte fuer das Oeffnen von Umfragen oder die Umfrage wurde bereits geoeffnet!"
+			redirect_to poll_index_path
+		end
+	end
+
+	def close_poll
+		if @current_user.admin_permissions && !Poll.find_by_id(params[:id]).closed
+			if !params[:id].blank? && Poll.find_by_id(params[:id])
+				poll = Poll.find_by_id params[:id]
+				poll.update_attributes :closed => true
+				redirect_to poll_path params[:id], flash: {notice: "Die Umfrage wurde erfolgreich beendet!"}
+			else
+				flash[:error] = "Fehler: Umfrage nicht gefunden! Bitte versuche es spaeter erneut!"
+	      		redirect_to poll_index_path
+			end
+		else
+			flash[:error] = "Du hast keine Administratorenrechte fuer das Beenden von Umfragen oder die Umfrage wurde bereits beendet!"
+			redirect_to poll_index_path
+		end
+	end
+
   def vote_poll
-    if !params[:poll_id].blank? && !params[:op_id].blank?
+    if !params[:poll_id].blank? && !params[:op_id].blank? && !Poll.find_by_id(params[:id]).closed
       if PollVote.where(:poll_id => params[:poll_id], :student_id => @current_user.id).count == 0
       	PollVote.create :poll_id => params[:poll_id], :poll_option_id => params[:op_id], :student_id => @current_user.id
       else
@@ -84,7 +116,7 @@ class PollController < ApplicationController
   end
 
   def remove_vote_poll
-  	if !params[:poll_id].blank? && !params[:op_id].blank?
+  	if !params[:poll_id].blank? && !params[:op_id].blank?  && !Poll.find_by_id(params[:id]).closed
   		vote = PollVote.where(:poll_id => params[:poll_id], :poll_option_id => params[:op_id], :student_id => @current_user.id).first
   		if !vote.blank?
   			vote.delete
@@ -100,7 +132,7 @@ class PollController < ApplicationController
   end
 
   def add_poll_vote_options
-    if !params[:poll_id].blank? && !params[:op].blank?
+    if !params[:poll_id].blank? && !params[:op].blank? && !Poll.find_by_id(params[:id]).closed
       PollOption.create :poll_id => params[:poll_id], :name => params[:op]
       redirect_to poll_path params[:poll_id], flash: {notice: "Abstimmungsmoeglichkeit erfolgreich hinzugefuegt"}
     else
@@ -110,16 +142,16 @@ class PollController < ApplicationController
   end
 
 	def edit
-		if @current_user.admin_permissions
+		if @current_user.admin_permissions && !Poll.find_by_id(params[:id]).closed
 			@poll = Poll.find_by_id params[:id]
 		else
-			flash[:error] = "Du hast keine Administratorenrechte fuer das Bearbeiten von Umfragen!"
+			flash[:error] = "Du hast keine Administratorenrechte fuer das Bearbeiten von Umfragen  oder die Umfrage wurde bereits beendet!"
 			redirect_to poll_index_path
 		end
 	end
 
 	def update
-		if @current_user.admin_permissions
+		if @current_user.admin_permissions && !Poll.find_by_id(params[:id]).closed
 			if !params[:poll_id].blank? && !params[:name].blank? && !params[:question].blank? && !params[:voting_op].blank? && !params[:poll_option_id].blank?
 				if Poll.find_by_id params[:poll_id]
 					poll = Poll.find_by_id params[:poll_id]
@@ -149,13 +181,13 @@ class PollController < ApplicationController
 				redirect_to poll_index_path
 			end
 		else
-			flash[:error] = "Du hast keine Administratorenrechte fuer das Bearbeiten von Umfragen!"
+			flash[:error] = "Du hast keine Administratorenrechte fuer das Bearbeiten von Umfragen  oder die Umfrage wurde bereits beendet!"
 			redirect_to poll_index_path
 		end
 	end
 
     def destroy
-	  	if @current_user.admin_permissions
+	  	if @current_user.admin_permissions && !Poll.find_by_id(params[:id]).closed
 		    if Poll.find_by_id params[:id]
 		    	poll = Poll.find_by_id params[:id]
 		      	poll.destroy
@@ -165,7 +197,7 @@ class PollController < ApplicationController
 		    	redirect_to poll_index_path
 		    end
 		else
-			flash[:error] = "Du hast keine Administratorenrechte fuer das Loeschen von Umfragen!"
+			flash[:error] = "Du hast keine Administratorenrechte fuer das Loeschen von Umfragen oder die Umfrage wurde bereits beendet!"
 			redirect_to poll_index_path
 		end
     end

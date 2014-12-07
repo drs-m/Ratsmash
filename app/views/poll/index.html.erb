@@ -9,9 +9,13 @@
 	<% @polls_not_voted_for.each do |poll| %>
 		<tr>
 			<td><%= link_to poll.name+" ("+poll.question+")", poll_path(poll.id) %> </td>
-			<% if @current_user.admin_permissions %>
+			<% if @current_user.admin_permissions && !poll.closed %>
 				<td><%= link_to "Bearbeiten", edit_poll_path(poll.id) %></td>
+				<td><%= link_to "Beenden", close_poll_path(poll.id) %></td>
 				<td><%= link_to "Löschen", poll_path(poll.id), method: :delete, data: { confirm: "Wirklich löschen?" } %></td>
+			<% else %>
+				<td style="color:green;">Umfrage beendet</td>
+				<td><%= link_to "Umfrage wieder öffnen", open_poll_path(poll.id) %></td>
 			<% end %>
 		</tr>
 	<% end %>
@@ -21,9 +25,13 @@
 	<% @polls_already_voted_for.each do |poll| %>
 		<tr>
 			<td><%= link_to poll.name+" ("+poll.question+")", poll_path(poll.id) %> </td>
-			<% if @current_user.admin_permissions %>
+			<% if @current_user.admin_permissions && !poll.closed %>
 				<td><%= link_to "Bearbeiten", edit_poll_path(poll.id) %></td>
+				<td><%= link_to "Beenden", close_poll_path(poll.id) %></td>
 				<td><%= link_to "Löschen", poll_path(poll.id), method: :delete, data: { confirm: "Wirklich löschen?" } %></td>
+			<% else %>
+				<td style="color:green;">Umfrage beendet</td>
+				<td><%= link_to "Umfrage wieder öffnen", open_poll_path(poll.id) %></td>
 			<% end %>
 		</tr>
 	<% end %>
