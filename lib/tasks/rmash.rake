@@ -2,6 +2,12 @@
 
 namespace :rmash do
 
+	task :create_user_groups => :environment do
+		UserGroup.destroy_all
+		group_names = ["Abizeitung", "Ratsmash-Team", "Abimotto"]
+		group_names.each { |group_name| UserGroup.create(name: group_name) }
+	end
+
 	task :append_salutation_to_teachers => :environment do
 		Teacher.all.each do |teacher|
 			teacher.name = (teacher.male ? "Herr " : "Frau ") + teacher.name

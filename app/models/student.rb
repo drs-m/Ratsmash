@@ -13,6 +13,9 @@ class Student < ActiveRecord::Base
 
 	has_many :logins, class_name: "Login", foreign_key: "user_id"
 
+	has_many :memberships, dependent: :destroy, foreign_key: "member_id"
+	has_many :groups, through: :memberships
+
 	# einträge lassen sich bei before_validation oder before_save seltsamerweise nicht speichern! hat vermutlich was mit has_secure_password zu tun
 	after_validation :set_defaults
 	before_create { generate_token(:auth_token) }
@@ -27,6 +30,10 @@ class Student < ActiveRecord::Base
 	def self.authenticate(mail_address, password)
 		student = self.find_by(mail_address: mail_address)
 		return student.present? && student.authenticate(password).present?
+	end
+
+	def has_permission(permission)
+		self.groups.map(&:permissions).flatten.include? permission
 	end
 
 	def online?
