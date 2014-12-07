@@ -26,6 +26,7 @@ end
 # Use sass, coffee and haml for simpler code
 gem 'sass-rails', '~> 4.0.2'
 gem 'haml'
+gem 'haml-rails'
 gem 'coffee-rails', '~> 4.0.0'
 
 gem 'jquery-datatables-rails', '~> 3.1.1'
