@@ -101,7 +101,7 @@ class PollController < ApplicationController
 	end
 
   def vote_poll
-    if !params[:poll_id].blank? && !params[:op_id].blank? && !Poll.find_by_id(params[:id]).closed
+    if !params[:poll_id].blank? && !params[:op_id].blank? && !Poll.find_by_id(params[:poll_id]).closed
       if PollVote.where(:poll_id => params[:poll_id], :student_id => @current_user.id).count == 0
       	PollVote.create :poll_id => params[:poll_id], :poll_option_id => params[:op_id], :student_id => @current_user.id
       else
@@ -116,7 +116,7 @@ class PollController < ApplicationController
   end
 
   def remove_vote_poll
-  	if !params[:poll_id].blank? && !params[:op_id].blank?  && !Poll.find_by_id(params[:id]).closed
+  	if !params[:poll_id].blank? && !params[:op_id].blank?  && !Poll.find_by_id(params[:poll_id]).closed
   		vote = PollVote.where(:poll_id => params[:poll_id], :poll_option_id => params[:op_id], :student_id => @current_user.id).first
   		if !vote.blank?
   			vote.delete
@@ -132,7 +132,7 @@ class PollController < ApplicationController
   end
 
   def add_poll_vote_options
-    if !params[:poll_id].blank? && !params[:op].blank? && !Poll.find_by_id(params[:id]).closed
+    if !params[:poll_id].blank? && !params[:op].blank? && !Poll.find_by_id(params[:poll_id]).closed
       PollOption.create :poll_id => params[:poll_id], :name => params[:op]
       redirect_to poll_path params[:poll_id], flash: {notice: "Abstimmungsmoeglichkeit erfolgreich hinzugefuegt"}
     else
@@ -151,7 +151,7 @@ class PollController < ApplicationController
 	end
 
 	def update
-		if @current_user.admin_permissions && !Poll.find_by_id(params[:id]).closed
+		if @current_user.admin_permissions && !Poll.find_by_id(params[:poll_id]).closed
 			if !params[:poll_id].blank? && !params[:name].blank? && !params[:question].blank? && !params[:voting_op].blank? && !params[:poll_option_id].blank?
 				if Poll.find_by_id params[:poll_id]
 					poll = Poll.find_by_id params[:poll_id]
@@ -162,7 +162,14 @@ class PollController < ApplicationController
 						params[:poll_option_id].each do |poll_option_id|
 							if k == i
 								if !voting_op[1].blank?
-									PollOption.find_by_id(poll_option_id[1].to_i).update_attributes :name => voting_op[1]
+									if voting_op[1] == PollOption.find_by_id(poll_option_id[1].to_i).name
+										PollOption.find_by_id(poll_option_id[1].to_i).update_attributes :name => voting_op[1]
+									else
+										PollVote.where(:poll_id => poll.id, :poll_option_id => poll_option_id[1].to_i).each do |vote|
+											vote.destroy
+										end
+										PollOption.find_by_id(poll_option_id[1].to_i).update_attributes :name => voting_op[1]
+									end
 								else
 									PollOption.find_by_id(poll_option_id[1].to_i).destroy
 								end
