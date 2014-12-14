@@ -1,6 +1,6 @@
 class PollController < ApplicationController
 
-	before_action -> { check_session redirect: true }
+	before_action -> { check_session redirect: true, restricted_methods: [:new, :create, :edit, :update, :destroy, :open_poll, :close_poll, :add_poll_vote_options] }
 	
 	def index
  		polls_already_voted_for_id = PollVote.where(:student_id => @current_user.id).pluck(:poll_id)
