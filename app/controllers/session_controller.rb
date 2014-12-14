@@ -68,7 +68,7 @@ class SessionController < ApplicationController
 		if params[:email]
 			student = Student.find_by mail_address: params[:email]
 			if student
-				if student.closed or student.password_digest.empty?
+				if student.closed or student.password_digest.blank?
 					@closed_error = true
 				else
 					student.send_password_help_mail if student
