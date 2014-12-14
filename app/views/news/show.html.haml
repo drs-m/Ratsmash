@@ -1,0 +1,14 @@
+%h1 News anzeigen
+#news
+	%article
+		%span.news_date= @news.updated_at.day.to_s + "." + @news.updated_at.month.to_s + "." + @news.updated_at.year.to_s
+		%h2= link_to @news.subject, news_path(@news.id)
+		%span.author= @news.author
+		- @news_content.each do |p_content|
+			%p= p_content
+%p
+	%table
+		%tr
+			%td= link_to "News", news_index_path, class: "news_links"
+			%td= link_to("Bearbeiten", edit_news_path(@news.id), class: "news_links") if @current_user.has_permission("news.edit")
+			%td= link_to("Löschen", news_path(@news.id), method: :delete, data: { confirm: "Wirklich löschen?" }, class: "news_links") if @current_user.has_permission("news.destroy")
