@@ -33,10 +33,22 @@ class Student < ActiveRecord::Base
 	end
 
 	def has_permission(*permissions)
-		permissions.each do |permission|
-			return true if self.groups.map(&:permissions).flatten.include?(permission)
+		results = []
+		permissions.each_with_index do |permission, i|
+			child_permission = permission
+			parent_permission = child_permission.split(".")[0...-1].join(".").+(".*")
+
+			[child_permission, parent_permission, "*"].each do |permission|
+				if self.groups.map(&:permissions).flatten.include?(permission)
+					results[i] = true
+					break
+				else
+					results[i] = false
+				end
+			end
 		end
-		return false
+
+		return (results.include?(false) ? false : true)
 	end
 
 	def online?

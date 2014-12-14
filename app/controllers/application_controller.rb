@@ -29,13 +29,11 @@ class ApplicationController < ActionController::Base
 		 	 		# leite um wenn der user keine berechtigung hat
 					if options[:permission]
 						permission = :required
-						child_permissions = options[:permission]
-						parent_permission = child_permission.split(".")[0...-1].join(".").+(".*")
-						permission = :given if @current_user.has_permission(child_permission, parent_permission, "*")
+						permission = :given if @current_user.has_permission(options[:permission])
 					elsif options[:restricted_methods]
 						if options[:restricted_methods].include?(params[:action].intern) or options[:restricted_methods] == :all
 							permission = :required
-							permission = :given if @current_user.has_permission(params[:controller] + "." + params[:action], params[:controller] + ".*", "*")
+							permission = :given if @current_user.has_permission(params[:controller] + "." + params[:action])
 						end
 					end
 
