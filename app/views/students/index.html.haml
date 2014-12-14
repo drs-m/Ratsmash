@@ -3,6 +3,8 @@
 
   = link_to 'Schüler hinzufügen', new_student_path
 
+  %p= "Aktive Accounts: #{Student.active.count}/#{Student.count}"
+
   %table
     %thead
       %tr

@@ -24,6 +24,8 @@ class Student < ActiveRecord::Base
 	scope :male, -> { where gender: true }
 	scope :female, -> { where gender: false }
 	scope :online, -> { where("last_seen_at > ?", 10.minutes.ago)}
+	scope :active, -> { where.not(password_digest: nil) }
+	scope :inactive, -> { where password_digest: nil }
 
 	validates :name, :mail_address, presence: true
 

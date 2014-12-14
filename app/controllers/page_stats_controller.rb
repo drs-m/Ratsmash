@@ -1,6 +1,6 @@
 class PageStatsController < ApplicationController
 
-	before_action -> { check_session redirect: true, restricted_methods: :all }
+	before_action -> { check_session redirect: true, restricted_methods: [:all] }
 
     def index
         most_logins = ["keiner",0]

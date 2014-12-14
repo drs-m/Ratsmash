@@ -83,10 +83,10 @@ namespace :rmash do
 		puts "Keine Schüler angegeben!" and return if args[:selected].blank?
 
 		if args[:selected] == "all"
-			results = Student.where(password_digest: nil)
+			results = Student.inactive
 		else
 			names = args[:selected].split " - "
-			results = Student.where password_digest: nil, name: names
+			results = Student.inactive.where(name: names)
 		end
 
 		began = Time.now
