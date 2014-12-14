@@ -15,6 +15,7 @@
 			%tr
 			- [@student_categories[i], @teacher_categories[i]].each do |category|
 				- next unless category
+				- next if category.closed
 				- if category.group.male && category.group.female
 					%td= link_to category.name + (@complete_voted_categories.include?(category.id) ? " (gevotet)" : ""), give_vote_path(category.id)
 				- else
@@ -37,6 +38,7 @@
 			%tr
 			- [@student_categories[i], @teacher_categories[i]].each do |category|
 				- next unless category
+				- next if category.closed
 				- if category.group.male && category.group.female
 					%td= link_to category.name + (@complete_voted_categories.include?(category.id) ? " (gevotet)" : ""), give_vote_path(category.id)
 				- else

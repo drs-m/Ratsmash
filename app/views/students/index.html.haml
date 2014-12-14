@@ -1,7 +1,7 @@
 -if !mobile_device?
   %h1 Schülerliste
 
-  = link_to 'Schüler hinzufügen', new_student_path
+  = link_to 'Schüler hinzufügen', new_student_path if @current_user.has_permission("students.new")
 
   %p= "Aktive Accounts: #{Student.active.count}/#{Student.count}"
 
@@ -25,13 +25,13 @@
           %td= simple_symbol condition: student.admin_permissions
           %td= member_symbol student
           %td= student.descriptions.count
-          %td= link_to 'Anzeigen', student
-          %td= link_to 'Bearbeiten', edit_student_path(student)
-          %td= link_to 'Löschen', student, method: :delete, data: { confirm: 'Soll Eintrag Nr. ' + student.id.to_s + " wirklich gelöscht werden?" }
+          %td= @current_user.has_permission("students.show") ? link_to('Anzeigen', student) : ""
+          %td= @current_user.has_permission("students.edit") ? link_to('Bearbeiten', edit_student_path(student)) : ""
+          %td= @current_user.has_permission("students.destroy") ? link_to('Löschen', student, method: :delete, data: { confirm: 'Soll Eintrag Nr. ' + student.id.to_s + " wirklich gelöscht werden?" }) : ""
 -else
   %h1 Schülerliste
 
-  = link_to 'Schüler hinzufügen', new_student_path
+  = link_to 'Schüler hinzufügen', new_student_path if @current_user.has_permission("students.new")
   %div{style:"margin-bottom:30px;",id:"colTogglePlaceholder"}
   %div{style:"width:100%;overflow:auto;"}
     %table.ui-responsive{id:"student_table",:data=>{:role=>"table",:mode=>"columntoggle",:column_btn_text=>"Spalten",:column_btn_theme=>"b"}}
@@ -54,6 +54,6 @@
             %td= simple_symbol condition: student.admin_permissions
             %td= member_symbol student
             %td= student.descriptions.count
-            %td= link_to 'Anzeigen', student
-            %td= link_to 'Bearbeiten', edit_student_path(student)
-            %td= link_to 'Löschen', student, method: :delete, data: { confirm: 'Soll Eintrag Nr. ' + student.id.to_s + " wirklich gelöscht werden?" }
+            %td= @current_user.has_permission("students.show") ? link_to('Anzeigen', student) : ""
+            %td= @current_user.has_permission("students.edit") ? link_to('Bearbeiten', edit_student_path(student)) : ""
+            %td= @current_user.has_permission("students.destroy") ? link_to('Löschen', student, method: :delete, data: { confirm: 'Soll Eintrag Nr. ' + student.id.to_s + " wirklich gelöscht werden?" }) : ""

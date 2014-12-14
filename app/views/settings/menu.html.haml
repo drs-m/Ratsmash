@@ -1,0 +1,8 @@
+%h1 Administration
+
+%p= link_to "Schüler", :students if @current_user.has_permission("students.index")
+%p= link_to "Lehrer", :teachers if @current_user.has_permission("teachers.index")
+%p= link_to "Kategorien", :categories if @current_user.has_permission("categories.index")
+%p= link_to "Ergebnisse", :results if @current_user.has_permission("voting.results")
+%p= link_to "Zitate", :quotes if @current_user.has_permission("quotes.index")
+%p= link_to "Seitenstatistik", page_stats_index_path if @current_user.admin_permissions

@@ -2,7 +2,7 @@
 class StudentsController < ApplicationController
 
   # check for current admin-session
-  before_action -> { check_session redirect: true, admin_permissions: true }, except: [:change_password]
+  before_action -> { check_session redirect: true, restricted_methods: [:all] }, except: [:change_password]
   before_action :set_student, only: [:show, :edit, :update, :destroy]
 
   # GET /students
