@@ -54,8 +54,13 @@ class DescriptionsController < ApplicationController
 	end
 
 	def destroy
-		@description.destroy
-		redirect_to descriptions_path, flash: {notice: "Beschreibung wurde erfolgreich geloescht"}
+		if @description.author_id == @current_user.id
+			@description.destroy
+			redirect_to descriptions_path, flash: {notice: "Beschreibung wurde erfolgreich geloescht"}
+		else
+			flash[:error] = "Du kannst diese Beschreibung nicht loeschen, da du nicht der Verfasser bist"
+			redirect_to descriptions_path
+		end
 	end
 
 	def categorize
