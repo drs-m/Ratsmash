@@ -6,7 +6,7 @@ class UserGroup < ActiveRecord::Base
     def permissions
         permission_set = {
             "Abizeitung" => [ "categories.*" ],
-            "Abimotto" => [ "polls.manage.abimotto" ],
+            "Abimotto" => [ "polls.*" ],
             "Ratsmash-Team" => [ "*" ]
         }
 
