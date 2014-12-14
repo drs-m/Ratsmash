@@ -1,5 +1,5 @@
 <h1>News</h1>
-<% if @current_user.admin_permissions %>
+<% if @current_user.has_permission("news.new") %>
 	<p><%= link_to "Neue News erstellen", new_news_path, class: "news_links" %></p>
 <% end %>
 <div id="news">
@@ -17,7 +17,7 @@
 						<%= new_content[0,200]+"..." %>
 						<span class="author">Von <%= news.author %></span>
 					</p>
-					<% if @current_user.admin_permissions %>
+					<% if @current_user.has_permission("news.destroy", "news.edit") %>
 						<footer>
 							<%= link_to "Bearbeiten", edit_news_path(news.id) %>
 							<%= link_to "Löschen", news_path(news.id), method: :delete, data: { confirm: "Wirklich löschen?" } %>

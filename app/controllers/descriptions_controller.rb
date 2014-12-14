@@ -1,8 +1,7 @@
 # encoding: utf-8
 class DescriptionsController < ApplicationController
 
-	before_action -> { check_session redirect: true, admin_permissions: true }, only: [:show]
-	before_action -> { check_session redirect: true }, except: [:show]
+	before_action -> { check_session redirect: true, restricted_methods: [:show] }
 	before_action :set_description, only: [:show, :edit, :update, :destroy, :categorize]
 
 	def index

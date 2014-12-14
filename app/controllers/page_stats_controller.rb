@@ -1,6 +1,6 @@
 class PageStatsController < ApplicationController
 
-	before_action -> { check_session redirect: true, admin_permissions: true }
+	before_action -> { check_session redirect: true, restricted_methods: :all }
 
     def index
         most_logins = ["keiner",0]
@@ -28,7 +28,7 @@ class PageStatsController < ApplicationController
                     third_most_logins[1] = second_most_logins[1]
                     third_most_logins[2] = second_most_logins[2]
                     third_most_logins[3] = second_most_logins[3]
-                    
+
                     second_most_logins[0] = student.name
                     second_most_logins[1] = Login.where(:user_id=>student.id).count
                     second_most_logins[2] = Login.where(:user_id=>student.id, :mobile_device => true).count
@@ -79,9 +79,9 @@ class PageStatsController < ApplicationController
         end
 
         @logins_in_last = {hour: Login.last_hour.count, day: Login.last_day.count, week: Login.last_week.count, month: Login.last_month.count}
-        
+
         @last_10_logins = Login.order(created_at: :desc).limit(10)
-        
+
     end
 
 end

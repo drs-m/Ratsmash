@@ -1,7 +1,7 @@
 # encoding: utf-8
 class CategoriesController < ApplicationController
 
-  before_action -> { check_session redirect: true, admin_permissions: true }
+  before_action -> { check_session redirect: true, restricted_methods: :all }
   before_action :set_category, only: [:show, :edit, :update, :destroy]
 
   # GET /categories
