@@ -18,23 +18,27 @@ class SessionController < ApplicationController
 				if !params[:password].present?
 					error = "Bitte gib ein Passwort ein!"
 				else
-					if student.authenticate params[:password]
-						if student.closed
-							error = "Dein Account wurde gesperrt! Bitte wende dich an die Abizeitung oder das Ratsmash-Team."
+					if student.password_digest.present?
+						if student.authenticate params[:password]
+							if student.closed
+								error = "Dein Account wurde gesperrt! Bitte wende dich an die Abizeitung oder das Ratsmash-Team."
+							else
+								if mobile_device?
+									Login.create :user_id => student.id, :mobile_device => true
+								else
+									Login.create :user_id => student.id, :mobile_device => false
+								end
+								if params[:persist]
+									cookies.permanent.signed[:at] = student.auth_token
+								else
+									cookies.signed[:at] = student.auth_token
+								end
+							end
 						else
-							if mobile_device?
-								Login.create :user_id => student.id, :mobile_device => true
-							else
-								Login.create :user_id => student.id, :mobile_device => false
-							end
-							if params[:persist]
-								cookies.permanent.signed[:at] = student.auth_token
-							else
-								cookies.signed[:at] = student.auth_token
-							end
+							error = "Das eingegebene Passwort ist falsch"
 						end
 					else
-						error = "Das eingegebene Passwort ist falsch"
+						error = "Dein Account wurde noch nicht aktiviert"
 					end
 				end
 			else
