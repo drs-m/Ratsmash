@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
 	# include symbol helper in all views
 	helper :symbol
 	helper_method :mobile_device?
-	before_filter :setOnlineStatus
+	before_action :setOnlineStatus
 
  	def setOnlineStatus
  		if logged_in?
