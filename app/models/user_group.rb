@@ -5,7 +5,12 @@ class UserGroup < ActiveRecord::Base
 
     def permissions
         permission_set = {
-            "Abizeitung" => [ "categories.*" ],
+            "Abizeitung" => [
+                    "students.index",
+                    "students.show",
+                    "categories.*",
+                    "settings.menu"
+                ],
             "Abimotto" => [ "polls.manage.abimotto" ],
             "Ratsmash-Team" => [ "*" ]
         }

@@ -2,12 +2,12 @@
 	%ul
 		- if @current_user != nil
 			%li= link_to "Hauptmenü", :home
-			%li= link_to "Kategorien", :category_list
+			%li= link_to "Abstimmung", :category_list
 			%li= link_to "Umfragen", poll_index_path
 			%li= link_to "Beschreibungen", descriptions_path
 			%li= link_to "News", news_index_path
 			%li= link_to "Zitat einreichen", :new_quote
-			-if @current_user.admin_permissions
+			-if @current_user.has_permission("settings.menu")
 				%li= link_to "Administration", :settings
 			%li= link_to "Passwort ändern", :change_password
 			%li= link_to "Logout", :logout
@@ -25,13 +25,13 @@
 	%ul
 		- if @current_user != nil
 			%li= link_to raw("Account &or;"), "#", id: "account_link", onclick: "manageAccountDd();"
-			-if @current_user.admin_permissions
+			-if @current_user.has_permission("settings.menu")
 				%li= link_to "Administration", :settings
 			%li= link_to "News", news_index_path
 			%li= link_to "Zitat einreichen", :new_quote
 			%li= link_to "Beschreibungen", descriptions_path
 			%li= link_to "Umfragen", poll_index_path
-			%li= link_to "Kategorien", :category_list
+			%li= link_to "Abstimmung", :category_list
 	- if @current_user != nil
 		-if !mobile_device?
 			= image_tag("menue_button.png", height: 40, alt: "Menübutton", id: "little_menue_button", onclick: "manageMobileMenue();")

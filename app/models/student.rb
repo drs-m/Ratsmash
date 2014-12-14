@@ -34,6 +34,14 @@ class Student < ActiveRecord::Base
 		return student.present? && student.authenticate(password).present?
 	end
 
+	def has_one_of_permissions(*permissions)
+		permissions.each do |permission|
+			return true if has_permission(permission)
+		end
+
+		return false
+	end
+
 	def has_permission(*permissions)
 		results = []
 		permissions.each_with_index do |permission, i|
