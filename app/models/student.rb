@@ -32,8 +32,11 @@ class Student < ActiveRecord::Base
 		return student.present? && student.authenticate(password).present?
 	end
 
-	def has_permission(permission)
-		self.groups.map(&:permissions).flatten.include? permission
+	def has_permission(*permissions)
+		permissions.each do |permission|
+			return true if self.groups.map(&:permissions).flatten.include?(permission)
+		end
+		return false
 	end
 
 	def online?
