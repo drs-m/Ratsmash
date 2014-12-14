@@ -2,12 +2,11 @@
 	- if @current_user
 		- if !footer_head_info.nil?
 			%p= raw "Eingeloggt als " + @current_user.name + footer_head_info
-		- else 
+		- else
 			%p= raw "Eingeloggt als " + @current_user.name
 
 	%ul
 		%li= link_to "Impressum", :static_imprint
 		%li= link_to "Datenschutz", :static_privacy
 		%li= link_to "Kontakt", :contacts
-		%li= link_to("Launch", release_state_index_path) if @current_user and @current_user.admin_permissions
 		%li= link_to "Startseite", :login

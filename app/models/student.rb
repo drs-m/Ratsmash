@@ -95,7 +95,7 @@ class Student < ActiveRecord::Base
 		generate_token :password_reset_token
 		self.password_reset_sent_at = nil
 		save!
-		# StudentMailer.launch_info(self).deliver
+		StudentMailer.launch_info(self).deliver
 		puts "[#{Time.now}] Registrierungsmail wurde an #{self.name} verschickt"
 	end
 

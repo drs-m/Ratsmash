@@ -38,12 +38,12 @@ Ratsmash::Application.routes.draw do
         end
     end
 
-    resources :release_state, :only => "index"
+    # resources :release_state, :only => "index"
 
     #PROJECT GOES LIVE
-    post "send_mails_to_students", to: "release_state#send_mails_to_students"
-    post "get_mail_status", to: "release_state#get_mail_status"
-    get "launch_reset", to: "release_state#reset", as: :launch_reset
+    # post "send_mails_to_students", to: "release_state#send_mails_to_students"
+    # post "get_mail_status", to: "release_state#get_mail_status"
+    # get "launch_reset", to: "release_state#reset", as: :launch_reset
 
     #DESCRIPTION ROUTES
     #get "categorize_description/:id/:state", to: "descriptions#categorize", as: :categorize_description
