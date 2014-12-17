@@ -81,6 +81,11 @@ class Student < ActiveRecord::Base
 		!self.gender
 	end
 
+	# gibt Kategorien nach Anzahl der abgegebenen Stimmen wieder
+	def categories_by_vote_count
+		self.given_votes.group(:category_id).count.each_with_object({}) { |(k, v), h| ( h[v] ||= [] ) << self.given_votes.find_by(category_id: k) }
+	end
+
 	def complete_voted_categories
 		categories = []
 		self.given_votes.each do |vote|
