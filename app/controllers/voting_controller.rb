@@ -87,7 +87,6 @@ class VotingController < ApplicationController
 	end
 
 	def list
-		@complete_voted_categories = @current_user.complete_voted_categories
 		@student_categories = Group.where(student: true, teacher: false).map(&:categories).flatten
 		@teacher_categories = Group.where(student: false, teacher: true).map(&:categories).flatten
 	end
