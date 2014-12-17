@@ -187,7 +187,7 @@ class VotingController < ApplicationController
 					end
 				else
 					# umleitung zur abstimmungsseite mit dem hinweis, dass man nicht zwei mail für den selben in einer kategorie voten darf
-					flash[:error] = "Du darfst nicht mehrmals für den Selben in einer Kategorie voten!"
+					flash[:error] = "Du kannst in einer Kategorie nicht mehrmals die selbe Person wählen!"
 					redirect_to give_vote_path(category_id: @category.id)
 				end
 			else
