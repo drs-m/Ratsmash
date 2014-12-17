@@ -87,8 +87,8 @@ class VotingController < ApplicationController
 	end
 
 	def list
-		@student_categories = Group.where(student: true, teacher: false).map(&:categories).flatten
-		@teacher_categories = Group.where(student: false, teacher: true).map(&:categories).flatten
+		@student_categories = Category.where(group_id: Group.where(student: true, teacher: false).ids).order(:name)
+		@teacher_categories = Category.where(group_id: Group.where(student: false, teacher: true).ids).order(:name)
 	end
 
 	def choose
