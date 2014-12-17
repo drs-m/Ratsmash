@@ -4,6 +4,8 @@
 		%ul
 			%li= message
 
+	%h2 Newszentrale
+
 	%p= "Hallo " + @current_user.name
 	%p
 	- if @not_ordered_descriptions
@@ -13,6 +15,12 @@
 	- if @not_voted_polls
 		%span= "Du hast noch offene Umfragen - " 
 		%span= link_to "Umfragen", poll_index_path
+
+	- if Poll.find_by_name "Abimotto"
+		- if !Poll.find_by_name("Abimotto").closed
+			.important_note
+				%h2 Wichtig - Abimotto-Umfrage gestartet
+				%p Ab sofort ist es möglich für das Abimotto abzustimmen (unter Umfragen -> Abimotto)
 
 	%h2 Newsticker
 	#newsticker
@@ -29,6 +37,8 @@
 		%ul
 			%li= message
 
+	%h2 Newszentrale
+
 	%p= "Hallo " + @current_user.name
 	%p
 	- if @not_ordered_descriptions
@@ -38,6 +48,13 @@
 	- if @not_voted_polls
 		%span= "Du hast noch offene Umfragen - " 
 		%span= link_to "Umfragen", poll_index_path
+
+	- if Poll.find_by_name "Abimotto"
+		- if !Poll.find_by_name("Abimotto").closed
+			.important_note
+				%h2 Wichtig - Abimotto-Umfrage gestartet
+				%p Ab sofort ist es möglich für das Abimotto abzustimmen (unter Umfragen -> Abimotto)
+
 	%h2 Newsticker
 	#newsticker
 		%ul
