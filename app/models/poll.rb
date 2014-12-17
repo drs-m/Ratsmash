@@ -10,6 +10,7 @@ class Poll < ActiveRecord::Base
 	private
 		def set_defaults
 			self.closed ||= false
+			self.public_addable_options ||= false
 		end
 
 end

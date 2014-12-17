@@ -1,6 +1,6 @@
 class PollController < ApplicationController
 
-	before_action -> { check_session redirect: true, restricted_methods: [:new, :create, :edit, :update, :destroy, :open_poll, :close_poll, :add_poll_vote_options] }
+	before_action -> { check_session redirect: true, restricted_methods: [:new, :create, :edit, :update, :destroy, :open_poll, :close_poll] }
 	
 	def index
  		polls_already_voted_for_id = PollVote.where(:student_id => @current_user.id).pluck(:poll_id)
@@ -133,11 +133,17 @@ class PollController < ApplicationController
 
   def add_poll_vote_options
     if !params[:poll_id].blank? && !params[:op].blank? && !Poll.find_by_id(params[:poll_id]).closed
-      PollOption.create :poll_id => params[:poll_id], :name => params[:op]
-      redirect_to poll_path params[:poll_id], flash: {notice: "Abstimmungsmoeglichkeit erfolgreich hinzugefuegt"}
+    	poll = Poll.find_by_id params[:poll_id]
+    	if (@current_user.admin_permissions && @current_user.membership.group.id == 3) || poll.public_addable_options
+        	PollOption.create :poll_id => params[:poll_id], :name => params[:op]
+      		redirect_to poll_path params[:poll_id], flash: {notice: "Abstimmungsmoeglichkeit erfolgreich hinzugefuegt"}
+      	else
+			flash[:error] = "Du darfst keine Umfragemoeglichkeiten hinzufuegen"
+      		redirect_to poll_index_path
+      	end
     else
-      flash[:error] = "Du musst alle Felder ausfuelen, um eine Abstimmungsmoeglichkeit hinzufuegen zu koennen!"
-      redirect_to poll_index_path
+      	flash[:error] = "Du musst alle Felder ausfuelen, um eine Abstimmungsmoeglichkeit hinzufuegen zu koennen!"
+      	redirect_to poll_index_path
     end
   end
 

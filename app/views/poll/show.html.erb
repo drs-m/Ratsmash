@@ -61,7 +61,7 @@
 		</table>
 	<% end %>
 </ul>
-<% if @current_user.admin_permissions && !@poll.closed %>
+<% if (@current_user.admin_permissions && !@poll.closed) || (!@poll.closed && @poll.public_addable_options) %>
 	<h2>Füge Votingmöglichkeit hinzu</h2>
 	<%= form_tag "/add_poll_vote_options", method: :post do %>
 		<%= hidden_field_tag :poll_id, @poll.id %>
