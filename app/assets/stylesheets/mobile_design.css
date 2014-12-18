@@ -110,3 +110,9 @@ h2 a:hover{
 	margin-right: 3%;
 	color: white;
 }
+.important_note{
+	margin: 20px 0;
+}
+.important_note h2{
+	color: red;
+}
