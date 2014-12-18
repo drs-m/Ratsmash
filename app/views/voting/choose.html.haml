@@ -1,8 +1,6 @@
 -if !mobile_device?
 	%h1{id: "category-heading", data: {category: @category.id}}	Deine Wahl in der Kategorie #{@category.name}
 
-	.notice= flash[:notice]
-
 	- if @category.closed
 		%p Diese Kategorie ist momentan gesperrt!
 	- else
@@ -44,12 +42,11 @@
 -else
 	%h1{id: "category-heading", data: {category: @category.id}}	Deine Wahl in der Kategorie #{@category.name}
 
-	.notice= flash[:notice]
-
 	- if @category.closed
 		%p Diese Kategorie ist momentan gesperrt!
 	- else
-
+		%p 
+			%b= "Voting-Gruppe: " + @category.group.name 
 		- (1..3).each do |i|
 			.voting
 				%h2 #{i}. Platz
