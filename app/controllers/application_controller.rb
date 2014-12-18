@@ -17,8 +17,7 @@ class ApplicationController < ActionController::Base
 
 	private
 		def mobile_device?
-			#request.user_agent =~ /Mobile|webOS|Android|PlayBook|Kindle|Kindle Fire|Windows Phone/
-			return true
+			request.user_agent =~ /Mobile|webOS|Android|PlayBook|Kindle|Kindle Fire|Windows Phone/
 		end
 
 		# optionen: admin_permissions || redirect
