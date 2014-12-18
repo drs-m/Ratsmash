@@ -32,6 +32,15 @@ module SymbolHelper
         return raw("<span class='symbol #{state}' title='#{options[:hover]}' style='color:#{COLORS[color]};'>#{CODES[type]}</span>")
     end
 
+    def vote_count_info(category)
+        if category.voting_done(@current_user)
+            ' ' + symbol(:right, hover: "3 Stimmen")
+        else
+            ' <span class="vote-count">' + category.vote_count(@current_user).to_s + '</span>'
+        end
+    end
+
+    # return a green checkmark or a red cross depending on the given condition
     def simple_symbol(options)
         if options[:condition]
             symbol :right, hover: options[:msg_true] || "Ja"
@@ -44,7 +53,7 @@ module SymbolHelper
         if student.closed
             return symbol :wrong, hover: "gesperrt"
         end
-        
+
         if student.password_digest.present?
             symbol :right, hover: "aktiv"
         else

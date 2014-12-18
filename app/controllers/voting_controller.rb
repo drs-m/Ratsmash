@@ -87,9 +87,8 @@ class VotingController < ApplicationController
 	end
 
 	def list
-		@complete_voted_categories = @current_user.complete_voted_categories
-		@student_categories = Group.where(student: true, teacher: false).map(&:categories).flatten
-		@teacher_categories = Group.where(student: false, teacher: true).map(&:categories).flatten
+		@student_categories = Category.where(group_id: Group.where(student: true, teacher: false).ids).order(:name)
+		@teacher_categories = Category.where(group_id: Group.where(student: false, teacher: true).ids).order(:name)
 	end
 
 	def choose
@@ -187,7 +186,7 @@ class VotingController < ApplicationController
 					end
 				else
 					# umleitung zur abstimmungsseite mit dem hinweis, dass man nicht zwei mail für den selben in einer kategorie voten darf
-					flash[:error] = "Du darfst nicht mehrmals für den Selben in einer Kategorie voten!"
+					flash[:error] = "Du kannst in einer Kategorie nicht mehrmals die selbe Person wählen!"
 					redirect_to give_vote_path(category_id: @category.id)
 				end
 			else

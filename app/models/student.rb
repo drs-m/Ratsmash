@@ -81,17 +81,13 @@ class Student < ActiveRecord::Base
 		!self.gender
 	end
 
-	def complete_voted_categories
-		categories = []
-		self.given_votes.each do |vote|
-			if self.given_votes.where(:category_id => vote.category_id).count >= 3
-				if !categories.include? vote.category
-					categories << vote.category.id
-				end
-			end
-		end
+	# gibt Kategorien nach Anzahl der abgegebenen Stimmen wieder
+	def categories_by_vote_count
+		self.given_votes.group(:category_id).count.each_with_object({}) { |(k, v), h| ( h[v] ||= [] ) << self.given_votes.find_by(category_id: k) }
+	end
 
-		return categories
+	def complete_voted_categories
+		categories_by_vote_count[3]
 	end
 
 	def send_password_help_mail
