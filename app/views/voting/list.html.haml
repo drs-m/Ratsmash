@@ -27,20 +27,22 @@
 
 	%h1 Liste der Kriterien
 	%br
+	%h2= "Abgegebene Stimmen: " + number_with_precision((@current_user.given_votes.count.to_f/(Category.count * 3)) * 100, precision: 2, significant: false).to_s.gsub(".",",") + "%"
 	%br
-	%table
-		%tr
-			%th
-				.cat_info_box Schüler
-			%th
-				.cat_info_box Lehrer
-
-		- (0..[@student_categories.count, @teacher_categories.count].max).each do |i|
+	%div{:style=>"width: 100%;overflow: auto;"}
+		%table
 			%tr
-			- [@student_categories[i], @teacher_categories[i]].each do |category|
-				- next unless category
-				- next if category.closed
-				- if category.group.male && category.group.female
-					%td= link_to(raw(category.name + vote_count_info(category)), give_vote_path(category.id))
-				- else
-					%td= link_to(raw(category.name + (category.group.male ? " (männlich)" : " (weiblich)") + vote_count_info(category)), give_vote_path(category.id))
+				%th
+					.cat_info_box Schüler
+				%th
+					.cat_info_box Lehrer
+
+			- (0..[@student_categories.count, @teacher_categories.count].max).each do |i|
+				%tr
+				- [@student_categories[i], @teacher_categories[i]].each do |category|
+					- next unless category
+					- next if category.closed
+					- if category.group.male && category.group.female
+						%td= link_to(raw(category.name + vote_count_info(category)), give_vote_path(category.id))
+					- else
+						%td= link_to(raw(category.name + (category.group.male ? " (männlich)" : " (weiblich)") + vote_count_info(category)), give_vote_path(category.id))
