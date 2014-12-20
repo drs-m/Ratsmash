@@ -72,8 +72,8 @@ Ratsmash::Application.routes.draw do
     get "vote/autocomplete", to: "voting#autocomplete"
 
     # only accept category-ids from 0-99
-    get "vote/:category_id(-(:category_name))", to: "voting#choose", as: :give_vote, category_id: /[0-9]/
-    post "vote/:category_id", to: "voting#commit", category_id: /[0-9]/
+    get "vote/:category_id(-(:category_name))", to: "voting#choose", as: :give_vote, category_id: /[0-9]{1,3}/
+    post "vote/:category_id", to: "voting#commit", category_id: /[0-9]{1,3}/
 
     # SETTINGS ROUTES
     get "settings", to: "settings#menu", as: :settings
