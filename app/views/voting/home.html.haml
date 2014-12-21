@@ -22,6 +22,9 @@
 				%h2 Wichtig - Abimotto-Umfrage gestartet
 				%p Ab sofort ist es möglich für das Abimotto abzustimmen (unter Umfragen -> Abimotto). Ihr könnt dort auch neue Vorschläge hinzufügen, über die dann sofort abgestimmt werden kann!
 
+	%h3= "Abgegebene Stimmen: " + number_with_precision((@current_user.given_votes.count.to_f/(Category.count * 3)) * 100, precision: 2, significant: false).to_s.gsub(".",",") + "%"
+
+
 	%h2 Newsticker
 	#newsticker
 		= image_tag("left_arrow.jpg",height:30,id:"left_arrow")
@@ -54,6 +57,9 @@
 			.important_note
 				%h2 Wichtig - Abimotto-Umfrage gestartet
 				%p Ab sofort ist es möglich für das Abimotto abzustimmen (unter Umfragen -> Abimotto). Ihr könnt dort auch neue Vorschläge hinzufügen, über die dann sofort abgestimmt werden kann!
+
+	%h3= "Abgegebene Stimmen: " + number_with_precision((@current_user.given_votes.count.to_f/(Category.count * 3)) * 100, precision: 2, significant: false).to_s.gsub(".",",") + "%"
+	
 
 	%h2 Newsticker
 	#newsticker
