@@ -72,6 +72,8 @@ $(document).on("pageinit", "#my_content_section", function () {
 
 $(document).ready(function(){
 
+	progress_bar_animation_interval = setInterval("animate_progress_bar()",20);
+
 	$("#results_table").dataTable();
 
 	$(".paste_legend_for_news_button a").click(function(){
@@ -241,6 +243,18 @@ $(document).ready(function(){
 		});
 	}
 });
+
+function animate_progress_bar(){
+	max_percentage_value = $("#voting_percentage").val();
+	percentage_value = $("progress").val();
+	if(percentage_value < max_percentage_value){
+		$("progress").val(percentage_value+1);
+	}
+	else{
+		$("progress").val(max_percentage_value);
+		clearInterval(progress_bar_animation_interval);
+	}
+}
 
 function nextNews(){
 	if(news_index==amount_of_actual_news - 1){

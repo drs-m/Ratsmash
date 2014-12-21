@@ -22,8 +22,9 @@
 				%h2 Wichtig - Abimotto-Umfrage gestartet
 				%p Ab sofort ist es möglich für das Abimotto abzustimmen (unter Umfragen -> Abimotto). Ihr könnt dort auch neue Vorschläge hinzufügen, über die dann sofort abgestimmt werden kann!
 
-	%h3= "Abgegebene Stimmen: " + number_with_precision((@current_user.given_votes.count.to_f/(Category.count * 3)) * 100, precision: 2, significant: false).to_s.gsub(".",",") + "%"
-
+	%h3 Abgegebene Stimmen
+	%h3{:style => "text-align:center;margin-bottom:10px;"}= number_with_precision((@current_user.given_votes.count.to_f/(Category.count * 3)) * 100, precision: 2, significant: false).to_s.gsub(".",",") + "%"
+	%progress{:max => 100, :value => 0}
 
 	%h2 Newsticker
 	#newsticker
@@ -33,6 +34,8 @@
 		= image_tag("right_arrow.jpg",height:30,id:"right_arrow")
 
 		#news_points_wrapper
+
+	= hidden_field_tag("voting_percentage", @current_user.given_votes.count.to_f/(Category.count * 3) * 100)
 			
 -else
 	%h1 Hauptmenü
@@ -58,7 +61,7 @@
 				%h2 Wichtig - Abimotto-Umfrage gestartet
 				%p Ab sofort ist es möglich für das Abimotto abzustimmen (unter Umfragen -> Abimotto). Ihr könnt dort auch neue Vorschläge hinzufügen, über die dann sofort abgestimmt werden kann!
 
-	%h3= "Abgegebene Stimmen: " + number_with_precision((@current_user.given_votes.count.to_f/(Category.count * 3)) * 100, precision: 2, significant: false).to_s.gsub(".",",") + "%"
+	%h3{:style=>"color:"+@voting_percentages_string_style+";"}= "Abgegebene Stimmen: " + number_with_precision((@current_user.given_votes.count.to_f/(Category.count * 3)) * 100, precision: 2, significant: false).to_s.gsub(".",",") + "%"
 	
 
 	%h2 Newsticker

@@ -15,6 +15,16 @@ class VotingController < ApplicationController
 	 			end
 	 		end
  		end
+
+ 		if mobile_device?
+ 			@voting_percentages_string_style = "red"
+
+	 		if @current_user.given_votes.count.to_f/(Category.count * 3) * 100 > 49.99 && @current_user.given_votes.count.to_f/(Category.count * 3) * 100 < 75.00
+	 			@voting_percentages_string_style = "orange"
+	 		elsif @current_user.given_votes.count.to_f/(Category.count * 3) * 100 >= 75.00
+	 			@voting_percentages_string_style = "green"
+	 		end		
+	 	end	
 	end
 
 	def get_newsticker_news
