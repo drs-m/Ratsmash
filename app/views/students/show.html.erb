@@ -31,3 +31,4 @@
 
 <h2>Erhaltene Beschreibungen</h2>
 <%= render partial: "descriptions/table", locals: { descriptions: @student.descriptions, admin_view: true } %>
+<h2>Abgegebene Stimmen: <%= number_with_precision((@student.given_votes.count.to_f/(Category.count * 3)) * 100, precision: 2, significant: false).to_s.gsub(".",",") + "%" %> </h2>
