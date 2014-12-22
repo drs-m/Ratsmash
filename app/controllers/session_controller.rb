@@ -3,57 +3,26 @@ class SessionController < ApplicationController
 
 	def login
 		# redirect if logged in
-		if logged_in?
-			respond_to do |format|
-				format.html { redirect_to(:home) and return }
-				format.json { render(:json => { status: :success }) and return }
-			end
-		end
+		redirect_to :home and return if logged_in?
 
 		# form sent?
 		if params[:email] # and request.post?
-			puts "login attempt" # dev
-			student = Student.find_by mail_address: params[:email]
-			if student
-				if !params[:password].present?
-					error = "Bitte gib ein Passwort ein!"
+			if (response = Student.login(params[:email], params[:password]))[:status] == :success
+				Login.create user_id: response[:user].id, mobile_device: mobile_device?
+				if params[:persistent]
+					cookies.permanent.signed[:at] = response[:user].auth_token
 				else
-					if student.password_digest.present?
-						if student.authenticate params[:password]
-							if student.closed
-								error = "Dein Account wurde gesperrt! Bitte wende dich an die Abizeitung oder das Ratsmash-Team."
-							else
-								if mobile_device?
-									Login.create :user_id => student.id, :mobile_device => true
-								else
-									Login.create :user_id => student.id, :mobile_device => false
-								end
-								if params[:persist]
-									cookies.permanent.signed[:at] = student.auth_token
-								else
-									cookies.signed[:at] = student.auth_token
-								end
-							end
-						else
-							error = "Das eingegebene Passwort ist falsch"
-						end
-					else
-						error = "Dein Account wurde noch nicht aktiviert"
-					end
+					cookies.signed[:at] = response[:user].auth_token
 				end
-			else
-				error = "Der Account konnte nicht gefunden werden"
-			end
 
-			if error
-				respond_to do |format|
-					format.html { flash[:notice] = error }
-					format.json { render json: { status: :error, message: error } }
+				respond_to do |f|
+					f.html { redirect_to :home }
+					f.json { render json: { status: :success }}
 				end
 			else
-				respond_to do |format|
-					format.html { redirect_to :home }
-					format.json { render json: { status: :success } }
+				respond_to do |f|
+					f.html { flash[:error] = response[:message] }
+					f.json { render json: response }
 				end
 			end
 		end

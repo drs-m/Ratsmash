@@ -29,15 +29,39 @@ class Student < ActiveRecord::Base
 
 	validates :name, :mail_address, presence: true
 
+
+	def self.login(email, password)
+		if (student = self.find_by mail_address: email).present?
+			if password.blank?
+				error = "Bitte gib ein Passwort ein!"
+			else
+				if student.password_digest.present?
+					if student.authenticate password
+						if student.closed
+							return { status: :error, message: "Dein Account wurde gesperrt! Bitte wende dich an die Abizeitung oder das Ratsmash-Team." }
+						else
+							return { status: :success, user: student }
+						end
+					else
+						return { status: :error, message: "Das eingegebene Passwort ist falsch" }
+					end
+				else
+					return { status: :error, message: "Dein Account wurde noch nicht aktiviert" }
+				end
+
+			end
+		else
+			return { status: :error, message: "Der Account konnte nicht gefunden werden" }
+		end
+	end
+
 	def self.authenticate(mail_address, password)
 		student = self.find_by(mail_address: mail_address)
 		return student.present? && student.authenticate(password).present?
 	end
 
 	def has_one_of_permissions(*permissions)
-		permissions.each do |permission|
-			return true if has_permission(permission)
-		end
+		permissions.each { |p| return true if has_permission(p) }
 
 		return false
 	end
@@ -62,15 +86,7 @@ class Student < ActiveRecord::Base
 	end
 
 	def online?
-		if self.last_seen_at != nil
-			if self.updated_at > 10.minutes.ago
-				return true
-			else
-				return false
-			end
-		else
-			return false
-		end
+		self.last_seen_at != nil and self.updated_at > 5.minutes.ago
 	end
 
 	def male
@@ -112,9 +128,9 @@ class Student < ActiveRecord::Base
 		end
 
 		def generate_token(column)
-	    	begin
-    	  		self[column] = SecureRandom.urlsafe_base64
-    		end while Student.exists?(column => self[column])
-  		end
+			begin
+				self[column] = SecureRandom.urlsafe_base64
+			end while Student.exists?(column => self[column])
+		end
 
 end
