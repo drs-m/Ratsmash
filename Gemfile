@@ -8,6 +8,7 @@ group :development do
     gem 'binding_of_caller'
 	gem 'capistrano', '~> 3.1.0'
 	gem 'capistrano-rails', '~> 1.1.0'
+	gem 'byebug'
 end
 
 gem "spring", group: [:development, :test]
