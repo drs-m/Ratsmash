@@ -5,6 +5,10 @@ class Vote < ActiveRecord::Base
 	belongs_to :voted, polymorphic: true
 	belongs_to :category
 
+	def to_s
+		"#{self.category.name} (#{self.rating.to_s}): #{self.voter.name} -> #{self.voted.name}"
+	end
+
 	def self.by_voter_in_category(options = {})
 		if options[:voter] && options[:category]
 			voted = []
