@@ -1,7 +1,7 @@
 # encoding: utf-8
 class VotingController < ApplicationController
 
-	before_action -> { check_session redirect: true }
+	before_action -> { check_session redirect: true, restricted_methods: [:results] }
 
 	def home
 		@not_ordered_descriptions = @current_user.descriptions.unchecked.present?
@@ -23,8 +23,8 @@ class VotingController < ApplicationController
 	 			@voting_percentages_string_style = "orange"
 	 		elsif @current_user.given_votes.count.to_f/(Category.count * 3) * 100 >= 75.00
 	 			@voting_percentages_string_style = "green"
-	 		end		
-	 	end	
+	 		end
+	 	end
 	end
 
 	def get_newsticker_news
@@ -41,28 +41,7 @@ class VotingController < ApplicationController
 	end
 
 	def results
-		if @current_user.admin_permissions
-			@results_s = []
-			@results_t = []
-			@results = []
-			Category.ids.each do |category_id|
-				if Category.find_by_id(category_id).group.student && !Category.find_by_id(category_id).group.teacher
-					@results << {category_id: category_id, ranking: Vote.connection.select_all("select name, sum(rating) as points from votes v inner join students s on v.voted_id = s.id where v.category_id = #{category_id} group by name order by points desc limit 3").to_a }
-				elsif !Category.find_by_id(category_id).group.student && Category.find_by_id(category_id).group.teacher
-					@results << {category_id: category_id, ranking: Vote.connection.select_all("select name, sum(rating) as points from votes v inner join teachers t on v.voted_id = t.id where v.category_id = #{category_id} group by name order by points desc limit 3").to_a }
-				elsif Category.find_by_id(category_id).group.student && Category.find_by_id(category_id).group.teacher
-					#besten 3 schüler der Kategorie
-					@results << {category_id: category_id, ranking: Vote.connection.select_all("select name, sum(rating) as points from votes v inner join students s on v.voted_id = s.id where v.category_id = #{category_id} group by name order by points desc limit 3").to_a }
-					#besten 3 lehrer der kategorie
-					@results << {category_id: category_id, ranking: Vote.connection.select_all("select name, sum(rating) as points from votes v inner join teachers t on v.voted_id = t.id where v.category_id = #{category_id} group by name order by points desc limit 3").to_a }
-					#results_s und results_t einzelnt durchlaufen und in neuem array gemeinsam speichern
-					#dann im neuen array bei jeder category_id länge des rankings abfragen, wenn größer als 3, dann eintrag (name und points, also :ranking) mit den geringsten points löschen
-				end
-			end
-		else
-			flash[:error] = "Fuer das Einsehen der Ergebnisse des Kategorien-Votings hast du keine Rechte"
-			redirect_to home_path
-		end
+		@results = Category.order(:name).map { |c1| OpenStruct.new({ category: c1, ranking: c1.top_3 }) }
 	end
 
 	def autocomplete
