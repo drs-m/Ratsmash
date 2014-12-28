@@ -1,0 +1,21 @@
+%h1 Ergebnisse
+#colTogglePlaceholder(style="margin-bottom:30px;")
+%div{style:"width: 100%;overflow: auto;"}
+	%table.ui-responsive#results_table(data-role="table" data-mode="columntoggle" data-column-btn-text="Spalten" data-column-btn-theme="b")
+		%thead
+			%tr
+				%th(priority="3") Gruppe
+				%th(priority="1") Kategorie
+				%th(priority="2") 1. Platz
+				%th(priority="4") 2. Platz
+				%th(priority="5") 3. Platz
+
+		%tbody
+			- @results.each do |result|
+				%tr
+					%td= result.category.group.name
+					%td= result.category.name
+					- result.ranking.each do |rank|
+						%td= rank.name + " (" + rank.points.to_s + ")"
+					- (3-result.ranking.count).times do
+						%td noch niemand
