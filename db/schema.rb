@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141217143323) do
+ActiveRecord::Schema.define(version: 20150109142717) do
 
   create_table "categories", force: true do |t|
     t.string   "name"
@@ -87,6 +87,7 @@ ActiveRecord::Schema.define(version: 20141217143323) do
     t.datetime "updated_at"
     t.boolean  "closed"
     t.boolean  "public_addable_options"
+    t.boolean  "multiple",               default: false
   end
 
   create_table "quotes", force: true do |t|
