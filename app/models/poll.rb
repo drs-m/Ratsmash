@@ -1,6 +1,12 @@
 class Poll < ActiveRecord::Base
-	has_many :poll_options, :dependent => :destroy
-	has_many :poll_votes, :dependent => :destroy
+
+	has_many :options, class_name: "PollOption", :dependent => :destroy
+	has_many :votes, class_name: "PollVote", through: :options
+
+	scope :voted_for, ->(student) { where id: student.poll_votes.map(&:poll).map(&:id) }
+	scope :not_voted_for, ->(student) { where.not id: voted_for(student).ids }
+	scope :closed, -> { where closed: true }
+	scope :open, -> { where closed: false }
 
 	after_validation :set_defaults
 

@@ -3,7 +3,7 @@
 		- if @current_user != nil
 			%li= link_to "Hauptmenü", :home
 			%li= link_to "Abstimmung", :category_list
-			%li= link_to "Umfragen", poll_index_path
+			%li= link_to "Umfragen", :polls
 			%li= link_to "Beschreibungen", descriptions_path
 			%li= link_to "News", news_index_path
 			%li= link_to "Zitat einreichen", :new_quote
@@ -32,7 +32,7 @@
 			%li= link_to "News", news_index_path
 			%li= link_to "Zitat einreichen", :new_quote
 			%li= link_to "Beschreibungen", descriptions_path
-			%li= link_to "Umfragen", poll_index_path
+			%li= link_to "Umfragen", :polls
 			%li= link_to "Abstimmung", :category_list
 	- if @current_user != nil
 		-if !mobile_device?

@@ -9,11 +9,11 @@
 	%p= "Hallo " + @current_user.name
 	%p
 	- if @not_ordered_descriptions
-		%span= "Du hast noch ungeordnete Beschreibungen - " 
+		%span= "Du hast noch ungeordnete Beschreibungen - "
 		%span= link_to "Beschreibungen", descriptions_path
 	%p
 	- if @not_voted_polls
-		%span= "Du hast noch offene Umfragen - " 
+		%span= "Du hast noch offene Umfragen - "
 		%span= link_to "Umfragen", poll_index_path
 
 	- if Poll.find_by_name "Abimotto"
@@ -30,13 +30,13 @@
 	#newsticker
 		= image_tag("left_arrow.jpg",height:30,id:"left_arrow")
 		%ul
-			
+
 		= image_tag("right_arrow.jpg",height:30,id:"right_arrow")
 
 		#news_points_wrapper
 
 	= hidden_field_tag("voting_percentage", @current_user.given_votes.count.to_f/(Category.count * 3) * 100)
-			
+
 -else
 	%h1 Hauptmenü
 	- flash.each do |name, message|
@@ -48,11 +48,11 @@
 	%p= "Hallo " + @current_user.name
 	%p
 	- if @not_ordered_descriptions
-		%span= "Du hast noch ungeordnete Beschreibungen - " 
+		%span= "Du hast noch ungeordnete Beschreibungen - "
 		%span= link_to "Beschreibungen", descriptions_path
 	%p
 	- if @not_voted_polls
-		%span= "Du hast noch offene Umfragen - " 
+		%span= "Du hast noch offene Umfragen - "
 		%span= link_to "Umfragen", poll_index_path
 
 	- if Poll.find_by_name "Abimotto"
@@ -62,7 +62,7 @@
 				%p Ab sofort ist es möglich für das Abimotto abzustimmen (unter Umfragen -> Abimotto). Ihr könnt dort auch neue Vorschläge hinzufügen, über die dann sofort abgestimmt werden kann!
 
 	%h3{:style=>"color:"+@voting_percentages_string_style+";"}= "Abgegebene Stimmen: " + number_with_precision((@current_user.given_votes.count.to_f/(Category.count * 3)) * 100, precision: 2, significant: false).to_s.gsub(".",",") + "%"
-	
+
 
 	%h2 Newsticker
 	#newsticker

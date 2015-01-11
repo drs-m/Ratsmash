@@ -1,8 +1,9 @@
 class PollVote < ActiveRecord::Base
-	belongs_to :poll
-	belongs_to :poll_option
-	belongs_to :student
-	
-	validates :poll_id, :presence => true
-	validates :poll_option_id, :presence => true
+
+	belongs_to :voter, class_name: "Student", foreign_key: "student_id"
+	belongs_to :option, class_name: "PollOption", foreign_key: "poll_option_id"
+	delegate :poll, to: :option, :allow_nil => true
+
+	validates :student, :poll_option, presence: true
+
 end

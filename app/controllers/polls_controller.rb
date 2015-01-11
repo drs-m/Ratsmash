@@ -1,24 +1,12 @@
-class PollController < ApplicationController
+class PollsController < ApplicationController
 
-	before_action -> { check_session redirect: true, restricted_methods: [:new, :create, :edit, :update, :destroy, :open_poll, :close_poll, :abimotto] }
+	before_action -> { check_session redirect: true, restricted_methods: [:new, :create, :edit, :update, :destroy, :open_poll, :close_poll] }
 
 	def index
- 		polls_already_voted_for_id = PollVote.where(:student_id => @current_user.id).pluck(:poll_id)
- 		@polls_already_voted_for = []
- 		polls_already_voted_for_id.each do |id|
- 			@polls_already_voted_for << Poll.where(:id => id).first
- 		end
-
- 		polls_not_voted_for_id = []
- 		Poll.all.each do |poll|
- 			if !poll.id.in? polls_already_voted_for_id
- 				polls_not_voted_for_id << poll.id
- 			end
- 		end
- 		@polls_not_voted_for = []
- 		polls_not_voted_for_id.each do |id|
- 			@polls_not_voted_for << Poll.where(:id => id).first
- 		end
+ 		@polls = {
+			voted: Poll.voted_for(@current_user),
+			not_voted: Poll.not_voted_for(@current_user)
+		}
 	end
 
 	def new
@@ -46,6 +34,10 @@ class PollController < ApplicationController
 			flash[:error] = "Du hast keine Administratorenrechte fuer das Erstellen von Umfragen!"
 			redirect_to poll_index_path
 		end
+	end
+
+	def vote
+
 	end
 
 	def show
@@ -214,9 +206,5 @@ class PollController < ApplicationController
 			redirect_to poll_index_path
 		end
     end
-
-	def abimotto
-		@poll_results = Poll.abimotto(false)
-	end
 
 end

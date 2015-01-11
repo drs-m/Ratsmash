@@ -1,7 +1,8 @@
 class PollOption < ActiveRecord::Base
-	belongs_to :poll
-	has_many :poll_votes, :dependent => :destroy
 
-	validates :poll_id, :presence => true
-	validates :name, :presence => true
+	belongs_to :poll
+	has_many :votes, class_name: "PollVote", :dependent => :destroy
+
+	validates :name, :poll, presence: true
+
 end

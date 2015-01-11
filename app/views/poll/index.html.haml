@@ -1,0 +1,33 @@
+%h1 Umfragen
+- if @current_user.has_permission "polls.new"
+	%p= link_to "Neue Umfrage", new_poll_path
+
+%h2 Deine offenen Umfragen
+%table
+	- @polls[:not_voted].each do |poll|
+		%tr
+			%td= link_to poll.name, vote_poll_paths(poll.id)
+			- if @current_user.admin_permissions && !poll.closed
+				%td= link_to "Bearbeiten", edit_poll_path(poll.id)
+				%td= link_to "Beenden", close_poll_path(poll.id)
+				%td= link_to "Löschen", poll_path(poll.id), method: :delete, data: { confirm: "Wirklich löschen?" }
+
+			- if poll.closed
+				%td(style="color:green;") Umfrage beendet
+				- if @current_user.has_permission "polls.open"
+					%td= link_to "Umfrage wieder öffnen", open_poll_path(poll.id)
+
+%h2 Deine abgestimmten Umfragen
+%table
+	- @polls[:voted].each do |poll|
+		%tr
+			%td= link_to poll.name, poll
+			- if @current_user.admin_permissions && !poll.closed
+				%td= link_to "Bearbeiten", edit_poll_path(poll.id)
+				%td= link_to "Beenden", close_poll_path(poll.id)
+				%td= link_to "Löschen", poll_path(poll.id), method: :delete, data: { confirm: "Wirklich löschen?" }
+
+			- if poll.closed
+				%td(style="color:green;") Umfrage beendet
+				- if @current_user.has_permission "polls.open"
+					%td= link_to "Umfrage wieder öffnen", open_poll_path(poll.id)
