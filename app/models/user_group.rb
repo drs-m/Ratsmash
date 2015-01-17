@@ -10,8 +10,7 @@ class UserGroup < ActiveRecord::Base
                 "students.show",
                 "teachers.*",
                 "categories.*",
-                "settings.menu",
-                "voting.results"
+                "settings.menu"
             ],
             "Abimotto" => [ "polls.manage.abimotto" ],
             "Ratsmash-Team" => [ "*" ]

@@ -2,7 +2,7 @@
 lock '3.1.0'
 
 set :application, 'RMash'
-set :repo_url, 'git@github.com:Ratsmash-dev/RMash.git'
+set :repo_url, 'ssh://rails@rmash.de:8686/git/rmash'
 set :deploy_user, 'rails'
 
 set :asset_roles, [:app]
