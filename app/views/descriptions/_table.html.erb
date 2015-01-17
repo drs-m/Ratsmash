@@ -18,7 +18,7 @@
 						<td><%= description_status_symbol description %>
 						<td><%= description.updated_at.strftime "%d.%m.%Y %H:%M" %></td>
 						<td>
-							<%= link_to "Anzeigen", description if admin_view %>
+							<%= link_to "Anzeigen", description %>
 							<%= link_to "Akzeptieren", categorize_description_path(id: description.id, state: :accept) if not admin_view %>
 							<%= link_to "Unsicher", categorize_description_path(id: description.id, state: :not_sure) if not admin_view %>
 							<%= link_to "Ablehnen", categorize_description_path(id: description.id, state: :reject) if not admin_view %>
