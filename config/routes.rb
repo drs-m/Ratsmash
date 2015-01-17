@@ -1,13 +1,13 @@
 Ratsmash::Application.routes.draw do
 
     # API Routing
-    namespace :api, path: "/", constraints: { subdomain: "api" } do
-        namespace :v1 do
-            resources :students, only: [:index]
-            resources :categories, only: [:index]
-            resources :teachers, only: [:index]
-        end
-    end
+    # namespace :api, path: "/", constraints: { subdomain: "api" } do
+    #     namespace :v1 do
+    #         resources :students, only: [:index]
+    #         resources :categories, only: [:index]
+    #         resources :teachers, only: [:index]
+    #     end
+    # end
 
     # POLL ROUTES
     resources :poll
