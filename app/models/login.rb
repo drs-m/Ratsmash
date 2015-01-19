@@ -5,6 +5,6 @@ class Login < ActiveRecord::Base
     scope :last_week, -> { where "created_at > ?", 1.week.ago }
     scope :last_month, -> { where "created_at > ?", 1.month.ago }
 
-	belongs_to :student
+	belongs_to :student, foreign_key: "user_id"
 
 end
