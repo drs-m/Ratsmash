@@ -7,8 +7,8 @@
 			%li= link_to "Beschreibungen", descriptions_path
 			%li= link_to "News", news_index_path
 			%li= link_to "Zitat einreichen", :new_quote
-			- if @current_user.has_permission("poll.abimotto")
-				%li= link_to "Abimotto-Ergebnisse", :abimotto
+			- if @current_user.has_permission("poll.abimotto")
+				%li= link_to "Abimotto Ergebnisse", :abimotto
 			- if @current_user.has_permission("settings.menu")
 				%li= link_to "Administration", :settings
 			%li= link_to "Passwort ändern", :change_password
