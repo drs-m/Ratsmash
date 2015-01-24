@@ -4,8 +4,8 @@ gem 'rails', '4.1.0'
 
 group :development do
 	gem 'sqlite3'
-    gem 'better_errors'
-    gem 'binding_of_caller'
+	gem 'better_errors'
+	gem 'binding_of_caller'
 	gem 'capistrano', '~> 3.1.0'
 	gem 'capistrano-rails', '~> 1.1.0'
 	gem 'byebug'
