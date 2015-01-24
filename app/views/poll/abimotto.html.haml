@@ -1,0 +1,5 @@
+%h2 Abimotto Wahlergebnisse
+
+%ul
+- @poll_results.each do |motto, stimmen|
+    %li= motto + ": " + stimmen.to_s

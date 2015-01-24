@@ -1,7 +1,7 @@
 class PollController < ApplicationController
 
-	before_action -> { check_session redirect: true, restricted_methods: [:new, :create, :edit, :update, :destroy, :open_poll, :close_poll] }
-	
+	before_action -> { check_session redirect: true, restricted_methods: [:new, :create, :edit, :update, :destroy, :open_poll, :close_poll, :abimotto] }
+
 	def index
  		polls_already_voted_for_id = PollVote.where(:student_id => @current_user.id).pluck(:poll_id)
  		@polls_already_voted_for = []
@@ -21,7 +21,7 @@ class PollController < ApplicationController
  		end
 	end
 
-	def new 
+	def new
 		if !@current_user.admin_permissions
 			flash[:error] = "Du hast keine Administratorenrechte fuer das Erstellen von Umfragen!"
 			redirect_to poll_index_path
@@ -214,5 +214,9 @@ class PollController < ApplicationController
 			redirect_to poll_index_path
 		end
     end
+
+	def abimotto
+		@poll_results = Poll.abimotto(false)
+	end
 
 end

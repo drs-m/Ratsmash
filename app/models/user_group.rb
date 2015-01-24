@@ -12,7 +12,7 @@ class UserGroup < ActiveRecord::Base
                 "categories.*",
                 "settings.menu"
             ],
-            "Abimotto" => [ "polls.manage.abimotto" ],
+            "Abimotto" => [ "poll.abimotto" ],
             "Ratsmash-Team" => [ "*" ]
         }
 

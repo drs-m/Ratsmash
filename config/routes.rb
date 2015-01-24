@@ -16,6 +16,7 @@ Ratsmash::Application.routes.draw do
     post "/vote_poll", to: "poll#vote_poll"
     post "/remove_vote_poll", to: "poll#remove_vote_poll"
     post "/add_poll_vote_options", to: "poll#add_poll_vote_options"
+    get "/abimotto", to: "poll#abimotto", as: :abimotto
 
     get 'page_stats/index'
     post 'page_stats/index'
