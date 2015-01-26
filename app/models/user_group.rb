@@ -13,7 +13,8 @@ class UserGroup < ActiveRecord::Base
                 "settings.menu"
             ],
             "Abimotto" => [ "poll.abimotto" ],
-            "Ratsmash-Team" => [ "*" ]
+            "Ratsmash-Team" => [ "*" ],
+            "Spectator" => [ "settings.menu", "voting.results" ]
         }
 
         return permission_set[self.name]
