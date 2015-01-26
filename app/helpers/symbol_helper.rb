@@ -26,6 +26,16 @@ module SymbolHelper
         pending: [:yellow, :progress_circle]
     }
 
+    def new_info(category)
+        category.created_at > 4.days.ago ? raw(" <span style='color:yellow;'>NEU</span>") : ""
+    end
+
+    def gender_label(category)
+        g = category.group
+        return "" if g.male and g.female
+        g.male ? " (männlich)" : " (weiblich)"
+    end
+
     def symbol(state, options = {})
         color = STATES[state][0]
         type = STATES[state][1]

@@ -17,10 +17,7 @@
 			- [@student_categories[i], @teacher_categories[i]].each do |category|
 				- next unless category
 				- next if category.closed
-				- if category.group.male && category.group.female
-					%td= link_to(raw(category.name + vote_count_info(category)), give_vote_path(category.id))
-				- else
-					%td= link_to(raw(category.name + (category.group.male ? " (männlich)" : " (weiblich)") + vote_count_info(category)), give_vote_path(category.id))
+				%td= link_to(raw(category.name + gender_label(category) + vote_count_info(category)), give_vote_path(category.id)) + new_info(category)
 
 - else
 	#icon_info_box
