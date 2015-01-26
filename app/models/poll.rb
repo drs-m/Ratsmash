@@ -7,10 +7,15 @@ class Poll < ActiveRecord::Base
 	validates :name, :presence => true
 	validates :question, :presence => true
 
+	def results
+		Poll.connection.select_all("select o.name, count(v.id) as votes from poll_options o inner join poll_votes v on o.id = v.poll_option_id where o.poll_id = #{self.id} group by o.name order by votes desc").to_a
+	end
+
 	def self.abimotto(print = true)
-		polls = Poll.where(name: "Abimotto").map do |poll|
-			Poll.connection.select_all("select o.name, count(v.id) as votes from poll_options o inner join poll_votes v on o.id = v.poll_option_id where o.poll_id = #{poll.id} group by o.name order by votes desc").to_a
+		polls = Poll.where(name: "Abimotto Vorentscheid").map do |poll|
+			poll.results
 		end
+
 		combined = (polls[0] + polls[1]).each_with_object({}) do |e,h|
 			h[e["name"]] ||= 0
 			h[e["name"]] += e["votes"].to_i

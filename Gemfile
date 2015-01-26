@@ -19,10 +19,7 @@ group :test do
 	gem "guard-rspec"
 end
 
-group :production do
-	# use postgresql as database
-	gem 'pg'
-end
+gem 'pg'
 
 # Use sass, coffee and haml for simpler code
 gem 'sass-rails', '~> 4.0.2'

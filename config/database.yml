@@ -7,10 +7,8 @@ default: &default
 
 development:
   <<: *default
-  adapter: sqlite3
-  database: db/development.sqlite3
-
-  #port: 5432 default
+  adapter: postgresql
+  database: rails
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -18,8 +16,8 @@ development:
 
 test:
   <<: *default
-  adapter: sqlite3
-  database: db/test.sqlite3
+  adapter: postgresql
+  database: rails-test
 
 production:
   <<: *default
