@@ -1,4 +1,7 @@
 <h1>Umfragen</h1>
+<% if @current_user.has_permission("poll.abimotto") %>
+	<b><%= link_to "Abimotto Ergebnisse", :abimotto %></b>
+<% end %>
 <% if @current_user.admin_permissions %>
 	<p>
 		<%= link_to "Neue Umfrage", new_poll_path %>
