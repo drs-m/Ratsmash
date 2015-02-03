@@ -1,4 +1,8 @@
 $ ->
+
+    emailLogin = $("#login-form").find("#email")
+    if emailLogin.length
+      emailLogin.focus()
     
     $("#login-form").submit (event) ->
         event.preventDefault()
