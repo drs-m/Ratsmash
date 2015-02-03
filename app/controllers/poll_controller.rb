@@ -216,7 +216,7 @@ class PollController < ApplicationController
     end
 
 	def abimotto
-		@poll_results = Poll.abimotto(false)
+		@poll_results = Poll.find_by(name: "Abimotto").results
 	end
 
 end

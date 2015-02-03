@@ -1,5 +1,7 @@
 %h2 Abimotto Wahlergebnisse
 
+%h3= "Abgegebene Stimmen: " + Poll.find_by(name: "Abimotto").poll_votes.count.to_s
+
 %ul
-- @poll_results.each do |motto, stimmen|
-    %li= motto + ": " + stimmen.to_s
+- @poll_results.each do |h|
+    %li= h["name"] + ": " + h["votes"].to_s
