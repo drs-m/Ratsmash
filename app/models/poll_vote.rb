@@ -4,6 +4,6 @@ class PollVote < ActiveRecord::Base
 	belongs_to :option, class_name: "PollOption", foreign_key: "poll_option_id"
 	delegate :poll, to: :option, :allow_nil => true
 
-	validates :student, :poll_option, presence: true
+	validates :student_id, :poll_option_id, presence: true
 
 end

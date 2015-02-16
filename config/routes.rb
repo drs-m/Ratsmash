@@ -12,6 +12,7 @@ Ratsmash::Application.routes.draw do
     # POLL ROUTES
     resources :polls
     get "polls/vote/:poll_id", to: "polls#vote", as: :vote_poll
+    post "polls/vote/:poll_id", to: "polls#vote", as: :commit_poll_vote
 
     get "/open_poll/:id", to: "poll#open_poll", as: :open_poll
     get "/close_poll/:id", to: "poll#close_poll", as: :close_poll

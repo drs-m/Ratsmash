@@ -30,6 +30,21 @@ class PollsController < ApplicationController
 
 	def vote
 		@poll = Poll.find(params[:poll_id])
+		if request.post?
+			if params[:chosen].present?
+				if params[:chosen].count > @poll.possible_votes
+					flash[:error] = "Du hast zu viele Optionen gewählt"
+					redirect_to vote_poll_path(poll_id: @poll.id)
+					return
+				end
+
+				poll_votes = params[:chosen].map { |id| PollOption.find(id).votes.create(student_id: @current_user.id) }
+
+			else
+				flash[:error] = "Bitte wähle mindestens eine Option"
+				redirect_to vote_poll_path(poll_id: @poll.id)
+			end
+		end
 	end
 
 	def show

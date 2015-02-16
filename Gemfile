@@ -19,7 +19,7 @@ group :test do
 	gem "guard-rspec"
 end
 
-gem 'pg'
+# gem 'pg'
 
 # Use sass, coffee and haml for simpler code
 gem 'sass-rails', '~> 4.0.2'

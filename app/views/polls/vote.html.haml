@@ -3,10 +3,12 @@
 - if @poll.closed
   %h2(style="color:green;") Umfrage beendet!
 
-%h2 Votingmöglichkeiten
+%h3= "Du kannst #{@poll.possible_votes} Optionen wählen"
 %ul
   %table
-    - @poll.options.each do |option|
-      %tr
-        %td= option.name
-        %td= link_to "Abstimmen", vote_poll_path(option_id: option.id)
+    = form_tag :commit_poll_vote, method: :post do
+      - @poll.options.each do |option|
+        %p
+          = option.name
+          %input{type: "checkbox", name: "chosen[]", value: option.id}
+      = submit_tag  "Abstimmen"

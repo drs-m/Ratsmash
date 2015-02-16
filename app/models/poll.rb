@@ -38,6 +38,7 @@ class Poll < ActiveRecord::Base
 		def set_defaults
 			self.closed ||= false
 			self.dynamic_options ||= false
+			self.possible_votes ||= 1
 		end
 
 end
