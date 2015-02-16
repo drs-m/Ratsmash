@@ -35,7 +35,7 @@
 				<%= link_to "Löschen", poll_path(@poll.id), method: :delete, data: { confirm: "Wirklich löschen?" } %>
 			</td>
 			<td>
-				<%= link_to "Alle Umfragen", poll_index_path %>
+				<%= link_to "Alle Umfragen", :polls %>
 			</td>
 		</tr>
 	</table>

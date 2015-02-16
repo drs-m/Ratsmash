@@ -41,7 +41,7 @@
 %tr
 %td
 %button Dein Vote!
-- if (@current_user.admin_permissions && !@poll.closed) || (!@poll.closed && @poll.public_addable_options)
+- if (@current_user.admin_permissions && !@poll.closed) || (!@poll.closed && @poll.dynamic_options)
 %h2 Füge Votingmöglichkeit hinzu
 = form_tag "/add_poll_vote_options", method: :post do
 = hidden_field_tag :poll_id, @poll.id
@@ -64,4 +64,4 @@
 %td
 = link_to "Umfrage wieder öffnen", open_poll_path(@poll.id)
 %td
-= link_to "Alle Umfragen", poll_index_path
+= link_to "Alle Umfragen", :polls

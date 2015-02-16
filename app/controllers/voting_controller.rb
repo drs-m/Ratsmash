@@ -6,8 +6,8 @@ class VotingController < ApplicationController
 	def home
 		@not_ordered_descriptions = @current_user.descriptions.unchecked.present?
 
-		@not_voted_polls = Poll.open.not_voted_for(@current_user).exists?
-		
+		# @not_voted_polls = Poll.open.not_voted_for(@current_user).exists?
+
  		if mobile_device?
  			@voting_percentages_string_style = "red"
 
