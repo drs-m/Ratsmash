@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150109142717) do
+ActiveRecord::Schema.define(version: 20150216183603) do
 
   create_table "categories", force: true do |t|
     t.string   "name"
@@ -73,7 +73,6 @@ ActiveRecord::Schema.define(version: 20150109142717) do
   end
 
   create_table "poll_votes", force: true do |t|
-    t.integer  "poll_id"
     t.integer  "poll_option_id"
     t.integer  "student_id"
     t.datetime "created_at"
@@ -86,8 +85,8 @@ ActiveRecord::Schema.define(version: 20150109142717) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "closed"
-    t.boolean  "public_addable_options"
-    t.boolean  "multiple",               default: false
+    t.boolean  "dynamic_options"
+    t.integer  "possible_votes"
   end
 
   create_table "quotes", force: true do |t|

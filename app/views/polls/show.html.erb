@@ -1,0 +1,67 @@
+%h1= @poll.name
+%h2= @poll.question
+- if @poll.closed
+%h2{:style => "color:green;"} Umfrage beendet!
+%h2 Votingmöglichkeiten
+%ul
+- i=0
+- PollOption.where(:poll_id => @poll.id).each do |vote_option|
+%table
+%tr
+%td
+- if @poll.closed
+= vote_option.name
+(#{@poll_voting_absolute_results[i]} Stimmen / #{@poll_voting_relative_results[i]} %)
+- else
+= vote_option.name
+(? Stimmen / ? %)
+- i+=1
+%td
+- if !@poll.closed
+- if @my_vote.blank?
+= form_tag "/vote_poll", method: :post do
+= hidden_field_tag :poll_id, @poll.id
+= hidden_field_tag :op_id, vote_option.id
+= submit_tag "Vote for it!"
+- else
+- if @my_vote.poll_option_id == vote_option.id
+%table
+%tr
+%td
+%button Dein Vote!
+%td
+= form_tag "/remove_vote_poll", method: :post do
+= hidden_field_tag :poll_id, @poll.id
+= hidden_field_tag :op_id, vote_option.id
+= submit_tag "Vote zurückziehen"
+- else
+- if !@my_vote.nil?
+- if @my_vote.poll_option_id == vote_option.id
+%table
+%tr
+%td
+%button Dein Vote!
+- if (@current_user.admin_permissions && !@poll.closed) || (!@poll.closed && @poll.dynamic_options)
+%h2 Füge Votingmöglichkeit hinzu
+= form_tag "/add_poll_vote_options", method: :post do
+= hidden_field_tag :poll_id, @poll.id
+%b Votingmöglichkeit
+= text_field_tag :op, nil, placeholder: "Votingmöglichkeit"
+= submit_tag "Hinzufügen"
+%p
+%br/
+%table
+%tr
+- if @current_user.admin_permissions
+- if !@poll.closed
+%td
+= link_to "Bearbeiten", edit_poll_path(@poll.id)
+%td
+= link_to "Beenden", close_poll_path(@poll.id)
+%td
+= link_to "Löschen", poll_path(@poll.id), method: :delete, data: { confirm: "Wirklich löschen?" }
+- else
+%td
+= link_to "Umfrage wieder öffnen", open_poll_path(@poll.id)
+%td
+= link_to "Alle Umfragen", :polls

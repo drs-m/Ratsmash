@@ -1,0 +1,19 @@
+<h1>Neue Umfrage</h1>
+<%= form_tag :polls, method: :post do %>
+	<p><b>Thema</b> <%= text_field_tag :name, nil, placeholder: "Thema" %></p>
+	<p><b>Frage</b> <%= text_field_tag :question, nil, placeholder: "Frage" %></p>
+	<p><b>Maximalstimmen</b> <%= select_tag :possible_votes, options_for_select((1..10).step(1)) %></p>
+	<fieldset>
+		<legend><b><i>Votingmöglichkeiten</i></b></legend>
+		<br />
+		<div id="poll_options">
+			<p>Votingmöglichkeit: <%= text_field_tag "voting_ops[0]" %>
+			<p>Votingmöglichkeit: <%= text_field_tag "voting_ops[1]" %>
+		</div>
+		<p><a href="#" onClick="add_poll_vote_field()">Weitere Votingmöglichkeit hinzufügen</a></p>
+	</fieldset>
+	<%= submit_tag "Umfrage erstellen" %>
+<% end %>
+<p>
+	<%= link_to "Umfragen", :polls %>
+</p>

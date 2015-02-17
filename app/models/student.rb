@@ -8,6 +8,8 @@ class Student < ActiveRecord::Base
 	has_many :given_votes, foreign_key: "voter_id", class_name: "Vote", dependent: :destroy
 	has_many :achieved_votes, class_name: "Vote", :as => :voted
 
+	has_many :poll_votes, dependent: :destroy
+
 	has_many :descriptions, foreign_key: "described_id", dependent: :destroy
 	has_many :written_descriptions, class_name: "Description", foreign_key: "author_id"
 

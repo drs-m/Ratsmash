@@ -1,0 +1,19 @@
+%h1 Umfragen
+- if @current_user.has_permission "polls.new"
+	%p= link_to "Neue Umfrage", new_poll_path
+
+- [@polls[:not_voted], @polls[:voted]].each_with_index do |poll_group, index|
+	%h2= (index == 0 ? "Neue" : "Beantwortete") + " Umfragen"
+	%table
+		- poll_group.each do |poll|
+			%tr.poll_info
+				%td
+					= closed_poll_cross poll
+					%b= link_to poll.name, vote_poll_path(poll.id)
+				- if @current_user.has_permission("polls.edit", "polls.close", "polls.destroy")
+					-# %td= link_to "Bearbeiten", edit_poll_path(poll.id)
+					- if poll.closed
+						%td= link_to "Öffnen", open_poll_path(poll.id)
+					- else
+						%td= link_to "Schließen", close_poll_path(poll.id)
+					%td= link_to "Löschen", poll_path(poll.id), method: :delete, data: { confirm: "Wirklich löschen?" }

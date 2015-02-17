@@ -9,6 +9,7 @@
 //= require descriptions
 //= require voting
 //= require session
+//= require polls
 
 intervalInUse = false;
 mobileMenueIsShown = false;
@@ -19,17 +20,6 @@ voting_op_values = new Array("","");
 
 function store_poll_option_values(index){
 	voting_op_values[index] = $('#voting_op_'+index).val();
-}
-
-function add_poll_voting_opportunity(){
-	poll_option_fields_counter ++;
-	var poll_options_html = $('#poll_options').html();
-	var new_poll_option_field = '<b>Votingmöglichkeit</b> <input id="voting_op_'+(poll_option_fields_counter-1)+'" name="voting_op['+(poll_option_fields_counter-1)+']" value="" onkeyup="store_poll_option_values('+(poll_option_fields_counter-1)+');" type="text" /><br /><br />';
-	voting_op_values.push("");
-	$('#poll_options').html(poll_options_html+new_poll_option_field);
-	for (var i = 0; i < voting_op_values.length; i++) {
-		$("#voting_op_"+i).val(voting_op_values[i]);
-	};
 }
 
 function closeDdMenues(){
@@ -85,7 +75,7 @@ $(document).ready(function(){
 		$("textarea").focus();
 	});
 
-	if(window.location.pathname == "/"){	
+	if(window.location.pathname == "/"){
 		$.ajax({
 			url: "get_newsticker_news",
 			type: "post"

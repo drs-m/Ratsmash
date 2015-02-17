@@ -6,15 +6,7 @@ class VotingController < ApplicationController
 	def home
 		@not_ordered_descriptions = @current_user.descriptions.unchecked.present?
 
-		@not_voted_polls = false
-		polls_already_voted_for_id = PollVote.where(:student_id => @current_user.id).pluck(:poll_id)
- 		Poll.all.each do |poll|
- 			if !poll.closed
-	 			if !poll.id.in? polls_already_voted_for_id
-	 				@not_voted_polls = true
-	 			end
-	 		end
- 		end
+		# @not_voted_polls = Poll.open.not_voted_for(@current_user).exists?
 
  		if mobile_device?
  			@voting_percentages_string_style = "red"
