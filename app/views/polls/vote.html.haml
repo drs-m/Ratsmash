@@ -1,14 +1,26 @@
 %h1= @poll.name
 %h2= @poll.question
+- if @current_user.has_permission "polls.results"
+  %p
+    %a{onClick: '$("#poll_results").show()'} Ergebnisse anzeigen
+  #poll_results
+    %h3 Ergebnisse
+    - @poll.results.each_with_index do |result, index|
+      %p
+        %b= "#{index+1}. " + result["name"] + ":"
+        = result["votes"]
 - if @poll.closed
-  %h2(style="color:green;") Umfrage beendet!
-
-%h3= "Du kannst #{@poll.possible_votes} Optionen wählen"
-%ul
-  %table
-    = form_tag :commit_poll_vote, method: :post do
-      - @poll.options.each do |option|
-        %p
-          = option.name
-          %input{type: "checkbox", name: "chosen[]", value: option.id}
-      = submit_tag  "Abstimmen"
+  %h2(style="color:red;") Umfrage beendet!
+- else
+  %h3= "Du kannst #{@poll.possible_votes} Optionen wählen"
+  %ul
+    %table
+      = form_tag :commit_poll_vote, method: :post do
+        - @poll.options.each do |option|
+          %p
+            = option.name
+            %input{type: "checkbox", name: "chosen[]", value: option.id, checked: (true if @given_votes.for(option).exists?), disabled: (true if @given_votes.present?) }
+        - if @given_votes.present?
+          = link_to "Stimmen löschen", :unvote_poll
+        - else
+          = submit_tag  "Abstimmen"

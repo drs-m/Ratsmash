@@ -10,16 +10,13 @@ Ratsmash::Application.routes.draw do
     # end
 
     # POLL ROUTES
-    resources :polls
+    resources :polls, except: [:edit, :update]
     get "polls/vote/:poll_id", to: "polls#vote", as: :vote_poll
     post "polls/vote/:poll_id", to: "polls#vote", as: :commit_poll_vote
+    get "polls/unvote/:poll_id", to: "polls#unvote", as: :unvote_poll
 
-    get "/open_poll/:id", to: "poll#open_poll", as: :open_poll
-    get "/close_poll/:id", to: "poll#close_poll", as: :close_poll
-    post "/vote_poll", to: "poll#vote_poll"
-    post "/remove_vote_poll", to: "poll#remove_vote_poll"
-    post "/add_poll_vote_options", to: "poll#add_poll_vote_options"
-    get "/abimotto", to: "poll#abimotto", as: :abimotto
+    get "/open_poll/:poll_id", to: "polls#open_poll", as: :open_poll
+    get "/close_poll/:poll_id", to: "polls#close_poll", as: :close_poll
 
     get 'page_stats/index'
     post 'page_stats/index'

@@ -30,6 +30,10 @@ module SymbolHelper
         category.created_at > 4.days.ago ? raw(" <span style='color:yellow;'>NEU</span>") : ""
     end
 
+    def closed_poll_cross(poll)
+        simple_symbol condition: !poll.closed, msg_true: "Laufend", msg_false: "Beendet"
+    end
+
     def gender_label(category)
         g = category.group
         return "" if g.male and g.female

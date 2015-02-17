@@ -11,6 +11,9 @@ function add_poll_voting_opportunity(){
 }
 ###
 
+$ ->
+  $("#poll_results").hide()
+
 @poll_option_counter = 2
 
 @add_poll_vote_field = ->
