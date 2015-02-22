@@ -24,6 +24,7 @@
 
 *.swp
 
+*.un~
 # Ignore ‚git-ignored intern files‘
 /giif
 
