@@ -29,6 +29,18 @@ class Category < ActiveRecord::Base
 		vote_count(user) >= 3
 	end
 
+	def self.results_to_s
+		results = Category.order(:group_id, :name).map { |c1| OpenStruct.new({ category: c1, ranking: c1.top_3 }) }
+		results.map do |result|
+			out = ""
+			out += "(#{result.category.group.name}) #{result.category.name}:\n"
+			result.ranking.each_with_index do |rank, i|
+				out += "#{i+1}. #{rank.name} (#{rank.points})\n"
+			end
+			out + "\n"
+		end
+	end
+
 	private
 		def set_defaults
 			self.closed ||= false
