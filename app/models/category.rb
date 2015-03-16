@@ -14,6 +14,14 @@ class Category < ActiveRecord::Base
 		@category_result ||= CategoryResult.new(self)
 	end
 
+	def self.all_results
+		puts Category.where(id: Vote.all.map(&:category_id).uniq).order(:group_id => :asc, :name => :asc).map &:result
+	end
+
+	def to_s
+		"(#{self.group.name}) #{self.name}"
+	end
+
 	def vote_count(user)
 		user.given_votes.where(category_id: self.id).count
 	end

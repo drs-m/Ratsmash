@@ -21,7 +21,7 @@ class CategoryResult
     def to_s
         out = "(#{@category.group.name} / #{@category.votes.count} Stimmen) #{@category.name}: \n"
         out += @ranking.map(&:to_s).join("\n")
-        out + "\n"
+        out + "\n\n"
     end
 
 end
