@@ -17,8 +17,9 @@ class Category < ActiveRecord::Base
 			return nil
 		end
 
+        sum_points = self.votes.sum :rating
 		data = Category.connection.select_all("select name, sum(rating) as points from votes inner join #{table} on votes.voted_id = #{table}.id where votes.category_id = #{self.id} group by name order by points desc limit 3").to_a
-		data.map { |hash| OpenStruct.new hash }
+		data.map { |hash| OpenStruct.new hash.merge("percentage" => (hash["points"]/sum_points.to_f).round(2)) }
 	end
 
 	def vote_count(user)
