@@ -33,7 +33,7 @@ class VotingController < ApplicationController
 	end
 
 	def results
-		@results = Category.order(:name).map { |c1| OpenStruct.new({ category: c1, ranking: c1.top_3 }) }
+		@results = Category.order(:name).map &:result
 	end
 
 	def autocomplete

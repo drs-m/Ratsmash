@@ -5,17 +5,19 @@
 		%thead
 			%tr
 				%th(priority="3") Gruppe
+				%th(priority="2") Stimmen
 				%th(priority="1") Kategorie
-				%th(priority="2") 1. Platz
-				%th(priority="4") 2. Platz
-				%th(priority="5") 3. Platz
+				%th(priority="4") 1. Platz
+				%th(priority="5") 2. Platz
+				%th(priority="6") 3. Platz
 
 		%tbody
 			- @results.each do |result|
 				%tr
 					%td= result.category.group.name
+					%td= result.category.votes.count
 					%td= result.category.name
 					- result.ranking.each do |rank|
-						%td= rank.name + " (" + rank.points.to_s + ")"
+						%td= rank.name + " (" + rank.percentage.to_s + "%)"
 					- (3-result.ranking.count).times do
 						%td noch niemand
