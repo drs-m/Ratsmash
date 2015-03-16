@@ -123,6 +123,10 @@ class Student < ActiveRecord::Base
 		puts "[#{Time.now}] Registrierungsmail wurde an #{self.name} verschickt"
 	end
 
+	def to_s
+		"#{self.name}"
+	end
+
 	private
 		def set_defaults
 			self.admin_permissions ||= false
