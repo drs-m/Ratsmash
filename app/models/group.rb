@@ -14,6 +14,9 @@ class Group < ActiveRecord::Base
 	scope :female_teachers, -> { where(female: true, male: false, student: false, teacher: true).first }
 	scope :male_teachers, -> { where(female: false, male: true, student: false, teacher: true).first }
 
+	scope :student_categories, -> { Category.where(group_id: Group.where(student: true).ids) }
+	scope :teacher_categories, -> { Category.where(group_id: Group.where(teacher: true).ids) }
+
 	def active_filters
 		filters_to_return = []
 		@@used_filters.each { |filter| filters_to_return << filter if self[filter] }
