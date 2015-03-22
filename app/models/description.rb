@@ -7,6 +7,8 @@ class Description < ActiveRecord::Base
     scope :rejected, -> { where status: -1 }
     scope :unchecked, -> { where status: 0 }
 
+    scope :by, ->(author) { where author_id: author.id }
+
     belongs_to :author, class_name: "Student"
     belongs_to :described, class_name: "Student"
 

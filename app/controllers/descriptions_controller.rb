@@ -18,13 +18,13 @@ class DescriptionsController < ApplicationController
 		@description.author_id = @current_user.id
 		#render text: @description.to_yaml and return
 
-		if Student.find_by_name @description.described_name.to_s.strip.split.map(&:capitalize).join(' ')
-			described_id = Student.find_by_name(@description.described_name.to_s.strip.split.map(&:capitalize).join(' ')).id
-			if Description.where(:author_id => @current_user.id, :described_id => described_id).count <1
+		if described = Student.find_by(name: @description.described_name)
+			unless described.descriptions.by(@current_user).exists?
 				if @description.save
-					redirect_to :descriptions, flash: {notice: "Beschreibung wurde erfolgreich erstellt"}
+					flash[:notice] = "Die Beschreibung wurde erstellt"
+					redirect_to :descriptions
 				else
-					flash[:error] = 'Beschreibung konnte nicht erstellt werden'
+					flash[:error] = 'Beschreibung konnte nicht gespeichert werden'
 					render action: 'new'
 				end
 			else
