@@ -53,7 +53,7 @@ class DescriptionsController < ApplicationController
 	end
 
 	def destroy
-		if @description.author_id == @current_user.id
+		if @description.author_id == @current_user.id or @current_user.has_permission("descriptions.destroy")
 			@description.destroy
 			redirect_to descriptions_path, flash: {notice: "Beschreibung wurde erfolgreich geloescht"}
 		else
