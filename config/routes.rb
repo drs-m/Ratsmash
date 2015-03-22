@@ -83,4 +83,14 @@ Ratsmash::Application.routes.draw do
     static_pages = [:imprint, :privacy, :update_head_info]
     static_pages.each { |static_page| get static_page.to_s, to: "static#" + static_page.to_s, as: ("static_" + static_page.to_s).intern }
 
+    # custom error pages
+
+    get 'errors/file_not_found'
+    get 'errors/unprocessable'
+    get 'errors/internal_server_error'
+
+    match '/404', to: 'errors#file_not_found', via: :all
+    match '/422', to: 'errors#unprocessable', via: :all
+    match '/500', to: 'errors#internal_server_error', via: :all
+
 end
