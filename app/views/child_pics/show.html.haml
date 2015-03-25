@@ -1,0 +1,10 @@
+%p
+  %b Eingereicht von:
+  = @child_pic.sender.name
+
+%p= link_to "Download", @child_pic.image.url.to_s, download: File.basename(@child_pic.image.path)
+
+%p
+  = image_tag @child_pic.image.url.to_s
+
+= link_to 'Alle Bilder', child_pics_path

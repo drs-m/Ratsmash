@@ -33,6 +33,8 @@ gem 'jquery-ui-rails', '5.0.0'
 
 gem "therubyracer"
 
+gem "carrierwave"
+
 # use yui and uglifier for asset compression
 gem 'yui-compressor'
 gem 'uglifier', '>= 1.3.0'

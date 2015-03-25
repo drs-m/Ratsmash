@@ -1,0 +1,14 @@
+= form_for @child_pic, html: { multipart: true } do |f|
+  - if @child_pic.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@child_pic.errors.count, "error")} prohibited this child_pic from being saved:"
+      %ul
+        - @child_pic.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :image, "Kinderfoto von #{@current_user.name}:"
+    %br
+    = f.file_field :image
+  .actions
+    = f.submit 'Speichern'

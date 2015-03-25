@@ -1,0 +1,19 @@
+%h1 Kinderfotos
+
+%table
+  %thead
+    %tr
+      %th Eingereicht von
+      %th Nummer
+      %th
+      %th
+
+  %tbody
+    - @child_pics.each do |child_pic|
+      %tr
+        %td= child_pic.sender.name
+        %td= child_pic.id
+        %td= link_to 'Anzeigen', child_pic
+        %td= link_to 'Löschen', child_pic, :method => :delete, :data => { :confirm => 'Sicher?' }
+
+%br
