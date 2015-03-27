@@ -1,7 +1,7 @@
 class ChildPicsController < ApplicationController
 
-  before_action -> { check_session redirect: true, restricted_methods: [:index, :show, :edit, :update, :destroy] }
-  before_action :set_child_pic, only: [:show, :edit, :update, :destroy]
+  before_action -> { check_session redirect: true, restricted_methods: [:index, :show, :edit, :update, :destroy, :download] }
+  before_action :set_child_pic, only: [:show, :edit, :update, :destroy, :download]
 
   # GET /child_pics
   # GET /child_pics.json
@@ -61,6 +61,10 @@ class ChildPicsController < ApplicationController
       format.html { redirect_to child_pics_url }
       format.json { head :no_content }
     end
+  end
+
+  def download
+    send_file @child_pic.image.url, x_sendfile: true
   end
 
   private

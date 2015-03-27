@@ -1,6 +1,7 @@
 Ratsmash::Application.routes.draw do
 
   resources :child_pics
+  match "/uploads/child_pics/:id/:basename.:extension", :controller => "child_pics", :action => "download", via: :get
 
     # API Routing
     # namespace :api, path: "/", constraints: { subdomain: "api" } do
