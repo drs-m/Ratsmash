@@ -25,7 +25,8 @@ set :use_sudo, false
 # set :linked_files, %w{config/database.yml}
 
 # Default value for linked_dirs is []
-# set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
+set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
+set :linked_dirs, fetch(:linked_dirs) + %w{uploads}
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
@@ -43,7 +44,7 @@ namespace :deploy do
 
     desc 'Restart application'
     task :restart do
-        on roles(:app), in: :sequence, wait: 5 do
+        on roles(:app), in: :sequence, wait: 2 do
             sudo "nginx -s reload"
             # Your restart mechanism here, for example:
             # execute :touch, release_path.join('tmp/restart.txt')
