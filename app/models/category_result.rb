@@ -17,18 +17,18 @@ class CategoryResult
     end
 
     def initialize(category)
-        @category = category
-        if category.group.student && !category.group.teacher
-			table = "students"
-		elsif category.group.teacher && !category.group.student
-			table = "teachers"
-		else
-			return nil
-		end
+      @category = category
+      if category.group.student && !category.group.teacher
+        table = "students"
+      elsif category.group.teacher && !category.group.student
+        table = "teachers"
+      else
+        return nil
+      end
 
-        @sum_points = category.votes.sum(:rating).to_f
-		ranking = Category.connection.select_all("select name, sum(rating) as points from votes inner join #{table} on votes.voted_id = #{table}.id where votes.category_id = #{category.id} group by name order by points desc limit 3").to_a
-        @ranking = ranking.empty? ? [] : Array.new(ranking.count).map.with_index { |e, i| Rank.new(i+1, ranking[i], ((ranking[i]["points"].to_i/@sum_points).round(2) * 100).to_i) }
+      @sum_points = category.votes.sum(:rating).to_f
+      ranking = Category.connection.select_all("select name, sum(rating) as points from votes inner join #{table} on votes.voted_id = #{table}.id where votes.category_id = #{category.id} group by name order by points desc limit 3").to_a
+      @ranking = ranking.empty? ? [] : Array.new(ranking.count).map.with_index { |e, i| Rank.new(i+1, ranking[i], ((ranking[i]["points"].to_i/@sum_points).round(2) * 100).to_i) }
     end
 
     def to_s
