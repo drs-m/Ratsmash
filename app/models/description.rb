@@ -17,12 +17,23 @@ class Description < ActiveRecord::Base
 
     after_validation :set_defaults
 
+    def to_s
+      out = "Von #{self.author.name} an #{self.described.name}\n"
+      out += "Weitere Autoren: #{self.additional_authors}\n"
+      out += "Interessen: #{self.interests}\n"
+      out += "Hobbies: #{self.hobbies}\n"
+      out += "Text:\n"
+      out += self.content
+      out
+    end
+
     private
         def set_defaults
             self.status ||= 0
         end
 
         def valid_and_strange_student
+            return if self.described_id.present?
             search_result = Student.where("lower(name) LIKE ?", self.described_name.downcase)
 
             errors.add(:described_name, "Es wurden mehrere Einträge für diesen Namen gefunden... Das ist nicht vorgesehen.") if search_result.count > 1

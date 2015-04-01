@@ -2,7 +2,7 @@
 class QuotesController < ApplicationController
 
   before_action -> { check_session redirect: true }, only: [:create, :new] # nicht-admins können nur zitate erstellen
-  before_action -> { check_session redirect: true, destination: :new_quote, admin_permissions: true }, except: [:create, :new]
+  before_action -> { check_session redirect: true, destination: :new_quote, restricted_methods: [:all] }, except: [:create, :new]
   before_action :set_quote, only: [:show, :edit, :update, :destroy]
 
   # GET /quotes
@@ -63,6 +63,10 @@ class QuotesController < ApplicationController
       format.html { redirect_to quotes_url, flash: {notice: "Zitat wurde erfolgreich geloescht!"} }
       format.json { head :no_content }
     end
+  end
+
+  def list_all
+    render text: Quote.all.map(&:to_s).join("\n\n")
   end
 
   private

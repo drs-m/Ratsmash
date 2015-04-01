@@ -42,6 +42,9 @@ Ratsmash::Application.routes.draw do
         end
     end
 
+    get 'all-descriptions', to: 'descriptions#list_all'
+    get 'all-quotes', to: 'quotes#list_all'
+
     # resources :release_state, :only => "index"
 
     #PROJECT GOES LIVE

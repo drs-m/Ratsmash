@@ -12,7 +12,11 @@ class UserGroup < ActiveRecord::Base
                 "categories.*",
                 "settings.menu",
                 "child_pics.index",
-                "child_pics.show"
+                "child_pics.show",
+                "child_pics.download",
+                "descriptions.list-all",
+                "quotes.index",
+                "quotes.list-all"
             ],
             "Abimotto" => [ "poll.abimotto" ],
             "Ratsmash-Team" => [ "*" ],

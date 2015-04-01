@@ -1,7 +1,7 @@
 # encoding: utf-8
 class DescriptionsController < ApplicationController
 
-	before_action -> { check_session redirect: true }
+	before_action -> { check_session redirect: true, restricted_methods: [:list_all] }
 	before_action :set_description, only: [:show, :edit, :update, :destroy, :categorize]
 
 	def index
@@ -80,6 +80,10 @@ class DescriptionsController < ApplicationController
 				redirect_to :descriptions
 			end
 		end
+	end
+
+	def list_all
+		render text: Description.all.map(&:to_s).join("\n\n")
 	end
 
 	private
