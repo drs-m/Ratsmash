@@ -128,7 +128,7 @@ class Student < ActiveRecord::Base
 	end
 
 	def to_s
-		"#{self.name}"
+		self.name
 	end
 
 	private
