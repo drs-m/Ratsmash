@@ -4,7 +4,9 @@ class Quote < ActiveRecord::Base
 	after_validation :set_defaults
 
 	def to_s
-		"Absender: #{self.sender}\n" + self.text
+		out = "ID: #{self.id}\n"
+		out += "Absender: #{self.sender}\n" + self.text
+		out
 	end
 
 	private

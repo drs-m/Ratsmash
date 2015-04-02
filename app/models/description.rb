@@ -18,7 +18,8 @@ class Description < ActiveRecord::Base
     after_validation :set_defaults
 
     def to_s
-      out = "Von #{self.author.name} an #{self.described.name}\n"
+      out = "ID: #{self.id}\n"
+      out += "Von #{self.author.name} an #{self.described.name}\n"
       out += "Weitere Autoren: #{self.additional_authors}\n"
       out += "Interessen: #{self.interests}\n"
       out += "Hobbies: #{self.hobbies}\n"

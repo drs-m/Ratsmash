@@ -66,7 +66,7 @@ class QuotesController < ApplicationController
   end
 
   def list_all
-    render text: Quote.all.map(&:to_s).join("\n\n")
+    render text: Quote.order(:id => :desc).map(&:to_s).join("\n\n\n")
   end
 
   private

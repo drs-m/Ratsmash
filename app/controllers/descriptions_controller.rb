@@ -83,7 +83,7 @@ class DescriptionsController < ApplicationController
 	end
 
 	def list_all
-		render text: Description.all.map(&:to_s).join("\n\n")
+		render text: Description.order(:id => :desc).map(&:to_s).join("\n\n\n")
 	end
 
 	private
