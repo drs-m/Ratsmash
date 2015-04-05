@@ -12,7 +12,7 @@ class Quote < ActiveRecord::Base
 	private
 		def set_defaults
 			self.teacher ||= false
-			self.sender ||= "Anonym"
+			self.sender = "Anonym" if self.sender.blank?
 		end
 
 end

@@ -8,7 +8,7 @@ class QuotesController < ApplicationController
   # GET /quotes
   # GET /quotes.json
   def index
-    @quotes = Quote.order(:teacher)
+    @quotes = Quote.order(:id => :desc)
   end
 
   # GET /quotes/1
