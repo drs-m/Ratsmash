@@ -16,7 +16,8 @@ class UserGroup < ActiveRecord::Base
                 "child_pics.download",
                 "descriptions.list-all",
                 "quotes.index",
-                "quotes.list-all"
+                "quotes.list-all",
+                "descriptions.show-all"
             ],
             "Abimotto" => [ "poll.abimotto" ],
             "Ratsmash-Team" => [ "*" ],

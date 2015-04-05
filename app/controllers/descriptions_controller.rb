@@ -13,6 +13,13 @@ class DescriptionsController < ApplicationController
 		@description = Description.new
 	end
 
+	def show
+		unless [@description.author_id, @description.described_id].include? @current_user.id or @current_user.has_permission("descriptions.show-all")
+			flash[:error] = "Du kannst diese Beschreibung nicht ansehen!"
+			redirect_to :home
+		end
+	end
+
 	def create
 		@description = Description.new(description_params)
 		@description.author_id = @current_user.id
