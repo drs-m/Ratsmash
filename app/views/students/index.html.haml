@@ -16,6 +16,7 @@
         %th Admin-Rechte
         %th Status
         %th Beschreibungen
+        %th Kinderfotos
         %th{colspan:"3",style:"text-align:center;"} Aktionen
 
     %tbody
@@ -30,6 +31,10 @@
             %td= link_to desc_count, student.descriptions.first
           - else
             %td= desc_count
+          - if (child_pics_count = student.child_pics.count) > 0
+            %td= link_to child_pics_count, student.child_pics.first
+          - else
+            %td= child_pics_count
           %td= @current_user.has_permission("students.show") ? link_to('Anzeigen', student) : ""
           %td= @current_user.has_permission("students.edit") ? link_to('Bearbeiten', edit_student_path(student)) : ""
           %td= @current_user.has_permission("students.destroy") ? link_to('Löschen', student, method: :delete, data: { confirm: 'Soll Eintrag Nr. ' + student.id.to_s + " wirklich gelöscht werden?" }) : ""
