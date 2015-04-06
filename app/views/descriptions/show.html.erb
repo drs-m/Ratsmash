@@ -10,5 +10,4 @@
 	<li><b>Zuletzt verändert am:</b> <%= @description.updated_at.strftime "%d.%m.%Y %H:%M" %></li>
 </ul>
 <br />
-<%= link_to "Alle Beschreibungen", descriptions_path %><br />
-<%= link_to @description.described.name, @description.described if @current_user.admin_permissions %>
+<%= link_to "Beschreibungen über #{@description.described.name}", @description.described %><br />

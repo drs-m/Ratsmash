@@ -26,6 +26,10 @@
           %td= student.mail_address
           %td= simple_symbol condition: student.admin_permissions
           %td= member_symbol student
+          - if (desc_count = student.descriptions.count) > 0
+            %td= link_to desc_count, student.descriptions.first
+          - else
+            %td= desc_count
           %td= student.descriptions.count
           %td= @current_user.has_permission("students.show") ? link_to('Anzeigen', student) : ""
           %td= @current_user.has_permission("students.edit") ? link_to('Bearbeiten', edit_student_path(student)) : ""
