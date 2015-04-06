@@ -17,7 +17,9 @@ class UserGroup < ActiveRecord::Base
                 "descriptions.list-all",
                 "quotes.index",
                 "quotes.list-all",
-                "descriptions.show-all"
+                "descriptions.show-all",
+                "class_trips.index",
+                "class_trips.show"
             ],
             "Abimotto" => [ "poll.abimotto" ],
             "Ratsmash-Team" => [ "*" ],

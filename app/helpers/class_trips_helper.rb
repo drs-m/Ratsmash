@@ -1,0 +1,2 @@
+module ClassTripsHelper
+end

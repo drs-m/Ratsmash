@@ -1,0 +1,21 @@
+%h1 Kursfahrtberichte
+
+%table
+  %thead
+    %tr
+      %th Absender
+      %th Kurs
+      %th
+      %th
+      %th
+
+  %tbody
+    - @class_trips.each do |class_trip|
+      %tr
+        %td= class_trip.sender.name
+        %td= class_trip.course
+        %td= link_to 'Anzeigen', class_trip
+        %td= link_to 'Bearbeiten', edit_class_trip_path(class_trip) if @current_user.has_permission("class_trips.edit")
+        %td= link_to 'Löschen', class_trip, :method => :delete, :data => { :confirm => 'Are you sure?' } if @current_user.has_permission("class_trips.destroy")
+
+%br

@@ -4,7 +4,12 @@
 		%ul
 			%li= message
 
-	= link_to "Kinderfoto hochladen", :new_child_pic, class: "fat-red"
+	%p= link_to "Kinderfoto hochladen", :new_child_pic, class: "fat-red"
+	%p
+		= link_to "Kursfahrtbericht einreichen", :new_class_trip, class: "fat-red"
+		- ClassTrip.by(@current_user).each do |ct|
+			%br
+			= link_to "Kursfahrtbericht für #{ct.course}", ct
 
 	%h2 Newszentrale
 

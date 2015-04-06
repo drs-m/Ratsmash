@@ -1,0 +1,14 @@
+%p#notice= notice
+
+%p
+  %b Absender:
+  = @class_trip.sender.name
+%p
+  %b Kurs:
+  = @class_trip.course
+
+%b Text:
+%p= @class_trip.text
+
+= link_to 'Bearbeiten |', edit_class_trip_path(@class_trip) if @current_user.has_permission("class_trips.edit")
+= link_to 'Zurück', class_trips_path

@@ -1,5 +1,7 @@
 Ratsmash::Application.routes.draw do
 
+  resources :class_trips
+
   resources :child_pics
   match "/uploads/child_pics/:id/:basename.:extension", :controller => "child_pics", :action => "download", via: :get
 

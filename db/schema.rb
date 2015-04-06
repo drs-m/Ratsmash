@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150325181650) do
+ActiveRecord::Schema.define(version: 20150406155732) do
 
   create_table "categories", force: true do |t|
     t.string   "name"
@@ -24,6 +24,14 @@ ActiveRecord::Schema.define(version: 20150325181650) do
   create_table "child_pics", force: true do |t|
     t.integer  "sender_id"
     t.string   "image"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "class_trips", force: true do |t|
+    t.integer  "sender_id"
+    t.string   "course"
+    t.text     "text"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

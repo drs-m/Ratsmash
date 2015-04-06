@@ -6,4 +6,5 @@
 %p= link_to "Ergebnisse", :results if @current_user.has_permission("voting.results")
 %p= link_to "Zitate", :quotes if @current_user.has_permission("quotes.index")
 %p= link_to "Kinderfotos", :child_pics if @current_user.has_permission("child_pics.index")
+%p= link_to "Kursfahrtberichte", :class_trips if @current_user.has_permission("class_trips.index")
 %p= link_to "Seitenstatistik", page_stats_index_path if @current_user.admin_permissions

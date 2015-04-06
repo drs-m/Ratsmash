@@ -131,6 +131,14 @@ class Student < ActiveRecord::Base
 		self.name
 	end
 
+	def join_group(name)
+		UserGroup.where("lower(name) like ?", "%#{name.downcase}%").first.members << self
+	end
+
+	def leave_group(group)
+		group.memberships.find_by(member_id: self.id).destroy
+	end
+
 	private
 		def set_defaults
 			self.admin_permissions ||= false
