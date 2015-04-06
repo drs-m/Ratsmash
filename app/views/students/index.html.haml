@@ -30,7 +30,6 @@
             %td= link_to desc_count, student.descriptions.first
           - else
             %td= desc_count
-          %td= student.descriptions.count
           %td= @current_user.has_permission("students.show") ? link_to('Anzeigen', student) : ""
           %td= @current_user.has_permission("students.edit") ? link_to('Bearbeiten', edit_student_path(student)) : ""
           %td= @current_user.has_permission("students.destroy") ? link_to('Löschen', student, method: :delete, data: { confirm: 'Soll Eintrag Nr. ' + student.id.to_s + " wirklich gelöscht werden?" }) : ""
