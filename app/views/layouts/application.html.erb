@@ -77,7 +77,9 @@
 					</ul>
 				</nav>
 				<section data-role="content">
-					<%= yield %>
+					<div style="width: 100%;overflow: auto;">
+						<%= yield %>
+					</div>
 				</section>
 				<% if @current_user != nil %>
 					<footer data-role="footer" data-theme="b" data-position="fixed">
