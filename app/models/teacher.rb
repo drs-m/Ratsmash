@@ -10,6 +10,10 @@ class Teacher < ActiveRecord::Base
 
 	validates :name, presence: true
 
+    def winnings
+        CategoryResult.all_for self
+    end
+
 	def male
 		self.gender
 	end

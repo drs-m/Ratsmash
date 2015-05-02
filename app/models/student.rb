@@ -100,7 +100,7 @@ class Student < ActiveRecord::Base
 	end
 
 	def winnings
-		CategoryResult.for_student self
+		CategoryResult.all_for self
 	end
 
 	# gibt Kategorien nach Anzahl der abgegebenen Stimmen wieder
