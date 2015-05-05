@@ -5,6 +5,8 @@ class Student < ActiveRecord::Base
 
 	has_secure_password validations: false
 
+	has_one :ticket
+
 	has_many :given_votes, foreign_key: "voter_id", class_name: "Vote", dependent: :destroy
 	has_many :achieved_votes, class_name: "Vote", :as => :voted
 
@@ -135,8 +137,8 @@ class Student < ActiveRecord::Base
 		UserGroup.where("lower(name) like ?", "%#{name.downcase}%").first.members << self
 	end
 
-	def leave_group(group)
-		group.memberships.find_by(member_id: self.id).destroy
+	def leave_group(name)
+		UserGroup.where("lower(name) like ?", "%#{name.downcase}%").first.memberships.find_by(member_id: self.id).destroy
 	end
 
 	private

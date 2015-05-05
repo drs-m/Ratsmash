@@ -1,0 +1,31 @@
+%h1 Meine Karten
+
+- if @my_order
+  = "Benötigte Karten: #{@my_order.amount}"
+  %br
+  = link_to "Ändern", edit_ticket_path(@my_order)
+- else
+  %p Du hast noch keine Anzahl angegeben
+  = link_to "Eintrag erstellen", :new_ticket
+
+- if @all_orders
+  %h1 Alle Karten
+  %h3= "Insgesamt benötigte Karten: #{Ticket.sum(:amount)}"
+
+  %table
+    %thead
+      %tr
+        %th Schüler
+        %th Anzahl Karten
+        %th
+        %th
+
+    %tbody
+      - @all_orders.each do |ticket|
+        %tr
+          %td= ticket.student.name
+          %td= ticket.amount
+          %td= link_to 'Bearbeiten', edit_ticket_path(ticket) if @current_user.has_permission("tickets.edit")
+          %td= link_to 'Löschen', ticket, :method => :delete, :data => { :confirm => 'Bist du sicher?' } if @current_user.has_permission("tickets.destroy")
+
+%br

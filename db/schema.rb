@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150406155732) do
+ActiveRecord::Schema.define(version: 20150505154814) do
 
   create_table "categories", force: true do |t|
     t.string   "name"
@@ -131,6 +131,13 @@ ActiveRecord::Schema.define(version: 20150406155732) do
     t.string   "name"
     t.boolean  "gender"
     t.boolean  "closed"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "tickets", force: true do |t|
+    t.integer  "student_id"
+    t.integer  "amount"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

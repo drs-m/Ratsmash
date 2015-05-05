@@ -1,0 +1,8 @@
+%p Bitte gib an wie viele Karten für den Abiball du vorraussichtlich kaufen wirst.
+
+= form_for @ticket do |f|
+  .field
+    = f.label :amount, "Anzahl"
+    = f.number_field :amount, value: @ticket.amount || 1
+  .actions
+    = f.submit 'Speichern'

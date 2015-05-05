@@ -1,0 +1,30 @@
+%nav#menuepanel{"data-display" => "overlay", "data-position" => "left", "data-role" => "panel", "data-theme" => "b"}
+  %ul{"data-role" => "listview"}
+    %li{role: "heading"} Navigation
+    - if @current_user.present?
+      %li
+        %a{href: "/"} Home
+      %li
+        %a{href: "/news"} News
+      %li
+        %a{href: "/vote"} Voting
+      %li
+        %a{href: "/polls"} Umfragen
+      %li
+        %a{href: "/descriptions"} Beschreibungen
+      %li
+        %a{href: "/quotes/new"} Zitate einreichen
+      - if @current_user.has_permission("settings.menu")
+        %li
+          %a{href: "/settings"} Administration
+    %li
+      %a{href: "/contacts"} Kontakt
+    %li
+      %a{href: "/privacy"} Datenschutz
+    %li
+      %a{href: "/imprint"} Impressum
+    - if @current_user.present?
+      %li
+        %a{href: "/change_password"} Passwort ändern
+      %li
+        %a{href: "/logout"} Logout

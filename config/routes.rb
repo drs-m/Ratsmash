@@ -1,10 +1,5 @@
 Ratsmash::Application.routes.draw do
 
-  resources :class_trips
-
-  resources :child_pics
-  match "/uploads/child_pics/:id/:basename.:extension", :controller => "child_pics", :action => "download", via: :get
-
     # API Routing
     # namespace :api, path: "/", constraints: { subdomain: "api" } do
     #     namespace :v1 do
@@ -43,6 +38,11 @@ Ratsmash::Application.routes.draw do
             get 'categorize'
         end
     end
+    resources :tickets, except: :show
+    resources :class_trips
+    resources :child_pics
+    match "/uploads/child_pics/:id/:basename.:extension", :controller => "child_pics", :action => "download", via: :get
+
 
     get 'all-descriptions', to: 'descriptions#list_all'
     get 'all-quotes', to: 'quotes#list_all'
