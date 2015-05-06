@@ -18,21 +18,26 @@ class TicketsController < ApplicationController
   # GET /tickets/1/edit
   def edit
     unless @ticket.student == @current_user or @current_user.has_permission("tickets.edit_all")
-      redirect_to :tickets, notice: "Du hast keine Berechtigung dafür"
+      flash[:error] = "Du hast keine Berechtigung dafür"
+      redirect_to :tickets
     end
   end
 
   # POST /tickets
   # POST /tickets.json
   def create
-    redirect_to :tickets and return if @current_user.ticket.present?
+    if @current_user.ticket.present?
+        flash[:error] = "Du kannst keinen weiteren Eintrag erstellen. Bitte bearbeite den ersten stattdessen."
+        redirect_to :tickets and return
+    end
 
     @ticket = Ticket.new(ticket_params.merge({student_id: @current_user.id}))
 
-    if ticket_params[:amount] == "0"
+    if ticket_params[:type_1] == "0" and ticket_params[:type_2] == "0"
       redirect_to :tickets
     elsif @ticket.save
-      redirect_to :tickets, notice: 'Eintrag gespeichert'
+      flash[:notice] = "Eintrag gespeichert"
+      redirect_to :tickets
     else
       render action: 'edit'
     end
@@ -41,19 +46,22 @@ class TicketsController < ApplicationController
   # PATCH/PUT /tickets/1
   def update
     unless @ticket.student == @current_user or @current_user.has_permission("tickets.edit_all")
-      redirect_to :tickets, notice: "Du hast keine Berechtigung dafür" and return
+        flash[:error] = "Du hast keine Berechtigung dafür"
+      redirect_to :tickets and return
     end
 
-    if ticket_params[:amount] == "0"
+    if ticket_params[:type_1] == "0" and ticket_params[:type_2] == "0"
       @ticket.destroy
       flash[:error] = "Eintrag gelöscht"
       redirect_to :tickets and return
     end
 
     if @ticket.update(ticket_params.merge({student_id: @current_user.id}))
-      redirect_to :tickets, notice: 'Eintrag gespeichert'
+      flash[:notice] = "Eintrag gespeichert"
+      redirect_to :tickets
     else
       flash[:error] = @ticket.errors.messages.values.join(", ")
+      puts @ticket.errors.messages.values.join(", ")
       render action: 'edit', error: @ticket.errors.messages.values.join(", ")
     end
   end
@@ -73,7 +81,7 @@ class TicketsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def ticket_params
-    params.require(:ticket).permit(:amount)
+    params.require(:ticket).permit(:type_1, :type_2)
   end
 
 end

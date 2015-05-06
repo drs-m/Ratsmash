@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150505154814) do
+ActiveRecord::Schema.define(version: 20150506191645) do
 
   create_table "categories", force: true do |t|
     t.string   "name"
@@ -137,9 +137,10 @@ ActiveRecord::Schema.define(version: 20150505154814) do
 
   create_table "tickets", force: true do |t|
     t.integer  "student_id"
-    t.integer  "amount"
+    t.integer  "type_1"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "type_2"
   end
 
   create_table "user_groups", force: true do |t|

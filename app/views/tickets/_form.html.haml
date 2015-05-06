@@ -1,8 +1,16 @@
-%p Bitte gib an wie viele Karten für den Abiball du vorraussichtlich kaufen wirst.
+%h3 Bitte gib an wie viele Karten für den Abiball du vorraussichtlich kaufen wirst.
+
+%p
+  Laufkarten: Eintritt
+  %br
+  Buffetkarten: Eintritt und Buffet
 
 = form_for @ticket do |f|
   .field
-    = f.label :amount, "Anzahl"
-    = f.number_field :amount, value: @ticket.amount || 1
+    = f.label :type_1, "Laufkarten"
+    = f.number_field :type_1, value: @ticket.type_1 || 1
+  .field
+    = f.label :type_2, "Buffetkarten"
+    = f.number_field :type_2, value: @ticket.type_2 || 1
   .actions
     = f.submit 'Speichern'
