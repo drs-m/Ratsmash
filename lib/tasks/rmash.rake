@@ -4,7 +4,7 @@ namespace :rmash do
 
 	task :create_user_groups => :environment do
 		UserGroup.destroy_all
-		group_names = ["Abizeitung", "Ratsmash-Team", "Abimotto"]
+		group_names = ["Abizeitung", "Ratsmash-Team", "Abimotto", "Abiball"]
 		group_names.each { |group_name| UserGroup.create(name: group_name) }
 	end
 
