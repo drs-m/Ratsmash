@@ -134,11 +134,21 @@ class Student < ActiveRecord::Base
 	end
 
 	def join_group(name)
-		UserGroup.where("lower(name) like ?", "%#{name.downcase}%").first.members << self
+		if group = UserGroup.where("lower(name) like ?", "%#{name.downcase}%").first
+			group.members << self
+			puts "Gruppe beigetreten"
+		else
+			puts "Gruppe nicht gefunden!"
+		end
 	end
 
 	def leave_group(name)
-		UserGroup.where("lower(name) like ?", "%#{name.downcase}%").first.memberships.find_by(member_id: self.id).destroy
+		if group = UserGroup.where("lower(name) like ?", "%#{name.downcase}%").first
+			group.memberships.find_by(member_id: self.id).destroy
+			puts "Gruppe verlassen"
+		else
+			puts "Gruppe nicht gefunden!"
+		end
 	end
 
 	private
