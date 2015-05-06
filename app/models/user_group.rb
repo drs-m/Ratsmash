@@ -30,4 +30,8 @@ class UserGroup < ActiveRecord::Base
         return permission_set[self.name]
     end
 
+    def to_s
+        self.name + " [#{self.members.map(&:name).join(', ')}]"
+    end
+
 end
