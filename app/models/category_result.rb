@@ -3,17 +3,26 @@ class CategoryResult
 
     attr_accessor :category, :ranking, :sum_points
 
-    def self.for_student(student)
-      winnings = []
-      Group.student_categories.find_each do |category|
-        category.result.ranking.each do |rank|
-          if rank.name == student.name
-            winnings << { :name => category.name, :rank => rank.number }
-          end
+    def self.all_for(person)
+        if person.is_a? Student
+            categories = Group.student_categories
+        elsif person.is_a? Teacher
+            categories = Group.teacher_categories
+        else
+            return
         end
-      end
 
-      winnings
+        winnings = []
+
+        categories.find_each do |category|
+            category.result.ranking.each do |rank|
+                if rank.name == person.name
+                    winnings << { :name => category.name, :rank => rank.number }
+                end
+            end
+        end
+
+        return winnings
     end
 
     def initialize(category)

@@ -1,9 +1,6 @@
 #footer
 	- if @current_user
-		- if !footer_head_info.nil?
-			%p= raw "Eingeloggt als " + @current_user.name + footer_head_info
-		- else
-			%p= raw "Eingeloggt als " + @current_user.name
+		%p= raw "Eingeloggt als " + @current_user.name
 
 	%ul
 		%li= link_to "Impressum", :static_imprint

@@ -14,4 +14,8 @@ module ApplicationHelper
 		end
 	end
 
+	def fat_red(text)
+		"<span style='font-weight:bold;color:red;'>#{text}</span>"
+	end
+
 end

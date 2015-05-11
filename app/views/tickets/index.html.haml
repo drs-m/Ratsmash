@@ -1,0 +1,48 @@
+%h1 Meine Karten
+
+%p
+  Hier kannst du angeben, wie viele Abiball-Karten du benötigst.
+  %br
+  Es wird dabei unterschieden in
+  %br
+  -# > allowing whitespace removal surrounding the tag
+  %b> Laufkarten
+  , welche nur den Eintritt ermöglichen und
+  %br
+  %b> Buffetkarten
+  , durch welche man sich zusätzlich am Buffet bedienen kann.
+
+- if @my_order
+  %h3(style="font-size:120%;") Benötigte Karten:
+  = raw "#{fat_red(@my_order.type_1)} Laufkarten und #{fat_red(@my_order.type_2)} Buffetkarten"
+  %br
+  = link_to "Ändern", edit_ticket_path(@my_order)
+- else
+  %p Du hast noch keine Anzahl angegeben
+  = link_to "Eintrag erstellen", :new_ticket
+
+- if @all_orders
+  %h1 Alle Karten
+  %h3(style="font-size:120%;") Insgesamt benötigte Karten:
+  %br
+  = raw "#{fat_red(Ticket.sum(:type_1))} Laufkarten und #{fat_red(Ticket.sum(:type_2))} Buffetkarten"
+
+  %table
+    %thead
+      %tr
+        %th Schüler
+        %th Laufkarten
+        %th Buffetkarten
+        %th
+        %th
+
+    %tbody
+      - @all_orders.each do |ticket|
+        %tr
+          %td= ticket.student.name
+          %td= ticket.type_1
+          %td= ticket.type_2
+          %td= link_to 'Bearbeiten', edit_ticket_path(ticket) if @current_user.has_permission("tickets.edit")
+          %td= link_to 'Löschen', ticket, :method => :delete, :data => { :confirm => 'Bist du sicher?' } if @current_user.has_permission("tickets.destroy")
+
+%br

@@ -5,6 +5,8 @@ class Student < ActiveRecord::Base
 
 	has_secure_password validations: false
 
+	has_one :ticket
+
 	has_many :given_votes, foreign_key: "voter_id", class_name: "Vote", dependent: :destroy
 	has_many :achieved_votes, class_name: "Vote", :as => :voted
 
@@ -102,7 +104,7 @@ class Student < ActiveRecord::Base
 	end
 
 	def winnings
-		CategoryResult.for_student self
+		CategoryResult.all_for self
 	end
 
 	# gibt Kategorien nach Anzahl der abgegebenen Stimmen wieder
@@ -134,11 +136,21 @@ class Student < ActiveRecord::Base
 	end
 
 	def join_group(name)
-		UserGroup.where("lower(name) like ?", "%#{name.downcase}%").first.members << self
+		if group = UserGroup.where("lower(name) like ?", "%#{name.downcase}%").first
+			group.members << self
+			puts "Gruppe beigetreten"
+		else
+			puts "Gruppe nicht gefunden!"
+		end
 	end
 
-	def leave_group(group)
-		group.memberships.find_by(member_id: self.id).destroy
+	def leave_group(name)
+		if group = UserGroup.where("lower(name) like ?", "%#{name.downcase}%").first
+			group.memberships.find_by(member_id: self.id).destroy
+			puts "Gruppe verlassen"
+		else
+			puts "Gruppe nicht gefunden!"
+		end
 	end
 
 	private

@@ -18,7 +18,7 @@
 		<% end %>
 	</head>
 	<body>
-		<% if !mobile_device? %>
+		<% unless mobile_device? %>
 			<%= render "shared/menue" %>
 			<% if !flash[:error].blank? %>
 				<div id="error_messages">
@@ -49,39 +49,17 @@
 					</div>
 				<% end %>
 				<% if !flash[:notice].blank? %>
-				<div id="success_messages">
-					<p><%= flash[:notice] %></p>
-				</div>
-			<% end %>
-				<nav data-role="panel" data-display="overlay" data-position="left" data-theme="b" id="menuepanel">
-					<ul data-role="listview">
-						<li role="heading">Navigation</li>
-						<% if @current_user != nil %>
-							<li><a href="/">Home</a></li>
-						    <li><a href="/news">News</a></li>
-							<li><a href="/vote">Voting</a></li>
-							<li><a href="/polls">Umfragen</a></li>
-							<li><a href="/descriptions">Beschreibungen</a></li>
-							<li><a href="/quotes/new">Zitate einreichen</a></li>
-							<% if @current_user.admin_permissions %>
-								<li><a href="/settings">Administration</a></li>
-							<% end %>
-						<% end %>
-						<li><a href="/contacts">Kontakt</a></li>
-						<li><a href="/privacy">Datenschutz</a></li>
-						<li><a href="/imprint">Impressum</a></li>
-						<% if @current_user != nil %>
-							<li><a href="/change_password">Passwort ändern</a></li>
-							<li><a href="/logout">Logout</a></li>
-						<% end %>
-					</ul>
-				</nav>
+					<div id="success_messages">
+						<p><%= flash[:notice] %></p>
+					</div>
+				<% end %>
+				<%= render "shared/mobile_menue" %>
 				<section data-role="content">
 					<div style="width: 100%;overflow: auto;">
 						<%= yield %>
 					</div>
 				</section>
-				<% if @current_user != nil %>
+				<% if @current_user.present? %>
 					<footer data-role="footer" data-theme="b" data-position="fixed">
 							<h3>
 								<%= "Eingeloggt als " + @current_user.name %>

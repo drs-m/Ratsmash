@@ -23,10 +23,15 @@ class UserGroup < ActiveRecord::Base
             ],
             "Abimotto" => [ "poll.abimotto" ],
             "Ratsmash-Team" => [ "*" ],
-            "Spectator" => [ "settings.menu", "voting.results" ]
+            "Spectator" => [ "settings.menu", "voting.results" ],
+            "Abiball" => ["tickets.show_all", "tickets.edit_all"]
         }
 
         return permission_set[self.name]
+    end
+
+    def to_s
+        self.name + " [#{self.members.map(&:name).join(', ')}]"
     end
 
 end

@@ -1,5 +1,5 @@
 ## Ratsmash
 
-Projekt für den Informatik-Unterricht am [Ratsgymnasium Osnabrück](http://ratsgymnasium-osnabrueck.de/).
+Dies ist eine Website die dazu dient, Inhalte für die Abizeitung des Abiturjahrgangs 2015 am Ratsgymnasium Osnabrück zu sammeln.
 
-[![Build Status](https://travis-ci.org/Ratsmash-dev/RMash.svg?branch=master)](https://travis-ci.org/Ratsmash-dev/RMash)
+[rmash.de](https://rmash.de)

@@ -2,9 +2,27 @@
 
 namespace :rmash do
 
+	task :initial_setup => :environment do
+		system "rake rmash:create_user_groups rails_env=#{Rails.env} --trace 2>&1 &"
+		system "rake rmash:create_category_groups rails_env=#{Rails.env} --trace 2>&1 &"
+	end
+
+	task :create_category_groups => :environment do
+		Group.destroy_all
+		Group.create name: "Alle", female: true, male: true, student: true, teacher: true # unused
+		Group.create name: "Alle Frauen", female: true, student: true, teacher: true # unused
+		Group.create name: "Alle Männer", male: true, student: true, teacher: true # unused
+		Group.create name: "Alle Schüler", female: true, male: true, student: true
+		Group.create name: "Alle Lehrer", female: true, male: true, teacher: true
+		Group.create name: "Schüler", male: true, student: true
+		Group.create name: "Schülerinnen", female: true, student: true
+		Group.create name: "Lehrer", male: true, teacher: true
+		Group.create name: "Lehrerinnen", female: true, teacher: true
+	end
+
 	task :create_user_groups => :environment do
 		UserGroup.destroy_all
-		group_names = ["Abizeitung", "Ratsmash-Team", "Abimotto"]
+		group_names = ["Abizeitung", "Ratsmash-Team", "Abimotto", "Abiball"]
 		group_names.each { |group_name| UserGroup.create(name: group_name) }
 	end
 
@@ -158,19 +176,6 @@ namespace :rmash do
 		minutes = (diff / 60).to_i
 		seconds = (diff % 60).to_i
 		puts "[#{Time.now}] Votes generated. Took #{minutes}:#{seconds}"
-	end
-
-	task :setup_groups => :environment do
-		Group.destroy_all
-		Group.create name: "Alle", female: true, male: true, student: true, teacher: true # unused
-		Group.create name: "Alle Frauen", female: true, student: true, teacher: true # unused
-		Group.create name: "Alle Männer", male: true, student: true, teacher: true # unused
-		Group.create name: "Alle Schüler", female: true, male: true, student: true
-		Group.create name: "Alle Lehrer", female: true, male: true, teacher: true
-		Group.create name: "Schüler", male: true, student: true
-		Group.create name: "Schülerinnen", female: true, student: true
-		Group.create name: "Lehrer", male: true, teacher: true
-		Group.create name: "Lehrerinnen", female: true, teacher: true
 	end
 
 end

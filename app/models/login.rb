@@ -7,4 +7,8 @@ class Login < ActiveRecord::Base
 
 	belongs_to :student, foreign_key: "user_id"
 
+    def to_s
+        self.student.name + " -> " + self.created_at.to_s(:timeday)
+    end
+
 end
