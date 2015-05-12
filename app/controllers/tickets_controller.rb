@@ -56,7 +56,7 @@ class TicketsController < ApplicationController
       redirect_to :tickets and return
     end
 
-    if @ticket.update(ticket_params.merge({student_id: @current_user.id}))
+    if @ticket.update(ticket_params)
       flash[:notice] = "Eintrag gespeichert"
       redirect_to :tickets
     else
