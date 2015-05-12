@@ -24,10 +24,10 @@
 - if @all_orders
   %h1 Alle Karten
   %h3(style="font-size:120%;") Insgesamt benötigte Karten:
-  %br
-  = raw "#{fat_red(Ticket.sum(:type_1))} Laufkarten und #{fat_red(Ticket.sum(:type_2))} Buffetkarten"
+  %p= raw "#{fat_red(Ticket.sum(:type_1))} Laufkarten und #{fat_red(Ticket.sum(:type_2))} Buffetkarten"
+  %a.sort-tickets-student(href="#") Alphabetisch sortieren
 
-  %table
+  %table#ticket-table
     %thead
       %tr
         %th Schüler
@@ -39,7 +39,7 @@
     %tbody
       - @all_orders.each do |ticket|
         %tr
-          %td= ticket.student.name
+          %td.student-name= ticket.student.name
           %td= ticket.type_1
           %td= ticket.type_2
           %td= link_to 'Bearbeiten', edit_ticket_path(ticket) if @current_user.has_permission("tickets.edit")
