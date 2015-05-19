@@ -1,0 +1,9 @@
+!!!5
+%html
+  %head
+    %meta(http-equic="content-type" content="text/html; charset=utf-8")
+    %title Ratsmash #{Rails.env.development? ? "| Dev-Server" : ""}
+    = stylesheet_link_tag "plain", media: "all", "data-turbolinks-track" => true
+    -# = csrf_meta_tags
+  %body
+    = yield

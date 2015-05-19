@@ -15,6 +15,8 @@ class Student < ActiveRecord::Base
 	has_many :descriptions, foreign_key: "described_id", dependent: :destroy
 	has_many :written_descriptions, class_name: "Description", foreign_key: "author_id"
 
+	has_many :child_pics, foreign_key: "sender_id"
+
 	has_many :logins, class_name: "Login", foreign_key: "user_id"
 
 	has_many :memberships, dependent: :destroy, foreign_key: "member_id"

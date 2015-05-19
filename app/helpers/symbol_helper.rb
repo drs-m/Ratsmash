@@ -90,4 +90,21 @@ module SymbolHelper
         end
     end
 
+    def presence(ar_obj)
+      if ar_obj.present?
+        symbol :right
+      else
+        symbol :wrong
+      end
+    end
+
+    def ticket_info(student)
+      ticket = student.ticket
+      if ticket.present?
+        symbol(:right) + " #{ticket.type_1} : #{ticket.type_2}"
+      else
+        symbol :wrong
+      end
+    end
+
 end

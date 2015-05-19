@@ -73,6 +73,11 @@ class StudentsController < ApplicationController
     end
   end
 
+  def printable
+    @students = Student.all.sort_by { |s| s.name.split(" ")[1] }
+    render layout: "plain"
+  end
+
   # NOT VERY DRY! - TODO
   def change_password
     @errors = []
