@@ -8,6 +8,7 @@ class UserGroup < ActiveRecord::Base
             "Abizeitung" => [
                 "students.index",
                 "students.show",
+                "students.printable",
                 "teachers.*",
                 "categories.*",
                 "settings.menu",
