@@ -5,6 +5,6 @@
 %p= link_to "Download", @child_pic.new_url, download: File.basename(@child_pic.new_url)
 
 %p
-  = image_tag @child_pic.new_url
+  = image_tag @child_pic.new_url, height: 400
 
 = link_to 'Alle Bilder', child_pics_path
