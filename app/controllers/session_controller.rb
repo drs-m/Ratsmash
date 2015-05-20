@@ -16,7 +16,7 @@ class SessionController < ApplicationController
 				end
 
 				respond_to do |f|
-					f.html { redirect_to :home }
+					f.html { redirect_to session[:destination] || :home }
 					f.json { render json: { status: :success, path: session[:destination] || "/" }}
 				end
 			else
