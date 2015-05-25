@@ -1,5 +1,6 @@
 <% if !mobile_device? %>
   <h1>Schüler- und Lehrerzitate</h1>
+  <p>Anzahl: <%= Quote.count.to_s %></p>
   <p>
     <%= link_to "Zitat einreichen", new_quote_path %>
   </p>

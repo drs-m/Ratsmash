@@ -10,6 +10,7 @@
 //= require voting
 //= require session
 //= require polls
+//= require tickets
 
 intervalInUse = false;
 mobileMenueIsShown = false;
@@ -66,7 +67,7 @@ $(document).ready(function(){
 		progress_bar_animation_interval = setInterval("animate_voting_percentage_progress_bar()",20);
 	}
 
-	$("#results_table").dataTable();
+	$(".data-table").dataTable();
 
 	$(".paste_legend_for_news_button a").click(function(){
 		paste_content = $(this).attr("title");

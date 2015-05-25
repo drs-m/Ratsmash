@@ -28,6 +28,7 @@ Ratsmash::Application.routes.draw do
 
     post "get_newsticker_news", to: "voting#get_newsticker_news"
 
+    get "students_printable", to: "students#printable"
     resources :students
     resources :teachers
     resources :categories

@@ -11,7 +11,7 @@
   = @class_trip.text.split.size
 
 %b Text:
-%p= @class_trip.text
+= simple_format @class_trip.text
 
 = link_to 'Bearbeiten |', edit_class_trip_path(@class_trip) if @current_user.has_permission("class_trips.edit")
 = link_to 'Zurück', class_trips_path

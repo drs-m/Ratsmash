@@ -1,0 +1,14 @@
+= image_tag("Rmash.png", height: 60)
+
+%table.printable
+  %thead
+    %tr
+      - ["Name", "Beschreibung", "Kinderfoto", "Abiball-Karten (L:B)", "Foto gemacht?", "Profil"].each do |c|
+        %th= c
+    - @students.each do |s|
+      %tr
+        - [s.name,
+        presence(s.descriptions) + (s.descriptions.count.to_s if s.descriptions.count > 1), 
+        presence(s.child_pics),
+        ticket_info(s), "", ""].each do |o|1
+          %td= o

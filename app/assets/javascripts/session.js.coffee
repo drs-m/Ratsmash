@@ -3,7 +3,7 @@ $ ->
     emailLogin = $("#login-form").find("#email")
     if emailLogin.length
       emailLogin.focus()
-    
+
     $("#login-form").submit (event) ->
         event.preventDefault()
         email = $("#email").val()
@@ -18,5 +18,4 @@ $ ->
                     $("#error-msg").fadeIn()
                     $("#login-form").effect("shake")
                 else if data.status == "success"
-                    window.location = "/"
-        
+                    window.location = data.path
