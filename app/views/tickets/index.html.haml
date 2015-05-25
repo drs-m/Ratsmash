@@ -25,6 +25,7 @@
   %h1 Alle Karten
   %h3(style="font-size:120%;") Insgesamt benötigte Karten:
   %p= raw "#{fat_red(Ticket.sum(:type_1))} Laufkarten und #{fat_red(Ticket.sum(:type_2))} Buffetkarten"
+  %P= raw "#{fat_red(Ticket.all.count.to_s)}  Schüler haben bereits Angaben zu benötigten Karten gemacht"
   %a.sort-tickets-student(href="#") Alphabetisch sortieren
 
   %table#ticket-table
