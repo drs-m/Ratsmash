@@ -35,3 +35,5 @@ categories.json
 public/uploads
 uploads
 .sass-cache
+
+.DS_Store
